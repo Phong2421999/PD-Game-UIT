@@ -95,7 +95,6 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
