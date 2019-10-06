@@ -22,6 +22,24 @@
     <Filter Include="SampleMario">
       <UniqueIdentifier>{4c33a233-01ba-4fd4-9b03-ec1552db884a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{42e43b4b-664e-4214-96b1-43aa438ca7ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Simon">
+      <UniqueIdentifier>{edd3a89f-578a-405e-8568-4c3dfbeafa7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemies">
+      <UniqueIdentifier>{fc31cd9c-0bfa-4070-8cb7-7be4ceb1a475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Misc">
+      <UniqueIdentifier>{fb76e8e0-d135-4e71-b89e-f174406ecc54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{07f64b37-7317-4fd8-b288-692ff578a186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assess">
+      <UniqueIdentifier>{19d785ab-72d3-42ab-8172-966342322d6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +84,24 @@
     <ClCompile Include="SampleMario\Mario.cpp">
       <Filter>SampleMario</Filter>
     </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>GameObject\Simon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -107,6 +143,18 @@
     <ClInclude Include="SampleMario\Mario.h">
       <Filter>SampleMario</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>GameObject\Simon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -121,5 +169,22 @@
     <Image Include="Textures\misc.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Assess\Intro.png">
+      <Filter>Assess</Filter>
+    </Image>
+    <Image Include="Assess\Misc.png">
+      <Filter>Assess</Filter>
+    </Image>
+    <Image Include="Assess\Simon.png">
+      <Filter>Assess</Filter>
+    </Image>
+    <Image Include="Textures\Simon.png">
+      <Filter>Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="XML\Textures.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

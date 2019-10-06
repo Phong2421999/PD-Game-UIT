@@ -12,9 +12,11 @@
 #include "FrameWork/debug.h"
 #include "FrameWork/Game.h"
 
-#include "SampleMario/Brick.h"
-#include "SampleMario/Goomba.h"
-#include "SampleMario/Mario.h"
+
+#include "Simon.h"
+#include "Ground.h"
+
+#include "tinyxml.h"
 
 
 #define WINDOW_CLASS_NAME L"PDClass"
@@ -26,14 +28,11 @@
 
 #define MAX_FRAME_RATE 120
 
-#define ID_TEX_MARIO 0
-#define ID_TEX_ENEMY 1
-#define ID_TEX_MISC 2
 
 CGame *game;
 
-CMario *mario;
-CGoomba *goomba;
+CSimon *simon;
+CGround* ground;
 
 vector<LPGAMEOBJECT> objects;
 
@@ -52,32 +51,42 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+		if (simon->isJumping() == false)
+		{
+			simon->SetState(SIMON_STATE_JUMP);
+		}	
 		break;
-	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->SetLevel(MARIO_LEVEL_BIG);
-		mario->SetPosition(50.0f, 0.0f);
-		mario->SetSpeed(0, 0);
+	case DIK_ESCAPE: // reset
+		simon->SetState(SIMON_STATE_IDLE);
+		simon->SetPosition(30.0f, 0.0f);
+		simon->SetSpeed(0, 0);
 		break;
 	}
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
+	if (KeyCode == DIK_S)
+	{
+		simon->ResetAfterSit();
+		simon->SetState(SIMON_STATE_IDLE);
+	}
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
+	float vx, vy;
 	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	if (simon->GetState() == SIMON_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_D))
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_A))
+		simon->SetState(SIMON_STATE_WALKING_LEFT);
+	else if(game->IsKeyDown(DIK_S))
+		simon->SetState(SIMON_STATE_SIT);
+	else if(simon->GetState() != SIMON_STATE_SIT && simon->GetState() != SIMON_STATE_JUMP)
+		simon->SetState(SIMON_STATE_IDLE);
 }
 
 
@@ -95,170 +104,103 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+wchar_t *ConvetToWchar(const char *c)
+{
+	size_t newsize = strlen(c) + 1;
+
+	wchar_t * wcstring = new wchar_t[newsize];
+	size_t convertedChars = 0;
+	mbstowcs_s(&convertedChars, wcstring, newsize, c, _TRUNCATE);
+	return wcstring;
+
+}
+
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
-	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
-
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 
-	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
+	LPDIRECT3DTEXTURE9 directTexture;
 
-	// big
-	sprites->Add(10001, 246, 154, 260, 181, texMario);		// idle right
+	TiXmlDocument doc("XML/Textures.xml");
 
-	sprites->Add(10002, 275, 154, 290, 181, texMario);		// walk
-	sprites->Add(10003, 304, 154, 321, 181, texMario);
-
-	sprites->Add(10011, 186, 154, 200, 181, texMario);		// idle left
-	sprites->Add(10012, 155, 154, 170, 181, texMario);		// walk
-	sprites->Add(10013, 125, 154, 140, 181, texMario);
-
-	sprites->Add(10099, 215, 120, 231, 135, texMario);		// die 
-
-	// small
-	sprites->Add(10021, 247, 0, 259, 15, texMario);			// idle small right
-	sprites->Add(10022, 275, 0, 291, 15, texMario);			// walk 
-	sprites->Add(10023, 306, 0, 320, 15, texMario);			// 
-
-	sprites->Add(10031, 187, 0, 198, 15, texMario);			// idle small left
-
-	sprites->Add(10032, 155, 0, 170, 15, texMario);			// walk
-	sprites->Add(10033, 125, 0, 139, 15, texMario);			// 
-
-
-	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add(20001, 408, 225, 424, 241, texMisc);
-
-	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
-	sprites->Add(30001, 5, 14, 21, 29, texEnemy);
-	sprites->Add(30002, 25, 14, 41, 29, texEnemy);
-
-	sprites->Add(30003, 45, 21, 61, 29, texEnemy); // die sprite
-
-	LPANIMATION ani;
-
-	ani = new CAnimation(100);	// idle big right
-	ani->Add(10001);
-	animations->Add(400, ani);
-
-	ani = new CAnimation(100);	// idle big left
-	ani->Add(10011);
-	animations->Add(401, ani);
-
-	ani = new CAnimation(100);	// idle small right
-	ani->Add(10021);
-	animations->Add(402, ani);
-
-	ani = new CAnimation(100);	// idle small left
-	ani->Add(10031);
-	animations->Add(403, ani);
-
-	ani = new CAnimation(100);	// walk right big
-	ani->Add(10001);
-	ani->Add(10002);
-	ani->Add(10003);
-	animations->Add(500, ani);
-
-	ani = new CAnimation(100);	// // walk left big
-	ani->Add(10011);
-	ani->Add(10012);
-	ani->Add(10013);
-	animations->Add(501, ani);
-
-	ani = new CAnimation(100);	// walk right small
-	ani->Add(10021);
-	ani->Add(10022);
-	ani->Add(10023);
-	animations->Add(502, ani);
-
-	ani = new CAnimation(100);	// walk left small
-	ani->Add(10031);
-	ani->Add(10032);
-	ani->Add(10033);
-	animations->Add(503, ani);
-
-
-	ani = new CAnimation(100);		// Mario die
-	ani->Add(10099);
-	animations->Add(599, ani);
-
-
-
-	ani = new CAnimation(100);		// brick
-	ani->Add(20001);
-	animations->Add(601, ani);
-
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add(30001);
-	ani->Add(30002);
-	animations->Add(701, ani);
-
-	ani = new CAnimation(1000);		// Goomba dead
-	ani->Add(30003);
-	animations->Add(702, ani);
-
-	mario = new CMario();
-	mario->AddAnimation(400);		// idle right big
-	mario->AddAnimation(401);		// idle left big
-	mario->AddAnimation(402);		// idle right small
-	mario->AddAnimation(403);		// idle left small
-
-	mario->AddAnimation(500);		// walk right big
-	mario->AddAnimation(501);		// walk left big
-	mario->AddAnimation(502);		// walk right small
-	mario->AddAnimation(503);		// walk left big
-
-	mario->AddAnimation(599);		// die
-
-	mario->SetPosition(50.0f, 0);
-	objects.push_back(mario);
-
-	for (int i = 0; i < 5; i++)
+	if (!doc.LoadFile())
 	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i * 60.0f, 74.0f);
-		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i * 60.0f, 90.0f);
-		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(84.0f + i * 60.0f, 90.0f);
-		objects.push_back(brick);
+		DebugOut(L"Can't read XML file");
+		MessageBox(NULL, L"Can't Read XML File", L"Error", MB_OK);
+		return;
 	}
-
-
-	for (int i = 0; i < 30; i++)
+	else
 	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(0 + i * 16.0f, 150);
-		objects.push_back(brick);
+		DebugOut(L"[INFO]Read XML success\n");
 	}
-
-	// and Goombas 
-	for (int i = 0; i < 4; i++)
+	// get info root
+	TiXmlElement* root = doc.RootElement();
+	TiXmlElement* sprite = nullptr;
+	TiXmlElement* animation = nullptr;
+	TiXmlElement* texture = nullptr;
+	simon = new CSimon();
+	// gameObjectId = 0 -- Simon
+	for (texture = root->FirstChildElement(); texture != NULL; texture = texture->NextSiblingElement())
 	{
-		goomba = new CGoomba();
-		goomba->AddAnimation(701);
-		goomba->AddAnimation(702);
-		goomba->SetPosition(200 + i * 60, 135);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-		objects.push_back(goomba);
+		int textureId;
+		int gameObjectId;
+		const char * textureFile;
+		textureFile = texture->Attribute("textureFile");
+		texture->QueryIntAttribute("textureId", &textureId);
+		texture->QueryIntAttribute("gameObjectId", &gameObjectId);
+		int R, G, B;
+		texture->QueryIntAttribute("R", &R);
+		texture->QueryIntAttribute("G", &G);
+		texture->QueryIntAttribute("B", &B);
+		textures->Add(textureId, ConvetToWchar(textureFile), D3DCOLOR_XRGB(R, B, G));
+
+		directTexture = textures->Get(0);
+		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
+		{
+			int aniId, frameTime;
+			animation->QueryIntAttribute("frameTime", &frameTime);
+			LPANIMATION ani;
+			ani = new CAnimation(frameTime);
+			for (sprite = animation->FirstChildElement(); sprite != NULL; sprite = sprite->NextSiblingElement())
+			{
+				int left, top, right, bottom, id;
+				sprite->QueryIntAttribute("id", &id);
+				sprite->QueryIntAttribute("top", &top);
+				sprite->QueryIntAttribute("left", &left);
+				sprite->QueryIntAttribute("right", &right);
+				sprite->QueryIntAttribute("bottom", &bottom);
+				sprites->Add(id, left, top, right, bottom, directTexture);
+				ani->Add(id);
+			}
+			animation->QueryIntAttribute("aniId", &aniId);
+			animations->Add(aniId, ani);
+			if (gameObjectId == 0)
+			{
+				simon->AddAnimation(aniId);
+			}
+		};
 	}
+	
+	
+
+	ground = new CGround();
+	ground->SetWidthHeigth(700, 8);
+	ground->SetPosition(0.0f, 195.0f);
+
+	simon->SetPosition(32.0f, 32.0f);
+
+	ground->AddAnimation(562);
+
+	objects.push_back(simon);
+
+	objects.push_back(ground);
+
 
 }
 
@@ -277,12 +219,19 @@ void Update(DWORD dt)
 	}
 
 	float cx, cy;
-	mario->GetPosition(cx, cy);
+	simon->GetPosition(cx, cy);
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	
+	if (cx <= 0)
+	{
+		CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
+	}	
+	else
+	{
+		CGame::GetInstance()->SetCamPos(cx, 0.0f);
+	}
 
 }
 
