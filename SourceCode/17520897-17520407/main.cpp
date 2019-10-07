@@ -120,7 +120,7 @@ void LoadResources()
 	CTextures * textures = CTextures::GetInstance();
 
 
-	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -158,7 +158,7 @@ void LoadResources()
 		texture->QueryIntAttribute("R", &R);
 		texture->QueryIntAttribute("G", &G);
 		texture->QueryIntAttribute("B", &B);
-		textures->Add(textureId, ConvetToWchar(textureFile), D3DCOLOR_XRGB(R, B, G));
+		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, B, G));
 
 		directTexture = textures->Get(0);
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())

@@ -133,15 +133,7 @@ void CSimon::SetState(int state)
 
 	if (isSit)
 	{
-		switch (state)
-		{
-		case SIMON_STATE_WALKING_RIGHT:
-			nx = 1;
-			break;
-		case SIMON_STATE_WALKING_LEFT:
-			nx = -1;
-			break;
-		}
+		Sitting();
 		return;
 	}
 	else
@@ -149,12 +141,10 @@ void CSimon::SetState(int state)
 		switch (state)
 		{
 		case SIMON_STATE_WALKING_RIGHT:
-			vx = SIMON_WALKING_SPEED;
-			nx = 1;
+			WalkingRight();
 			break;
 		case SIMON_STATE_WALKING_LEFT:
-			vx = -SIMON_WALKING_SPEED;
-			nx = -1;
+			WalkingLeft();
 			break;
 		case SIMON_STATE_JUMP:
 			Jump();
@@ -177,10 +167,18 @@ void CSimon::SetState(int state)
 //Xử lí các điều khiển của nhân vật
 void CSimon::Sit()
 {
-	if (isJump) // 
+	if (isJump)
 		return;
 	vx = 0; //Khi ngồi không được di chuyển
 	isSit = true;
+}
+
+void CSimon::Sitting()
+{
+	if (state == SIMON_STATE_WALKING_LEFT)
+		nx = -1;
+	if (state == SIMON_STATE_WALKING_RIGHT)
+		nx = 1;
 }
 
 void CSimon::Jump()
@@ -191,7 +189,25 @@ void CSimon::Jump()
 	isJump = true;
 }
 
-void CSimon::ResetAfterJump()
+void CSimon::WalkingLeft()
+{
+	if (isAttack)
+		return;
+	nx = -1;
+	vx =- SIMON_WALKING_SPEED;
+
+}
+
+void CSimon::WalkingRight()
+{
+	if (isAttack)
+		return;
+	nx = 1;
+	vx = SIMON_WALKING_SPEED;
+}
+
+
+void CSimon::ResetAfterJump() // đẩy nhân vật lên 1 khoảng để không bị đè bbox
 {
 	isJump = false;
 	y -= RESET_SIMON_AFTER_JUMP;
