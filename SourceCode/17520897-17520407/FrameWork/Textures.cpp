@@ -20,10 +20,10 @@ CTextures *CTextures::GetInstance()
 	return __instance;
 }
 
-void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void CTextures::Add(int id, LPCSTR filePath, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
+	HRESULT result = D3DXGetImageInfoFromFileA(filePath, &info);
 	if (result != D3D_OK)
 	{
 		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
@@ -33,7 +33,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
 	LPDIRECT3DTEXTURE9 texture;
 
-	result = D3DXCreateTextureFromFileEx(
+	result = D3DXCreateTextureFromFileExA(
 		d3ddv,								// Pointer to Direct3D device object
 		filePath,							// Path to the image to load
 		info.Width,							// Texture width

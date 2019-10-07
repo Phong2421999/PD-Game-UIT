@@ -1,15 +1,20 @@
-#include <algorithm>
 #include "../FrameWork/debug.h"
 
 #include "Mario.h"
 #include "../FrameWork/GameObject.h"
 
 #include "Goomba.h"
+#include <algorithm>
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
+
+	if (x <= 0)
+	{
+		x = 0;
+	}
 
 	// Simple fall down
 	vy += MARIO_GRAVITY*dt;
@@ -29,7 +34,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-
 	// No collision occured, proceed normally
 	if (coEvents.size()==0)
 	{

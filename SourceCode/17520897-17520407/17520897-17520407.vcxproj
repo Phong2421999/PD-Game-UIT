@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -128,10 +128,16 @@
     <ClCompile Include="FrameWork\GameObject.cpp" />
     <ClCompile Include="FrameWork\Sprites.cpp" />
     <ClCompile Include="FrameWork\Textures.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
     <ClCompile Include="SampleMario\Mario.cpp" />
+    <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h" />
@@ -144,15 +150,28 @@
     <ClInclude Include="FrameWork\GameObject.h" />
     <ClInclude Include="FrameWork\Sprites.h" />
     <ClInclude Include="FrameWork\Textures.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
+    <ClInclude Include="Simon.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assess\Intro.png" />
+    <Image Include="Assess\Misc.png" />
+    <Image Include="Assess\Simon.png" />
     <Image Include="Textures\bbox.png" />
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
+    <Image Include="Textures\Simon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="XML\Textures.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
