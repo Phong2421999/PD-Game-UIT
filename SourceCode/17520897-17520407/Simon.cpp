@@ -14,6 +14,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
+	Attacking();
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -120,6 +122,14 @@ void CSimon::Render()
 		{
 			ani = SIMON_ANI_WALKING_RIGHT;
 		}
+		else if (state == SIMON_STATE_ATTACK)
+		{
+			if (weaponLevel == SIMON_WEAPON_LEVEL_1)
+			{
+				ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+			}
+			
+		}
 	}
 	int alpha = 255;
 	animations[ani]->Render(x, y, alpha);
@@ -158,16 +168,47 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_SIT:
 			Sit();
 			break;
+		case SIMON_STATE_ATTACK:
+			isAttack = true;
+			break;
 		}
 	}
 	
 }
 
 
+//Xử lí khi đang tấn công
+void CSimon::Attacking()
+{
+	if (isAttack)
+	{
+		if (isSit)
+		{
+
+		}
+		else
+		{
+			if (weaponLevel == SIMON_WEAPON_LEVEL_1)
+			{
+				int ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+				bool isLastFrame = animations[ani]->getLastFrame();
+				if (isLastFrame)
+				{
+					isAttack = false;
+					animations[ani]->reset();
+					state = SIMON_STATE_IDLE;
+				}
+
+			}
+		}
+	}
+	
+}
+
 //Xử lí các điều khiển của nhân vật
 void CSimon::Sit()
 {
-	if (isJump)
+	if (isJump) //
 		return;
 	vx = 0; //Khi ngồi không được di chuyển
 	isSit = true;
@@ -175,6 +216,8 @@ void CSimon::Sit()
 
 void CSimon::Sitting()
 {
+	if (isJump)
+		return;
 	if (state == SIMON_STATE_WALKING_LEFT)
 		nx = -1;
 	if (state == SIMON_STATE_WALKING_RIGHT)

@@ -128,6 +128,7 @@
     <ClCompile Include="FrameWork\GameObject.cpp" />
     <ClCompile Include="FrameWork\Sprites.cpp" />
     <ClCompile Include="FrameWork\Textures.cpp" />
+    <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameConst.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />
     <ClInclude Include="FrameWork\CAnimationFame.h" />
     <ClInclude Include="FrameWork\CAnimations.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="SimonConst.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
   </ItemGroup>

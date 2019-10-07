@@ -10,7 +10,6 @@ using namespace std;
 class CTextures
 {
 	static CTextures * __instance;
-
 	unordered_map<int, LPDIRECT3DTEXTURE9> textures; //Giống từ điển (key-value) 
 	//Mỗi textures nạp lên đều có mã số
 	//Vị trí nào cũng được 

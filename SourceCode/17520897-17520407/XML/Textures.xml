@@ -9,7 +9,7 @@
     <!-- Animation IDLE_RIGHT -->
     <Animation aniId="501" frameTime="100" name="IDLE_RIGHT">
       <sprite id="10002" left="164" top="41" right="180" bottom="71"/>
-    </Animation>	
+    </Animation>
     <!-- Animation DIE_LEFT -->
     <Animation aniId="502" frameTime="100" name="DIE_LEFT">
       <sprite id="10003" left="84" top="1" right="100" bottom="30"/>
@@ -59,7 +59,8 @@
       <sprite id="10023" left="10" top="241" right="54" bottom="270"/>
     </Animation>
     <!-- Animation NORMAL_ATTACK_STAND_RIGHT -->
-    <Animation aniId="511" frameTime="100" name="NORMAL_ATTACK_STAND_RIGHT">
+    <Animation aniId="511" frameTime="1000" name="NORMAL_ATTACK_STAND_RIGHT">
+      <sprite id="20000" left="164" top="41" right="180" bottom="71"/>
       <sprite id="10024" left="156" top="240" right="188" bottom="271"/>
       <sprite id="10025" left="197" top="241" right="228" bottom="271"/>
       <sprite id="10026" left="250" top="241" right="294" bottom="270"/>
