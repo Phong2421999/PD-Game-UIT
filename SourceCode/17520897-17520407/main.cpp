@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <fstream>
@@ -45,7 +45,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (simon->getJump() == false)
+		if (simon->getCanJump())
 		{
 			simon->SetState(SIMON_STATE_JUMP);
 		}	
@@ -56,7 +56,18 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		simon->SetSpeed(0, 0);
 		break;
 	case DIK_F: //attack
-		simon->SetState(SIMON_STATE_ATTACK);
+		 if (simon->getJump())
+		 {
+			//set state ngồi đánh
+		 }
+		else if(simon->getSit())
+		{
+			 //set state ngồi đánh
+		}
+		else
+		 {
+			 simon->SetState(SIMON_STATE_ATTACK);
+		 }
 		break;
 	case DIK_F1:
 		isRenderBBox = !isRenderBBox;

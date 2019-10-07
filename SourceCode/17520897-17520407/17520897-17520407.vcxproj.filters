@@ -190,9 +190,6 @@
     <Image Include="Assess\Simon.png">
       <Filter>Assess</Filter>
     </Image>
-    <Image Include="Textures\Simon.png">
-      <Filter>Textures</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">

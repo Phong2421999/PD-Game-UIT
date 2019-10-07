@@ -169,7 +169,6 @@
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
-    <Image Include="Textures\Simon.png" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">

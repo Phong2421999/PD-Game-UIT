@@ -1,26 +1,3 @@
-﻿  CAnimation.cpp
+﻿  Simon.cpp
 c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  CAnimationFame.cpp
-  CAnimations.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  CSprites.cpp
-  GameObject.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  Sprites.cpp
-  Ground.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  Brick.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  Goomba.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  Mario.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  Simon.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\framework\canimation.h(21): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\main.cpp(199): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\main.cpp(204): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\doan\sourcecode\17520897-17520407\main.cpp(239): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
   17520897-17520407.vcxproj -> C:\Users\PhongA\Desktop\Game\DoAn\SourceCode\Debug\17520897-17520407.exe

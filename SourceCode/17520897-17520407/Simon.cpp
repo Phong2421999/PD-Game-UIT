@@ -14,7 +14,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
+	// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
 	Attacking();
+	Jumping();
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -169,7 +172,7 @@ void CSimon::SetState(int state)
 			Sit();
 			break;
 		case SIMON_STATE_ATTACK:
-			isAttack = true;
+			Attack();
 			break;
 		}
 	}
@@ -180,6 +183,11 @@ void CSimon::SetState(int state)
 //Xử lí khi đang tấn công
 void CSimon::Attacking()
 {
+	DWORD now = GetTickCount();
+	if (now - lastAttackTime >= SIMON_RESET_ATTACK_TIME)
+	{
+		isCanAttack = true;
+	}
 	if (isAttack)
 	{
 		if (isSit)
@@ -190,7 +198,7 @@ void CSimon::Attacking()
 		{
 			if (weaponLevel == SIMON_WEAPON_LEVEL_1)
 			{
-				int ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+				int ani = lastAttackSide > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
 				bool isLastFrame = animations[ani]->getLastFrame();
 				if (isLastFrame)
 				{
@@ -205,11 +213,31 @@ void CSimon::Attacking()
 	
 }
 
+void CSimon::Jumping()
+{
+	DWORD now = GetTickCount();
+	if (now - lastJumpTime >= SIMON_RESET_JUMP_TIME)
+	{
+		isCanJump = true;
+	}
+}
+
 //Xử lí các điều khiển của nhân vật
+
+void CSimon::Attack()
+{
+	lastAttackTime = GetTickCount();
+	isCanAttack = false;
+	isAttack = true;
+	lastAttackSide = nx;
+}
 void CSimon::Sit()
 {
 	if (isJump) //
+	{
+		state = SIMON_STATE_JUMP;
 		return;
+	}
 	vx = 0; //Khi ngồi không được di chuyển
 	isSit = true;
 }
@@ -217,7 +245,15 @@ void CSimon::Sit()
 void CSimon::Sitting()
 {
 	if (isJump)
+	{
+		state = SIMON_STATE_JUMP;
 		return;
+	}
+	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
+		return;
+	}
 	if (state == SIMON_STATE_WALKING_LEFT)
 		nx = -1;
 	if (state == SIMON_STATE_WALKING_RIGHT)
@@ -227,15 +263,23 @@ void CSimon::Sitting()
 void CSimon::Jump()
 {
 	if (isSit) // đang ngồi không được nhảy
+	{
+		state = SIMON_STATE_SIT;
 		return;
+	}
 	vy = -SIMON_JUMP_SPEED_Y;
 	isJump = true;
+	isCanJump = false;
+	lastJumpTime = GetTickCount();
 }
 
 void CSimon::WalkingLeft()
 {
 	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
 		return;
+	}
 	nx = -1;
 	vx =- SIMON_WALKING_SPEED;
 
@@ -244,7 +288,10 @@ void CSimon::WalkingLeft()
 void CSimon::WalkingRight()
 {
 	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
 		return;
+	}
 	nx = 1;
 	vx = SIMON_WALKING_SPEED;
 }
