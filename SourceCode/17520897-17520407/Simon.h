@@ -23,8 +23,12 @@ private:
 
 	int weaponLevel;
 
+	static CSimon *__instance;
+
 
 public:
+
+	static CSimon* getInstance();
 	CSimon()
 	{
 		isJump = false;

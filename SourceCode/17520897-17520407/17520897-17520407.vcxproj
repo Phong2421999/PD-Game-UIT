@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTiles.cpp" />
     <ClCompile Include="FrameWork\CAnimation.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMap.h" />
+    <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />

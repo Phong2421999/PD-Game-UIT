@@ -21,7 +21,7 @@
 
 #include "tinyxml.h"
 
-
+#include "CSimonKeyHandler.h"
 
 
 CGame *game;
@@ -30,98 +30,10 @@ CSimon *simon;
 CGround* ground;
 CMap * map = CMap::GetInstance();
 
+CSimonKeyHandler * keyHandler;
+
 vector<LPGAMEOBJECT> objects;
 
-class CSampleKeyHander : public CKeyEventHandler
-{
-	virtual void KeyState(BYTE *states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
-};
-
-CSampleKeyHander * keyHandler;
-
-void CSampleKeyHander::OnKeyDown(int KeyCode)
-{
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	switch (KeyCode)
-	{
-	case DIK_SPACE:
-		if (simon->getCanJump())
-		{
-			simon->SetState(SIMON_STATE_JUMP);
-		}	
-		break;
-	case DIK_ESCAPE: // reset
-		simon->SetState(SIMON_STATE_IDLE);
-		simon->SetPosition(30.0f, 0.0f);
-		simon->SetSpeed(0, 0);
-		break;
-	case DIK_F: //attack
-		if (simon->getJump())
-		{
-
-		}
-		else if (simon->getJump())
-		{
-
-		}
-		else
-		{
-			simon->SetState(SIMON_STATE_ATTACK);
-		}
-		break;
-	case DIK_F1:
-		isRenderBBox = !isRenderBBox;
-		break;
-	case DIK_DOWN:
-			simon->SetState(SIMON_STATE_SIT);
-	}
-}
-
-void CSampleKeyHander::OnKeyUp(int KeyCode)
-{
-	if (KeyCode == DIK_DOWN)
-	{
-		simon->ResetAfterSit();
-		simon->SetState(SIMON_STATE_IDLE);
-	}
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-}
-
-void CSampleKeyHander::KeyState(BYTE *states)
-{
-	// disable control key when Mario die 
-	if (simon->GetState() == SIMON_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-	{
-		if (simon->getJump())
-		{
-			return;
-		}
-		else
-		{
-			simon->SetState(SIMON_STATE_WALKING_RIGHT);
-
-		}
-	}
-	else if (game->IsKeyDown(DIK_LEFT))
-		if (simon->getJump())
-		{
-			return;
-		}
-		else
-		{
-			simon->SetState(SIMON_STATE_WALKING_LEFT);
-
-		}
-	else if(game->IsKeyDown(DIK_DOWN))
-		simon->SetState(SIMON_STATE_SIT);
-	else if(simon->GetState() != SIMON_STATE_SIT 
-		&& simon->GetState() != SIMON_STATE_JUMP 
-		&& simon->GetState() != SIMON_STATE_ATTACK)
-		simon->SetState(SIMON_STATE_IDLE);
-}
 
 
 
@@ -173,7 +85,6 @@ void LoadResources()
 	TiXmlElement* sprite = nullptr;
 	TiXmlElement* animation = nullptr;
 	TiXmlElement* texture = nullptr;
-	simon = new CSimon();
 	// gameObjectId = 0 -- Simon
 	for (texture = root->FirstChildElement(); texture != NULL; texture = texture->NextSiblingElement())
 	{
@@ -380,10 +291,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	simon = CSimon::getInstance();
+
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 
-	keyHandler = new CSampleKeyHander();
+	keyHandler = new CSimonKeyHandler();
 	game->InitKeyboard(keyHandler);
 
 
