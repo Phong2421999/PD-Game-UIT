@@ -1,227 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="FrameWork">
-      <UniqueIdentifier>{ed1af89e-298d-4c3b-8a02-07e07d4a3d17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Textures">
-      <UniqueIdentifier>{76726939-e005-4f7a-b455-4c48e9f3006d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SampleMario">
-      <UniqueIdentifier>{4c33a233-01ba-4fd4-9b03-ec1552db884a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{42e43b4b-664e-4214-96b1-43aa438ca7ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Simon">
-      <UniqueIdentifier>{edd3a89f-578a-405e-8568-4c3dfbeafa7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Enemies">
-      <UniqueIdentifier>{fc31cd9c-0bfa-4070-8cb7-7be4ceb1a475}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Misc">
-      <UniqueIdentifier>{fb76e8e0-d135-4e71-b89e-f174406ecc54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="XML">
-      <UniqueIdentifier>{07f64b37-7317-4fd8-b288-692ff578a186}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assess">
-      <UniqueIdentifier>{19d785ab-72d3-42ab-8172-966342322d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Const">
-      <UniqueIdentifier>{e7f09524-db4e-4238-8fd2-54c6ce2216b9}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTiles.cpp" />
+    <ClCompile Include="FrameWork\CAnimation.cpp" />
+    <ClCompile Include="FrameWork\CAnimationFame.cpp" />
+    <ClCompile Include="FrameWork\CAnimations.cpp" />
+    <ClCompile Include="FrameWork\CKeyEventHandler.cpp" />
+    <ClCompile Include="FrameWork\CSprites.cpp" />
+    <ClCompile Include="FrameWork\debug.cpp" />
+    <ClCompile Include="FrameWork\Game.cpp" />
+    <ClCompile Include="FrameWork\GameObject.cpp" />
+    <ClCompile Include="FrameWork\Sprites.cpp" />
+    <ClCompile Include="FrameWork\Textures.cpp" />
+    <ClCompile Include="GameConst.cpp" />
+    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SampleMario\Brick.cpp" />
+    <ClCompile Include="SampleMario\Goomba.cpp" />
+    <ClCompile Include="SampleMario\Mario.cpp" />
+    <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\CAnimation.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\CAnimationFame.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\CAnimations.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\CKeyEventHandler.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\CSprites.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\Game.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\GameObject.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\Sprites.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\Textures.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameWork\debug.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleMario\Brick.cpp">
-      <Filter>SampleMario</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleMario\Goomba.cpp">
-      <Filter>SampleMario</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleMario\Mario.cpp">
-      <Filter>SampleMario</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>GameObject\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Simon.cpp">
-      <Filter>GameObject\Simon</Filter>
-    </ClCompile>
-    <ClCompile Include="GameConst.cpp">
-      <Filter>Const</Filter>
-    <ClCompile Include="CTile.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="CMap.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="CTiles.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
+    <ClInclude Include="GameConst.h" />
+    <ClInclude Include="CMap.h" />
+    <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTiles.h" />
+    <ClInclude Include="FrameWork\CAnimation.h" />
+    <ClInclude Include="FrameWork\CAnimationFame.h" />
+    <ClInclude Include="FrameWork\CAnimations.h" />
+    <ClInclude Include="FrameWork\CKeyEventHandler.h" />
+    <ClInclude Include="FrameWork\CSprites.h" />
+    <ClInclude Include="FrameWork\debug.h" />
+    <ClInclude Include="FrameWork\Game.h" />
+    <ClInclude Include="FrameWork\GameObject.h" />
+    <ClInclude Include="FrameWork\Sprites.h" />
+    <ClInclude Include="FrameWork\Textures.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="SampleMario\Brick.h" />
+    <ClInclude Include="SampleMario\Goomba.h" />
+    <ClInclude Include="SampleMario\Mario.h" />
+    <ClInclude Include="Simon.h" />
+    <ClInclude Include="SimonConst.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrameWork\CAnimation.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\CAnimationFame.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\CAnimations.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\CKeyEventHandler.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\CSprites.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\Game.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\GameObject.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\Sprites.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\Textures.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameWork\debug.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleMario\Brick.h">
-      <Filter>SampleMario</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleMario\Goomba.h">
-      <Filter>SampleMario</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleMario\Mario.h">
-      <Filter>SampleMario</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>GameObject\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Simon.h">
-      <Filter>GameObject\Simon</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="SimonConst.h">
-      <Filter>Const</Filter>
-    </ClInclude>
-    <ClInclude Include="GameConst.h">
-      <Filter>Const</Filter>
-=======
-    <ClInclude Include="CTile.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="CMap.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="CTiles.h">
-      <Filter>FrameWork</Filter>
->>>>>>> fa45b46a5841474f2c9fe97ac934ea5924268e0b
-    </ClInclude>
+    <Xml Include="XML\Textures.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\bbox.png">
-      <Filter>Textures</Filter>
-    </Image>
-    <Image Include="Textures\enemies.png">
-      <Filter>Textures</Filter>
-    </Image>
-    <Image Include="Textures\mario.png">
-      <Filter>Textures</Filter>
-    </Image>
-    <Image Include="Textures\misc.png">
-      <Filter>Textures</Filter>
-    </Image>
-    <Image Include="Assess\Intro.png">
-      <Filter>Assess</Filter>
-    </Image>
-    <Image Include="Assess\Misc.png">
-      <Filter>Assess</Filter>
-    </Image>
-    <Image Include="Assess\Simon.png">
-      <Filter>Assess</Filter>
-    </Image>
-<<<<<<< HEAD
-=======
-    <Image Include="Textures\Simon.png">
-      <Filter>Textures</Filter>
-    </Image>
-    <Image Include="Textures\Level1.png">
-      <Filter>Textures</Filter>
-    </Image>
->>>>>>> fa45b46a5841474f2c9fe97ac934ea5924268e0b
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="XML\Textures.xml">
-      <Filter>XML</Filter>
-    </Xml>
+    <Image Include="Assess\Intro.png" />
+    <Image Include="Assess\Misc.png" />
+    <Image Include="Assess\Simon.png" />
+    <Image Include="Textures\bbox.png" />
+    <Image Include="Textures\enemies.png" />
+    <Image Include="Textures\Level1.png" />
+    <Image Include="Textures\mario.png" />
+    <Image Include="Textures\misc.png" />
   </ItemGroup>
 </Project>
