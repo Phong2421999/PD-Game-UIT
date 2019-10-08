@@ -13,6 +13,11 @@
 //debug define
 #define IS_RENDER_BBOX isRenderBBox
 
+//chieu rong cua scence
+#define SCENCE_WITDH scenceWidth
 
+
+//Chia sau
 
 extern bool isRenderBBox;
+extern int scenceWidth;

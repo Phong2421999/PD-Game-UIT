@@ -234,7 +234,7 @@ void CSimon::Attack()
 }
 void CSimon::Sit()
 {
-	if (isJump) //
+	if (isJump)
 	{
 		state = SIMON_STATE_JUMP;
 		return;

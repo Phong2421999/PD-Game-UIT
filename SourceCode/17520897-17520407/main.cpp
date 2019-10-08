@@ -74,12 +74,14 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_F1:
 		isRenderBBox = !isRenderBBox;
 		break;
+	case DIK_DOWN:
+			simon->SetState(SIMON_STATE_SIT);
 	}
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
-	if (KeyCode == DIK_S)
+	if (KeyCode == DIK_DOWN)
 	{
 		simon->ResetAfterSit();
 		simon->SetState(SIMON_STATE_IDLE);
@@ -92,10 +94,28 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	// disable control key when Mario die 
 	if (simon->GetState() == SIMON_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	{
+		if (simon->getJump())
+		{
+			return;
+		}
+		else
+		{
+			simon->SetState(SIMON_STATE_WALKING_RIGHT);
+
+		}
+	}
 	else if (game->IsKeyDown(DIK_LEFT))
-		simon->SetState(SIMON_STATE_WALKING_LEFT);
-	else if(game->IsKeyDown(DIK_S))
+		if (simon->getJump())
+		{
+			return;
+		}
+		else
+		{
+			simon->SetState(SIMON_STATE_WALKING_LEFT);
+
+		}
+	else if(game->IsKeyDown(DIK_DOWN))
 		simon->SetState(SIMON_STATE_SIT);
 	else if(simon->GetState() != SIMON_STATE_SIT 
 		&& simon->GetState() != SIMON_STATE_JUMP 
@@ -128,7 +148,7 @@ void LoadResources()
 	textures->Add(111111, "textures\\Level1.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	map->Add(ID_MAP_LEVEL1, "textures\\Level1.png", 111111);
-	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 32);
+	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 24);
 	map->Get(ID_MAP_LEVEL1)->LoadMap();
 
 	CSprites * sprites = CSprites::GetInstance();
@@ -169,7 +189,7 @@ void LoadResources()
 		texture->QueryIntAttribute("B", &B);
 		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, B, G));
 
-		directTexture = textures->Get(0);
+		directTexture = textures->Get(textureId);
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
 		{
 			int aniId, frameTime;
@@ -192,6 +212,7 @@ void LoadResources()
 			if (gameObjectId == 0)
 			{
 				simon->AddAnimation(aniId);
+				DebugOut(L"add ani\n");
 			}
 		};
 	}
@@ -199,8 +220,8 @@ void LoadResources()
 	
 
 	ground = new CGround();
-	ground->SetWidthHeigth(700, 8);
-	ground->SetPosition(0.0f, 195.0f);
+	ground->SetWidthHeigth(780, 8);
+	ground->SetPosition(0.0f, 170.0f);
 
 
 	simon->SetPosition(32.0f, 32.0f);
@@ -231,11 +252,14 @@ void Update(DWORD dt)
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-	
 	if (cx <= 0)
 	{
 		CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
-	}	
+	}
+	else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
+	{
+		CGame::GetInstance()->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
+	}
 	else
 	{
 		CGame::GetInstance()->SetCamPos(cx, 0.0f);

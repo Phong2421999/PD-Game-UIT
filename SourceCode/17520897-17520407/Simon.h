@@ -2,6 +2,7 @@
 #include "FrameWork/GameObject.h"
 #include "FrameWork/debug.h"
 
+#include "GameConst.h"
 #include "SimonConst.h"
 
 
@@ -21,6 +22,8 @@ private:
 	int lastAttackSide;
 
 	int weaponLevel;
+
+
 public:
 	CSimon()
 	{
