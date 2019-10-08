@@ -7,7 +7,6 @@ void CSprite::Draw(float x, float y, int alpha)
 	game->Draw(x,y, texture, left, top, right, bottom, alpha);
 }
 
-
 CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
@@ -17,4 +16,3 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 	this->bottom = bottom;
 	this->texture = tex;
 }
-

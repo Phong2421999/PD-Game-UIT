@@ -8,6 +8,7 @@
 #include "FrameWork/GameObject.h"
 #include "FrameWork/Textures.h"
 #include "FrameWork/CAnimations.h"
+#include "CMap.h"
 
 #include "FrameWork/debug.h"
 #include "FrameWork/Game.h"
@@ -22,7 +23,7 @@
 #define WINDOW_CLASS_NAME L"PDClass"
 #define MAIN_WINDOW_TITLE L"PDGame"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(200, 200, 255)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
@@ -33,6 +34,7 @@ CGame *game;
 
 CSimon *simon;
 CGround* ground;
+CMap * map = CMap::GetInstance();
 
 vector<LPGAMEOBJECT> objects;
 
@@ -121,6 +123,11 @@ void LoadResources()
 
 
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(111111, "textures\\Level1.png", D3DCOLOR_XRGB(255, 255, 255));
+
+	map->Add(ID_MAP_LEVEL1, "textures\\Level1.png", 111111);
+	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 32);
+	map->Get(ID_MAP_LEVEL1)->LoadMap();
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -247,6 +254,8 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+		map->Get(ID_MAP_LEVEL1)->Draw();
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
