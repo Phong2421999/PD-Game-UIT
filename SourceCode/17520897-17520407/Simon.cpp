@@ -14,6 +14,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
+	// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
+	Attacking();
+	Jumping();
+
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -120,10 +125,19 @@ void CSimon::Render()
 		{
 			ani = SIMON_ANI_WALKING_RIGHT;
 		}
+		else if (state == SIMON_STATE_ATTACK)
+		{
+			if (weaponLevel == SIMON_WEAPON_LEVEL_1)
+			{
+				ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+			}
+			
+		}
 	}
 	int alpha = 255;
+	
 	animations[ani]->Render(x, y, alpha);
-
+	
 	RenderBoundingBox();
 }
 
@@ -152,11 +166,11 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_IDLE:
 			vx = 0;
 			break;
-		case SIMON_STATE_DIE:
-			vy = -SIMON_DIE_DEFLECT_SPEED;
-			break;
 		case SIMON_STATE_SIT:
 			Sit();
+			break;
+		case SIMON_STATE_ATTACK:
+			Attack();
 			break;
 		}
 	}
@@ -164,17 +178,83 @@ void CSimon::SetState(int state)
 }
 
 
+//Xử lí khi đang tấn công
+void CSimon::Attacking()
+{
+	
+	DWORD now = GetTickCount();
+	if (now - lastAttackTime >= SIMON_RESET_ATTACK_TIME)
+	{
+		isCanAttack = true;
+	}
+	if (isAttack)
+	{
+		if (isSit)
+		{
+
+		}
+		else
+		{
+			if (weaponLevel == SIMON_WEAPON_LEVEL_1)
+			{
+				int ani = lastAttackSide > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+				bool isLastFrame = animations[ani]->getLastFrame();
+				if (isLastFrame)
+				{
+					isAttack = false;
+					animations[ani]->reset();
+					state = SIMON_STATE_IDLE;
+				}
+
+			}
+		}
+	}
+	
+}
+
+void CSimon::Jumping()
+{
+	DWORD now = GetTickCount();
+	if (now - lastJumpTime >= SIMON_RESET_JUMP_TIME)
+	{
+		isCanJump = true;
+	}
+}
+
 //Xử lí các điều khiển của nhân vật
+
+void CSimon::Attack()
+{
+	lastAttackTime = GetTickCount();
+	isCanAttack = false;
+	isAttack = true;
+	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
+	vx = 0;// đang đánh không được di chuyển
+	vy = 0; // đang nhảy đánh thì ko rơi xuống
+}
 void CSimon::Sit()
 {
-	if (isJump)
+	if (isJump) //
+	{
+		state = SIMON_STATE_JUMP;
 		return;
+	}
 	vx = 0; //Khi ngồi không được di chuyển
 	isSit = true;
 }
 
 void CSimon::Sitting()
 {
+	if (isJump)
+	{
+		state = SIMON_STATE_JUMP;
+		return;
+	}
+	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
+		return;
+	}
 	if (state == SIMON_STATE_WALKING_LEFT)
 		nx = -1;
 	if (state == SIMON_STATE_WALKING_RIGHT)
@@ -184,15 +264,23 @@ void CSimon::Sitting()
 void CSimon::Jump()
 {
 	if (isSit) // đang ngồi không được nhảy
+	{
+		state = SIMON_STATE_SIT;
 		return;
+	}
 	vy = -SIMON_JUMP_SPEED_Y;
 	isJump = true;
+	isCanJump = false;
+	lastJumpTime = GetTickCount();
 }
 
 void CSimon::WalkingLeft()
 {
 	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
 		return;
+	}
 	nx = -1;
 	vx =- SIMON_WALKING_SPEED;
 
@@ -201,7 +289,10 @@ void CSimon::WalkingLeft()
 void CSimon::WalkingRight()
 {
 	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
 		return;
+	}
 	nx = 1;
 	vx = SIMON_WALKING_SPEED;
 }

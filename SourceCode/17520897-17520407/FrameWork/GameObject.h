@@ -6,6 +6,7 @@
 
 #include "Sprites.h"
 #include "CAnimations.h"
+#include "../GameConst.h"
 
 
 using namespace std;

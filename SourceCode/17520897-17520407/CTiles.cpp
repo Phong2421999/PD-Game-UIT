@@ -19,8 +19,6 @@ void CTiles::SetMapPosition(int x, int y) {
 }
 
 void CTiles::LoadMap() {
-	DebugOut(L"[INFO]Tiles Width: %d\n", info.Height);
-
 	for (int i = 0; i <= (info.Height % 32) -1; i++)
 	{
 		for (int j = 0; j <= (info.Width % 32) - 1; j++)
@@ -42,7 +40,6 @@ void CTiles::LoadMap() {
 
 void CTiles::Draw()
 {
-	DebugOut(L"[INFO]Tiles Size: %d\n", tiles.size());
 	for (int i = 0; i < tiles.size(); i++) {
 		tiles[i]->Draw();
 	}

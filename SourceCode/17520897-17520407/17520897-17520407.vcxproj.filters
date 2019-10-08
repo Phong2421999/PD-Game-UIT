@@ -40,6 +40,9 @@
     <Filter Include="Assess">
       <UniqueIdentifier>{19d785ab-72d3-42ab-8172-966342322d6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Const">
+      <UniqueIdentifier>{3379eacf-3b99-4b70-bcd5-8b940f17094d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -111,6 +114,9 @@
     <ClCompile Include="CTiles.cpp">
       <Filter>FrameWork</Filter>
     </ClCompile>
+    <ClCompile Include="GameConst.cpp">
+      <Filter>Const</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -172,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="CTiles.h">
       <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="GameConst.h">
+      <Filter>Const</Filter>
+    </ClInclude>
+    <ClInclude Include="SimonConst.h">
+      <Filter>Const</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <fstream>
@@ -17,17 +17,11 @@
 #include "Simon.h"
 #include "Ground.h"
 
+#include "GameConst.h"
+
 #include "tinyxml.h"
 
 
-#define WINDOW_CLASS_NAME L"PDClass"
-#define MAIN_WINDOW_TITLE L"PDGame"
-
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
-
-#define MAX_FRAME_RATE 120
 
 
 CGame *game;
@@ -53,7 +47,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (simon->isJumping() == false)
+		if (simon->getCanJump())
 		{
 			simon->SetState(SIMON_STATE_JUMP);
 		}	
@@ -62,6 +56,23 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		simon->SetState(SIMON_STATE_IDLE);
 		simon->SetPosition(30.0f, 0.0f);
 		simon->SetSpeed(0, 0);
+		break;
+	case DIK_F: //attack
+		if (simon->getJump())
+		{
+
+		}
+		else if (simon->getJump())
+		{
+
+		}
+		else
+		{
+			simon->SetState(SIMON_STATE_ATTACK);
+		}
+		break;
+	case DIK_F1:
+		isRenderBBox = !isRenderBBox;
 		break;
 	}
 }
@@ -78,16 +89,17 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	float vx, vy;
 	// disable control key when Mario die 
 	if (simon->GetState() == SIMON_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_D))
+	if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_A))
+	else if (game->IsKeyDown(DIK_LEFT))
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
 	else if(game->IsKeyDown(DIK_S))
 		simon->SetState(SIMON_STATE_SIT);
-	else if(simon->GetState() != SIMON_STATE_SIT && simon->GetState() != SIMON_STATE_JUMP)
+	else if(simon->GetState() != SIMON_STATE_SIT 
+		&& simon->GetState() != SIMON_STATE_JUMP 
+		&& simon->GetState() != SIMON_STATE_ATTACK)
 		simon->SetState(SIMON_STATE_IDLE);
 }
 
@@ -106,16 +118,6 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-wchar_t *ConvetToWchar(const char *c)
-{
-	size_t newsize = strlen(c) + 1;
-
-	wchar_t * wcstring = new wchar_t[newsize];
-	size_t convertedChars = 0;
-	mbstowcs_s(&convertedChars, wcstring, newsize, c, _TRUNCATE);
-	return wcstring;
-
-}
 
 void LoadResources()
 {
@@ -200,14 +202,13 @@ void LoadResources()
 	ground->SetWidthHeigth(700, 8);
 	ground->SetPosition(0.0f, 195.0f);
 
+
 	simon->SetPosition(32.0f, 32.0f);
 
 	ground->AddAnimation(562);
 
 	objects.push_back(simon);
-
 	objects.push_back(ground);
-
 
 }
 

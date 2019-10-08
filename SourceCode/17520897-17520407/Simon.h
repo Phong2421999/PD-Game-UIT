@@ -2,45 +2,7 @@
 #include "FrameWork/GameObject.h"
 #include "FrameWork/debug.h"
 
-#define SIMON_WALKING_SPEED		0.07f 
-//0.1f
-#define SIMON_JUMP_SPEED_Y		0.4f
-#define SIMON_GRAVITY			0.0028f
-#define SIMON_DIE_DEFLECT_SPEED	 0.5f
-#define RESET_SIMON_AFTER_SIT 9
-#define RESET_SIMON_AFTER_JUMP 9
-
-
-#define SIMON_STATE_IDLE			0
-#define SIMON_STATE_WALKING_RIGHT	100
-#define SIMON_STATE_WALKING_LEFT	200
-#define SIMON_STATE_JUMP			300
-#define SIMON_STATE_DIE				400
-#define SIMON_STATE_SIT				500
-#define SIMON_STATE_ATTACK			600
-
-
-#define SIMON_ANI_IDLE_LEFT 0
-#define SIMON_ANI_IDLE_RIGHT 1
-#define SIMON_ANI_DIE_LEFT 2
-#define SIMON_ANI_DIE_RIGHT 3
-#define SIMON_ANI_WALKING_LEFT 4
-#define SIMON_ANI_WALKING_RIGHT 5
-#define SIMON_ANI_SIT_LEFT 6
-#define SIMON_ANI_SIT_RIGHT 7
-#define SIMON_ANI_THROW_LEFT 8
-#define SIMON_ANO_THROW_RIGHT 9
-#define SIMON_ANI_NOMAL_ATTACK_STAND_LEFT 10
-#define SIMON_ANI_NOMAL_ATTACK_STAND_RIGHT 11
-#define SIMON_ANI_NOMAL_ATTACK_SIT_LEFT 12
-#define SIMON_ANI_NOMAL_ATTACK_SIT_RIGHT 13
-
-
-#define SIMON_BBOX_WIDTH 16
-#define SIMON_BBOX_HEIGHT 30
-
-#define SIMON_SIT_BBOX_WIDTH 16
-#define SIMON_SIT_BBOX_HEIGHT 23
+#include "SimonConst.h"
 
 
 class CSimon: public CGameObject
@@ -49,16 +11,50 @@ private:
 	bool isJump;
 	bool isSit;
 	bool isAttack;
+
+	bool isCanJump;
+	bool isCanAttack;
+
+	DWORD lastAttackTime;
+	DWORD lastJumpTime;
+
+	int lastAttackSide;
+
+	int weaponLevel;
 public:
 	CSimon()
 	{
 		isJump = false;
 		isSit = false;
 		isAttack = false;
+		isCanAttack = true;
+		isCanJump = true;
+		lastAttackTime = -1;
+		lastAttackSide = 1;
+		weaponLevel = SIMON_WEAPON_LEVEL_1;
 	}
-	bool isJumping() {
+	//get thuộc tính
+	bool getJump() {
 		return isJump;
 	}
+	bool getAttack()
+	{
+		return isAttack;
+	}
+	bool getSit()
+	{
+		return isSit;
+	}
+	bool getCanAttack()
+	{
+		return isCanAttack;
+	}
+	bool getCanJump()
+	{
+		return isCanJump;
+	}
+
+	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);
@@ -69,9 +65,18 @@ public:
 	void Sit();
 	void WalkingLeft();
 	void WalkingRight();
+	void Attack();
+
+	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
+	void Attacking();
+
+	//Xử lí khi đang nhảy - không cho nhảy liên tục - gọi trong update
+	void Jumping();
+
+	//Xử lí khi đang ngồi - Không cho phép di chuyển và nhảy - chỉ được đánh - gọi trong set state
 	void Sitting();
 
-	//Xử lí BBox tránh bị chạm;s
+	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();
 	void ResetAfterJump();
 
