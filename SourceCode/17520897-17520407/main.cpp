@@ -56,18 +56,18 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		simon->SetSpeed(0, 0);
 		break;
 	case DIK_F: //attack
-		 if (simon->getJump())
-		 {
-			//set state ngồi đánh
-		 }
-		else if(simon->getSit())
+		if (simon->getJump())
 		{
-			 //set state ngồi đánh
+
+		}
+		else if (simon->getJump())
+		{
+
 		}
 		else
-		 {
-			 simon->SetState(SIMON_STATE_ATTACK);
-		 }
+		{
+			simon->SetState(SIMON_STATE_ATTACK);
+		}
 		break;
 	case DIK_F1:
 		isRenderBBox = !isRenderBBox;
@@ -89,13 +89,15 @@ void CSampleKeyHander::KeyState(BYTE *states)
 {
 	// disable control key when Mario die 
 	if (simon->GetState() == SIMON_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_D))
+	if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_A))
+	else if (game->IsKeyDown(DIK_LEFT))
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
 	else if(game->IsKeyDown(DIK_S))
 		simon->SetState(SIMON_STATE_SIT);
-	else if(simon->GetState() != SIMON_STATE_SIT && simon->GetState() != SIMON_STATE_JUMP && simon->GetState() != SIMON_STATE_ATTACK)
+	else if(simon->GetState() != SIMON_STATE_SIT 
+		&& simon->GetState() != SIMON_STATE_JUMP 
+		&& simon->GetState() != SIMON_STATE_ATTACK)
 		simon->SetState(SIMON_STATE_IDLE);
 }
 
@@ -193,13 +195,13 @@ void LoadResources()
 	ground->SetWidthHeigth(700, 8);
 	ground->SetPosition(0.0f, 195.0f);
 
+
 	simon->SetPosition(32.0f, 32.0f);
 
 	ground->AddAnimation(562);
 
 	objects.push_back(simon);
 	objects.push_back(ground);
-
 
 }
 

@@ -135,8 +135,9 @@ void CSimon::Render()
 		}
 	}
 	int alpha = 255;
+	
 	animations[ani]->Render(x, y, alpha);
-
+	
 	RenderBoundingBox();
 }
 
@@ -165,9 +166,6 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_IDLE:
 			vx = 0;
 			break;
-		case SIMON_STATE_DIE:
-			vy = -SIMON_DIE_DEFLECT_SPEED;
-			break;
 		case SIMON_STATE_SIT:
 			Sit();
 			break;
@@ -183,6 +181,7 @@ void CSimon::SetState(int state)
 //Xử lí khi đang tấn công
 void CSimon::Attacking()
 {
+	
 	DWORD now = GetTickCount();
 	if (now - lastAttackTime >= SIMON_RESET_ATTACK_TIME)
 	{
@@ -229,7 +228,9 @@ void CSimon::Attack()
 	lastAttackTime = GetTickCount();
 	isCanAttack = false;
 	isAttack = true;
-	lastAttackSide = nx;
+	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
+	vx = 0;// đang đánh không được di chuyển
+	vy = 0; // đang nhảy đánh thì ko rơi xuống
 }
 void CSimon::Sit()
 {
