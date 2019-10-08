@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10C77508-3D33-4A9A-9657-58814B9B6F25}</ProjectGuid>
     <RootNamespace>My1752089717520407</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,7 +78,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dinput8.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,6 +118,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTiles.cpp" />
     <ClCompile Include="FrameWork\CAnimation.cpp" />
     <ClCompile Include="FrameWork\CAnimationFame.cpp" />
     <ClCompile Include="FrameWork\CAnimations.cpp" />
@@ -142,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConst.h" />
+    <ClInclude Include="CMap.h" />
+    <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTiles.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />
     <ClInclude Include="FrameWork\CAnimationFame.h" />
     <ClInclude Include="FrameWork\CAnimations.h" />
@@ -167,6 +173,7 @@
     <Image Include="Assess\Simon.png" />
     <Image Include="Textures\bbox.png" />
     <Image Include="Textures\enemies.png" />
+    <Image Include="Textures\Level1.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
   </ItemGroup>

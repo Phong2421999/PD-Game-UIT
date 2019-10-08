@@ -107,6 +107,14 @@
     </ClCompile>
     <ClCompile Include="GameConst.cpp">
       <Filter>Const</Filter>
+    <ClCompile Include="CTile.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="CMap.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="CTiles.cpp">
+      <Filter>FrameWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +169,22 @@
     <ClInclude Include="Simon.h">
       <Filter>GameObject\Simon</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="SimonConst.h">
       <Filter>Const</Filter>
     </ClInclude>
     <ClInclude Include="GameConst.h">
       <Filter>Const</Filter>
+=======
+    <ClInclude Include="CTile.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="CMap.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="CTiles.h">
+      <Filter>FrameWork</Filter>
+>>>>>>> fa45b46a5841474f2c9fe97ac934ea5924268e0b
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +209,15 @@
     <Image Include="Assess\Simon.png">
       <Filter>Assess</Filter>
     </Image>
+<<<<<<< HEAD
+=======
+    <Image Include="Textures\Simon.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Level1.png">
+      <Filter>Textures</Filter>
+    </Image>
+>>>>>>> fa45b46a5841474f2c9fe97ac934ea5924268e0b
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
