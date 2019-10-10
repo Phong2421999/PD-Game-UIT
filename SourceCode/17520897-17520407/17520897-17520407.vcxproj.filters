@@ -241,7 +241,7 @@
     <Image Include="Textures\Simon.png">
       <Filter>Textures</Filter>
     </Image>
-    <Image Include="Textures\Level1.png">
+    <Image Include="Textures\tileset_map1.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>
@@ -249,5 +249,13 @@
     <Xml Include="XML\Textures.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="XML\NewTextures.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Textures\readfile_map_1.txt">
+      <Filter>Textures</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "CTiles.h"
 
 
-CTiles::CTiles(LPCSTR filePath, int texId)
+CTiles::CTiles(int texId, LPCSTR filePath, D3DCOLOR color)
 {
 	HRESULT result = D3DXGetImageInfoFromFileA(filePath, &info);
 	if (result != D3D_OK)
@@ -10,37 +10,46 @@ CTiles::CTiles(LPCSTR filePath, int texId)
 		return;
 	}
 
+	CTextures::GetInstance()->Add(texId, filePath, color);
+
 	tex = CTextures::GetInstance()->Get(texId);
 }
 
-void CTiles::SetMapPosition(int x, int y) {
-	this->offsetX = x;
-	this->offsetY = y;
+void CTiles::ReadMapTXT(LPCSTR filePath)
+{
+	ifstream inp(filePath, ios::in);
+	inp >> RowMap >> ColumnMap >> RowTileSet >> ColumnTileSet >> frameWidth >> frameHeight >> DrawPositionX >> DrawPositionY;
+	for (int i = 0; i < RowMap; i++)
+		for (int j = 0; j < ColumnMap; j++)
+		{
+			inp >> TileMap[i][j];
+		}
+	inp.close();
 }
 
-void CTiles::LoadMap() {
-	for (int i = 0; i <= (info.Height % 32) -1; i++)
-	{
-		for (int j = 0; j <= (info.Width % 32) - 1; j++)
-		{
+void CTiles::LoadTile() {
 
-			int left = i * 32;
-			int top = j * 32;
-			int right = left + 32;
-			int bottom = top + 32;
-			int x = left + offsetX;
-			int y = top + offsetY;
-			LPTILE tile = new CTile(x, y, left, top, right, bottom, tex);
+	for (int i = 0; i < RowTileSet; i++)
+	{
+		for (int j = 0; j < ColumnTileSet; j++)
+		{
+			int left = j * frameWidth;
+			int top = i * frameHeight;
+			int right = left + frameWidth;
+			int bottom = top + frameHeight;
+			LPTILE tile = new CTile(left, top, right, bottom, tex);
 			tiles.push_back(tile);
 		}
-
-	}
-
-}
-
-void CTiles::Draw()
-{
-	for (int i = 0; i < tiles.size(); i++) {
-		tiles[i]->Draw();
 	}
 }
+
+void CTiles::Render() {
+	float cx = CGame::GetInstance()->GetCamPos_x();
+	int beginColumn = cx / frameWidth;
+	int endColumn = cx + SCREEN_WIDTH / frameWidth + 1;
+	for (int i = 0; i < RowMap; i++) {
+		for (int j = beginColumn; j < endColumn; j++) {
+			tiles[TileMap[i][j]]->Draw(j*frameWidth + DrawPositionX, i*frameHeight + DrawPositionY);
+		}
+	}
+};

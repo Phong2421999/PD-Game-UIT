@@ -58,18 +58,16 @@ void LoadResources()
 
 
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(111111, "textures\\Level1.png", D3DCOLOR_XRGB(255, 255, 255));
+	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
+	map->Get(ID_MAP1)->LoadTile();
 
-	map->Add(ID_MAP_LEVEL1, "textures\\Level1.png", 111111);
-	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 40);
-	map->Get(ID_MAP_LEVEL1)->LoadMap();
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 directTexture;
 
-	TiXmlDocument doc("XML/Textures.xml");
+	TiXmlDocument doc("XML/NewTextures.xml");
 
 	if (!doc.LoadFile())
 	{
@@ -131,11 +129,11 @@ void LoadResources()
 	
 	CTestEnemy *testEnemy = new CTestEnemy();
 	testEnemy->SetWidthHeigth(16, 30);
-	testEnemy->SetPosition(70.0f, 158.0f);
+	testEnemy->SetPosition(70.0f, 178.0f);
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
-	ground->SetPosition(0.0f, 188.0f);
+	ground->SetPosition(0.0f, 198.0f);
 
 
 	simon->SetPosition(32.0f, 32.0f);
@@ -204,7 +202,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		map->Get(ID_MAP_LEVEL1)->Draw();
+		map->Get(ID_MAP1)->Render();
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();

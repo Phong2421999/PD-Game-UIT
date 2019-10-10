@@ -1,5 +1,5 @@
 #include "CMap.h"
-CMap * CMap::__instance = NULL; 
+CMap * CMap::__instance = NULL;
 
 CMap *CMap::GetInstance()
 {
@@ -7,13 +7,14 @@ CMap *CMap::GetInstance()
 	return __instance;
 }
 
-void CMap::Add( int id, LPCSTR filePath, int texId )
+void CMap::Add(int mapId, LPCSTR mapPath, int texId, LPCSTR texPath, D3DCOLOR color)
 {
-	CTiles* map = new CTiles(filePath, texId);
-	maps[id] = map;
+	CTiles* map = new CTiles(texId, texPath, color);
+	maps[mapId] = map;
+	maps[mapId]->ReadMapTXT(mapPath);
 	DebugOut(L"[INFO] Add filepath Success\n");
 }
 
-LPTILES CMap::Get(int id) {
-	return maps[id];
+LPTILES CMap::Get(int mapId) {
+	return maps[mapId];
 }
