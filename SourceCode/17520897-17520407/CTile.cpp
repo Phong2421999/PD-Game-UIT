@@ -1,8 +1,6 @@
 #include "CTile.h"
 
-CTile::CTile(int x, int y, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
-	this->x = x;
-	this->y = y;
+CTile::CTile(int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
 	this->top = top;
 	this->left = left;
 	this->right = right;
@@ -10,7 +8,7 @@ CTile::CTile(int x, int y, int left, int top, int right, int bottom, LPDIRECT3DT
 	this->texture = tex;
 }
 
-void CTile::Draw()
+void CTile::Draw(int x, int y)
 {
 	CGame::GetInstance()->Draw(x, y, texture, left, top, right, bottom);
 }

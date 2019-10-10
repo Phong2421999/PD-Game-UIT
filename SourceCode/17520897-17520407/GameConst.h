@@ -9,6 +9,13 @@
 #define WINDOW_CLASS_NAME L"PDClass"
 #define MAIN_WINDOW_TITLE L"PDGame"
 
+//Map
+#define ID_MAP1 100000
+#define ID_MAP2 200000
+#define ID_MAP3 300000
+
+//Textures
+#define ID_TEX_MAP1 100000
 
 //debug define
 #define IS_RENDER_BBOX isRenderBBox

@@ -1,29 +1,43 @@
-#pragma once
+﻿#pragma once
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "CTile.h"
 #include <vector>
+#include "GameConst.h"
+#include "FrameWork/Game.h"
+#include "CTile.h"
+#include <fstream>
 #include "FrameWork/Textures.h"
 #include "FrameWork/debug.h"
 
 using namespace std;
 
-class CTiles 
+class CTiles
 {
-	int offsetX, offsetY;
+	int frameWidth, frameHeight;
+
+	int ColumnTileSet, RowTileSet;
+	int ColumnMap, RowMap;
+
+	int DrawPositionX, DrawPositionY;
+
+	int HeightBoard; // chiều cao board
+	int TileMap[500][500];
+
 	LPDIRECT3DTEXTURE9 tex;
-	vector<LPTILE> tiles;
 	D3DXIMAGE_INFO info;
+	vector<LPTILE> tiles;
 public:
 
-	CTiles(LPCSTR filePath, int texId);
-	
+	CTiles(int texId, LPCSTR filePath, D3DCOLOR color);
+
+	void ReadMapTXT(LPCSTR filePath);
+
+	void LoadTile();
+
 	void SetMapPosition(int offsetX, int offsetY);
 
-	void LoadMap();
-
-	void Draw();
+	void Render();
 
 };
 
