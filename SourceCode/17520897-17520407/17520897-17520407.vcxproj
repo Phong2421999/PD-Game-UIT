@@ -118,8 +118,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
+    <ClCompile Include="CTestEnemy.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTiles.cpp" />
     <ClCompile Include="FrameWork\CAnimation.cpp" />
@@ -143,10 +145,13 @@
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
+    <ClInclude Include="CTestEnemy.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />
@@ -168,6 +173,7 @@
     <ClInclude Include="SimonConst.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assess\Intro.png" />

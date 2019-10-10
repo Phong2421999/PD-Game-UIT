@@ -15,6 +15,7 @@ public:
 	void Add(int spriteId, DWORD time = 0);
 	void Render(float x, float y, int alpha = 255);
 	bool getLastFrame();
+	int getCurrentFrame();
 	void setIsLastFrame(bool l);
 	void reset();
 	void Flip(float FlipX, float FlipY) {

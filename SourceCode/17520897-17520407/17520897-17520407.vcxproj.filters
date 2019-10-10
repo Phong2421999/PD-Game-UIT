@@ -43,7 +43,10 @@
     <Filter Include="Const">
       <UniqueIdentifier>{3379eacf-3b99-4b70-bcd5-8b940f17094d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SimonControll">
+    <Filter Include="GameObject\Weapon">
+      <UniqueIdentifier>{14254cde-e210-4083-b4b8-43de2bbf15ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KeyControll">
       <UniqueIdentifier>{da7cbb30-c68d-4a7c-aa2e-6304a20be1c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -121,7 +124,16 @@
       <Filter>Const</Filter>
     </ClCompile>
     <ClCompile Include="CSimonKeyHandler.cpp">
-      <Filter>SimonControll</Filter>
+      <Filter>KeyControll</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnemies.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CTestEnemy.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>GameObject\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +204,16 @@
       <Filter>Const</Filter>
     </ClInclude>
     <ClInclude Include="CSimonKeyHandler.h">
-      <Filter>SimonControll</Filter>
+      <Filter>KeyControll</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemies.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CTestEnemy.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>GameObject\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

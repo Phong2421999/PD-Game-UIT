@@ -43,6 +43,10 @@ bool CAnimation::getLastFrame()
 	return lastFrame;
 }
 
+int CAnimation::getCurrentFrame()
+{
+	return currentFrame;
+}
 void CAnimation::setIsLastFrame(bool l)
 {
 	this->lastFrame = l;

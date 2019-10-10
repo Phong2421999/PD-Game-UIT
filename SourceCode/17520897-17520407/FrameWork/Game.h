@@ -42,7 +42,9 @@ public:
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
+
 	void Flip(float FlipX, float FlipY); // FlipX, FlipY là các số xác định lật hình
+
 	static CGame * GetInstance();
 
 	static void SweptAABB(

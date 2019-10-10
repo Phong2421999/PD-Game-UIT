@@ -13,15 +13,16 @@
 #include "FrameWork/debug.h"
 #include "FrameWork/Game.h"
 
-
 #include "Simon.h"
 #include "Ground.h"
+#include "CTestEnemy.h"
 
 #include "GameConst.h"
 
 #include "tinyxml.h"
 
 #include "CSimonKeyHandler.h"
+
 
 
 CGame *game;
@@ -60,7 +61,7 @@ void LoadResources()
 	textures->Add(111111, "textures\\Level1.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	map->Add(ID_MAP_LEVEL1, "textures\\Level1.png", 111111);
-	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 24);
+	map->Get(ID_MAP_LEVEL1)->SetMapPosition(0, 40);
 	map->Get(ID_MAP_LEVEL1)->LoadMap();
 
 	CSprites * sprites = CSprites::GetInstance();
@@ -86,6 +87,7 @@ void LoadResources()
 	TiXmlElement* animation = nullptr;
 	TiXmlElement* texture = nullptr;
 	// gameObjectId = 0 -- Simon
+
 	for (texture = root->FirstChildElement(); texture != NULL; texture = texture->NextSiblingElement())
 	{
 		int textureId;
@@ -123,25 +125,27 @@ void LoadResources()
 			if (gameObjectId == 0)
 			{
 				simon->AddAnimation(aniId);
-				DebugOut(L"add ani\n");
 			}
 		};
 	}
 	
-	
+	CTestEnemy *testEnemy = new CTestEnemy();
+	testEnemy->SetWidthHeigth(16, 30);
+	testEnemy->SetPosition(70.0f, 158.0f);
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
-	ground->SetPosition(0.0f, 170.0f);
+	ground->SetPosition(0.0f, 188.0f);
 
 
 	simon->SetPosition(32.0f, 32.0f);
+
 
 	ground->AddAnimation(562);
 
 	objects.push_back(simon);
 	objects.push_back(ground);
-
+	objects.push_back(testEnemy);
 }
 
 
@@ -150,7 +154,16 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		if(simon->getUntouchable() == false)
+			coObjects.push_back(objects[i]);
+		else
+		{
+			if (dynamic_cast<CGround*> (objects[i]))
+			{
+				coObjects.push_back(objects[i]);
+			}
+
+		}
 	}
 
 	for (int i = 0; i < objects.size(); i++)

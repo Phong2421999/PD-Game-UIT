@@ -1,4 +1,4 @@
-#include "CSimonKeyHandler.h"
+﻿#include "CSimonKeyHandler.h"
 
 void CSimonKeyHandler::OnKeyDown(int KeyCode)
 {
@@ -6,7 +6,7 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if (simon->getCanJump())
+		if (simon->getCanJump()) // Sau 1 khoảng thời gian mới có thể nhảy
 		{
 			simon->SetState(SIMON_STATE_JUMP);
 		}
@@ -17,24 +17,17 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		simon->SetSpeed(0, 0);
 		break;
 	case DIK_F: //attack
-		if (simon->getJump())
-		{
-
-		}
-		else if (simon->getJump())
-		{
-
-		}
-		else
-		{
+		if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
 			simon->SetState(SIMON_STATE_ATTACK);
-		}
+		break;
+	case DIK_DOWN:
+		simon->SetState(SIMON_STATE_SIT);
 		break;
 	case DIK_F1:
 		isRenderBBox = !isRenderBBox;
 		break;
-	case DIK_DOWN:
-		simon->SetState(SIMON_STATE_SIT);
+	case DIK_F2:
+		simon->setUntouchable();
 	}
 }
 

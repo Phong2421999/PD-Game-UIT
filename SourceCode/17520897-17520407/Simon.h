@@ -5,6 +5,11 @@
 #include "GameConst.h"
 #include "SimonConst.h"
 
+#include"CEnemies.h"
+
+#include "Ground.h"
+#include "Weapon.h"
+
 
 class CSimon: public CGameObject
 {
@@ -15,13 +20,20 @@ private:
 
 	bool isCanJump;
 	bool isCanAttack;
+	bool isUntouchable;
 
+	DWORD startAttackTime;
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
+	DWORD timeMakeWeapon;
+	DWORD startUntouchableTime;
+
 
 	int lastAttackSide;
 
 	int weaponLevel;
+
+	Weapon* simonWeapon;
 
 	static CSimon *__instance;
 
@@ -39,6 +51,11 @@ public:
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
+	}
+	//set thuộc tính
+	void setUntouchable()
+	{
+		this->isUntouchable = !isUntouchable;
 	}
 	//get thuộc tính
 	bool getJump() {
@@ -60,7 +77,16 @@ public:
 	{
 		return isCanJump;
 	}
-
+	bool getUntouchable()
+	{
+		return isUntouchable;
+	}
+	//Xử lí khi chạm vào enemies
+	void StartUntouchable()
+	{
+		isUntouchable = true;
+		startUntouchableTime = GetTickCount();
+	}
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
@@ -75,7 +101,7 @@ public:
 	void Attack();
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
-	void Attacking();
+	void Attacking(DWORD dt);
 
 	//Xử lí khi đang nhảy - không cho nhảy liên tục - gọi trong update
 	void Jumping();
