@@ -10,11 +10,12 @@ CSimon* CSimon::getInstance()
 	return __instance;
 }
 
+
+
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
 	if (x <= 0)
 	{
 		x = 0;
@@ -27,20 +28,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
-
-	if (simonWeapon != NULL)
-	{
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (simonWeapon->isTouchOtherObject(coObjects->at(i)))
-			{
-				if (dynamic_cast<CTestEnemy*>(coObjects->at(i)))
-				{
-					coObjects->at(i)->Damage();
-				}
-			}
-		}
-	}
 
 	// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
 	Attacking(dt);
@@ -235,11 +222,7 @@ void CSimon::Attacking(DWORD dt)
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
 
-				simonWeapon = new Weapon();
-				simonWeapon->SetPosition(x + 15, y + 10);
-				simonWeapon->SetSpeed(0.4f, 0.0f);
-				simonWeapon->SetTimeLive(100);
-				simonWeapon->SetWidthHeigth(20, 5);
+				simonWeapon = new Whip(x,y,nx);
 			}
 		}
 	}

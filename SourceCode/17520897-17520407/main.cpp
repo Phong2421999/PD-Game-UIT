@@ -14,6 +14,8 @@
 #include "FrameWork/Game.h"
 
 #include "Simon.h"
+#include "LargeCandle.h"
+#include "CStaticObject.h"
 #include "Ground.h"
 #include "CTestEnemy.h"
 
@@ -96,7 +98,7 @@ void LoadResources()
 		texture->QueryIntAttribute("R", &R);
 		texture->QueryIntAttribute("G", &G);
 		texture->QueryIntAttribute("B", &B);
-		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, B, G));
+		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, G, B));
 
 		directTexture = textures->Get(textureId);
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
@@ -124,7 +126,25 @@ void LoadResources()
 			}
 		};
 	}
-	
+
+	float x, y;
+	float  Width, Height;
+	int Quantity, id;
+
+	ifstream inp("Textures\\readfile_map_1_gameobjects.txt", ios::in);
+	inp >> Quantity;
+	for (int i = 0; i < Quantity; i++) {
+		inp >> id >> x >> y >> Width >> Height;
+		if (id == 1) {
+			CLargeCandle* largeCandle = new CLargeCandle();
+			largeCandle->SetWidthHeight(Width, Height);
+			largeCandle->SetPosition(x, y);
+			objects.push_back(largeCandle);
+
+		}
+	}
+	inp.close();
+
 	CTestEnemy *testEnemy = new CTestEnemy();
 	testEnemy->SetWidthHeigth(16, 30);
 	testEnemy->SetPosition(70.0f, 168.0f);
@@ -149,8 +169,16 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
+	vector<LPGAMEOBJECT> coWeaponObjects;
+
+	for (int i = 0; i < objects.size(); i++)
 	{
+		if (objects[i]->GetHealth() > 0
+			&& !dynamic_cast<CGround*> (objects[i])
+			&& !dynamic_cast<CSimon*> (objects[i]))
+		{
+			coWeaponObjects.push_back(objects[i]);
+		}
 		if (simon->getUntouchable())
 		{
 			if (dynamic_cast<CGround*> (objects[i]))
@@ -160,21 +188,20 @@ void Update(DWORD dt)
 		}
 		else
 		{
-			if (objects[i]->GetHealth() > 0)
-			{
+			if(!dynamic_cast<CStaticObject*> (objects[i]))
 				coObjects.push_back(objects[i]);
-			}
-			else
-			{
-				objects.erase(objects.begin() + i);
-			}
+		}
+		if (objects[i]->GetHealth() <= 0)
+		{
+			objects.erase(objects.begin() + i);
 		}
 	}
-
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
+
+	simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 	float cx, cy;
 	simon->GetPosition(cx, cy);

@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -121,6 +124,7 @@
     <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
+    <ClCompile Include="CStaticObject.cpp" />
     <ClCompile Include="CTestEnemy.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTiles.cpp" />
@@ -136,6 +140,7 @@
     <ClCompile Include="FrameWork\Textures.cpp" />
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
@@ -152,6 +157,7 @@
     <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
+    <ClInclude Include="CStaticObject.h" />
     <ClInclude Include="CTestEnemy.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
@@ -167,6 +173,7 @@
     <ClInclude Include="FrameWork\Textures.h" />
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
@@ -185,6 +192,7 @@
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
+    <Image Include="Textures\ObjectsAndEffect.png" />
     <Image Include="Textures\Simon.png" />
     <Image Include="Textures\tileset_map1.png" />
   </ItemGroup>
@@ -194,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt" />
+    <Text Include="Textures\readfile_map_1_gameobjects.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -138,6 +138,12 @@
     <ClCompile Include="Whip.cpp">
       <Filter>GameObject\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="CStaticObject.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="LargeCandle.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -221,6 +227,12 @@
     <ClInclude Include="Whip.h">
       <Filter>GameObject\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="CStaticObject.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="LargeCandle.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -250,6 +262,9 @@
     <Image Include="Textures\tileset_map1.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\ObjectsAndEffect.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
@@ -261,6 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt">
+      <Filter>Textures</Filter>
+    </Text>
+    <Text Include="Textures\readfile_map_1_gameobjects.txt">
       <Filter>Textures</Filter>
     </Text>
   </ItemGroup>
