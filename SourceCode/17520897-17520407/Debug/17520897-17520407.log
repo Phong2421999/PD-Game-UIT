@@ -1,8 +1,13 @@
-﻿  main.cpp
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(139): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(170): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(186): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(202): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(226): warning C4018: '<': signed/unsigned mismatch
-  17520897-17520407.vcxproj -> E:\Game is my life\Project\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe
+﻿  CStaticObject.cpp
+e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
+  LargeCandle.cpp
+e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(173): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(193): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(209): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(233): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  17520897-17520407.vcxproj -> E:\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

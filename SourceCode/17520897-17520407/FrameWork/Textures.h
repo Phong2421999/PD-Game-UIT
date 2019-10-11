@@ -15,7 +15,7 @@ class CTextures
 	//Mỗi textures nạp lên đều có mã số
 	//Vị trí nào cũng được 
 
-public: 
+public:
 	CTextures();
 
 	void Add(int id, LPCSTR filePath, D3DCOLOR transparentColor);

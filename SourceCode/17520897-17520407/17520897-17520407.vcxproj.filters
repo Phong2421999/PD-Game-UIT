@@ -144,6 +144,9 @@
     <ClCompile Include="CStaticObject.cpp">
       <Filter>FrameWork</Filter>
     </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="CStaticObject.h">
       <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>GameObject\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

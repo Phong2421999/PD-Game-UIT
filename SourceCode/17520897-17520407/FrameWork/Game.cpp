@@ -1,8 +1,8 @@
-#include "Game.h"
+﻿#include "Game.h"
 CGame * CGame::__instance = NULL;
 
 /*
-	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for 
+	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
 	- hInst: Application instance handle
 	- hWnd: Application window handle
@@ -11,7 +11,7 @@ void CGame::Init(HWND hWnd)
 {
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-	this->hWnd = hWnd;									
+	this->hWnd = hWnd;
 
 	D3DPRESENT_PARAMETERS d3dpp;
 
@@ -51,7 +51,7 @@ void CGame::Init(HWND hWnd)
 }
 
 /*
-	Utility function to wrap LPD3DXSPRITE::Draw 
+	Utility function to wrap LPD3DXSPRITE::Draw
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
@@ -61,7 +61,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha,255,255,255));
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 CGame::~CGame()
@@ -307,4 +307,10 @@ void CGame::SweptAABB(
 
 }
 
+bool CGame::checkAABBTouch(float left, float top, float right, float bottom,
+	float checkLeft, float checkTop, float checkRight, float checkBottom)
+{
+	return !(left > checkRight || right < checkLeft || bottom<checkTop || top > checkBottom);
+	//kiểm tra nếu không đụng thì ngược lại là đụng; nhớ tới y càng giảm thì càng cao hơn;
+}
 

@@ -49,6 +49,8 @@ public:
 
 	int state;
 
+	int health;
+
 	DWORD dt;
 
 	vector<LPANIMATION> animations;
@@ -56,6 +58,8 @@ public:
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	void SetHealth(int health) { this->health = health; }
+	int GetHealth() { return health; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
@@ -77,11 +81,16 @@ public:
 
 	CGameObject();
 
-	virtual void Render() = 0;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
+	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
+	virtual void Damage() {
+		health--;
+	}
 
+
+	bool checkAABBTouch(LPGAMEOBJECT gameObject);
 
 	~CGameObject();
 };

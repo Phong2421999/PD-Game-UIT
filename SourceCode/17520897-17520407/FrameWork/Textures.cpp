@@ -44,7 +44,7 @@ void CTextures::Add(int id, LPCSTR filePath, D3DCOLOR transparentColor)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		transparentColor,			
+		transparentColor,
 		&info,
 		NULL,
 		&texture);								// Created texture pointer
@@ -60,7 +60,7 @@ void CTextures::Add(int id, LPCSTR filePath, D3DCOLOR transparentColor)
 	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
 }
 
-LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i) 
+LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i)
 {
 	return textures[i];//Lấy ra cái textures
 }

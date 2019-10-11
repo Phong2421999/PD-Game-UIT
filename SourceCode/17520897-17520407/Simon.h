@@ -11,7 +11,7 @@
 #include "Weapon.h"
 
 
-class CSimon: public CGameObject
+class CSimon : public CGameObject
 {
 private:
 	bool isJump;
@@ -112,5 +112,7 @@ public:
 	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();
 	void ResetAfterJump();
+
+
 
 };

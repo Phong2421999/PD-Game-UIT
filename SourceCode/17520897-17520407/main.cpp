@@ -14,9 +14,9 @@
 #include "FrameWork/Game.h"
 
 #include "Simon.h"
-#include "Ground.h"
 #include "LargeCandle.h"
 #include "CStaticObject.h"
+#include "Ground.h"
 #include "CTestEnemy.h"
 
 #include "GameConst.h"
@@ -28,16 +28,14 @@
 
 
 CGame *game;
+
 CSimon *simon;
 CGround* ground;
 CMap * map = CMap::GetInstance();
 
-
 CSimonKeyHandler * keyHandler;
 
 vector<LPGAMEOBJECT> objects;
-
-
 
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -58,9 +56,11 @@ void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 
+
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
+
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -126,34 +126,37 @@ void LoadResources()
 			}
 		};
 	}
+
 	float x, y;
 	float  Width, Height;
 	int Quantity, id;
 
 	ifstream inp("Textures\\readfile_map_1_gameobjects.txt", ios::in);
-		inp >> Quantity;
-		for (int i = 0; i < Quantity; i++) {
-			inp >> id >> x >> y >> Width >> Height;
-			if (id == 1) {
-			  CLargeCandle* largeCandle = new CLargeCandle();
-			  largeCandle->SetWidthHeight(Width, Height);
-			  largeCandle->SetPosition(x, y);
-			  objects.push_back(largeCandle);
+	inp >> Quantity;
+	for (int i = 0; i < Quantity; i++) {
+		inp >> id >> x >> y >> Width >> Height;
+		if (id == 1) {
+			CLargeCandle* largeCandle = new CLargeCandle();
+			largeCandle->SetWidthHeight(Width, Height);
+			largeCandle->SetPosition(x, y);
+			largeCandle->SetHealth(5);
+			objects.push_back(largeCandle);
 
-			}
 		}
+	}
 	inp.close();
-
 
 	CTestEnemy *testEnemy = new CTestEnemy();
 	testEnemy->SetWidthHeigth(16, 30);
-	testEnemy->SetPosition(70.0f, 178.0f);
+	testEnemy->SetPosition(70.0f, 168.0f);
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
 	ground->SetPosition(0.0f, 198.0f);
 
+
 	simon->SetPosition(32.0f, 32.0f);
+
 
 	ground->AddAnimation(562);
 
@@ -178,8 +181,12 @@ void Update(DWORD dt)
 		}
 		else
 		{
-			if (!dynamic_cast<CStaticObject*> (objects[i]))
+			if (objects[i]->GetHealth() > 0)
 				coObjects.push_back(objects[i]);
+			else
+			{
+				objects.erase(objects.begin() + i);
+			}
 		}
 	}
 

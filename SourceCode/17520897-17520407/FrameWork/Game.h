@@ -62,8 +62,11 @@ public:
 		float &nx,
 		float &ny);
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	float GetCamPos_x() { return cam_x ;}
-	float GetCamPos_y() { return cam_y ; }
+	float GetCamPos_x() { return cam_x; }
+	float GetCamPos_y() { return cam_y; }
+
+	bool checkAABBTouch(float left, float top, float right, float bottom,
+		float checkLeft, float checkTop, float checkRight, float Bottom);
 
 	~CGame();
 };
