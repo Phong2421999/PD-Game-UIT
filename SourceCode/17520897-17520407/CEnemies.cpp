@@ -16,3 +16,8 @@ void CEnemies::GetBoundingBox(float &left, float &top, float &right, float &bott
 	bottom = y + height;
 
 }
+
+void CEnemies::Damage()
+{
+	this->health--;
+}

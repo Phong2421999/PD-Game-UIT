@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 CGame * CGame::__instance = NULL;
 
 /*
@@ -307,4 +307,10 @@ void CGame::SweptAABB(
 
 }
 
+bool CGame::checkAABBTouch(float left, float top, float right, float bottom,
+	float checkLeft, float checkTop, float checkRight, float checkBottom)
+{
+	return !(left > checkRight || right < checkLeft || bottom<checkTop || top > checkBottom);
+	//kiểm tra nếu không đụng thì ngược lại là đụng; nhớ tới y càng giảm thì càng cao hơn;
+}
 

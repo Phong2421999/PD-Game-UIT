@@ -113,4 +113,6 @@ public:
 	void ResetAfterSit();
 	void ResetAfterJump();
 
+
+
 };

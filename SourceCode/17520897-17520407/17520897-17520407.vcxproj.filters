@@ -135,6 +135,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>GameObject\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -213,6 +216,9 @@
       <Filter>GameObject\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
       <Filter>GameObject\Weapon</Filter>
     </ClInclude>
   </ItemGroup>

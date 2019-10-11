@@ -36,8 +36,6 @@ CSimonKeyHandler * keyHandler;
 vector<LPGAMEOBJECT> objects;
 
 
-
-
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -129,7 +127,7 @@ void LoadResources()
 	
 	CTestEnemy *testEnemy = new CTestEnemy();
 	testEnemy->SetWidthHeigth(16, 30);
-	testEnemy->SetPosition(70.0f, 178.0f);
+	testEnemy->SetPosition(70.0f, 168.0f);
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
@@ -144,6 +142,7 @@ void LoadResources()
 	objects.push_back(simon);
 	objects.push_back(ground);
 	objects.push_back(testEnemy);
+
 }
 
 
@@ -152,15 +151,23 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
-		if(simon->getUntouchable() == false)
-			coObjects.push_back(objects[i]);
-		else
+		if (simon->getUntouchable())
 		{
 			if (dynamic_cast<CGround*> (objects[i]))
 			{
 				coObjects.push_back(objects[i]);
 			}
-
+		}
+		else
+		{
+			if (objects[i]->GetHealth() > 0)
+			{
+				coObjects.push_back(objects[i]);
+			}
+			else
+			{
+				objects.erase(objects.begin() + i);
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-#include <d3dx9.h>
+﻿#include <d3dx9.h>
 #include <algorithm>
 
 
@@ -13,7 +13,10 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
+	health = 1;
 }
+
+
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -42,6 +45,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 	float dx = this->dx - sdx;
 	float dy = this->dy - sdy;
+
 
 	GetBoundingBox(ml, mt, mr, mb);
 
@@ -141,6 +145,14 @@ void CGameObject::AddAnimation(int aniId)
 	animations.push_back(ani);
 }
 
+bool CGameObject::checkAABBTouch(LPGAMEOBJECT gameObject) // kiểm tra bbox của 2 object có đè lên nhau
+{
+	float left, top, right, bottom;
+	float checkLeft, checkTop, checkRight, checkBottom;
+	this->GetBoundingBox(left, top, right, bottom);
+	gameObject->GetBoundingBox(checkLeft, checkTop, checkRight, checkBottom);
+	return CGame::GetInstance()->checkAABBTouch(left, top, right, bottom, checkLeft, checkTop, checkRight, checkBottom);
+}
 
 CGameObject::~CGameObject()
 {

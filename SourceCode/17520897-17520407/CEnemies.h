@@ -12,4 +12,5 @@ public:
 		this->width = width;
 		this->height = heigth;
 	}
+	virtual void Damage();
 };
