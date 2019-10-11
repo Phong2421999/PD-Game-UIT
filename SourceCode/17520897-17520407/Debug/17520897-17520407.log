@@ -1,14 +1,8 @@
-﻿  CSimonKeyHandler.cpp
+﻿  main.cpp
 e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  Simon.cpp
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(87): warning C4305: '=': truncation from 'double' to 'float'
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(95): warning C4305: '=': truncation from 'double' to 'float'
-  main.cpp
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(153): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(167): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(183): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(207): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(139): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(170): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(186): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(202): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(226): warning C4018: '<': signed/unsigned mismatch
   17520897-17520407.vcxproj -> E:\Game is my life\Project\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

@@ -49,6 +49,9 @@
     <Filter Include="KeyControll">
       <UniqueIdentifier>{da7cbb30-c68d-4a7c-aa2e-6304a20be1c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\StaticObject">
+      <UniqueIdentifier>{76e4767b-a2ce-46d9-9874-f4f7cb553ebf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -135,6 +138,12 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>GameObject\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="LargeCandle.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="CStaticObject.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -215,6 +224,12 @@
     <ClInclude Include="Weapon.h">
       <Filter>GameObject\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="LargeCandle.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CStaticObject.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -244,6 +259,9 @@
     <Image Include="Textures\tileset_map1.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\ObjectsAndEffect.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
@@ -255,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt">
+      <Filter>Textures</Filter>
+    </Text>
+    <Text Include="Textures\readfile_map_1_gameobjects.txt">
       <Filter>Textures</Filter>
     </Text>
   </ItemGroup>

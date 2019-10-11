@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CEnemies.cpp" />
+    <ClCompile Include="CStaticObject.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CTestEnemy.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="FrameWork\Textures.cpp" />
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
@@ -149,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CEnemies.h" />
+    <ClInclude Include="CStaticObject.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CTestEnemy.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="FrameWork\Textures.h" />
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
@@ -183,6 +187,7 @@
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
+    <Image Include="Textures\ObjectsAndEffect.png" />
     <Image Include="Textures\Simon.png" />
     <Image Include="Textures\tileset_map1.png" />
   </ItemGroup>
@@ -192,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt" />
+    <Text Include="Textures\readfile_map_1_gameobjects.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

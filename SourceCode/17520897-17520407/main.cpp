@@ -15,6 +15,8 @@
 
 #include "Simon.h"
 #include "Ground.h"
+#include "LargeCandle.h"
+#include "CStaticObject.h"
 #include "CTestEnemy.h"
 
 #include "GameConst.h"
@@ -26,10 +28,10 @@
 
 
 CGame *game;
-
 CSimon *simon;
 CGround* ground;
 CMap * map = CMap::GetInstance();
+
 
 CSimonKeyHandler * keyHandler;
 
@@ -56,11 +58,9 @@ void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 
-
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
-
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -98,7 +98,7 @@ void LoadResources()
 		texture->QueryIntAttribute("R", &R);
 		texture->QueryIntAttribute("G", &G);
 		texture->QueryIntAttribute("B", &B);
-		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, B, G));
+		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, G, B));
 
 		directTexture = textures->Get(textureId);
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
@@ -126,7 +126,25 @@ void LoadResources()
 			}
 		};
 	}
-	
+	float x, y;
+	float  Width, Height;
+	int Quantity, id;
+
+	ifstream inp("Textures\\readfile_map_1_gameobjects.txt", ios::in);
+		inp >> Quantity;
+		for (int i = 0; i < Quantity; i++) {
+			inp >> id >> x >> y >> Width >> Height;
+			if (id == 1) {
+			  CLargeCandle* largeCandle = new CLargeCandle();
+			  largeCandle->SetWidthHeight(Width, Height);
+			  largeCandle->SetPosition(x, y);
+			  objects.push_back(largeCandle);
+
+			}
+		}
+	inp.close();
+
+
 	CTestEnemy *testEnemy = new CTestEnemy();
 	testEnemy->SetWidthHeigth(16, 30);
 	testEnemy->SetPosition(70.0f, 178.0f);
@@ -135,15 +153,14 @@ void LoadResources()
 	ground->SetWidthHeigth(780, 8);
 	ground->SetPosition(0.0f, 198.0f);
 
-
 	simon->SetPosition(32.0f, 32.0f);
-
 
 	ground->AddAnimation(562);
 
 	objects.push_back(simon);
 	objects.push_back(ground);
 	objects.push_back(testEnemy);
+
 }
 
 
@@ -152,15 +169,17 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
-		if(simon->getUntouchable() == false)
-			coObjects.push_back(objects[i]);
-		else
+		if (simon->getUntouchable())
 		{
 			if (dynamic_cast<CGround*> (objects[i]))
 			{
 				coObjects.push_back(objects[i]);
 			}
-
+		}
+		else
+		{
+			if (!dynamic_cast<CStaticObject*> (objects[i]))
+				coObjects.push_back(objects[i]);
 		}
 	}
 
