@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "FrameWork/GameObject.h"
+#include "CStaticObject.h"
 #include "FrameWork/debug.h"
 
 #include "GameConst.h"
@@ -9,7 +10,7 @@
 
 #include "Ground.h"
 #include "Weapon.h"
-
+#include "Whip.h"
 
 class CSimon: public CGameObject
 {
@@ -87,8 +88,16 @@ public:
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
+
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL)
+	{
+		if (simonWeapon != NULL)
+		{
+			simonWeapon->Update(dt, colliable_objects);
+		}
+	}
 	virtual void Render();
 	void SetState(int state);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

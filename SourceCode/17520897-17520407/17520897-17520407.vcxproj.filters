@@ -289,6 +289,9 @@
     <Image Include="Textures\Enemies-Castle.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\Staging.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt">

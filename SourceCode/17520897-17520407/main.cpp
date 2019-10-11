@@ -33,6 +33,9 @@ CGame *game;
 CSimon *simon;
 CGround* ground;
 CMap * map = CMap::GetInstance();
+CAnimations * animations;
+
+vector<LPEFT> effects;
 
 CSimonKeyHandler * keyHandler;
 
@@ -61,13 +64,13 @@ void LoadResources()
 	textures->Add(ID_TEX_SIMON, "textures\\Simon.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
 	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
+	textures->Add(ID_TEX_SIMON_ATTACK, "textures\\Staging.png", D3DCOLOR_XRGB(34, 177, 76));
 
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
 
 
 	CSprites * sprites = CSprites::GetInstance();
-	CAnimations * animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 directTexture;
 
@@ -164,8 +167,16 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
+	vector<LPGAMEOBJECT> coWeaponObjects;
+
+	for (int i = 0; i < objects.size(); i++)
 	{
+		if (objects[i]->GetHealth() > 0
+			&& !dynamic_cast<CGround*> (objects[i])
+			&& !dynamic_cast<CSimon*> (objects[i]))
+		{
+			coWeaponObjects.push_back(objects[i]);
+		}
 		if (simon->getUntouchable())
 		{
 			if (dynamic_cast<CGround*> (objects[i]))
@@ -175,18 +186,33 @@ void Update(DWORD dt)
 		}
 		else
 		{
-			if (!dynamic_cast<CStaticObject*> (objects[i]))
-			{
+			if(!dynamic_cast<CStaticObject*> (objects[i]))
 				coObjects.push_back(objects[i]);
+		}
+		if (objects[i]->GetHealth() <= 0)
+		{
+			CHit* hitEffect = new CHit();
+			float x, y;
+			objects[i]->GetPosition(x,y);
+			hitEffect->SetPosition(x,y);
 
-			}
+			effects.push_back(hitEffect);
+			objects.erase(objects.begin() + i);
 		}
 	}
-
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
+	for (int i = 0; i < effects.size(); i++)
+	{
+		if (effects[i]->GetLastFrame())
+		{
+			effects.erase(effects.begin() + i);
+			animations->Get(564)->reset();
+		}
+	}
+	simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 	float cx, cy;
 	simon->GetPosition(cx, cy);
@@ -225,6 +251,8 @@ void Render()
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
+		for (int i = 0; i < effects.size(); i++)
+			effects[i]->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -322,6 +350,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	simon = CSimon::getInstance();
+	animations = CAnimations::GetInstance();
 
 	game = CGame::GetInstance();
 	game->Init(hWnd);

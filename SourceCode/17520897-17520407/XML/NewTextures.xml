@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-             <!--Texture Simon-->
-  <Texture  textureId ="0" gameObjectId ="0">
+  <!--Texture Simon-->
+  <Texture  textureId ="0" textureFile="Textures\\Simon.png"  gameObjectId ="0" R="0" G="0" B="0">
     <!-- Animation IDLE_LEFT -->
     <Animation aniId="500" frameTime="100" name="IDLE_LEFT">
       <sprite id="10001" left="124" top="41" right="140" bottom="71"/>
     </Animation>
     <!-- Animation IDLE_RIGHT -->
     <Animation aniId="501" frameTime="100" name="IDLE_RIGHT">
-      <sprite id="10002" left="160" top="41" right="180" bottom="71"/>
+      <sprite id="10002" left="164" top="41" right="180" bottom="71"/>
     </Animation>
     <!-- Animation DIE_LEFT -->
     <Animation aniId="502" frameTime="100" name="DIE_LEFT">
@@ -28,8 +28,8 @@
     </Animation>
     <!-- Animation MOVE_LEFT -->
     <Animation aniId="506" frameTime="125" name="MOVE_LEFT">
-      <sprite id="1007" left="86" top="40" right="98" bottom="71"/>
-      <sprite id="1008" left="45" top="41" right="60" bottom="71"/>
+      <sprite id="10007" left="86" top="40" right="98" bottom="71"/>
+      <sprite id="10008" left="45" top="41" right="60" bottom="71"/>
     </Animation>
     <!-- Animation MOVE_RIGHT -->
     <Animation aniId="507" frameTime="125" name="MOVE_RIGHT">
@@ -238,34 +238,34 @@
       <sprite id="90110" left="206" top="158" right="218" bottom="189"/>
     </Animation>
   </Texture>
-  
-             <!--Texture Item-->
+  <!--Texture Item-->
   <!-- Animation WHIP_UPGRADE -->
-  <Texture  textureId ="1" gameObjectId ="1">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="540" frameTime="100" name="WHIP_UPGRADE">
       <sprite id="10108" left="44" top="43" right="61" bottom="60"/>
     </Animation>
   </Texture>
   <!-- Animation SMALL_HEART -->
-  <Texture  textureId ="1" gameObjectId ="2">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="2">
     <Animation aniId="541" frameTime="100" name="SMALL_HEART">
       <sprite id="10109" left="126" top="39" right="134" bottom="47"/>
     </Animation>
   </Texture>
+
   <!-- Animation LARGE_HEART -->
-  <Texture  textureId ="1" gameObjectId ="3">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="542" frameTime="100" name="LARGE_HEART">
       <sprite id="10110" left="124" top="59" right="136" bottom="69"/>
     </Animation>
   </Texture>
   <!-- Animation DANGGER -->
-  <Texture  textureId ="1" gameObjectId ="4">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="543" frameTime="100" name="DANGGER">
     <sprite id="10111" left="177" top="40" right="194" bottom="49"/>
   </Animation>
   </Texture>
   <!-- Animation AXE -->
-  <Texture  textureId ="1" gameObjectId ="5">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="544" frameTime="100" name="AXE">
       <sprite id="10112" left="225" top="39" right="240" bottom="53"/>
       <sprite id="10113" left="225" top="63" right="240" bottom="77"/>
@@ -274,7 +274,7 @@
     </Animation>
   </Texture>
   <!-- Animation BOOMERANG -->
-  <Texture  textureId ="1" gameObjectId ="6">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="545" frameTime="100" name="BOOMERANG">
       <sprite id="10116" left="265" top="39" right="280" bottom="53"/>
       <sprite id="10117" left="290" top="39" right="305" bottom="53"/>
@@ -282,108 +282,108 @@
     </Animation>
   </Texture>
   <!-- Animation RED_MONEYBAG -->
-  <Texture  textureId ="1" gameObjectId ="7">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="546" frameTime="100" name="RED_MONEYBAG">
       <sprite id="10119" left="378" top="43" right="392" bottom="58"/>
     </Animation>
   </Texture>
   <!-- Animation PURPLE_MONEYBAG -->
-  <Texture  textureId ="1" gameObjectId ="8">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="547" frameTime="100" name="PURPLE_MONEYBAG">
       <sprite id="10120" left="378" top="68" right="392" bottom="83"/>
     </Animation>
   </Texture>
   <!-- Animation GRAY_MONEYBAG -->
-  <Texture  textureId ="1" gameObjectId ="9">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="547" frameTime="100" name="GRAY_MONEYBAG">
       <sprite id="10121" left="378" top="92" right="392" bottom="107"/>
     </Animation>
   </Texture>
   <!-- Animation STOP_WATCH -->
-  <Texture  textureId ="1" gameObjectId ="10">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="548" frameTime="100" name="STOP_WATCH">
       <sprite id="10122" left="40" top="105" right="55" bottom="111"/>
     </Animation>
   </Texture>
   <!-- Animation HOLY_WATER_BOTTLE -->
-  <Texture  textureId ="1" gameObjectId ="11">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="549" frameTime="100" name="HOLY_WATER_BOTTLE">
       <sprite id="10123" left="102" top="105" right="118" bottom="111"/>
     </Animation>
   </Texture>
   <!-- Animation HOLY_WATER_SMALL_BOTTLE -->
-  <Texture  textureId ="1" gameObjectId ="12">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="550" frameTime="100" name="HOLY_WATER_SMALL_BOTTLE">
       <sprite id="10124" left="143" top="113" right="144" bottom="121"/>
     </Animation>
   </Texture>
   <!-- Animation HOLY_WATER -->
-  <Texture  textureId ="1" gameObjectId ="13">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="551" frameTime="100" name="HOLY_WATER">
       <sprite id="10125" left="136" top="131" right="142" bottom="143"/>
     </Animation>
   </Texture>
   <!-- Animation HOLY_WATER_POND -->
-  <Texture  textureId ="1" gameObjectId ="14">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="552" frameTime="100" name="HOLY_WATER_POND">
       <sprite id="10126" left="131" top="155" right="147" bottom="168"/>
     </Animation>
   </Texture>
   <!-- Animation CROSS -->
-  <Texture  textureId ="1" gameObjectId ="15">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="553" frameTime="100" name="CROSS">
       <sprite id="10127" left="181" top="104" right="197" bottom="121"/>
     </Animation>
   </Texture>
   <!-- Animation INVINCIBILITY_POTION -->
-  <Texture textureId ="1" gameObjectId ="16">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="554" frameTime="100" name="INVINCIBILITY_POTION">
       <sprite id="10128" left="289" top="101" right="304" bottom="119"/>
     </Animation>
   </Texture>
   <!-- Animation POT_ROAST -->
-  <Texture  textureId ="1" gameObjectId ="17">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="555" frameTime="100" name="POT_ROAST">
       <sprite id="10129" left="35" top="157" right="51" bottom="170"/>
     </Animation>  
   </Texture>
   <!-- Animation OTHER_STUFF_ONE -->
-  <Texture  textureId ="1" gameObjectId ="18">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="556" frameTime="100" name="OTHER_STUFF_ONE">
       <sprite id="10130" left="179" top="157" right="191" bottom="171"/>
       <sprite id="10131" left="178" top="182" right="192" bottom="198"/>
     </Animation>
   </Texture>
   <!-- Animation OTHER_STUFF_TWO -->
-  <Texture  textureId ="1" gameObjectId ="1">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="557" frameTime="100" name="OTHER_STUFF_TWO">
       <sprite id="10132" left="206" top="157" right="220" bottom="171"/>
     </Animation>
-  </Texture>                                    
+  </Texture>
+                                    
   <!-- Animation OTHER_STUFF_THREE -->
-  <Texture  textureId ="1" gameObjectId ="19">
+  <Texture  textureId ="1" textureFile="Assess\\Misc.png"  gameObjectId ="1">
     <Animation aniId="558" frameTime="100" name="OTHER_STUFF_THREE">
     <sprite id="10133" left="206" top="184" right="220" bottom="198"/>
   </Animation>
 </Texture>
-  
-            <!--Texture Object and Effect -->
-  <!-- Animation SMALL_CANDLE -->
-  <Texture  textureId ="2" gameObjectId ="20">
+  <!--Texture Object and Effect -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="2" R="34" G="177" B="76">
+    <!-- Animation SMALL_CANDLE -->
     <Animation aniId="559" frameTime="100" name="SMALL_CANDLE">
       <sprite id="10134" left="17" top="33" right="25" bottom="47"/>
       <sprite id="10135" left="31" top="33" right="39" bottom="47"/>
     </Animation>
   </Texture>
   <!-- Animation LARGE_CANDLE -->
-  <Texture  textureId ="2" gameObjectId ="21">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="3" R="34" G="177" B="76">
     <Animation aniId="560" frameTime="100" name="LARGE_CANDLE">
       <sprite id="10136" left="48" top="26" right="64" bottom="56"/>
       <sprite id="10137" left="75" top="26" right="91" bottom="56"/>
     </Animation>
   </Texture>
   <!-- Animation DOORS -->
-  <Texture  textureId ="2" gameObjectId ="22">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="4">
     <Animation aniId="561" frameTime="100" name="DOORS">
       <sprite id="10138" left="24" top="121" right="32" bottom="171"/>
       <sprite id="10139" left="36" top="121" right="52" bottom="171"/>
@@ -391,89 +391,24 @@
     </Animation>
   </Texture>
   <!-- Animation BREAKING_WALL -->
-  <Texture  textureId ="2" gameObjectId ="23">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="5">
     <Animation aniId="562" frameTime="100" name="BREAKING_WALL">
       <sprite id="10159" left="138" top="80" right="145" bottom="88"/>
     </Animation>
   </Texture>
   <!-- Animation SPLASH_EFFECT -->
-  <Texture  textureId ="2" gameObjectId ="24">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="6">
     <Animation aniId="563" frameTime="100" name="SPLASH_EFFECT">
       <sprite id="10160" left="141" top="33" right="148" bottom="47"/>
     </Animation>
   </Texture>
   <!-- Animation HIT_EFFECT -->
-  <Texture  textureId ="2" gameObjectId ="25">
-    <Animation aniId="564" frameTime="70" name="HIT_EFFECT">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="7">
+    <Animation aniId="564" frameTime="100" name="SPLASH_EFFECT">
       <sprite id="10161" left="15" top="79" right="23" bottom="89"/>
       <sprite id="10162" left="34" top="77" right="37" bottom="90"/>
       <sprite id="10163" left="43" top="79" right="49" bottom="91"/>
       <sprite id="10164" left="56" top="76" right="64" bottom="91"/>
-    </Animation>
-  </Texture>
-  
-            <!--Texture Object and Effect -->
-  <!-- Animation GHOST -->
-  <Texture  textureId ="3" gameObjectId ="26">
-    <Animation aniId="565" frameTime="100" name="GHOST">
-      <sprite id="10165" left="12" top="7" right="28" bottom="39"/>
-      <sprite id="10166" left="37" top="7" right="53" bottom="39"/>
-    </Animation>
-  </Texture>
-  <!-- Animation WOLF -->
-  <Texture  textureId ="3" gameObjectId ="27">
-    <Animation aniId="566" frameTime="100" name="WOLF_RUN">
-      <sprite id="20163" left="68" top="19" right="92" bottom="34"/>
-      <sprite id="20164" left="98" top="19" right="126" bottom="34"/>
-      <sprite id="20165" left="133" top="19" right="163" bottom="34"/>
-    </Animation>
-    <Animation aniId="567" frameTime="100" name="WOLF_JUMP">
-      <sprite id="20166" left="168" top="19" right="200" bottom="32"/>
-    </Animation>
-  </Texture>
-            <!--Texture Simon Attack -->
-  <Texture  textureId ="10" gameObjectId ="0">
-    <Animation aniId="1000" frameTime="100" name="NORMAL_ATTACK_LEFT">
-      <sprite id="20001" left="283" top="4" right="343" bottom="34"/>
-      <sprite id="20002" left="347" top="4" right="407" bottom="34"/>
-      <sprite id="20003" left="411" top="4" right="471" bottom="34"/>
-    </Animation>
-    <Animation aniId="1001" frameTime="100" name="NORMAL_ATTACK_RIGHT">
-      <sprite id="20004" left="43" top="4" right="103" bottom="34"/>
-      <sprite id="20005" left="107" top="4" right="167" bottom="34"/>
-      <sprite id="20006" left="171" top="4" right="231" bottom="34"/>
-    </Animation>
-    <Animation aniId="1002" frameTime="1" name="LONG_ATTACK_LEFT">
-      <sprite id="20007" left="432" top="51" right="510" bottom="81"/>
-      <sprite id="20008" left="433" top="96" right="511" bottom="126"/>
-      <sprite id="20009" left="433" top="145" right="511" bottom="175"/>
-      <sprite id="20010" left="433" top="189" right="511" bottom="219"/>
-      
-      <sprite id="20011" left="350" top="51" right="428" bottom="81"/>
-      <sprite id="20012" left="351" top="96" right="429" bottom="126"/>
-      <sprite id="20013" left="351" top="145" right="429" bottom="175"/>
-      <sprite id="20014" left="351" top="189" right="429" bottom="219"/>
-
-      <sprite id="20015" left="268" top="51" right="346" bottom="81"/>
-      <sprite id="20016" left="269" top="96" right="347" bottom="126"/>
-      <sprite id="20017" left="269" top="145" right="347" bottom="175"/>
-      <sprite id="20018" left="269" top="189" right="347" bottom="219"/>
-    </Animation>
-    <Animation aniId="1003" frameTime="25" name="LONG_ATTACK_RIGHT">
-      <sprite id="20019" left="5" top="51" right="83" bottom="81"/>F
-      <sprite id="20020" left="6" top="96" right="84" bottom="126"/>
-      <sprite id="20021" left="6" top="145" right="84" bottom="175"/>
-      <sprite id="20022" left="6" top="189" right="84" bottom="219"/>
-
-      <sprite id="20023" left="87" top="51" right="165" bottom="81"/>
-      <sprite id="20024" left="88" top="96" right="166" bottom="126"/>
-      <sprite id="20025" left="88" top="145" right="166" bottom="175"/>
-      <sprite id="20026" left="88" top="189" right="166" bottom="219"/>
-
-      <sprite id="20027" left="169" top="51" right="247" bottom="81"/>
-      <sprite id="20028" left="170" top="96" right="248" bottom="126"/>
-      <sprite id="20029" left="170" top="145" right="248" bottom="175"/>
-      <sprite id="20030" left="170" top="189" right="248" bottom="219"/>
     </Animation>
   </Texture>
 </Textures>

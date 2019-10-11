@@ -22,12 +22,27 @@ void Weapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (isTouchOtherObject(coObjects->at(i)))
 			{
-				if (dynamic_cast<CTestEnemy*>(coObjects->at(i)))
+				if (dynamic_cast<CEnemies*>(coObjects->at(i)) 
+					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
 				{
 					coObjects->at(i)->Damage();
 				}
 			}
 		}
+	}
+}
+
+void Weapon::SetPositionWithSimon(float x, float y, int nx)
+{
+	if (nx > 0)
+	{
+		SetPosition(x + OFFSET_X_TO_HAND_RIGHT_SIMON, y + OFFSET_Y_TO_HAND_SIMON);
+	}
+	else
+	{
+		SetPosition(x - OFFSET_X_TO_HAND_LEFT_SIMON, y + OFFSET_Y_TO_HAND_SIMON);
+
+
 	}
 }
 

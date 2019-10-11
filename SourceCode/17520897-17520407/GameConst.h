@@ -19,6 +19,7 @@
 #define ID_TEX_ITEM 1
 #define ID_TEX_OBJECTS 2
 #define ID_TEX_ENEMIES 3
+#define ID_TEX_SIMON_ATTACK 10
 
 #define ID_TEX_MAP1 100000
 

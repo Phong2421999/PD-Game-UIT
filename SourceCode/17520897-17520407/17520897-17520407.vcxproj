@@ -201,10 +201,13 @@
     <Image Include="Textures\misc.png" />
     <Image Include="Textures\ObjectsAndEffect.png" />
     <Image Include="Textures\Simon.png" />
+    <Image Include="Textures\Staging.png" />
     <Image Include="Textures\tileset_map1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="XML\Textures.xml" />
+    <Xml Include="XML\Textures.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt" />
