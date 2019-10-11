@@ -10,7 +10,6 @@
 
 #define WHIP_TIME_LIVE 100
 
-
 class Whip : public Weapon {
 public :
 	Whip(float x, float y, int nx);
