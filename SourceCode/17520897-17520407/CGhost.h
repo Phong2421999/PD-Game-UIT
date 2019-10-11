@@ -1,19 +1,14 @@
 #pragma once
-#include "CStaticObject.h"
-#include "CHit.h"
-#include "FrameWork/debug.h"
+#include "CEnemies.h"
+#define ANI_GHOST 565
 
-#define ANI_IDLE 560
-
-class CLargeCandle : public CStaticObject
-{
+class CGhost:public CEnemies {
 private:
 	int width, height;
 public:
-	CLargeCandle();
+	CGhost();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
-	void Update(DWORD dt);
 	void SetWidthHeight(int width, int height) {
 		this->width = width;
 		this->height = height;

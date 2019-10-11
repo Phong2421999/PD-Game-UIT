@@ -121,7 +121,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
+    <ClCompile Include="CGhost.cpp" />
+    <ClCompile Include="CHit.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CStaticObject.cpp" />
@@ -154,7 +157,10 @@
     <ClCompile Include="Whip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
+    <ClInclude Include="CGhost.h" />
+    <ClInclude Include="CHit.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CStaticObject.h" />
@@ -189,6 +195,7 @@
     <Image Include="Assess\Misc.png" />
     <Image Include="Assess\Simon.png" />
     <Image Include="Textures\bbox.png" />
+    <Image Include="Textures\Enemies-Castle.png" />
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
@@ -197,7 +204,6 @@
     <Image Include="Textures\tileset_map1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="XML\NewTextures.xml" />
     <Xml Include="XML\Textures.xml" />
   </ItemGroup>
   <ItemGroup>

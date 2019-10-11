@@ -10,3 +10,7 @@ void CStaticObject::GetBoundingBox(float &left, float &top, float &right, float 
 	right = x + width;
 	bottom = y + height;
 }
+
+bool CStaticObject::GetLastFrame() {
+	return animations[0]->getLastFrame();
+}

@@ -16,3 +16,7 @@ void CLargeCandle::GetBoundingBox(float &left, float &top, float &right, float &
 	right = x + width;
 	bottom = y + height;
 }
+
+void CLargeCandle::Update(DWORD dt) {
+
+}

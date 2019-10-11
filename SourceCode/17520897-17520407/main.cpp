@@ -18,6 +18,7 @@
 #include "CStaticObject.h"
 #include "Ground.h"
 #include "CTestEnemy.h"
+#include "CHit.h"
 
 #include "GameConst.h"
 
@@ -55,9 +56,12 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
-
-
+	
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_SIMON, "textures\\Simon.png", D3DCOLOR_XRGB(0, 0, 0));
+	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
+	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
+
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
 
@@ -67,7 +71,7 @@ void LoadResources()
 
 	LPDIRECT3DTEXTURE9 directTexture;
 
-	TiXmlDocument doc("XML/NewTextures.xml");
+	TiXmlDocument doc("XML/Textures.xml");
 
 	if (!doc.LoadFile())
 	{
@@ -90,15 +94,8 @@ void LoadResources()
 	{
 		int textureId;
 		int gameObjectId;
-		const char * textureFile;
-		textureFile = texture->Attribute("textureFile");
 		texture->QueryIntAttribute("textureId", &textureId);
 		texture->QueryIntAttribute("gameObjectId", &gameObjectId);
-		int R, G, B;
-		texture->QueryIntAttribute("R", &R);
-		texture->QueryIntAttribute("G", &G);
-		texture->QueryIntAttribute("B", &B);
-		textures->Add(textureId, textureFile, D3DCOLOR_XRGB(R, G, B));
 
 		directTexture = textures->Get(textureId);
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
@@ -153,7 +150,6 @@ void LoadResources()
 	ground->SetWidthHeigth(780, 8);
 	ground->SetPosition(0.0f, 198.0f);
 
-
 	simon->SetPosition(32.0f, 32.0f);
 
 
@@ -162,7 +158,6 @@ void LoadResources()
 	objects.push_back(simon);
 	objects.push_back(ground);
 	objects.push_back(testEnemy);
-
 }
 
 

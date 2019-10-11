@@ -49,6 +49,9 @@
     <Filter Include="KeyControll">
       <UniqueIdentifier>{da7cbb30-c68d-4a7c-aa2e-6304a20be1c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Effect">
+      <UniqueIdentifier>{bce34b09-c4c6-4eb8-8285-a8c1a37ddf41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -144,6 +147,15 @@
     <ClCompile Include="LargeCandle.cpp">
       <Filter>GameObject\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="CGhost.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CHit.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -233,6 +245,15 @@
     <ClInclude Include="LargeCandle.h">
       <Filter>GameObject\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="CGhost.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CHit.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -265,14 +286,9 @@
     <Image Include="Textures\ObjectsAndEffect.png">
       <Filter>Textures</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="XML\Textures.xml">
-      <Filter>XML</Filter>
-    </Xml>
-    <Xml Include="XML\NewTextures.xml">
-      <Filter>XML</Filter>
-    </Xml>
+    <Image Include="Textures\Enemies-Castle.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt">
@@ -281,5 +297,10 @@
     <Text Include="Textures\readfile_map_1_gameobjects.txt">
       <Filter>Textures</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="XML\Textures.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
