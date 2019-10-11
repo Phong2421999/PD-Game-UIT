@@ -8,7 +8,7 @@
     </Animation>
     <!-- Animation IDLE_RIGHT -->
     <Animation aniId="501" frameTime="100" name="IDLE_RIGHT">
-      <sprite id="10002" left="164" top="41" right="180" bottom="71"/>
+      <sprite id="10002" left="160" top="41" right="180" bottom="71"/>
     </Animation>
     <!-- Animation DIE_LEFT -->
     <Animation aniId="502" frameTime="100" name="DIE_LEFT">
@@ -19,11 +19,11 @@
       <sprite id="10004" left="236" top="8" right="268" bottom="23"/>
     </Animation>
     <!-- Animation HURT_LEFT -->
-    <Animation aniId="504" frameTime="100" name="HURT_LEFT">
+    <Animation aniId="504" frameTime="100" name="DIE_LEFT">
       <sprite id="10005" left="84" top="1" right="100" bottom="30"/>
     </Animation>
     <!-- Animation HURT_RIGHT -->
-    <Animation aniId="505" frameTime="100" name="HURT_RIGHT">
+    <Animation aniId="505" frameTime="100" name="DIE_RIGHT">
       <sprite id="10006" left="204" top="1" right="220" bottom="30"/>
     </Animation>
     <!-- Animation MOVE_LEFT -->
@@ -52,7 +52,7 @@
     </Animation>
     <!-- Animation THROW_RIGHT -->
     <Animation aniId="511" frameTime="100" name="THROW_RIGHT">
-      <sprite id="10016" left="164" top="201" right="184" bottom="231"/>
+      <sprite id="10016" left="160" top="201" right="184" bottom="231"/>
       <sprite id="10017" left="204" top="201" right="220" bottom="231"/>
       <sprite id="10018" left="241" top="201" right="263" bottom="230"/>
     </Animation>
@@ -328,32 +328,42 @@
     </Animation>
   </Texture>
   <!--Texture Object and Effect -->
-  <Texture  textureId ="2" textureFile="Assess\\Intro.png"  gameObjectId ="2">
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="2" R="34" G="177" B="76">
     <!-- Animation SMALL_CANDLE -->
     <Animation aniId="559" frameTime="100" name="SMALL_CANDLE">
       <sprite id="10134" left="17" top="33" right="25" bottom="47"/>
       <sprite id="10135" left="31" top="33" right="39" bottom="47"/>
     </Animation>
-    <!-- Animation LARGE_CANDLE -->
+  </Texture>
+  <!-- Animation LARGE_CANDLE -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="3" R="34" G="177" B="76">
     <Animation aniId="560" frameTime="100" name="LARGE_CANDLE">
       <sprite id="10136" left="48" top="26" right="64" bottom="56"/>
-      <sprite id="10137" left="75" top="24" right="91" bottom="56"/>
+      <sprite id="10137" left="75" top="26" right="91" bottom="56"/>
     </Animation>
-    <!-- Animation DOORS -->
+  </Texture>
+  <!-- Animation DOORS -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="4">
     <Animation aniId="561" frameTime="100" name="DOORS">
       <sprite id="10138" left="24" top="121" right="32" bottom="171"/>
       <sprite id="10139" left="36" top="121" right="52" bottom="171"/>
       <sprite id="10149" left="55" top="121" right="78" bottom="171"/>
     </Animation>
-    <!-- Animation BREAKING_WALL -->
+  </Texture>
+  <!-- Animation BREAKING_WALL -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="5">
     <Animation aniId="562" frameTime="100" name="BREAKING_WALL">
       <sprite id="10159" left="138" top="80" right="145" bottom="88"/>
     </Animation>
-    <!-- Animation SPLASH_EFFECT -->
+  </Texture>
+  <!-- Animation SPLASH_EFFECT -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="6">
     <Animation aniId="563" frameTime="100" name="SPLASH_EFFECT">
       <sprite id="10160" left="141" top="33" right="148" bottom="47"/>
     </Animation>
-    <!-- Animation HIT_EFFECT -->
+  </Texture>
+  <!-- Animation HIT_EFFECT -->
+  <Texture  textureId ="2" textureFile="Textures\\ObjectsAndEffect.png"  gameObjectId ="7">
     <Animation aniId="564" frameTime="100" name="SPLASH_EFFECT">
       <sprite id="10161" left="15" top="79" right="23" bottom="89"/>
       <sprite id="10162" left="34" top="77" right="37" bottom="90"/>
