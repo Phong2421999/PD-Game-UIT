@@ -1,8 +1,8 @@
 ﻿  main.cpp
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(172): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(192): warning C4018: '<': signed/unsigned mismatch
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(208): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\game is my life\project\pd-game-uit\sourcecode\17520897-17520407\main.cpp(232): warning C4018: '<': signed/unsigned mismatch
-  17520897-17520407.vcxproj -> E:\Game is my life\Project\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe
+e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(172): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(191): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(207): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(231): warning C4018: '<': signed/unsigned mismatch
+  17520897-17520407.vcxproj -> E:\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

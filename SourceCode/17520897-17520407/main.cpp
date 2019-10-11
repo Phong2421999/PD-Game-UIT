@@ -180,11 +180,10 @@ void Update(DWORD dt)
 		}
 		else
 		{
-			if (objects[i]->GetHealth() > 0 && !dynamic_cast<CStaticObject*> (objects[i]))
-				coObjects.push_back(objects[i]);
-			else
+			if (!dynamic_cast<CStaticObject*> (objects[i]))
 			{
-				objects.erase(objects.begin() + i);
+				coObjects.push_back(objects[i]);
+
 			}
 		}
 	}

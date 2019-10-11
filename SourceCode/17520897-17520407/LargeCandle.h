@@ -1,9 +1,9 @@
 #pragma once
-#include "FrameWork/GameObject.h"
+#include "CStaticObject.h"
 
 #define ANI_IDLE 560
 
-class CLargeCandle : public CGameObject
+class CLargeCandle : public CStaticObject
 {
 private:
 	int width, height;
