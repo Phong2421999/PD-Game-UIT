@@ -11,7 +11,6 @@
 #include "Ground.h"
 #include "Weapon.h"
 #include "Whip.h"
-
 class CSimon: public CGameObject
 {
 private:
@@ -59,6 +58,7 @@ public:
 		this->isUntouchable = !isUntouchable;
 	}
 	//get thuộc tính
+	
 	bool getJump() {
 		return isJump;
 	}

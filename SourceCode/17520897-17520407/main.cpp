@@ -66,7 +66,7 @@ void LoadResources()
 	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
 	textures->Add(ID_TEX_ITEMS, "textures\\Items.png", D3DCOLOR_XRGB(128, 0, 0));
 	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
-	textures->Add(ID_TEX_SIMON_ATTACK, "textures\\TexturesV2.png", D3DCOLOR_XRGB(34, 177, 76));
+	textures->Add(ID_TEX_SIMON_ATTACK, "textures\\WhipTexture.png", D3DCOLOR_XRGB(34, 177, 76));
 
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
@@ -154,7 +154,7 @@ void LoadResources()
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
-	ground->SetPosition(0.0f, 198.0f);
+	ground->SetPosition(0.0f, 199.0f);
 
 	simon->SetPosition(32.0f, 32.0f);
 
@@ -171,9 +171,14 @@ void Update(DWORD dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coWeaponObjects;
+	vector<LPGAMEOBJECT> coItemObjects;
 
 	for (int i = 0; i < objects.size(); i++)
 	{
+		if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
+		{
+			coItemObjects.push_back(objects[i]);
+		}
 		if (objects[i]->GetHealth() > 0
 			&& !dynamic_cast<CGround*> (objects[i])
 			&& !dynamic_cast<CSimon*> (objects[i]))
@@ -189,7 +194,7 @@ void Update(DWORD dt)
 		}
 		else
 		{
-			if(!dynamic_cast<CStaticObject*> (objects[i]))
+			if(!dynamic_cast<CItems*>(objects[i]) &&!dynamic_cast<CStaticObject*> (objects[i]))
 				coObjects.push_back(objects[i]);
 		}
 		if (objects[i]->GetHealth() <= 0)
@@ -198,25 +203,35 @@ void Update(DWORD dt)
 			float x, y;
 			objects[i]->GetPosition(x,y);
 			hitEffect->SetPosition(x,y);
-
 			effects.push_back(hitEffect);
 			objects.erase(objects.begin() + i);
-
-			WhipUpgrade* whipUpgrade = new WhipUpgrade();
-			whipUpgrade->SetPosition(x, y);
-			objects.push_back(whipUpgrade);
 		}
 	}
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		if (dynamic_cast<CItems*> (objects[i]))
+		{
+			objects[i]->Update(dt, &coItemObjects);
+		}
+		else {
+			objects[i]->Update(dt, &coObjects);
+		}
+		
 	}
+
+
 	for (int i = 0; i < effects.size(); i++)
 	{
 		if (effects[i]->GetLastFrame())
 		{
+			float x, y;
+			effects[i]->GetPosition(x, y);
 			effects.erase(effects.begin() + i);
 			animations->Get(564)->reset();
+			WhipUpgrade* whipUpgrade = new WhipUpgrade();
+			whipUpgrade->SetWidthHeight(17, 17);
+			whipUpgrade->SetPosition(x, y);
+			objects.push_back(whipUpgrade);
 		}
 	}
 	simon->UpdateSimonWeapon(dt, &coWeaponObjects);

@@ -404,7 +404,7 @@
   </Texture>
   <!-- Animation HIT_EFFECT -->
   <Texture  textureId ="2" gameObjectId ="25">
-    <Animation aniId="564" frameTime="70" name="HIT_EFFECT">
+    <Animation aniId="564" frameTime="80" name="HIT_EFFECT">
       <sprite id="10161" left="15" top="79" right="23" bottom="89"/>
       <sprite id="10162" left="34" top="77" right="37" bottom="90"/>
       <sprite id="10163" left="43" top="79" right="49" bottom="91"/>

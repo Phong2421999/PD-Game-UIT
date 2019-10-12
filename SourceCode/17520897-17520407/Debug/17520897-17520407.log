@@ -1,57 +1,10 @@
-﻿  CEffect.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CEnemies.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CGhost.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CHit.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CItems.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CMap.cpp
-  CSimonKeyHandler.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CStaticObject.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CTestEnemy.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  CTiles.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\ctiles.cpp(48): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-e:\pd-game-uit\sourcecode\17520897-17520407\ctiles.cpp(49): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  GameObject.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  GameConst.cpp
-  Ground.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  LargeCandle.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
+﻿  main.cpp
 e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
 e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(142): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(175): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(176): warning C4018: '<': signed/unsigned mismatch
 e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(210): warning C4018: '<': signed/unsigned mismatch
-e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(214): warning C4018: '<': signed/unsigned mismatch
-e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(235): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(259): warning C4018: '<': signed/unsigned mismatch
-e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(261): warning C4018: '<': signed/unsigned mismatch
-  Brick.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  Goomba.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  Mario.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  Simon.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(82): warning C4305: '=': truncation from 'double' to 'float'
-e:\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(90): warning C4305: '=': truncation from 'double' to 'float'
-  Weapon.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-e:\pd-game-uit\sourcecode\17520897-17520407\weapon.cpp(21): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Compiling...
-  Whip.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  WhipUpgrade.cpp
-e:\pd-game-uit\sourcecode\17520897-17520407\framework\canimation.h(22): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(223): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(250): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(274): warning C4018: '<': signed/unsigned mismatch
+e:\pd-game-uit\sourcecode\17520897-17520407\main.cpp(276): warning C4018: '<': signed/unsigned mismatch
   17520897-17520407.vcxproj -> E:\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

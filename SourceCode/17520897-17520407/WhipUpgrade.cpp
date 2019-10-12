@@ -10,6 +10,10 @@ void WhipUpgrade::Render() {
 	RenderBoundingBox();
 }
 
+void WhipUpgrade::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
+	CItems::Update(dt, coObjects);
+}
+
 void WhipUpgrade::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
 	left = x;
 	top = y;

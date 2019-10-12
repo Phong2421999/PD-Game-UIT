@@ -18,5 +18,4 @@ void CLargeCandle::GetBoundingBox(float &left, float &top, float &right, float &
 }
 
 void CLargeCandle::Update(DWORD dt) {
-
 }

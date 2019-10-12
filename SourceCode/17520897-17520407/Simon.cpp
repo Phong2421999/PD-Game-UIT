@@ -93,7 +93,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
 			}
-
 		}
 	}
 

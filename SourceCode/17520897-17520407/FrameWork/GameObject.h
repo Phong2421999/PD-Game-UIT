@@ -85,8 +85,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-	virtual void Damage() {
-		health--;
+	virtual void Damage(int damage) {
+		health -= damage;
 	}
 
 

@@ -25,7 +25,7 @@ void Weapon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<CEnemies*>(coObjects->at(i)) 
 					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
 				{
-					coObjects->at(i)->Damage();
+					coObjects->at(i)->Damage(1);
 				}
 			}
 		}
