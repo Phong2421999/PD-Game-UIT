@@ -125,6 +125,7 @@
     <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CGhost.cpp" />
     <ClCompile Include="CHit.cpp" />
+    <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CStaticObject.cpp" />
@@ -155,12 +156,14 @@
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="WhipUpgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CGhost.h" />
     <ClInclude Include="CHit.h" />
+    <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CStaticObject.h" />
@@ -189,6 +192,7 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="WhipUpgrade.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assess\Intro.png" />
@@ -199,9 +203,10 @@
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
+    <Image Include="Textures\Items.png" />
     <Image Include="Textures\ObjectsAndEffect.png" />
     <Image Include="Textures\Simon.png" />
-    <Image Include="Textures\Staging.png" />
+    <Image Include="Textures\TexturesV2.png" />
     <Image Include="Textures\tileset_map1.png" />
   </ItemGroup>
   <ItemGroup>

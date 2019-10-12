@@ -52,6 +52,9 @@
     <Filter Include="GameObject\Effect">
       <UniqueIdentifier>{bce34b09-c4c6-4eb8-8285-a8c1a37ddf41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Items">
+      <UniqueIdentifier>{8f5efdf5-85e1-419d-8203-c6b1ce8d80dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,6 +159,12 @@
     <ClCompile Include="CHit.cpp">
       <Filter>GameObject\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="CItems.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="WhipUpgrade.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -254,6 +263,12 @@
     <ClInclude Include="CHit.h">
       <Filter>GameObject\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="CItems.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="WhipUpgrade.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -289,7 +304,10 @@
     <Image Include="Textures\Enemies-Castle.png">
       <Filter>Textures</Filter>
     </Image>
-    <Image Include="Textures\Staging.png">
+    <Image Include="Textures\TexturesV2.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Items.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

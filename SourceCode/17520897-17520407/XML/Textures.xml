@@ -243,7 +243,7 @@
   <!-- Animation WHIP_UPGRADE -->
   <Texture  textureId ="1" gameObjectId ="1">
     <Animation aniId="540" frameTime="100" name="WHIP_UPGRADE">
-      <sprite id="10108" left="44" top="43" right="61" bottom="60"/>
+      <sprite id="10108" left="44" top="43" right="61" bottom="60" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation SMALL_HEART -->
@@ -460,20 +460,36 @@
       <sprite id="20018" left="269" top="189" right="347" bottom="219"/>
     </Animation>
     <Animation aniId="1003" frameTime="25" name="LONG_ATTACK_RIGHT">
-      <sprite id="20019" left="5" top="51" right="83" bottom="81"/>F
-      <sprite id="20020" left="6" top="96" right="84" bottom="126"/>
-      <sprite id="20021" left="6" top="145" right="84" bottom="175"/>
-      <sprite id="20022" left="6" top="189" right="84" bottom="219"/>
+      <sprite id="20019" left="5" top="51" right="83" bottom="81"  frameTime="25" />
+      <sprite id="20020" left="6" top="96" right="84" bottom="126"  frameTime="25" />
+      <sprite id="20021" left="6" top="145" right="84" bottom="175"  frameTime="25" />
+      <sprite id="20022" left="6" top="189" right="84" bottom="219"  frameTime="25" />
 
-      <sprite id="20023" left="87" top="51" right="165" bottom="81"/>
-      <sprite id="20024" left="88" top="96" right="166" bottom="126"/>
-      <sprite id="20025" left="88" top="145" right="166" bottom="175"/>
-      <sprite id="20026" left="88" top="189" right="166" bottom="219"/>
+      <sprite id="20023" left="87" top="51" right="165" bottom="81" frameTime="25" />
+      <sprite id="20024" left="88" top="96" right="166" bottom="126" frameTime="25" />
+      <sprite id="20025" left="88" top="145" right="166" bottom="175"  frameTime="25" />
+      <sprite id="20026" left="88" top="189" right="166" bottom="219"  frameTime="25" />
 
-      <sprite id="20027" left="169" top="51" right="247" bottom="81"/>
-      <sprite id="20028" left="170" top="96" right="248" bottom="126"/>
-      <sprite id="20029" left="170" top="145" right="248" bottom="175"/>
-      <sprite id="20030" left="170" top="189" right="248" bottom="219"/>
+      <sprite id="20027" left="169" top="51" right="247" bottom="81" frameTime="25" />
+      <sprite id="20028" left="170" top="96" right="248" bottom="126"  frameTime="25" />
+      <sprite id="20029" left="170" top="145" right="248" bottom="175" frameTime="25" />
+      <sprite id="20030" left="170" top="189" right="248" bottom="219" frameTime="100" />
+      
+      <sprite id="20032" left="5" top="377" right="51" bottom="407" frameTime="25" />
+    </Animation>
+    <Animation aniId="1004" frameTime="100" name="IDLE_LEFT">
+      <sprite id="20031" left="436" top="377" right="512" bottom="407"/>
+    </Animation>
+    <Animation aniId="1005" frameTime="100" name="IDLE_RIGHT">
+      <sprite id="20032" left="5" top="377" right="51" bottom="407"/>
+    </Animation>
+    <Animation aniId="1004" frameTime="100" name="MOVE_LEFT">
+      <sprite id="20032" left="353" top="377" right="429" bottom="407"/>
+      <sprite id="20031" left="267" top="377" right="343" bottom="407"/>
+    </Animation>
+    <Animation aniId="1005" frameTime="100" name="MOVE_RIGHT">
+      <sprite id="20032" left="88" top="377" right="164" bottom="407"/>
+      <sprite id="20032" left="174" top="377" right="250" bottom="407"/>
     </Animation>
   </Texture>
 </Textures>
