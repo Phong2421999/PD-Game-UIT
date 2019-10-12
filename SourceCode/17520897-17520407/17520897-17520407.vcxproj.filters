@@ -165,6 +165,15 @@
     <ClCompile Include="WhipUpgrade.cpp">
       <Filter>GameObject\Items</Filter>
     </ClCompile>
+    <ClCompile Include="LargeHeart.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallHeart.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Danger.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -267,6 +276,15 @@
       <Filter>GameObject\Items</Filter>
     </ClInclude>
     <ClInclude Include="WhipUpgrade.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LargeHeart.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallHeart.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Danger.h">
       <Filter>GameObject\Items</Filter>
     </ClInclude>
   </ItemGroup>

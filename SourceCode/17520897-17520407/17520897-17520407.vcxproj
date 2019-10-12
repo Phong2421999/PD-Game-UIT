@@ -132,6 +132,7 @@
     <ClCompile Include="CTestEnemy.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTiles.cpp" />
+    <ClCompile Include="Danger.cpp" />
     <ClCompile Include="FrameWork\CAnimation.cpp" />
     <ClCompile Include="FrameWork\CAnimationFame.cpp" />
     <ClCompile Include="FrameWork\CAnimations.cpp" />
@@ -145,11 +146,13 @@
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
+    <ClCompile Include="LargeHeart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
     <ClCompile Include="SampleMario\Mario.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
@@ -170,6 +173,7 @@
     <ClInclude Include="CTestEnemy.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
+    <ClInclude Include="Danger.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />
     <ClInclude Include="FrameWork\CAnimationFame.h" />
     <ClInclude Include="FrameWork\CAnimations.h" />
@@ -183,11 +187,13 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="LargeCandle.h" />
+    <ClInclude Include="LargeHeart.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonConst.h" />
+    <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Weapon.h" />
