@@ -30,15 +30,20 @@ private:
 	DWORD timeMakeWeapon;
 	DWORD startUntouchableTime;
 
+	bool isUseSubWeapon;
+	bool isHasSubWeapon;
 
 	int lastAttackSide;
-
 	int weaponLevel;
+
+	bool isEnoughHeart;
+	int heart;
 
 	Weapon* simonWeapon;
 
 	static CSimon *__instance;
 
+	SIMON_WEAPON typeSubWeapon;
 
 public:
 
@@ -53,6 +58,11 @@ public:
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
+		heart = 5;
+		isUseSubWeapon = false;
+		isHasSubWeapon = true;
+		typeSubWeapon = SIMON_WEAPON::DANGER;
+		isEnoughHeart = false;
 	}
 	//set thuộc tính
 	void setUntouchable()
@@ -63,7 +73,27 @@ public:
 	{
 		this->isCanAttack = isCanAttack;
 	}
+	void setUseSubWeapon(bool b)
+	{
+		this->isUseSubWeapon = b;
+	}
+	void setHasSubWeapon(bool b)
+	{
+		this->isHasSubWeapon = b;
+	}
 	//get thuộc tính
+	bool getUseSubWeapon()
+	{
+		return isUseSubWeapon;
+	}
+	bool getEnoughHeart()
+	{
+		return isEnoughHeart;
+	}
+	bool getHasSubWeapon()
+	{
+		return isHasSubWeapon;
+	}
 	bool getJump() {
 		return isJump;
 	}
@@ -96,6 +126,8 @@ public:
 
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Render();
+
 	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL)
 	{
 		if (simonWeapon)
@@ -103,7 +135,6 @@ public:
 			simonWeapon->Update(dt, colliable_objects);
 		}
 	}
-	virtual void Render();
 	void SetState(int state);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
@@ -116,9 +147,14 @@ public:
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
 	void Attacking(DWORD dt);
-
 	//Xử lí khi đang nhảy - không cho nhảy liên tục - gọi trong update
 	void Jumping();
+
+	// Update kiểm tra vũ khi
+	void UsingWeapon();
+
+	// Kiểm tra tym và tạo sub weapom
+	void MakeSubWeapon(float x, float y, int nx);
 
 	//Xử lí khi đang ngồi - Không cho phép di chuyển và nhảy - chỉ được đánh - gọi trong set state
 	void Sitting();

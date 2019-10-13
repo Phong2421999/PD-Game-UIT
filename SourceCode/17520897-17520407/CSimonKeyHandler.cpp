@@ -57,6 +57,11 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 
 		}
 	}
+	else if (game->IsKeyDown(DIK_UP))
+	{
+		if(simon->getHasSubWeapon() && simon->getEnoughHeart())
+			simon->setUseSubWeapon(true);
+	}
 	else if (game->IsKeyDown(DIK_LEFT))
 		if (simon->getJump())
 		{

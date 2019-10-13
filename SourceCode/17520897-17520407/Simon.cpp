@@ -32,7 +32,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
 	Attacking(dt);
 	Jumping();
-
+	UsingWeapon();
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -95,7 +95,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -105,10 +104,7 @@ void CSimon::Render()
 	int ani;
 	if (simonWeapon)
 	{
-		if (nx > 0)
-			simonWeapon->Render();
-		else
-			simonWeapon->RenderFlipX();
+		simonWeapon->Render();
 	}
 	if (isSit)
 	{
@@ -117,7 +113,7 @@ void CSimon::Render()
 	}
 	else if (isJump)
 	{
-		if(isAttack)
+		if (isAttack)
 			ani = SIMON_ANI_THROW;
 		else
 			ani = SIMON_ANI_SIT;
@@ -160,7 +156,9 @@ void CSimon::Render()
 void CSimon::SetState(int state)
 {
 	CGameObject::SetState(state);
-
+	float cam_x = CGame::GetInstance()->GetCamPos_x();
+	float cam_y = CGame::GetInstance()->GetCamPos_y();
+	D3DXVECTOR3 p(floor(x - cam_x), floor(y - cam_y), 0);
 	if (isSit)
 	{
 		Sitting();
@@ -197,14 +195,6 @@ void CSimon::SetState(int state)
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
 {
-	if (simonWeapon)
-	{
-		if (simonWeapon->GetLastFrame())
-		{
-			simonWeapon->ResetAnimation();
-			DELETE_POINTER(simonWeapon);
-		}
-	}
 	if (isAttack)
 	{
 		vx = 0;// đang đánh không được di chuyển
@@ -225,7 +215,7 @@ void CSimon::Attacking(DWORD dt)
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
 				animations[ani]->reset();
-
+				MakeSubWeapon(x, y, nx);
 			}
 		}
 		else
@@ -239,7 +229,7 @@ void CSimon::Attacking(DWORD dt)
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
 				animations[ani]->reset();
-
+				MakeSubWeapon(x, y, nx);
 			}
 		}
 	}
@@ -263,15 +253,55 @@ void CSimon::Jumping()
 	}
 }
 
-//Xử lí các điều khiển của nhân vật
+void CSimon::UsingWeapon()
+{
+	switch (typeSubWeapon)
+	{
+	case SIMON_WEAPON::DANGER:
+	{
+		if (heart >= SIMON_HEART_USE_WEAPON::DANGER_HEART)
+			isEnoughHeart = true;
+		else
+			isEnoughHeart = false;
+		break;
+	}
+	}
+	if (simonWeapon)
+	{
+		if (dynamic_cast<Whip*>(simonWeapon))
+		{
+			if (simonWeapon->GetLastFrame())
+			{
+				simonWeapon->ResetAnimation();
+				DELETE_POINTER(simonWeapon);
+			}
+		}
+		else
+		{
+			if (simonWeapon->getDeath())
+			{
+				DELETE_POINTER(simonWeapon);
+			}
+		}
+	}
+}
+
+//Xử lí
 
 void CSimon::Attack()
 {
-	isCanAttack = false;
-	isAttack = true;
-	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
-	simonWeapon = new Whip(x, y, nx);
-	simonWeapon->SetRenderPos(x, y);
+	if (isUseSubWeapon)
+	{
+		isCanAttack = false;
+		isAttack = true;
+	}
+	else
+	{
+		isCanAttack = false;
+		isAttack = true;
+		simonWeapon = new Whip(x, y, nx);
+	}
+
 }
 
 void CSimon::Sit()
@@ -364,17 +394,35 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 {
 	if ((isSit || isJump) && isAttack == false)
 	{
-		left = x;
+		left = x + 15;
 		top = y;
-		right = x + SIMON_SIT_BBOX_WIDTH;
+		right = x + 15 + SIMON_SIT_BBOX_WIDTH;
 		bottom = y + SIMON_SIT_BBOX_HEIGHT;
 	}
 	else
 	{
-		left = x;
+		left = x + 15;
 		top = y;
-		right = x + SIMON_SIT_BBOX_WIDTH;
+		right = x + 15 + SIMON_SIT_BBOX_WIDTH;
 		bottom = y + SIMON_BBOX_HEIGHT;
 	}
 
+}
+
+
+void CSimon::MakeSubWeapon(float x, float y, int nx)
+{
+	if (isUseSubWeapon)
+	{
+		switch (typeSubWeapon)
+		{
+		case SIMON_WEAPON::DANGER:
+		{
+			simonWeapon = new WeaponDanger(x, y, nx);
+			isUseSubWeapon = false;
+			heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
+			break;
+		}
+		}
+	}
 }

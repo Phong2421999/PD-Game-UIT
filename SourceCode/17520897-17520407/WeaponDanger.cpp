@@ -8,9 +8,8 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 		vx = -DANGER_SPEED_X;
 	this->nx = nx;
 	SetTimeLive(DANGER_TIME_LIVE);
-	SetRenderPos(x, y);
 	SetPositionWithSimon(x, y, nx);
-	SetWidthHeigth(20.0f, 8.0f);
+	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
 	this->AddAnimation(DANGER_ANI_ID);
 	isDeath = false;
 	makeTime = GetTickCount();
@@ -21,11 +20,11 @@ void WeaponDanger::SetPositionWithSimon(float x, float y, int nx)
 {
 	if (nx > 0)
 	{
-		SetPosition(x + OFFSET_DANGER_X_TO_HAND_RIGHT_SIMON, y );
+		SetPosition(x + OFFSET_DANGER_X_TO_HAND_RIGHT_SIMON, y + OFFSET_DANGER_Y_TO_HAND_SIMON);
 	}
 	else
 	{
-		SetPosition(x  - OFFSET_DANGER_X_TO_HAND_LEFT_SIMON, y );
+		SetPosition(x  - OFFSET_DANGER_X_TO_HAND_LEFT_SIMON, y + OFFSET_DANGER_Y_TO_HAND_SIMON);
 
 	}
 }
@@ -40,17 +39,19 @@ void  WeaponDanger::GetBoundingBox(float &left, float &top, float &right, float 
 
 void WeaponDanger::Render()
 {
-	animations[DANGER_ANI]->Render(xRender, yRender);
-	RenderBoundingBox(x, y);
+	if (nx > 0)
+	{
+		animations[DANGER_ANI]->Render(x, y);
+		RenderBoundingBox(x, y);
+	}
+	else
+	{
+		animations[DANGER_ANI]->RenderFlipX(x, y, 8.5f);
+		RenderBoundingBox(x, y);
+	}
+
 }
 
-void WeaponDanger::RenderFlipX()
-{
-
-	animations[DANGER_ANI]->RenderFlipX(xRender, yRender, 8.5f);
-
-	RenderBoundingBox(x, y);
-}
 
 void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {

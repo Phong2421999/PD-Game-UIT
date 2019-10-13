@@ -26,8 +26,13 @@ void CAnimation::Render(float x, float y,int alpha)
 		{
 			currentFrame++;
 			lastFrameTime = now;
+			if (currentFrame + 1 == frames.size())
+			{
+				nextIsLastFrame = true;
+			}
 			if (currentFrame == frames.size()) { 
 				lastFrame = true;
+				nextIsLastFrame = false;
 				currentFrame = 0;
 			}
 			//DebugOut(L"now: %d, lastFrameTime: %d, t: %d\n", now, lastFrameTime, t);
@@ -53,8 +58,13 @@ void CAnimation::RenderFlipX(float x, float y, float offsetX, int alpha)
 		{
 			currentFrame++;
 			lastFrameTime = now;
+			if (currentFrame + 1 == frames.size())
+			{
+				nextIsLastFrame = true;
+			}
 			if (currentFrame == frames.size()) {
 				lastFrame = true;
+				nextIsLastFrame = false;
 				currentFrame = 0;
 			}
 			//DebugOut(L"now: %d, lastFrameTime: %d, t: %d\n", now, lastFrameTime, t);
@@ -68,6 +78,11 @@ void CAnimation::RenderFlipX(float x, float y, float offsetX, int alpha)
 bool CAnimation::getLastFrame()
 {
 	return lastFrame;
+}
+
+bool CAnimation::getNextIsLastFrame()
+{
+	return nextIsLastFrame;
 }
 
 int CAnimation::getCurrentFrame()

@@ -32,12 +32,8 @@ void CSprite::DrawFlipX(float x, float y, float offsetX, int alpha)
 	r.right = right;
 	r.bottom = bottom;
 	D3DXMATRIX oldTransform, middleTransform;
-	float width = (r.right - r.left);
 	spriteHandler->GetTransform(&oldTransform);
-	if (x < 160)
-		D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(x + offsetX, 0), 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
-	else
-		D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(160 + offsetX, 0), 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
+	D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(p.x + offsetX, p.x), 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
 	D3DXMATRIX newTransform = oldTransform * middleTransform;
 	spriteHandler->SetTransform(&newTransform);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
