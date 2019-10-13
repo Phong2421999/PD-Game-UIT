@@ -13,9 +13,6 @@ public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
 	DWORD GetTime() { return time; }
 	LPSPRITE GetSprite() { return sprite; }
-	void Flip(float FlipX, float FlipY) {
-		sprite->Flip(FlipX, FlipY);
-	}
 };
 
 typedef CAnimationFrame *LPANIMATION_FRAME;

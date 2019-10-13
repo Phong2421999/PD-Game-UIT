@@ -18,13 +18,9 @@ public:
 	int getCurrentFrame();
 	void setIsLastFrame(bool l);
 	void reset();
-	void Flip(float FlipX, float FlipY) {
-		for (int i = 0; i < frames.size(); i++)
-		{
-			frames[i]->Flip(FlipX, FlipY);
-		}
-	}
+	void RenderFlipX(float x, float y,int alpha = 255);
 };
+
 
 typedef CAnimation *LPANIMATION;
 

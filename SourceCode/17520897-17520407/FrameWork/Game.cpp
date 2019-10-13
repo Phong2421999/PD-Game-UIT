@@ -79,12 +79,7 @@ CGame *CGame::GetInstance()
 	return __instance;
 }
 
-void CGame::Flip(float FlipX, float FlipY)
-{
-	D3DXMATRIX matScale;
-	D3DXMatrixScaling(&matScale, FlipX, FlipY, .0f);
-	spriteHandler->SetTransform(&matScale);
-}
+
 
 int CGame::IsKeyDown(int KeyCode)
 {

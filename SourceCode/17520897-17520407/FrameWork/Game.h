@@ -43,7 +43,6 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
-	void Flip(float FlipX, float FlipY); // FlipX, FlipY là các số xác định lật hình
 
 	static CGame * GetInstance();
 

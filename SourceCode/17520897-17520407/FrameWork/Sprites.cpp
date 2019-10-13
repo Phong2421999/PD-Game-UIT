@@ -15,4 +15,30 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 	this->right = right;
 	this->bottom = bottom;
 	this->texture = tex;
+	spriteHandler = CGame::GetInstance()->GetSpriteHandler();
+}
+
+
+void CSprite::DrawFlipX(float x, float y, int alpha)
+{
+	spriteHandler = CGame::GetInstance()->GetSpriteHandler();
+	float cam_x = CGame::GetInstance()->GetCamPos_x();
+	float cam_y = CGame::GetInstance()->GetCamPos_y();
+	D3DXVECTOR3 p(floor(x - cam_x), floor(y - cam_y), 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+	D3DXMATRIX oldTransform, middleTransform;
+	float positionXFlip = (r.right - r.left) / 2;
+	spriteHandler->GetTransform(&oldTransform);
+	if (x < 160)
+		D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(x + positionXFlip, x), 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
+	else
+		D3DXMatrixTransformation2D(&middleTransform, &D3DXVECTOR2(160 + positionXFlip, 160), 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
+	D3DXMATRIX newTransform = oldTransform * middleTransform;
+	spriteHandler->SetTransform(&newTransform);
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->SetTransform(&oldTransform);
 }

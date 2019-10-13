@@ -131,10 +131,10 @@ void CSimon::Render()
 			ani = nx > 0 ? SIMON_ANI_DIE_RIGHT : SIMON_ANI_DIE_LEFT;
 			break;
 		case SIMON_STATE_IDLE:
-			ani = nx > 0 ? SIMON_ANI_IDLE_RIGHT : SIMON_ANI_IDLE_LEFT;
+			ani = nx > 0 ? SIMON_ANI_IDLE_RIGHT : SIMON_ANI_IDLE_RIGHT;
 			break;
 		case SIMON_STATE_WALKING_LEFT:
-			ani = SIMON_ANI_WALKING_LEFT;
+			ani = SIMON_ANI_WALKING_RIGHT;
 			break;
 		case SIMON_STATE_WALKING_RIGHT:
 			ani = SIMON_ANI_WALKING_RIGHT;
@@ -147,7 +147,10 @@ void CSimon::Render()
 	}
 	int alpha = 255;
 	if (isUntouchable) alpha = 128;
-	animations[ani]->Render(x, y, alpha);
+	if (nx > 0)
+		animations[ani]->Render(x, y, alpha);
+	else
+		animations[ani]->RenderFlipX(x, y, alpha);
 
 	RenderBoundingBox();
 }

@@ -16,10 +16,6 @@ class CSprites
 public:
 	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE Get(int id);
-	void Flip(int id, float FlipX, float FlipY)
-	{
-		sprites[id]->Flip(FlipX, FlipY);
-	}
 	static CSprites * GetInstance();
 };
 
