@@ -4,7 +4,7 @@
 void CEffect::Render()
 {
 	//animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 bool CEffect::GetLastFrame() {

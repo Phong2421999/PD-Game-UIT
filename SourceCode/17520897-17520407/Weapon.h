@@ -6,24 +6,42 @@
 
 #define OFFSET_Y_TO_HAND_SIMON 8
 #define OFFSET_X_TO_HAND_LEFT_SIMON 25
-#define OFFSET_X_TO_HAND_RIGHT_SIMON 15
+#define OFFSET_X_TO_HAND_RIGHT_SIMON 31
 
 
 class Weapon : public CGameObject
 {
 public:
 	int width, height;
+	float xRender, yRender;
 	DWORD timeLive;
 public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	//set
 	void SetWidthHeigth(int width, int heigth) {
 		this->width = width;
 		this->height = heigth;
 	}
+	void SetRenderPos(float x, float y)
+	{
+		this->xRender = x;
+		this->yRender = y;
+	}
+	//get
+	void GetRenderPos(float &x, float &y)
+	{
+		x = this->xRender;
+		y = this->yRender;
+	}
 	bool isTouchOtherObject(LPGAMEOBJECT gameObject);
 	virtual void SetPositionWithSimon(float x, float y, int nx);
+	virtual bool GetLastFrame()
+	{
+		return false;
+	}
+	virtual void ResetAnimation(){}
 	//set
 	void SetTimeLive(DWORD timeLive)
 	{
@@ -34,4 +52,5 @@ public:
 	{
 		return timeLive;
 	}
+	virtual void RenderFlipX();
 };

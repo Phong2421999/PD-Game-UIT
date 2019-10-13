@@ -6,7 +6,7 @@ CGhost::CGhost() {
 
 void CGhost::Render() {
 	animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void CGhost::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

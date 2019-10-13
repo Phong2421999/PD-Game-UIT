@@ -128,7 +128,7 @@ void CMario::Render()
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(x, y, alpha);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

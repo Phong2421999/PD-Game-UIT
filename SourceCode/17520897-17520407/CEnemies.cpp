@@ -5,7 +5,7 @@
 void CEnemies::Render()
 {
 	//animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void CEnemies::GetBoundingBox(float &left, float &top, float &right, float &bottom)

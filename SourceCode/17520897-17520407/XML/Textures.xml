@@ -17,12 +17,14 @@
     </Animation>
     <!-- Animation THROW_RIGHT -->
     <Animation aniId="505" frameTime="100" name="THROW_RIGHT">
+      <sprite id="10001" left="4" top="24" right="82" bottom="54" frameTime="100"/>
       <sprite id="10007" left="4" top="73" right="82" bottom="103" frameTime="100"/>
       <sprite id="10008" left="86" top="73" right="164" bottom="103" frameTime="100"/>
       <sprite id="10009" left="169" top="73" right="247" bottom="103" frameTime="100"/>
     </Animation>
     <!-- Animation LEVEL_ONE_ATTACK_STAND_RIGHT -->
     <Animation aniId="506" frameTime="100" name="LEVEL_ONE_ATTACK_STAND_RIGHT">
+      <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
       <sprite id="10010" left="5" top="159" right="83" bottom="189" frameTime="100"/>
       <sprite id="10011" left="87" top="159" right="165" bottom="189" frameTime="100"/>
       <sprite id="10012" left="170" top="159" right="248" bottom="189" frameTime="100"/>

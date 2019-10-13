@@ -7,7 +7,7 @@ WhipUpgrade::WhipUpgrade() {
 
 void WhipUpgrade::Render() {
 	animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void WhipUpgrade::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){

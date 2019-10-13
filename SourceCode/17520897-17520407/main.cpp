@@ -147,9 +147,7 @@ void LoadResources()
 	inp.close();
 
 
-	CTestEnemy *testEnemy = new CTestEnemy();
-	testEnemy->SetWidthHeigth(16, 30);
-	testEnemy->SetPosition(70.0f, 168.0f);
+	
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
@@ -162,7 +160,6 @@ void LoadResources()
 
 	objects.push_back(simon);
 	objects.push_back(ground);
-	objects.push_back(testEnemy);
 }
 
 
@@ -171,7 +168,7 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coWeaponObjects;
 	vector<LPGAMEOBJECT> coItemObjects;
-
+	//lấy objects để tính colisions
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
@@ -206,15 +203,20 @@ void Update(DWORD dt)
 			objects.erase(objects.begin() + i);
 		}
 	}
+
+
+	//Gọi update với colision tính được
+	simon->UpdateSimonWeapon(dt, &coWeaponObjects);
+
 	for (int i = 0; i < objects.size(); i++)
 	{
-		if (dynamic_cast<CItems*> (objects[i]))
+		/*if (dynamic_cast<CItems*> (objects[i]))
 		{
 			objects[i]->Update(dt, &coItemObjects);
 		}
-		else {
+		else {*/
 			objects[i]->Update(dt, &coObjects);
-		}
+		//}
 		
 	}
 
@@ -233,7 +235,6 @@ void Update(DWORD dt)
 			objects.push_back(whipUpgrade);
 		}
 	}
-	simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 	float cx, cy;
 	simon->GetPosition(cx, cy);

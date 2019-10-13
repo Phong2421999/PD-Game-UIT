@@ -105,7 +105,10 @@ void CSimon::Render()
 	int ani;
 	if (simonWeapon)
 	{
-		simonWeapon->Render();
+		if (nx > 0)
+			simonWeapon->Render();
+		else
+			simonWeapon->RenderFlipX();
 	}
 	if (isSit)
 	{
@@ -114,14 +117,7 @@ void CSimon::Render()
 	}
 	else if (isJump)
 	{
-		if (state == SIMON_STATE_ATTACK)
-		{
-			ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
-		}
-		else
-		{
-			ani = nx > 0 ? SIMON_ANI_SIT_RIGHT : SIMON_ANI_SIT_LEFT;
-		}
+
 	}
 	else
 	{
@@ -140,11 +136,14 @@ void CSimon::Render()
 			ani = SIMON_ANI_WALKING_RIGHT;
 			break;
 		case SIMON_STATE_ATTACK:
-			ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+			ani = SIMON_ANI_ATTACK;
+			break;
 		case SIMON_STATE_THROW:
 			ani = nx > 0 ? SIMON_ANI_THROW_RIGHT: SIMON_ANI_THROW_LEFT;
+			break;
 		}
 	}
+
 	int alpha = 255;
 	if (isUntouchable) alpha = 128;
 	if (nx > 0)
@@ -152,7 +151,7 @@ void CSimon::Render()
 	else
 		animations[ani]->RenderFlipX(x, y, alpha);
 
-	RenderBoundingBox();
+	RenderBoundingBox(x+SIMON_BBOX_WIDTH,y);
 }
 
 void CSimon::SetState(int state)
@@ -198,37 +197,32 @@ void CSimon::SetState(int state)
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
 {
-	if (simonWeapon)
+	if (simonWeapon && simonWeapon->GetLastFrame())
 	{
-		DWORD now = GetTickCount();
-		DWORD simonWeaponTimeLive = simonWeapon->GetTimeLive();
-		if (now - timeMakeWeapon >= simonWeaponTimeLive)
-		{
-			DELETE_POINTER(simonWeapon);
-		}
+		simonWeapon->ResetAnimation();
+		DELETE_POINTER(simonWeapon);
 	}
 	if (isAttack)
 	{
 		vx = 0;// đang đánh không được di chuyển
 		vy = 0; // đang nhảy đánh thì ko rơi xuống
+		isCanAttack = false;
 		if (isSit)
 		{
 
 		}
 		else
 		{
-			int ani = lastAttackSide > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT
-				: SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+			int ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
 			if (isLastFrame)
 			{
 				isAttack = false;
-				animations[ani]->reset();
 				state = SIMON_STATE_IDLE;
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
-
-				simonWeapon = new Whip(x,y,nx);
+				animations[ani]->reset();
+				
 			}
 		}
 	}
@@ -260,6 +254,8 @@ void CSimon::Attack()
 	isCanAttack = false;
 	isAttack = true;
 	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
+	simonWeapon = new Whip(x, y, nx);
+	simonWeapon->SetRenderPos(x, y);
 }
 void CSimon::Throw()
 {
@@ -365,7 +361,7 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	{
 		left = x;
 		top = y;
-		right = x + SIMON_BBOX_WIDTH;
+		right = x + SIMON_SIT_BBOX_WIDTH;
 		bottom = y + SIMON_BBOX_HEIGHT;
 	}
 

@@ -7,7 +7,7 @@ SmallHeart::SmallHeart() {
 
 void SmallHeart::Render() {
 	animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void SmallHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {

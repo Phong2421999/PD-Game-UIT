@@ -7,7 +7,7 @@ LargeHeart::LargeHeart() {
 
 void LargeHeart::Render() {
 	animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void LargeHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {

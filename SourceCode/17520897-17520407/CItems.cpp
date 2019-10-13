@@ -2,7 +2,7 @@
 
 void CItems::Render()
 {
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

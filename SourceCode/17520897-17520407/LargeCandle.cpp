@@ -7,7 +7,7 @@ CLargeCandle::CLargeCandle() {
 
 void CLargeCandle::Render() {
 	animations[0]->Render(x, y);
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void CLargeCandle::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

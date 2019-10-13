@@ -117,7 +117,7 @@ void CGameObject::FilterCollision(
 }
 
 
-void CGameObject::RenderBoundingBox()
+void CGameObject::RenderBoundingBox(float x, float y)
 {
 	if (isRenderBBox)
 	{
@@ -150,6 +150,7 @@ bool CGameObject::checkAABBTouch(LPGAMEOBJECT gameObject) // kiá»ƒm tra bbox cá»
 	float left, top, right, bottom;
 	float checkLeft, checkTop, checkRight, checkBottom;
 	this->GetBoundingBox(left, top, right, bottom);
+	DebugOut(L"\nLeft: %f, Top: %f, Right: %f, Bottom: %f", left, top, right, bottom);
 	gameObject->GetBoundingBox(checkLeft, checkTop, checkRight, checkBottom);
 	return CGame::GetInstance()->checkAABBTouch(left, top, right, bottom, checkLeft, checkTop, checkRight, checkBottom);
 }

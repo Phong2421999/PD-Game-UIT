@@ -1,7 +1,7 @@
 #include "CStaticObject.h"
 
 void CStaticObject::Render() {
-	RenderBoundingBox();
+	RenderBoundingBox(x,y);
 }
 
 void CStaticObject::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
