@@ -331,6 +331,9 @@
     <Image Include="Textures\WhipTexture.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\TexturesV3.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\readfile_map_1.txt">

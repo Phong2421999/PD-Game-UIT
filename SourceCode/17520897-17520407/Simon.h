@@ -108,6 +108,7 @@ public:
 	void WalkingLeft();
 	void WalkingRight();
 	void Attack();
+	void Throw();
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
 	void Attacking(DWORD dt);

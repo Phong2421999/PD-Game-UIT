@@ -141,6 +141,8 @@ void CSimon::Render()
 			break;
 		case SIMON_STATE_ATTACK:
 			ani = nx > 0 ? SIMON_ANI_ATTACK_LEVEL_1_STAND_RIGHT : SIMON_ANI_ATTACK_LEVEL_1_STAND_LEFT;
+		case SIMON_STATE_THROW:
+			ani = nx > 0 ? SIMON_ANI_THROW_RIGHT: SIMON_ANI_THROW_LEFT;
 		}
 	}
 	int alpha = 255;
@@ -180,6 +182,9 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_ATTACK:
 			Attack();
+			break;
+		case SIMON_STATE_THROW:
+			Throw();
 			break;
 		}
 	}
@@ -253,6 +258,11 @@ void CSimon::Attack()
 	isAttack = true;
 	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
 }
+void CSimon::Throw()
+{
+	lastAttackSide = nx;
+}
+
 void CSimon::Sit()
 {
 	if (isJump)

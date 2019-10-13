@@ -20,6 +20,9 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
 			simon->SetState(SIMON_STATE_ATTACK);
 		break;
+	case DIK_UP:
+		simon->SetState(SIMON_STATE_THROW);
+		break;
 	case DIK_DOWN:
 		simon->SetState(SIMON_STATE_SIT);
 		break;
@@ -36,6 +39,10 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_DOWN)
 	{
 		simon->ResetAfterSit();
+		simon->SetState(SIMON_STATE_IDLE);
+	}
+	if (KeyCode == DIK_UP)
+	{
 		simon->SetState(SIMON_STATE_IDLE);
 	}
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
@@ -56,6 +63,10 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 			simon->SetState(SIMON_STATE_WALKING_RIGHT);
 
 		}
+	}
+	else if (game->IsKeyDown(DIK_UP))
+	{
+		simon->SetState(SIMON_STATE_THROW);
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 		if (simon->getJump())

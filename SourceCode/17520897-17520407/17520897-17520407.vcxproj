@@ -213,6 +213,7 @@
     <Image Include="Textures\ObjectsAndEffect.png" />
     <Image Include="Textures\Simon.png" />
     <Image Include="Textures\TexturesV2.png" />
+    <Image Include="Textures\TexturesV3.png" />
     <Image Include="Textures\tileset_map1.png" />
     <Image Include="Textures\WhipTexture.png" />
   </ItemGroup>

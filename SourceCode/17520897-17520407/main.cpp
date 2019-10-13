@@ -62,11 +62,10 @@ void LoadResources()
 	CTextures * textures = CTextures::GetInstance();
 	
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_SIMON, "textures\\Simon.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
 	textures->Add(ID_TEX_ITEMS, "textures\\Items.png", D3DCOLOR_XRGB(128, 0, 0));
 	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
-	textures->Add(ID_TEX_SIMON_ATTACK, "textures\\WhipTexture.png", D3DCOLOR_XRGB(34, 177, 76));
+	textures->Add(ID_TEX_SIMON_ATTACK, "textures\\TexturesV3.png", D3DCOLOR_XRGB(34, 177, 76));
 
 	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
