@@ -1,24 +1,4 @@
-﻿  CItems.cpp
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\citems.cpp(11): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\citems.cpp(37): warning C4018: '<': signed/unsigned mismatch
-  CSimonKeyHandler.cpp
-  Danger.cpp
-  LargeHeart.cpp
-  Simon.cpp
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(82): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(90): warning C4305: '=': truncation from 'double' to 'float'
-  SmallHeart.cpp
-  Weapon.cpp
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\weapon.cpp(26): warning C4018: '<': signed/unsigned mismatch
-  Whip.cpp
-  WhipUpgrade.cpp
-  main.cpp
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(141): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(172): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(211): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(224): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(250): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(274): warning C4018: '<': signed/unsigned mismatch
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\main.cpp(276): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  17520897-17520407.vcxproj -> C:\Users\PhongA\Desktop\Game\Develop\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe
+﻿  Simon.cpp
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(82): warning C4305: '=': truncation from 'double' to 'float'
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(90): warning C4305: '=': truncation from 'double' to 'float'
+  17520897-17520407.vcxproj -> E:\Game is my life\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

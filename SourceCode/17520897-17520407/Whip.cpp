@@ -16,7 +16,8 @@ void Whip::Render()
 
 void Whip::RenderFlipX()
 {
-	animations[WHIP_ANI_LEVEL_1]->RenderFlipX(xRender, yRender);
+	DebugOut(L"\nx = %f", x);
+	animations[WHIP_ANI_LEVEL_1]->RenderFlipX(xRender, yRender, 24);
 	RenderBoundingBox(x, y);
 }
 

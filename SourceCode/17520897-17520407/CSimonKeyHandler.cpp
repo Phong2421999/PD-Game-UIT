@@ -65,7 +65,6 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 		else
 		{
 			simon->SetState(SIMON_STATE_WALKING_LEFT);
-
 		}
 	else if (game->IsKeyDown(DIK_DOWN))
 		simon->SetState(SIMON_STATE_SIT);

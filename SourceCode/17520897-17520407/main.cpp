@@ -145,8 +145,6 @@ void LoadResources()
 		}
 	}
 	inp.close();
-
-
 	
 
 	ground = new CGround();

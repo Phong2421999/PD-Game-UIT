@@ -19,6 +19,8 @@ public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	virtual void RenderFlipX();
+
 	//set
 	void SetWidthHeigth(int width, int heigth) {
 		this->width = width;
@@ -28,12 +30,17 @@ public:
 	{
 		this->xRender = x;
 		this->yRender = y;
+
 	}
 	//get
 	void GetRenderPos(float &x, float &y)
 	{
 		x = this->xRender;
 		y = this->yRender;
+	}
+	virtual bool getDeath()
+	{
+		return false;
 	}
 	bool isTouchOtherObject(LPGAMEOBJECT gameObject);
 	virtual void SetPositionWithSimon(float x, float y, int nx);
@@ -52,5 +59,4 @@ public:
 	{
 		return timeLive;
 	}
-	virtual void RenderFlipX();
 };

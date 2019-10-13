@@ -11,7 +11,8 @@ void Danger::Render() {
 }
 
 void Danger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-	CItems::Update(dt, coObjects);
+	dx = vx * dt;
+	x += dx;
 }
 
 void Danger::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

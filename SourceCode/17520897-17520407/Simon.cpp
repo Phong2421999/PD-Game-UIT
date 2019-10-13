@@ -73,7 +73,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (isUntouchable == false)
 				{
-				
+
 					if (e->nx > 0)
 					{
 						isUntouchable = true;
@@ -112,34 +112,37 @@ void CSimon::Render()
 	}
 	if (isSit)
 	{
-		ani = nx > 0 ? SIMON_ANI_SIT_RIGHT : SIMON_ANI_SIT_LEFT;
+		ani = SIMON_ANI_SIT;
 
 	}
 	else if (isJump)
 	{
-
+		if(isAttack)
+			ani = SIMON_ANI_THROW;
+		else
+			ani = SIMON_ANI_SIT;
 	}
 	else
 	{
 		switch (state)
 		{
 		case SIMON_STATE_DIE:
-			ani = nx > 0 ? SIMON_ANI_DIE_RIGHT : SIMON_ANI_DIE_LEFT;
+			ani = SIMON_ANI_DIE;
 			break;
 		case SIMON_STATE_IDLE:
-			ani = nx > 0 ? SIMON_ANI_IDLE_RIGHT : SIMON_ANI_IDLE_RIGHT;
+			ani = SIMON_ANI_IDLE;
 			break;
 		case SIMON_STATE_WALKING_LEFT:
-			ani = SIMON_ANI_WALKING_RIGHT;
+			ani = SIMON_ANI_WALKING;
 			break;
 		case SIMON_STATE_WALKING_RIGHT:
-			ani = SIMON_ANI_WALKING_RIGHT;
+			ani = SIMON_ANI_WALKING;
 			break;
 		case SIMON_STATE_ATTACK:
 			ani = SIMON_ANI_ATTACK;
 			break;
 		case SIMON_STATE_THROW:
-			ani = nx > 0 ? SIMON_ANI_THROW_RIGHT: SIMON_ANI_THROW_LEFT;
+			ani = SIMON_ANI_THROW;
 			break;
 		}
 	}
@@ -149,9 +152,9 @@ void CSimon::Render()
 	if (nx > 0)
 		animations[ani]->Render(x, y, alpha);
 	else
-		animations[ani]->RenderFlipX(x, y, alpha);
+		animations[ani]->RenderFlipX(x, y, OFFSET_FLIP_X, alpha);
 
-	RenderBoundingBox(x+SIMON_BBOX_WIDTH,y);
+	RenderBoundingBox(x + SIMON_BBOX_WIDTH, y);
 }
 
 void CSimon::SetState(int state)
@@ -185,9 +188,6 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_ATTACK:
 			Attack();
 			break;
-		case SIMON_STATE_THROW:
-			Throw();
-			break;
 		}
 	}
 
@@ -197,10 +197,13 @@ void CSimon::SetState(int state)
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
 {
-	if (simonWeapon && simonWeapon->GetLastFrame())
+	if (simonWeapon)
 	{
-		simonWeapon->ResetAnimation();
-		DELETE_POINTER(simonWeapon);
+		if (simonWeapon->GetLastFrame())
+		{
+			simonWeapon->ResetAnimation();
+			DELETE_POINTER(simonWeapon);
+		}
 	}
 	if (isAttack)
 	{
@@ -210,6 +213,20 @@ void CSimon::Attacking(DWORD dt)
 		if (isSit)
 		{
 
+		}
+		else if (isJump)
+		{
+			int ani = SIMON_ANI_ATTACK;
+			bool isLastFrame = animations[ani]->getLastFrame();
+			if (isLastFrame)
+			{
+				isAttack = false;
+				state = SIMON_STATE_JUMP;
+				lastAttackTime = GetTickCount();
+				timeMakeWeapon = GetTickCount();
+				animations[ani]->reset();
+
+			}
 		}
 		else
 		{
@@ -222,7 +239,7 @@ void CSimon::Attacking(DWORD dt)
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
 				animations[ani]->reset();
-				
+
 			}
 		}
 	}
@@ -250,16 +267,11 @@ void CSimon::Jumping()
 
 void CSimon::Attack()
 {
-	lastAttackTime = GetTickCount();
 	isCanAttack = false;
 	isAttack = true;
 	lastAttackSide = nx; // kiểm tra hướng đánh để xác định kết thúc animation;
 	simonWeapon = new Whip(x, y, nx);
 	simonWeapon->SetRenderPos(x, y);
-}
-void CSimon::Throw()
-{
-	lastAttackSide = nx;
 }
 
 void CSimon::Sit()

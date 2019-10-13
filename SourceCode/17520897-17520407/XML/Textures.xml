@@ -13,7 +13,7 @@
     </Animation>
     <!-- Animation SIT_RIGHT -->
     <Animation aniId="504" frameTime="100" name="SIT_RIGHT">
-      <sprite id="10006" left="169" top="24" right="247" bottom="54" frameTime="100"/>
+      <sprite id="10006" left="169" top="30" right="247" bottom="54" frameTime="100"/>
     </Animation>
     <!-- Animation THROW_RIGHT -->
     <Animation aniId="505" frameTime="100" name="THROW_RIGHT">

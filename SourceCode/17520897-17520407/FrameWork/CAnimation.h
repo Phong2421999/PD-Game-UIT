@@ -18,7 +18,7 @@ public:
 	int getCurrentFrame();
 	void setIsLastFrame(bool l);
 	void reset();
-	void RenderFlipX(float x, float y,int alpha = 255);
+	void RenderFlipX(float x, float y, float offsetX,int alpha = 255);
 };
 
 

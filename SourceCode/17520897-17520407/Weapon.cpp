@@ -7,6 +7,7 @@ void Weapon::Render()
 
 void Weapon::RenderFlipX()
 {
+	//animations[0]->RenderFlipX(x, y);
 	RenderBoundingBox(x, y);
 }
 

@@ -11,6 +11,8 @@
 #include "Ground.h"
 #include "Weapon.h"
 #include "Whip.h"
+#include "WeaponDanger.h"
+
 class CSimon: public CGameObject
 {
 private:
@@ -57,8 +59,11 @@ public:
 	{
 		this->isUntouchable = !isUntouchable;
 	}
+	void setCanAttack(bool isCanAttack)
+	{
+		this->isCanAttack = isCanAttack;
+	}
 	//get thuộc tính
-	
 	bool getJump() {
 		return isJump;
 	}
@@ -93,7 +98,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL)
 	{
-		if (simonWeapon != NULL)
+		if (simonWeapon)
 		{
 			simonWeapon->Update(dt, colliable_objects);
 		}
@@ -108,7 +113,6 @@ public:
 	void WalkingLeft();
 	void WalkingRight();
 	void Attack();
-	void Throw();
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
 	void Attacking(DWORD dt);

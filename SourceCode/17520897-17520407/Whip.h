@@ -21,7 +21,7 @@ public :
 	Whip(float x, float y, int nx);
 	void Render();
 	void RenderFlipX();
-	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	bool GetLastFrame()
 	{
 		if(animations[WHIP_ANI_LEVEL_1]->getLastFrame())
