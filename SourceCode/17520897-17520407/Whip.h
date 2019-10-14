@@ -10,7 +10,7 @@
 
 #define WHIP_TIME_LIVE 100
 
-#define WHIP_ANI_LEVEL_1_ID 506
+#define WHIP_ANI_LEVEL_1_ID 509
 
 #define WHIP_ANI_LEVEL_1 0
 
@@ -36,7 +36,7 @@ public :
 	{
 		animations[WHIP_ANI_LEVEL_1]->reset();
 	}
-
+	void WhipUgradeLevel(int type);
 	void SetPositionWithSimon(float x, float y, int nx);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 

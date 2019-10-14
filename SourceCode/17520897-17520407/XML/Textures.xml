@@ -2,86 +2,137 @@
 <Textures>
              <!--Texture Simon-->
   <Texture  textureId ="0" gameObjectId ="0">
-    <!-- Animation IDLE_RIGHT -->
-    <Animation aniId="500" frameTime="100" name="IDLE_RIGHT">
+    <!-- Animation IDLE -->
+    <Animation aniId="500" frameTime="100" name="IDLE">
       <sprite id="10001" left="4" top="24" right="82" bottom="54" frameTime="100"/>
     </Animation>
-    <!-- Animation MOVE_RIGHT -->
-    <Animation aniId="503" frameTime="125" name="MOVE_RIGHT">
+    <!-- Animation HURT -->
+    <Animation aniId="501" frameTime="100" name="HURT">
+      <sprite id="10002" left="360" top="24" right="438" bottom="54" frameTime="100"/>
+    </Animation>
+    <!-- Animation DIE -->
+    <Animation aniId="502" frameTime="100" name="DIE">
+      <sprite id="10003" left="443" top="24" right="521" bottom="54" frameTime="100"/>
+    </Animation>
+    <!-- Animation MOVE -->
+    <Animation aniId="503" frameTime="125" name="MOVE">
       <sprite id="10004" left="4" top="24" right="82" bottom="54" frameTime="100"/>
       <sprite id="10005" left="86" top="24" right="164" bottom="54" frameTime="100"/>
     </Animation>
-    <!-- Animation SIT_RIGHT -->
-    <Animation aniId="504" frameTime="100" name="SIT_RIGHT">
-      <sprite id="10006" left="169" top="30" right="247" bottom="54" frameTime="100"/>
+    <!-- Animation MOVE_INVISIBLE -->
+    <Animation aniId="504" frameTime="125" name="MOVE">
+      <sprite id="10006" left="278" top="166" right="356" bottom="196" frameTime="100"/>
+      <sprite id="10007" left="360" top="166" right="438" bottom="196" frameTime="100"/>
     </Animation>
-    <!-- Animation THROW_RIGHT -->
-    <Animation aniId="505" frameTime="100" name="THROW_RIGHT">
-      <sprite id="10001" left="4" top="24" right="82" bottom="54" frameTime="100"/>
-      <sprite id="10007" left="4" top="73" right="82" bottom="103" frameTime="100"/>
-      <sprite id="10008" left="86" top="73" right="164" bottom="103" frameTime="100"/>
-      <sprite id="10009" left="169" top="73" right="247" bottom="103" frameTime="100"/>
+    <!-- Animation SIT -->
+    <Animation aniId="505" frameTime="100" name="SIT">
+      <sprite id="10008" left="169" top="30" right="247" bottom="54" frameTime="100"/>
     </Animation>
-    <!-- Animation LEVEL_ONE_ATTACK_STAND_RIGHT -->
-    <Animation aniId="506" frameTime="100" name="LEVEL_ONE_ATTACK_STAND_RIGHT">
-      <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
-      <sprite id="10010" left="5" top="159" right="83" bottom="189" frameTime="100"/>
-      <sprite id="10011" left="87" top="159" right="165" bottom="189" frameTime="100"/>
-      <sprite id="10012" left="170" top="159" right="248" bottom="189" frameTime="100"/>
+    <!-- Animation SIT_INVISIBLE -->
+    <Animation aniId="506" frameTime="100" name="SIT_INVISIBLE">
+      <sprite id="10009" left="443" top="166" right="521" bottom="196" frameTime="100"/>
     </Animation>
-    <!-- Animation LEVEL_TWO_ATTACK_STAND_RIGHT -->
-    <Animation aniId="507" frameTime="100" name="LEVEL_TWO_ATTACK_STAND_RIGHT">
-      <sprite id="10013" left="5" top="199" right="83" bottom="229" frameTime="100"/>
-      <sprite id="10014" left="87" top="199" right="165" bottom="229" frameTime="100"/>
-      <sprite id="10015" left="170" top="199" right="248" bottom="229" frameTime="100"/>
+    <!-- Animation THROW -->
+    <Animation aniId="507" frameTime="100" name="THROW">
+      <sprite id="10010" left="4" top="24" right="82" bottom="54" frameTime="100"/>
+      <sprite id="10011" left="4" top="73" right="82" bottom="103" frameTime="100"/>
+      <sprite id="10012" left="86" top="73" right="164" bottom="103" frameTime="100"/>
+      <sprite id="10013" left="169" top="73" right="247" bottom="103" frameTime="100"/>
     </Animation>
-    <!-- Animation LEVEL_THREE_ATTACK_STAND_RIGHT -->
-    <Animation aniId="508" frameTime="100" name="LEVEL_THREE_ATTACK_STAND_RIGHT">
-      <sprite id="10016" left="5" top="199" right="83" bottom="229" frameTime="100"/>
-      <sprite id="10017" left="6" top="244" right="84" bottom="274" frameTime="100"/>
-      <sprite id="10018" left="6" top="293" right="84" bottom="323" frameTime="100"/>
-      <sprite id="10019" left="6" top="337" right="84" bottom="367" frameTime="100"/>
-
-      <sprite id="10020" left="87" top="199" right="165" bottom="229" frameTime="100"/>
-      <sprite id="10021" left="88" top="244" right="166" bottom="274" frameTime="100"/>
-      <sprite id="10022" left="88" top="293" right="166" bottom="323" frameTime="100"/>
-      <sprite id="10023" left="88" top="337" right="166" bottom="367" frameTime="100"/>
-
+    <!-- Animation THROW_INVISIBLE -->
+    <Animation aniId="508" frameTime="100" name="THROW_INVISIBLE">
+      <sprite id="10014" left="278" top="166" right="356" bottom="196" frameTime="100"/>
+      <sprite id="10015" left="278" top="122" right="356" bottom="152" frameTime="100"/>
+      <sprite id="10016" left="360" top="122" right="438" bottom="152" frameTime="100"/>
+      <sprite id="10017" left="442" top="122" right="520" bottom="152" frameTime="100"/>
+    </Animation>
+    <!-- Animation LEVEL_ONE_ATTACK_STAND -->
+    <Animation aniId="509" frameTime="100" name="LEVEL_ONE_ATTACK_STAND">
+      <sprite id="10018" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="10019" left="5" top="159" right="83" bottom="189" frameTime="100"/>
+      <sprite id="10020" left="87" top="159" right="165" bottom="189" frameTime="100"/>
+      <sprite id="10021" left="170" top="159" right="248" bottom="189" frameTime="100"/>
+    </Animation>
+    <!-- Animation LEVEL_TWO_ATTACK_STAND -->
+    <Animation aniId="510" frameTime="100" name="LEVEL_TWO_ATTACK_STAND">
+      <sprite id="10022" left="5" top="199" right="83" bottom="229" frameTime="100"/>
+      <sprite id="10023" left="87" top="199" right="165" bottom="229" frameTime="100"/>
       <sprite id="10024" left="170" top="199" right="248" bottom="229" frameTime="100"/>
-      <sprite id="10025" left="171" top="244" right="249" bottom="274" frameTime="100"/>
-      <sprite id="10026" left="171" top="293" right="249" bottom="323" frameTime="100"/>
-      <sprite id="10027" left="171" top="337" right="249" bottom="367" frameTime="100"/>
     </Animation>
+    <!-- Animation LEVEL_THREE_ATTACK_STAND -->
+    <Animation aniId="511" frameTime="100" name="LEVEL_THREE_ATTACK_STAND">
+      <sprite id="10025" left="5" top="199" right="83" bottom="229" frameTime="100"/>
+      <sprite id="10026" left="6" top="244" right="84" bottom="274" frameTime="100"/>
+      <sprite id="10027" left="6" top="293" right="84" bottom="323" frameTime="100"/>
+      <sprite id="10028" left="6" top="337" right="84" bottom="367" frameTime="100"/>
 
+      <sprite id="10029" left="87" top="199" right="165" bottom="229" frameTime="100"/>
+      <sprite id="10030" left="88" top="244" right="166" bottom="274" frameTime="100"/>
+      <sprite id="10031" left="88" top="293" right="166" bottom="323" frameTime="100"/>
+      <sprite id="10032" left="88" top="337" right="166" bottom="367" frameTime="100"/>
 
-    <!-- Animation LEVEL_ONE_ATTACK_SIT_RIGHT -->
-    <Animation aniId="509" frameTime="100" name="LEVEL_ONE_ATTACK_SIT_RIGHTT">
-      <sprite id="10028" left="4" top="118" right="82" bottom="148"/>
-      <sprite id="10029" left="86" top="118" right="164" bottom="148"/>
-      <sprite id="10030" left="169" top="118" right="247" bottom="148"/>
+      <sprite id="10033" left="170" top="199" right="248" bottom="229" frameTime="100"/>
+      <sprite id="10034" left="171" top="244" right="249" bottom="274" frameTime="100"/>
+      <sprite id="10035" left="171" top="293" right="249" bottom="323" frameTime="100"/>
+      <sprite id="10036" left="171" top="337" right="249" bottom="367" frameTime="100"/>
     </Animation>
-    <!-- Animation LEVEL_TWO_ATTACK_SIT_RIGHT -->
-    <Animation aniId="510" frameTime="100" name="LEVEL_TWO_ATTACK_SIT_RIGHT">
-      <sprite id="10031" left="6" top="529" right="82" bottom="559"/>
-      <sprite id="10032" left="88" top="529" right="164" bottom="559"/>
-      <sprite id="10033" left="174" top="529" right="250" bottom="559"/>
+    <!-- Animation LEVEL_ONE_ATTACK_SIT -->
+    <Animation aniId="512" frameTime="100" name="LEVEL_ONE_ATTACK_SIT">
+      <sprite id="10037" left="4" top="118" right="82" bottom="148"/>
+      <sprite id="10038" left="86" top="118" right="164" bottom="148"/>
+      <sprite id="10039" left="169" top="118" right="247" bottom="148"/>
     </Animation>
-    <!-- Animation LEVEL_THREE_ATTACK_SIT_RIGHT -->
-    <Animation aniId="511" frameTime="100" name="LEVEL_THREE_ATTACK_SIT_RIGHT">
-      <sprite id="10034" left="6" top="444" right="82" bottom="475"/>
-      <sprite id="10035" left="6" top="488" right="82" bottom="519"/>
-      <sprite id="10036" left="6" top="529" right="82" bottom="560"/>
-      <sprite id="10037" left="6" top="572" right="82" bottom="603"/>
+    <!-- Animation LEVEL_TWO_ATTACK_SIT -->
+    <Animation aniId="513" frameTime="100" name="LEVEL_TWO_ATTACK_SIT">
+      <sprite id="10040" left="6" top="529" right="82" bottom="559"/>
+      <sprite id="10041" left="88" top="529" right="164" bottom="559"/>
+      <sprite id="10042" left="174" top="529" right="250" bottom="559"/>
+    </Animation>
+    <!-- Animation LEVEL_THREE_ATTACK_SIT -->
+    <Animation aniId="514" frameTime="100" name="LEVEL_THREE_ATTACK_SIT">
+      <sprite id="10043" left="6" top="444" right="82" bottom="475"/>
+      <sprite id="10044" left="6" top="488" right="82" bottom="519"/>
+      <sprite id="10045" left="6" top="529" right="82" bottom="560"/>
+      <sprite id="10046" left="6" top="572" right="82" bottom="603"/>
 
-      <sprite id="10038" left="88" top="444" right="164" bottom="475"/>
-      <sprite id="10039" left="88" top="488" right="164" bottom="519"/>
-      <sprite id="10040" left="88" top="529" right="164" bottom="560"/>
-      <sprite id="10041" left="88" top="572" right="165" bottom="603"/>
+      <sprite id="10047" left="88" top="444" right="164" bottom="475"/>
+      <sprite id="10048" left="88" top="488" right="164" bottom="519"/>
+      <sprite id="10049" left="88" top="529" right="164" bottom="560"/>
+      <sprite id="10050" left="88" top="572" right="165" bottom="603"/>
 
-      <sprite id="10042" left="174" top="444" right="250" bottom="475"/>
-      <sprite id="10043" left="174" top="488" right="250" bottom="519"/>
-      <sprite id="10044" left="174" top="529" right="250" bottom="560"/>
-      <sprite id="10045" left="174" top="572" right="250" bottom="603"/>
+      <sprite id="10051" left="174" top="444" right="250" bottom="475"/>
+      <sprite id="10052" left="174" top="488" right="250" bottom="519"/>
+      <sprite id="10053" left="174" top="529" right="250" bottom="560"/>
+      <sprite id="10054" left="174" top="572" right="250" bottom="603"/>
+    </Animation>
+    <!-- Animation LEVEL_ONE_ATTACK_STAND_INVISIBLE -->
+    <Animation aniId="515" frameTime="100" name="LEVEL_ONE_ATTACK_STAND_INVISIBLE">
+      <sprite id="10055" left="278" top="208" right="356" bottom="238" frameTime="100"/>
+      <sprite id="10056" left="360" top="208" right="438" bottom="238" frameTime="100"/>
+      <sprite id="10057" left="442" top="208" right="521" bottom="238" frameTime="100"/>
+    </Animation>
+    <!-- Animation LEVEL_TWO_ATTACK_STAND_INVISIBLE -->
+    <Animation aniId="516" frameTime="100" name="LEVEL_TWO_ATTACK_STAND_INVISIBLE">
+      <sprite id="10058" left="278" top="248" right="356" bottom="278" frameTime="100"/>
+      <sprite id="10059" left="360" top="248" right="438" bottom="278" frameTime="100"/>
+      <sprite id="10060" left="442" top="248" right="521" bottom="278" frameTime="100"/>
+    </Animation>
+    <!-- Animation FLASH -->
+    <Animation aniId="517" frameTime="25" name="FLASH">
+      <sprite id="10061" left="86" top="24" right="164" bottom="54" frameTime="100"/>
+      <sprite id="10062" left="278" top="73" right="256" bottom="103"/>
+      <sprite id="10063" left="360" top="73" right="438" bottom="103"/>
+      <sprite id="10064" left="442" top="73" right="520" bottom="103"/>
+
+      <sprite id="10065" left="86" top="24" right="164" bottom="54" frameTime="100"/>
+      <sprite id="10066" left="278" top="73" right="256" bottom="103"/>
+      <sprite id="10067" left="360" top="73" right="438" bottom="103"/>
+      <sprite id="10068" left="442" top="73" right="520" bottom="103"/>
+      
+      <sprite id="10069" left="86" top="24" right="164" bottom="54" frameTime="100"/>
+      <sprite id="10070" left="278" top="73" right="256" bottom="103"/>
+      <sprite id="10071" left="360" top="73" right="438" bottom="103"/>
+      <sprite id="10072" left="442" top="73" right="520" bottom="103"/>
     </Animation>
   </Texture>
   

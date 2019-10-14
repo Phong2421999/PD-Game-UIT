@@ -10,6 +10,7 @@ public:
 	Danger();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
+	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void SetWidthHeight(int width, int height) {
 		this->width = width;

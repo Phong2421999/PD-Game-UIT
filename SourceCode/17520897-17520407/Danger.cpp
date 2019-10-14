@@ -10,6 +10,10 @@ void Danger::Render() {
 	RenderBoundingBox(x,y);
 }
 
+void Danger::RenderCurrentFrame() {
+	animations[0]->RenderCurrentFrame(x, y);
+}
+
 void Danger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	dx = vx * dt;
 	x += dx;

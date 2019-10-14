@@ -27,7 +27,6 @@ void Whip::Render()
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
 	if (animations[WHIP_ANI_LEVEL_1]->getNextIsLastFrame())
 	{
 		SetWidthHeigth(WHIP_BBOX_LEVEL1_WIDTH, WHIP_BBOX_HEIGHT);

@@ -38,10 +38,7 @@ public:
 		x = this->xRender;
 		y = this->yRender;
 	}
-	virtual bool getDeath()
-	{
-		return false;
-	}
+
 	bool isTouchOtherObject(LPGAMEOBJECT gameObject);
 	virtual void SetPositionWithSimon(float x, float y, int nx);
 	virtual bool GetLastFrame()

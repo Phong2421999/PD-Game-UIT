@@ -14,7 +14,7 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	isDeath = false;
 	makeTime = GetTickCount();
 	health = 1;
-} 
+}
 
 void WeaponDanger::SetPositionWithSimon(float x, float y, int nx)
 {
@@ -24,7 +24,7 @@ void WeaponDanger::SetPositionWithSimon(float x, float y, int nx)
 	}
 	else
 	{
-		SetPosition(x  - OFFSET_DANGER_X_TO_HAND_LEFT_SIMON, y + OFFSET_DANGER_Y_TO_HAND_SIMON);
+		SetPosition(x - OFFSET_DANGER_X_TO_HAND_LEFT_SIMON, y + OFFSET_DANGER_Y_TO_HAND_SIMON);
 
 	}
 }
@@ -55,34 +55,28 @@ void WeaponDanger::Render()
 
 void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	if (isDeath == false)
+
+	dx = vx * dt;
+	x += dx;
+
+
+	DWORD now = GetTickCount();
+	if (now - makeTime > DANGER_TIME_LIVE)
 	{
-		dx = vx * dt;
-		x += dx;
-		if (health <= 0)
+		health = 0;
+	}
+
+	if (coObjects->size() >= 0)
+	{
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			isDeath = true;
-		}
-		else
-		{
-			DWORD now = GetTickCount();
-			if (now - makeTime > DANGER_TIME_LIVE)
+			if (isTouchOtherObject(coObjects->at(i)))
 			{
-				isDeath = true;
-			}
-		}
-		if (coObjects->size() >= 0)
-		{
-			for (int i = 0; i < coObjects->size(); i++)
-			{
-				if (isTouchOtherObject(coObjects->at(i)))
+				if (dynamic_cast<CEnemies*>(coObjects->at(i))
+					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
 				{
-					if (dynamic_cast<CEnemies*>(coObjects->at(i))
-						|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
-					{
-						coObjects->at(i)->Damage(1);
-						health = 0;
-					}
+					coObjects->at(i)->Damage(1);
+					health = 0;
 				}
 			}
 		}

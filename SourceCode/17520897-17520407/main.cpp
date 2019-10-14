@@ -36,11 +36,12 @@ CGround* ground;
 CMap * map = CMap::GetInstance();
 CAnimations * animations;
 
-vector<LPEFT> effects;
 
 CSimonKeyHandler * keyHandler;
 
 vector<LPGAMEOBJECT> objects;
+vector<LPITEMS> listItems;
+vector<LPEFT> effects;
 
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -60,7 +61,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
-	
+
 	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
 	textures->Add(ID_TEX_ITEMS, "textures\\Items.png", D3DCOLOR_XRGB(128, 0, 0));
@@ -138,14 +139,14 @@ void LoadResources()
 		inp >> id >> x >> y >> Width >> Height;
 		if (id == 1) {
 			CLargeCandle* largeCandle = new CLargeCandle();
-			largeCandle->SetWidthHeight(Width, Height);
 			largeCandle->SetPosition(x, y);
+			largeCandle->SetWidthHeight(Width, Height);
 			objects.push_back(largeCandle);
 
 		}
 	}
 	inp.close();
-	
+
 
 	ground = new CGround();
 	ground->SetWidthHeigth(780, 8);
@@ -163,93 +164,117 @@ void LoadResources()
 
 void Update(DWORD dt)
 {
-	vector<LPGAMEOBJECT> coObjects;
-	vector<LPGAMEOBJECT> coWeaponObjects;
-	vector<LPGAMEOBJECT> coItemObjects;
-	//lấy objects để tính colisions
-	for (int i = 0; i < objects.size(); i++)
+	if (simon->getFreeze() == false)
 	{
-		if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
+		vector<LPGAMEOBJECT> coObjects;
+		vector<LPGAMEOBJECT> coWeaponObjects;
+		vector<LPGAMEOBJECT> coItemObjects;
+
+		//lấy objects để tính colisions
+		for (int i = 0; i < objects.size(); i++)
 		{
-			coItemObjects.push_back(objects[i]);
-		}
-		if (objects[i]->GetHealth() > 0
-			&& !dynamic_cast<CGround*> (objects[i])
-			&& !dynamic_cast<CSimon*> (objects[i]))
-		{
-			coWeaponObjects.push_back(objects[i]);
-		}
-		if (simon->getUntouchable())
-		{
-			if (dynamic_cast<CGround*> (objects[i]))
+			if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
 			{
-				coObjects.push_back(objects[i]);
+				coItemObjects.push_back(objects[i]);
 			}
+			if (!dynamic_cast<CGround*> (objects[i])
+				&& !dynamic_cast<CSimon*> (objects[i]))
+			{
+				coWeaponObjects.push_back(objects[i]);
+			}
+			if (simon->getUntouchable())
+			{
+				if (dynamic_cast<CGround*> (objects[i]))
+				{
+					coObjects.push_back(objects[i]);
+				}
+			}
+			else
+			{
+				if (!dynamic_cast<CItems*>(objects[i]) && !dynamic_cast<CStaticObject*> (objects[i]))
+					coObjects.push_back(objects[i]);
+			}
+			if (objects[i]->GetHealth() <= 0)
+			{
+				float x, y;
+				objects[i]->GetPosition(x, y);
+				CHit * hit = new CHit();
+				hit->SetPosition(x, y);
+				effects.push_back(hit);
+				objects.erase(objects.begin() + i);
+			}
+		}
+
+
+		//Gọi update với colision tính được
+		simon->UpdateSimonWeapon(dt, &coWeaponObjects);
+
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if (dynamic_cast<CItems*> (objects[i]))
+			{
+				objects[i]->Update(dt, &coItemObjects);
+			}
+			else {
+				objects[i]->Update(dt, &coObjects);
+			}
+		}
+
+
+		for (int i = 0; i < effects.size(); i++)
+		{
+			if (effects[i]->GetLastFrame())
+			{
+				float x, y;
+				effects[i]->GetPosition(x, y);
+				animations->Get(564)->reset();
+				WhipUpgrade* whipUpgrade = new WhipUpgrade();
+				whipUpgrade->SetWidthHeight(17, 17);
+				whipUpgrade->SetPosition(x, y);
+				listItems.push_back(whipUpgrade);
+				effects.erase(effects.begin() + i);
+			}
+		}
+
+		for (int i = 0; i < listItems.size(); i++)
+		{
+			if (listItems[i]->GetHealth() > 0)
+				listItems[i]->Update(dt, &coItemObjects);
+			else
+				listItems.erase(listItems.begin() + i);
+		}
+
+		float cx, cy;
+		simon->GetPosition(cx, cy);
+
+		cx -= SCREEN_WIDTH / 2;
+		cy -= SCREEN_HEIGHT / 2;
+		if (cx <= 0)
+		{
+			CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
+		}
+		else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
+		{
+			CGame::GetInstance()->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
 		}
 		else
 		{
-			if(!dynamic_cast<CItems*>(objects[i]) &&!dynamic_cast<CStaticObject*> (objects[i]))
-				coObjects.push_back(objects[i]);
+			CGame::GetInstance()->SetCamPos(cx, 0.0f);
 		}
-		if (objects[i]->GetHealth() <= 0)
-		{
-			CHit* hitEffect = new CHit();
-			float x, y;
-			objects[i]->GetPosition(x,y);
-			hitEffect->SetPosition(x,y);
-			effects.push_back(hitEffect);
-			objects.erase(objects.begin() + i);
-		}
-	}
-
-
-	//Gọi update với colision tính được
-	simon->UpdateSimonWeapon(dt, &coWeaponObjects);
-
-	for (int i = 0; i < objects.size(); i++)
-	{
-		/*if (dynamic_cast<CItems*> (objects[i]))
-		{
-			objects[i]->Update(dt, &coItemObjects);
-		}
-		else {*/
-			objects[i]->Update(dt, &coObjects);
-		//}
-		
-	}
-
-
-	for (int i = 0; i < effects.size(); i++)
-	{
-		if (effects[i]->GetLastFrame())
-		{
-			float x, y;
-			effects[i]->GetPosition(x, y);
-			effects.erase(effects.begin() + i);
-			animations->Get(564)->reset();
-			WhipUpgrade* whipUpgrade = new WhipUpgrade();
-			whipUpgrade->SetWidthHeight(17, 17);
-			whipUpgrade->SetPosition(x, y);
-			objects.push_back(whipUpgrade);
-		}
-	}
-
-	float cx, cy;
-	simon->GetPosition(cx, cy);
-
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
-	if (cx <= 0)
-	{
-		CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
-	}
-	else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
-	{
-		CGame::GetInstance()->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
 	}
 	else
 	{
-		CGame::GetInstance()->SetCamPos(cx, 0.0f);
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if (objects[i]->GetHealth() <= 0)
+				objects.erase(objects.begin() + i);
+		}
+		for (int i = 0; i < listItems.size(); i++)
+		{
+			if (listItems[i]->GetHealth() <= 0)
+				listItems.erase(listItems.begin() + i);
+		}
+		simon->UpdateFreeze(dt);
 	}
 
 }
@@ -269,10 +294,31 @@ void Render()
 
 		map->Get(ID_MAP1)->Render();
 
-		for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render();
-		for (int i = 0; i < effects.size(); i++)
-			effects[i]->Render();
+		if (simon->getFreeze() == true)
+		{
+			for (int i = 0; i < objects.size(); i++)
+			{
+				if (dynamic_cast<CSimon*> (objects[i]) == false)
+				{
+					objects[i]->RenderCurrentFrame();
+				}
+				else
+					objects[i]->Render();
+			}
+			for (int i = 0; i < effects.size(); i++)
+				effects[i]->RenderCurrentFrame();
+			for (int i = 0; i < listItems.size(); i++)
+				listItems[i]->RenderCurrentFrame();
+		}
+		else
+		{
+			for (int i = 0; i < objects.size(); i++)
+				objects[i]->Render();
+			for (int i = 0; i < effects.size(); i++)
+				effects[i]->Render();
+			for (int i = 0; i < listItems.size(); i++)
+				listItems[i]->Render();
+		}
 
 		spriteHandler->End();
 		d3ddv->EndScene();

@@ -2,14 +2,13 @@
 
 void CItems::Render()
 {
-	RenderBoundingBox(x,y);
+	RenderBoundingBox(x, y);
 }
 
 void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 	vy += ITEM_GRAVITY * dt;
-
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -40,12 +39,13 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (dynamic_cast<CSimon*>(coObjects->at(i)))
 					{
-						health--;
+						CSimon::getInstance()->AddItem(type);
+						health = 0;
 					}
 				}
 			}
 		}
-	
+
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

@@ -10,12 +10,14 @@ void CLargeCandle::Render() {
 	RenderBoundingBox(x,y);
 }
 
+
+void CLargeCandle::RenderCurrentFrame() {
+	animations[0]->RenderCurrentFrame(x, y);
+}
+
 void CLargeCandle::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
 	left = x;
 	top = y;
 	right = x + width;
 	bottom = y + height;
-}
-
-void CLargeCandle::Update(DWORD dt) {
 }

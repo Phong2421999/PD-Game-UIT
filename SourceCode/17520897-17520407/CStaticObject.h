@@ -1,14 +1,15 @@
 #pragma once
 #include "FrameWork/GameObject.h"
 class CStaticObject :public CGameObject {
-private:
-	int width, height;
+public:
+	float width, height;
 public:
 	virtual void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void SetWidthHeigth(int width, int heigth) {
+	virtual void RenderCurrentFrame() {};
+	virtual void SetWidthHeigth(float width, float height) {
 		this->width = width;
-		this->height = heigth;
+		this->height = height;
 	}
 };
 

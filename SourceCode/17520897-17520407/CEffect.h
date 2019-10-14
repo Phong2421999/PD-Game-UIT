@@ -1,5 +1,6 @@
 #pragma once
 #include "./FrameWork/GameObject.h"
+#include "FrameWork/debug.h"
 
 class CEffect : public CGameObject {
 public:

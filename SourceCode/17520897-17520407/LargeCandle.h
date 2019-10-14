@@ -7,15 +7,15 @@
 
 class CLargeCandle : public CStaticObject
 {
-private:
-	int width, height;
+
 public:
 	CLargeCandle();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void Render();
-	void Update(DWORD dt);
-	void SetWidthHeight(int width, int height) {
+	void RenderCurrentFrame();
+	void SetWidthHeight(float width, float height) {
 		this->width = width;
 		this->height = height;
 	}
+	void Render();
+	
 };

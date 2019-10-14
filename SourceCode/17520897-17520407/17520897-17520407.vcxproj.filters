@@ -316,9 +316,6 @@
     <Image Include="Assess\Simon.png">
       <Filter>Assess</Filter>
     </Image>
-    <Image Include="Textures\Simon.png">
-      <Filter>Textures</Filter>
-    </Image>
     <Image Include="Textures\tileset_map1.png">
       <Filter>Textures</Filter>
     </Image>

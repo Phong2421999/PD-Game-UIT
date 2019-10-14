@@ -31,7 +31,13 @@
 
 #define DELETE_POINTER(pointer) if (pointer){delete pointer; pointer=NULL;}
 
-
+//GameItem
+enum GAME_ITEM
+{
+	SMALL_HEART,
+	LARGE_HEART,
+	WHIP_UPGRADE,
+};
 
 
 //Chia sau

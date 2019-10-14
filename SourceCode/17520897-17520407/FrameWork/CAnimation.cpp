@@ -11,7 +11,15 @@ void CAnimation::Add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(float x, float y,int alpha)
+void CAnimation::RenderCurrentFrame(float x, float y, int alpha) {
+	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+}
+
+void CAnimation::RenderCurrentFrameFlipX(float x, float y, int alpha) {
+	frames[currentFrame]->GetSprite()->DrawFlipX(x, y, alpha);
+}
+
+void CAnimation::Render(float x, float y, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -30,7 +38,7 @@ void CAnimation::Render(float x, float y,int alpha)
 			{
 				nextIsLastFrame = true;
 			}
-			if (currentFrame == frames.size()) { 
+			if (currentFrame == frames.size()) {
 				lastFrame = true;
 				nextIsLastFrame = false;
 				currentFrame = 0;
@@ -40,7 +48,7 @@ void CAnimation::Render(float x, float y,int alpha)
 
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y,alpha);
+	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
 void CAnimation::RenderFlipX(float x, float y, float offsetX, int alpha)

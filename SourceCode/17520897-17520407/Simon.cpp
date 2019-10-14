@@ -26,6 +26,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isUntouchable = false;
 		startUntouchableTime = 0;
 	}
+
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
@@ -106,7 +107,11 @@ void CSimon::Render()
 	{
 		simonWeapon->Render();
 	}
-	if (isSit)
+	if (isFreeze)
+	{
+		ani = SIMON_ANI_FREEZE;
+	}
+	else if (isSit)
 	{
 		ani = SIMON_ANI_SIT;
 
@@ -151,6 +156,37 @@ void CSimon::Render()
 		animations[ani]->RenderFlipX(x, y, OFFSET_FLIP_X, alpha);
 
 	RenderBoundingBox(x + SIMON_BBOX_WIDTH, y);
+}
+
+void CSimon::AddItem(GAME_ITEM type) {
+	switch (type)
+	{
+	case SMALL_HEART:
+		heart += 1;
+		break;
+	case LARGE_HEART:
+		heart += 5;
+		break;
+	case WHIP_UPGRADE:
+		UpgradeWhip();
+		break;
+	}
+}
+
+void CSimon::UpdateFreeze(DWORD dt)
+{		
+	int ani = SIMON_ANI_FREEZE;
+	if (animations[ani]->getLastFrame())
+	{
+		isFreeze = false;
+		animations[ani]->reset();
+	}
+}
+
+void CSimon::UpgradeWhip()
+{
+	state = SIMON_STATE_FREEZE;
+	isFreeze = true;
 }
 
 void CSimon::SetState(int state)
@@ -242,6 +278,7 @@ void CSimon::Attacking(DWORD dt)
 		}
 	}
 
+
 }
 
 void CSimon::Jumping()
@@ -278,7 +315,7 @@ void CSimon::UsingWeapon()
 		}
 		else
 		{
-			if (simonWeapon->getDeath())
+			if (simonWeapon->GetHealth() <= 0)
 			{
 				DELETE_POINTER(simonWeapon);
 			}

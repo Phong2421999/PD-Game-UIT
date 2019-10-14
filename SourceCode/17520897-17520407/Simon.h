@@ -19,6 +19,7 @@ private:
 	bool isJump;
 	bool isSit;
 	bool isAttack;
+	bool isFreeze;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -29,6 +30,8 @@ private:
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
 	DWORD startUntouchableTime;
+
+	DWORD timeFreeze;
 
 	bool isUseSubWeapon;
 	bool isHasSubWeapon;
@@ -53,6 +56,7 @@ public:
 		isJump = false;
 		isSit = false;
 		isAttack = false;
+		isFreeze = false;
 		isCanAttack = true;
 		isCanJump = true;
 		lastAttackTime = -1;
@@ -80,6 +84,11 @@ public:
 	void setHasSubWeapon(bool b)
 	{
 		this->isHasSubWeapon = b;
+	}
+	void setFreeze(bool freeze)
+	{
+		this->isFreeze = freeze;
+		timeFreeze = 0;
 	}
 	//get thuộc tính
 	bool getUseSubWeapon()
@@ -117,12 +126,17 @@ public:
 	{
 		return isUntouchable;
 	}
+	bool getFreeze()
+	{
+		return isFreeze;
+	}
 	//Xử lí khi chạm vào enemies
 	void StartUntouchable()
 	{
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
+
 
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -135,7 +149,14 @@ public:
 			simonWeapon->Update(dt, colliable_objects);
 		}
 	}
+
+	//Xử lí đóng băng simon khi nhặt WHIP_UPGRADE
+	void UpdateFreeze(DWORD dt);
+
 	void SetState(int state);
+	void AddItem(GAME_ITEM type);
+	void UpgradeWhip();
+
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
 	//Xử lí các điều khiển của nhân vật
