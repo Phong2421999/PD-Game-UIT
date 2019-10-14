@@ -144,21 +144,20 @@ void LoadResources()
 			objects.push_back(largeCandle);
 
 		}
+		else if (id == 0)
+		{
+			ground = new CGround();
+			ground->SetWidthHeigth(Width, Height);
+			ground->SetPosition(x, y);
+			objects.push_back(ground);
+
+		}
 	}
 	inp.close();
 
 
-	ground = new CGround();
-	ground->SetWidthHeigth(780, 8);
-	ground->SetPosition(0.0f, 199.0f);
-
 	simon->SetPosition(32.0f, 32.0f);
-
-
-	ground->AddAnimation(562);
-
 	objects.push_back(simon);
-	objects.push_back(ground);
 }
 
 

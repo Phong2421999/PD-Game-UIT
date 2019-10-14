@@ -65,6 +65,11 @@ public:
 	int getDirection() { return nx; }
 	int GetState() { return this->state; }
 	virtual void RenderCurrentFrame(){}
+	virtual bool getDeath()
+	{
+		return false;
+	}
+
 	void RenderBoundingBox(float x, float y);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);

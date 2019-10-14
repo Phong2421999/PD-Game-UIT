@@ -20,6 +20,7 @@ private:
 	bool isSit;
 	bool isAttack;
 	bool isFreeze;
+	bool isFalling;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -142,17 +143,9 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
-	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL)
-	{
-		if (simonWeapon)
-		{
-			simonWeapon->Update(dt, colliable_objects);
-		}
-	}
-
+	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	//Xử lí đóng băng simon khi nhặt WHIP_UPGRADE
 	void UpdateFreeze(DWORD dt);
-
 	void SetState(int state);
 	void AddItem(GAME_ITEM type);
 	void UpgradeWhip();

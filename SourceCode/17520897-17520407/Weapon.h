@@ -12,6 +12,7 @@
 class Weapon : public CGameObject
 {
 public:
+	bool isJump;
 	int width, height;
 	float xRender, yRender;
 	DWORD timeLive;
@@ -38,9 +39,10 @@ public:
 		x = this->xRender;
 		y = this->yRender;
 	}
-
+	
 	bool isTouchOtherObject(LPGAMEOBJECT gameObject);
 	virtual void SetPositionWithSimon(float x, float y, int nx);
+	virtual void SetIsJump(bool b);
 	virtual bool GetLastFrame()
 	{
 		return false;
