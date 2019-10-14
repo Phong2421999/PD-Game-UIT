@@ -208,7 +208,6 @@ void Update(DWORD dt)
 
 
 		//Gọi update với colision tính được
-		simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 		for (int i = 0; i < objects.size(); i++)
 		{
@@ -220,6 +219,9 @@ void Update(DWORD dt)
 				objects[i]->Update(dt, &coObjects);
 			}
 		}
+
+
+		simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 
 		for (int i = 0; i < effects.size(); i++)

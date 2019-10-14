@@ -33,6 +33,11 @@ public :
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	void SetDxDy(float dx, float dy)
+	{
+		this->dx = dx;
+		this->dy = dy;
+	}
 	bool GetLastFrame()
 	{
 		int ani;

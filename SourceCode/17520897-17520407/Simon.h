@@ -21,6 +21,7 @@ private:
 	bool isAttack;
 	bool isFreeze;
 	bool isFalling;
+	bool isJumpAttack;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -63,8 +64,13 @@ public:
 		heart = 5;
 		isUseSubWeapon = false;
 		isHasSubWeapon = true;
-		typeSubWeapon = SIMON_WEAPON::DANGER;
 		isEnoughHeart = false;
+		isJumpAttack = false;
+		lastAttackTime = -1;
+		lastAttackSide = 1;
+		typeSubWeapon = SIMON_WEAPON::DANGER;
+		weaponLevel = SIMON_WEAPON_LEVEL_1;
+		heart = 500;
 	}
 	//set thuộc tính
 	void setUntouchable()

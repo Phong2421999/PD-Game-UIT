@@ -22,6 +22,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void RenderFlipX();
+	virtual void SetDxDy(float dx, float dy){}
 	//set
 	void SetWidthHeigth(int width, int heigth) {
 		this->width = width;
