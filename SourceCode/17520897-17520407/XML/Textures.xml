@@ -56,17 +56,17 @@
     <!-- Animation LEVEL_TWO_ATTACK_STAND -->
     <Animation aniId="510" frameTime="100" name="LEVEL_TWO_ATTACK_STAND">
       <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
-      <sprite id="10022" left="5" top="199" right="83" bottom="229" frameTime="100"/>
-      <sprite id="10023" left="87" top="199" right="165" bottom="229" frameTime="100"/>
-      <sprite id="10024" left="170" top="199" right="248" bottom="229" frameTime="100"/>
-    </Animation>
-    <!-- Animation LEVEL_THREE_ATTACK_STAND -->
-    <Animation aniId="511" frameTime="100" name="LEVEL_THREE_ATTACK_STAND">
-      <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
       <sprite id="10028" left="6" top="337" right="84" bottom="367" frameTime="100"/>
       <sprite id="10032" left="88" top="337" right="166" bottom="367" frameTime="100"/>
       <sprite id="10036" left="171" top="337" right="249" bottom="367" frameTime="100"/>
     </Animation>
+    <!-- Animation LEVEL_THREE_ATTACK_STAND -->
+    <Animation aniId="511" frameTime="100" name="LEVEL_THREE_ATTACK_STAND">
+      <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="10022" left="5" top="200" right="83" bottom="230" frameTime="100"/>
+      <sprite id="10023" left="87" top="200" right="165" bottom="230" frameTime="100"/>
+      <sprite id="10024" left="170" top="200" right="248" bottom="230" frameTime="100"/>
+     </Animation>
     <!-- Animation LEVEL_ONE_ATTACK_SIT -->
     <Animation aniId="512" frameTime="100" name="LEVEL_ONE_ATTACK_SIT">
       <sprite id="10037" left="4" top="118" right="82" bottom="148"/>
@@ -75,26 +75,23 @@
     </Animation>
     <!-- Animation LEVEL_TWO_ATTACK_SIT -->
     <Animation aniId="513" frameTime="100" name="LEVEL_TWO_ATTACK_SIT">
-      <sprite id="10040" left="6" top="529" right="82" bottom="559"/>
-      <sprite id="10041" left="88" top="529" right="164" bottom="559"/>
-      <sprite id="10042" left="174" top="529" right="250" bottom="559"/>
+      <sprite id="10040" left="6" top="529" right="82" bottom="560"/>
+      <sprite id="10041" left="88" top="529" right="164" bottom="560"/>
+      <sprite id="10042" left="174" top="529" right="250" bottom="560"/>
     </Animation>
     <!-- Animation LEVEL_THREE_ATTACK_SIT -->
     <Animation aniId="514" frameTime="100" name="LEVEL_THREE_ATTACK_SIT">
       <sprite id="10043" left="6" top="444" right="82" bottom="475"/>
       <sprite id="10044" left="6" top="488" right="82" bottom="519"/>
-      <sprite id="10045" left="6" top="529" right="82" bottom="560"/>
-      <sprite id="10046" left="6" top="572" right="82" bottom="603"/>
+      <sprite id="10045" left="6" top="572" right="82" bottom="603"/>
 
-      <sprite id="10047" left="88" top="444" right="164" bottom="475"/>
-      <sprite id="10048" left="88" top="488" right="164" bottom="519"/>
-      <sprite id="10049" left="88" top="529" right="164" bottom="560"/>
-      <sprite id="10050" left="88" top="572" right="165" bottom="603"/>
+      <sprite id="10046" left="88" top="444" right="164" bottom="475"/>
+      <sprite id="10047" left="88" top="488" right="164" bottom="519"/>
+      <sprite id="10048" left="88" top="572" right="165" bottom="603"/>
 
-      <sprite id="10051" left="174" top="444" right="250" bottom="475"/>
-      <sprite id="10052" left="174" top="488" right="250" bottom="519"/>
-      <sprite id="10053" left="174" top="529" right="250" bottom="560"/>
-      <sprite id="10054" left="174" top="572" right="250" bottom="603"/>
+      <sprite id="10049" left="174" top="444" right="250" bottom="475"/>
+      <sprite id="10050" left="174" top="488" right="250" bottom="519"/>
+      <sprite id="10051" left="174" top="572" right="250" bottom="603"/>
     </Animation>
     <!-- Animation LEVEL_ONE_ATTACK_STAND_INVISIBLE -->
     <Animation aniId="515" frameTime="100" name="LEVEL_ONE_ATTACK_STAND_INVISIBLE">
@@ -124,6 +121,12 @@
       <sprite id="10070" left="278" top="73" right="256" bottom="103"/>
       <sprite id="10071" left="360" top="73" right="438" bottom="103"/>
       <sprite id="10072" left="442" top="73" right="520" bottom="103"/>
+    </Animation>
+      <!-- Animation SIT_THROW -->
+    <Animation aniId="518" frameTime="100" name="SIT_THROW">
+      <sprite id="10010" left="4" top="118" right="82" bottom="148" frameTime="100"/>
+      <sprite id="10010" left="86" top="118" right="164" bottom="148" frameTime="100"/>
+      <sprite id="10010" left="169" top="118" right="247" bottom="148" frameTime="100"/>
     </Animation>
   </Texture>
   
