@@ -12,7 +12,6 @@ Whip::Whip(float x, float y, int nx, int level)
 	this->AddAnimation(WHIP_ANI_LEVEL_1);
 	this->AddAnimation(WHIP_ANI_LEVEL_2);
 	this->AddAnimation(WHIP_ANI_LEVEL_3);
-	DebugOut(L"\nlevel = %d", curLevel);
 }
 
 void Whip::Render()

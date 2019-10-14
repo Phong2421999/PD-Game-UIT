@@ -2,8 +2,6 @@
 
 CLargeCandle::CLargeCandle() {
 	this->AddAnimation(ANI_IDLE);
-	OutputDebugString(L"\nTao nen");
-
 }
 
 

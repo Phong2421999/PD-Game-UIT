@@ -35,8 +35,7 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 {
 	if (KeyCode == DIK_DOWN)
 	{
-		simon->ResetAfterSit();
-		simon->SetState(SIMON_STATE_IDLE);
+		simon->setResetSitAffterAttack(true);
 	}
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
@@ -60,10 +59,9 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 	else if (game->IsKeyDown(DIK_UP))
 	{
 		if (simon->getHasSubWeapon()
-			&& simon->getEnoughHeart()
-			&& simon->getAttack() == false)
+			&& simon->getEnoughHeart())
 		{
-			if (game->IsKeyDown(DIK_F) && simon->getSit() == false)
+			if (game->IsKeyDown(DIK_F) && simon->getAttack() == false)
 			{
 				simon->setUseSubWeapon(true);
 			}

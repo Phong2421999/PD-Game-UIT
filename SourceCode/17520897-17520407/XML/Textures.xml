@@ -48,7 +48,7 @@
     </Animation>
     <!-- Animation LEVEL_ONE_ATTACK_STAND -->
     <Animation aniId="509" frameTime="100" name="LEVEL_ONE_ATTACK_STAND">
-      <sprite id="10018" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
       <sprite id="10019" left="5" top="159" right="83" bottom="189" frameTime="100"/>
       <sprite id="10020" left="87" top="159" right="165" bottom="189" frameTime="100"/>
       <sprite id="10021" left="170" top="159" right="248" bottom="189" frameTime="100"/>
@@ -56,9 +56,9 @@
     <!-- Animation LEVEL_TWO_ATTACK_STAND -->
     <Animation aniId="510" frameTime="100" name="LEVEL_TWO_ATTACK_STAND">
       <sprite id="99999" left="0" top="0" right="0" bottom="0" frameTime="100"/>
-      <sprite id="10028" left="6" top="337" right="84" bottom="367" frameTime="100"/>
-      <sprite id="10032" left="88" top="337" right="166" bottom="367" frameTime="100"/>
-      <sprite id="10036" left="171" top="337" right="249" bottom="367" frameTime="100"/>
+      <sprite id="10028" left="6" top="339" right="84" bottom="367" frameTime="100"/>
+      <sprite id="10032" left="88" top="339" right="166" bottom="367" frameTime="100"/>
+      <sprite id="10036" left="171" top="339" right="249" bottom="367" frameTime="100"/>
     </Animation>
     <!-- Animation LEVEL_THREE_ATTACK_STAND -->
     <Animation aniId="511" frameTime="100" name="LEVEL_THREE_ATTACK_STAND">
@@ -124,6 +124,7 @@
     </Animation>
       <!-- Animation SIT_THROW -->
     <Animation aniId="518" frameTime="100" name="SIT_THROW">
+      <sprite id="10008" left="169" top="30" right="247" bottom="54" frameTime="100"/>
       <sprite id="10073" left="4" top="118" right="82" bottom="148" frameTime="100"/>
       <sprite id="10074" left="86" top="118" right="164" bottom="148" frameTime="100"/>
       <sprite id="10075" left="169" top="118" right="247" bottom="148" frameTime="100"/>

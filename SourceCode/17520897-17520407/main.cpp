@@ -159,7 +159,7 @@ void LoadResources()
 	inp.close();
 
 
-	simon->SetPosition(32.0f, 32.0f);
+	simon->SetPosition(32.0f, 163.0f);
 	objects.push_back(simon);
 }
 
