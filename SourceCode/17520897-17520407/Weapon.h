@@ -8,7 +8,6 @@
 #define OFFSET_X_TO_HAND_LEFT_SIMON 25
 #define OFFSET_X_TO_HAND_RIGHT_SIMON 31
 
-
 class Weapon : public CGameObject
 {
 public:

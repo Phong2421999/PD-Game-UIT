@@ -7,7 +7,7 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	else
 		vx = -DANGER_SPEED_X;
 	this->nx = nx;
-	SetTimeLive(DANGER_TIME_LIVE);
+	SetTimeLive(DANGER_WEAPON_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
 	
 	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
@@ -62,7 +62,7 @@ void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	DWORD now = GetTickCount();
-	if (now - makeTime > DANGER_TIME_LIVE)
+	if (now - makeTime > DANGER_WEAPON_TIME_LIVE)
 	{
 		health = 0;
 	}
