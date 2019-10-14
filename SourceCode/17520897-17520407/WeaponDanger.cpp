@@ -55,10 +55,10 @@ void WeaponDanger::Render()
 
 void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	dx = vx * dt;
+	x += dx;
 	if (isDeath == false)
 	{
-		dx = vx * dt;
-		x += dx;
 		if (health <= 0)
 		{
 			isDeath = true;

@@ -64,6 +64,10 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	int getDirection() { return nx; }
 	int GetState() { return this->state; }
+	virtual bool getDeath()
+	{
+		return false;
+	}
 
 	void RenderBoundingBox(float x, float y);
 

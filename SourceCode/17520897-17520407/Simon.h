@@ -19,6 +19,7 @@ private:
 	bool isJump;
 	bool isSit;
 	bool isAttack;
+	bool isFalling;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -128,13 +129,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
-	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL)
-	{
-		if (simonWeapon)
-		{
-			simonWeapon->Update(dt, colliable_objects);
-		}
-	}
+	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void SetState(int state);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 

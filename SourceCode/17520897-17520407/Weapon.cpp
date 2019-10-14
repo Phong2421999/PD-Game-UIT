@@ -1,4 +1,4 @@
-#include "Weapon.h"
+﻿#include "Weapon.h"
 void Weapon::Render()
 {
 	//animations[0]->Render(x, y);
@@ -50,6 +50,11 @@ void Weapon::SetPositionWithSimon(float x, float y, int nx)
 
 
 	}
+}
+
+void Weapon::SetIsJump(bool b) // vũ khí di chuyển theo simon khi đang nhảy
+{
+	this->isJump = b;
 }
 
 bool Weapon::isTouchOtherObject(LPGAMEOBJECT gameObject)

@@ -27,7 +27,14 @@ void Whip::Render()
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
+	CGameObject::Update(dt);
+	if (isJump)
+	{
+		x += dx;
+		y += dy;
+		xRender += dx;
+		yRender += dy;
+	}
 	if (animations[WHIP_ANI_LEVEL_1]->getNextIsLastFrame())
 	{
 		SetWidthHeigth(WHIP_BBOX_LEVEL1_WIDTH, WHIP_BBOX_HEIGHT);
@@ -48,7 +55,7 @@ void Whip::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{
 		left = x + 15.0f;
 		top = y;
-		right = x + 15.0f+width;
+		right = x + 15.0f + width;
 		bottom = y + height;
 	}
 

@@ -198,6 +198,7 @@ void Update(DWORD dt)
 			objects[i]->GetPosition(x,y);
 			hitEffect->SetPosition(x,y);
 			effects.push_back(hitEffect);
+			delete objects[i];
 			objects.erase(objects.begin() + i);
 		}
 	}
@@ -217,6 +218,7 @@ void Update(DWORD dt)
 		//}
 		
 	}
+
 
 
 	for (int i = 0; i < effects.size(); i++)
