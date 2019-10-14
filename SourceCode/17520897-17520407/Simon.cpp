@@ -41,7 +41,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	Attacking(dt);
 	Jumping();
 	UsingWeapon();
-
+	ResetAfterSit();
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -137,7 +137,10 @@ void CSimon::Render()
 	}
 	else if (isSit)
 	{
-		ani = SIMON_ANI_SIT;
+		if (isAttack)
+			ani = SIMON_ANI_SIT_ATTACK;
+		else
+			ani = SIMON_ANI_SIT;
 	}
 	else if (isJump)
 	{
@@ -242,6 +245,8 @@ void CSimon::SetState(int state)
 	D3DXVECTOR3 p(floor(x - cam_x), floor(y - cam_y), 0);
 	if (isSit)
 	{
+		if (state == SIMON_STATE_ATTACK)
+			Attack();
 		Sitting();
 		return;
 	}
@@ -282,7 +287,20 @@ void CSimon::Attacking(DWORD dt)
 
 		if (isSit)
 		{
-
+			vx = 0;
+			vy = 0;
+			int ani = SIMON_ANI_SIT_ATTACK;
+			bool isLastFrame = animations[ani]->getLastFrame();
+			if (isLastFrame)
+			{
+				state = SIMON_STATE_SIT;
+				lastAttackTime = GetTickCount();
+				timeMakeWeapon = GetTickCount();
+				animations[ani]->reset();
+				MakeSubWeapon(x, y, nx);
+				isAttack = false;
+				isUseSubWeapon = false;
+			}
 		}
 		else
 		{
@@ -378,7 +396,9 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 
 void CSimon::Attack()
 {
-	if (isUseSubWeapon && isAttack == false)
+	if (isUseSubWeapon
+		&& isAttack == false
+		&& isSit == false)
 	{
 		isCanAttack = false;
 		isAttack = true;
@@ -400,13 +420,16 @@ void CSimon::Sit()
 		state = SIMON_STATE_JUMP;
 		return;
 	}
-	if (isAttack)
+	else if (isAttack)
 	{
 		state = SIMON_STATE_ATTACK;
 		return;
 	}
-	vx = 0; //Khi ngồi không được di chuyển
-	isSit = true;
+	else
+	{
+		vx = 0; //Khi ngồi không được di chuyển
+		isSit = true;
+	}
 }
 
 void CSimon::Sitting()
@@ -478,8 +501,28 @@ void CSimon::ResetAfterJump() // đẩy nhân vật lên 1 khoảng để không
 
 void CSimon::ResetAfterSit()
 {
-	isSit = false;
-	y -= RESET_SIMON_AFTER_SIT;
+	if (isSit)
+	{
+		if (isAttack)
+		{
+			int ani = SIMON_ANI_SIT_ATTACK;
+			if (animations[ani]->getLastFrame())
+			{
+				isAttack = false;
+				animations[SIMON_ANI_SIT_ATTACK]->reset();
+				y -= RESET_SIMON_AFTER_SIT;
+			}
+		}
+		else if (isAttack == false && isResetSitAfterAttack == true)
+		{
+			isSit = false;
+			isAttack = false;
+			isResetSitAfterAttack = false;
+			animations[SIMON_ANI_SIT_ATTACK]->reset();
+			y -= RESET_SIMON_AFTER_SIT;
+			state = SIMON_STATE_IDLE;
+		}
+	}
 }
 
 

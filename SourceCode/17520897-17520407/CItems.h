@@ -18,5 +18,9 @@ public:
 	virtual void RenderCurrentFrame() {};
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
 	bool IsTouchSimon(LPGAMEOBJECT gameObjet);
+	~CItems()
+	{
+		DebugOut(L"\nXoa item");
+	}
 };
 typedef CItems * LPITEMS;

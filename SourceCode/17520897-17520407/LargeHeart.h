@@ -26,4 +26,8 @@ public:
 		this->width = width;
 		this->height = height;
 	}
+	~LargeHeart()
+	{
+		DebugOut(L"\nXoa tim lon");
+	}
 };

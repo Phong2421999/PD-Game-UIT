@@ -41,7 +41,7 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (dynamic_cast<CSimon*>(coObjects->at(i)))
 					{
 						CSimon::getInstance()->AddItem(type);
-						health = 0;
+						this->Damage(1);
 					}
 				}
 			}

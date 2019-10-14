@@ -25,6 +25,7 @@ private:
 
 	bool isCanJump;
 	bool isCanAttack;
+	bool isResetSitAfterAttack;
 	bool isUntouchable;
 
 	DWORD startAttackTime;
@@ -62,16 +63,21 @@ public:
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
-		isHasSubWeapon = false;
 		isEnoughHeart = false;
 		isJumpAttack = false;
+		isResetSitAfterAttack = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
-		typeSubWeapon = SIMON_WEAPON::NONE;
+		isHasSubWeapon = true;
+		typeSubWeapon = SIMON_WEAPON::DANGER;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
-		heart = 5;
+		heart = 500;
 	}
 	//set thuộc tính
+	void setResetSitAffterAttack(bool b)
+	{
+		this->isResetSitAfterAttack = b;
+	}
 	void setUntouchable()
 	{
 		this->isUntouchable = !isUntouchable;
@@ -92,6 +98,10 @@ public:
 	{
 		this->isFreeze = freeze;
 		timeFreeze = 0;
+	}
+	void setSit(bool b)
+	{
+		this->isSit = b;
 	}
 	//get thuộc tính
 	bool getUseSubWeapon()
