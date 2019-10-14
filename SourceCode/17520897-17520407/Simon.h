@@ -61,16 +61,15 @@ public:
 		isCanJump = true;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
-		heart = 5;
 		isUseSubWeapon = false;
-		isHasSubWeapon = true;
+		isHasSubWeapon = false;
 		isEnoughHeart = false;
 		isJumpAttack = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
-		typeSubWeapon = SIMON_WEAPON::DANGER;
+		typeSubWeapon = SIMON_WEAPON::NONE;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
-		heart = 500;
+		heart = 5;
 	}
 	//set thuộc tính
 	void setUntouchable()
@@ -161,6 +160,7 @@ public:
 	void WalkingLeft();
 	void WalkingRight();
 	void Attack();
+	void ChangeSubWeapon(SIMON_WEAPON type);
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
 	void Attacking(DWORD dt);

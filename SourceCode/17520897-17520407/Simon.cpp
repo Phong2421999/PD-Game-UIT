@@ -190,7 +190,16 @@ void CSimon::AddItem(GAME_ITEM type) {
 	case WHIP_UPGRADE:
 		UpgradeWhip();
 		break;
+	case DANGER_ITEM:
+		ChangeSubWeapon(SIMON_WEAPON::DANGER);
+		break;
 	}
+}
+
+void CSimon::ChangeSubWeapon(SIMON_WEAPON type)
+{
+	typeSubWeapon = type;
+	isHasSubWeapon = true;
 }
 
 void CSimon::UpdateFreeze(DWORD dt)

@@ -63,7 +63,7 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 			&& simon->getEnoughHeart()
 			&& simon->getAttack() == false)
 		{
-			if (game->IsKeyDown(DIK_F))
+			if (game->IsKeyDown(DIK_F) && simon->getSit() == false)
 			{
 				simon->setUseSubWeapon(true);
 			}
