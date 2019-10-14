@@ -124,9 +124,9 @@
     </Animation>
       <!-- Animation SIT_THROW -->
     <Animation aniId="518" frameTime="100" name="SIT_THROW">
-      <sprite id="10010" left="4" top="118" right="82" bottom="148" frameTime="100"/>
-      <sprite id="10010" left="86" top="118" right="164" bottom="148" frameTime="100"/>
-      <sprite id="10010" left="169" top="118" right="247" bottom="148" frameTime="100"/>
+      <sprite id="10073" left="4" top="118" right="82" bottom="148" frameTime="100"/>
+      <sprite id="10074" left="86" top="118" right="164" bottom="148" frameTime="100"/>
+      <sprite id="10075" left="169" top="118" right="247" bottom="148" frameTime="100"/>
     </Animation>
   </Texture>
   

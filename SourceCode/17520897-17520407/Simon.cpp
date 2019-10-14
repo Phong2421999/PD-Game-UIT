@@ -355,12 +355,12 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 	{
 		switch (typeSubWeapon)
 		{
-		case SIMON_WEAPON::DANGER:
-		{
-			simonWeapon = new WeaponDanger(x, y, nx);
-			heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
-			break;
-		}
+			case SIMON_WEAPON::DANGER:
+			{
+				simonWeapon = new WeaponDanger(x, y, nx);
+				heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
+				break;
+			}
 		}
 	}
 }
@@ -378,7 +378,6 @@ void CSimon::Attack()
 	{
 		isCanAttack = false;
 		isAttack = true;
-		DebugOut(L"\nSimon weapon level = %d", weaponLevel);
 		simonWeapon = new Whip(x, y, nx, weaponLevel);
 	}
 

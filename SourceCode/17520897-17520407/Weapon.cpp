@@ -47,8 +47,6 @@ void Weapon::SetPositionWithSimon(float x, float y, int nx)
 	else
 	{
 		SetPosition(x - OFFSET_X_TO_HAND_LEFT_SIMON, y + OFFSET_Y_TO_HAND_SIMON);
-
-
 	}
 }
 
