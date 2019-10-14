@@ -1,4 +1,0 @@
-﻿  Simon.cpp
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(93): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\17520897-17520407\simon.cpp(101): warning C4305: '=': truncation from 'double' to 'float'
-  17520897-17520407.vcxproj -> C:\Users\PhongA\Desktop\Game\Develop\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe
