@@ -9,6 +9,7 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	this->nx = nx;
 	SetTimeLive(DANGER_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
+	
 	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
 	this->AddAnimation(DANGER_ANI_ID);
 	isDeath = false;

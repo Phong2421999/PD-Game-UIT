@@ -1,7 +1,14 @@
 #pragma once
 #include "CItems.h"
 #define ANI_LARGE_HEART 542
-#define LARGE_HEART_TIME_LIVE 2
+#define ANI_LARGE_HEART_ID 0
+#define LARGE_HEART_WIDTH 12
+#define LARGE_HEART_HEIGHT 10
+
+#define LARGE_HEART_TIME_LIVE 2000
+
+#define LARGE_HEART_VELOCITY_X 0.01
+#define LARGE_HEART_ITEM_GRAVITY 0.0001
 
 class LargeHeart :public CItems
 {

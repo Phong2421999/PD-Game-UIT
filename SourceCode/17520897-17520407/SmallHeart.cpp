@@ -3,22 +3,25 @@
 
 SmallHeart::SmallHeart() {
 	this->AddAnimation(ANI_SMALL_HEART);
-	makeTime = GetTickCount();
-	health = 1;
 	type = SMALL_HEART;
+	vx = SMALL_HEART_VELOCITY_X;
+	makeTime = GetTickCount();
 }
 
 void SmallHeart::Render() {
-	animations[0]->Render(x, y);
+	animations[ANI_SMALL_HEART_ID]->Render(x, y);
 	RenderBoundingBox(x,y);
 }
 
-void SmallHeart::RenderCurrentFrame(float x, float y, int alpha) {
-	animations[0]->RenderCurrentFrame(x, y, alpha);
+void SmallHeart::RenderCurrentFrame() {
+	animations[ANI_SMALL_HEART_ID]->RenderCurrentFrame(x, y);
 }
 
 void SmallHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+	x +=  vx * sin(PI / 8)*dt;
+	vy += SMALL_HEART_ITEM_GRAVITY * dt;
 	CItems::Update(dt, coObjects);
+
 	DWORD now = GetTickCount();
 	if (now - makeTime > SMALL_HEART_TIME_LIVE)
 	{

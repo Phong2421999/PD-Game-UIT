@@ -8,7 +8,7 @@ void CItems::Render()
 void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-	vy += ITEM_GRAVITY * dt;
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -30,7 +30,8 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
 		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
-
+		vx = 0;
+		vy = 0;
 		if (coObjects->size() >= 0)
 		{
 			for (int i = 0; i < coObjects->size(); i++)

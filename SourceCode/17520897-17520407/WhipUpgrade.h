@@ -1,7 +1,12 @@
 #pragma once
 #include "CItems.h"
 #define ANI_WHIP_UPGRADE 540
+#define ANI_WHIP_ID 0
+#define WHIP_WIDTH 17
+#define WHIP_HEIGHT 17
 #define WHIP_UPGRADE_TIME_LIVE 2000
+
+#define WHIP_UPGRADE_GRAVITY 0.0005
 
 class WhipUpgrade :public CItems
 {

@@ -51,6 +51,8 @@ public:
 
 	int health;
 
+	int weaponLevel;
+
 	DWORD dt;
 
 	vector<LPANIMATION> animations;

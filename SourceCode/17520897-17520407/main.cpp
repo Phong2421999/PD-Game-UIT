@@ -18,8 +18,12 @@
 #include "CStaticObject.h"
 #include "Ground.h"
 #include "CTestEnemy.h"
+
 #include "CHit.h"
 #include "WhipUpgrade.h"
+#include "LargeHeart.h"
+#include "SmallHeart.h"
+#include "Danger.h"
 
 #include "GameConst.h"
 
@@ -53,7 +57,6 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
-
 	return 0;
 }
 
@@ -137,14 +140,7 @@ void LoadResources()
 	inp >> Quantity;
 	for (int i = 0; i < Quantity; i++) {
 		inp >> id >> x >> y >> Width >> Height;
-		if (id == 1) {
-			CLargeCandle* largeCandle = new CLargeCandle();
-			largeCandle->SetPosition(x, y);
-			largeCandle->SetWidthHeight(Width, Height);
-			objects.push_back(largeCandle);
-
-		}
-		else if (id == 0)
+		if (id == 0)
 		{
 			ground = new CGround();
 			ground->SetWidthHeigth(Width, Height);
@@ -152,6 +148,13 @@ void LoadResources()
 			objects.push_back(ground);
 
 		}
+		else if (id == 1) {
+			CLargeCandle* largeCandle = new CLargeCandle();
+			largeCandle->SetPosition(x, y);
+			largeCandle->SetWidthHeight(Width, Height);
+			objects.push_back(largeCandle);
+		}
+	
 	}
 	inp.close();
 
@@ -159,7 +162,6 @@ void LoadResources()
 	simon->SetPosition(32.0f, 32.0f);
 	objects.push_back(simon);
 }
-
 
 void Update(DWORD dt)
 {
@@ -226,11 +228,41 @@ void Update(DWORD dt)
 			{
 				float x, y;
 				effects[i]->GetPosition(x, y);
-				animations->Get(564)->reset();
-				WhipUpgrade* whipUpgrade = new WhipUpgrade();
-				whipUpgrade->SetWidthHeight(17, 17);
-				whipUpgrade->SetPosition(x, y);
-				listItems.push_back(whipUpgrade);
+				animations->Get(ANI_HIT)->reset();
+				if (x == 90 || x == 340)
+				{
+					if (x == 90)
+					{
+						SmallHeart* smallHeart = new SmallHeart();
+						smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
+						smallHeart->SetPosition(x, y);
+						listItems.push_back(smallHeart);
+					}
+					else
+					{
+						LargeHeart* largeHeart = new LargeHeart();
+						largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
+						largeHeart->SetPosition(x, y);
+						listItems.push_back(largeHeart);
+					}
+				}
+				else
+				{
+					if (x == 600)
+					{
+						Danger* danger = new Danger();
+						danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
+						danger->SetPosition(x, y);
+						listItems.push_back(danger);
+					}
+					else
+					{
+						WhipUpgrade* whipUpgrade = new WhipUpgrade();
+						whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
+						whipUpgrade->SetPosition(x, y);
+						listItems.push_back(whipUpgrade);
+					}
+				}
 				effects.erase(effects.begin() + i);
 			}
 		}

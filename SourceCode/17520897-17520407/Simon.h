@@ -38,7 +38,6 @@ private:
 	bool isHasSubWeapon;
 
 	int lastAttackSide;
-	int weaponLevel;
 
 	bool isEnoughHeart;
 	int heart;
@@ -48,7 +47,6 @@ private:
 	static CSimon *__instance;
 
 	SIMON_WEAPON typeSubWeapon;
-
 public:
 
 	static CSimon* getInstance();
@@ -62,7 +60,6 @@ public:
 		isCanJump = true;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
-		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
 		isUseSubWeapon = false;
 		isHasSubWeapon = true;

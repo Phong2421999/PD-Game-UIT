@@ -3,20 +3,27 @@
 
 Danger::Danger() {
 	this->AddAnimation(ANI_DANGER);
+	makeTime = GetTickCount();
+	type = DANGER_ITEM;
 }
 
 void Danger::Render() {
-	animations[0]->Render(x, y);
+	animations[ANI_DANGER_ID]->Render(x, y);
 	RenderBoundingBox(x,y);
 }
 
 void Danger::RenderCurrentFrame() {
-	animations[0]->RenderCurrentFrame(x, y);
+	animations[ANI_DANGER_ID]->RenderCurrentFrame(x, y);
 }
 
 void Danger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-	dx = vx * dt;
-	x += dx;
+	vy += DANGER_GRAVITY * dt;
+	CItems::Update(dt, coObjects);
+	DWORD now = GetTickCount();
+	if (now - makeTime > DANGER_TIME_LIVE)
+	{
+		health = 0;
+	}
 }
 
 void Danger::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

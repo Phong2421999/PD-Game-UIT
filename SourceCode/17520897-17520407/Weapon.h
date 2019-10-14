@@ -15,13 +15,13 @@ public:
 	bool isJump;
 	int width, height;
 	float xRender, yRender;
+	int curLevel;
 	DWORD timeLive;
 public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void RenderFlipX();
-
 	//set
 	void SetWidthHeigth(int width, int heigth) {
 		this->width = width;

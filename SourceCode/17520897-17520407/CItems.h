@@ -2,7 +2,8 @@
 #include "FrameWork/GameObject.h"
 #include "Simon.h"
 #include "SimonConst.h"
-#define ITEM_GRAVITY 0.0005
+
+#define PI 3.14
 
 class CItems : public CGameObject {
 public:

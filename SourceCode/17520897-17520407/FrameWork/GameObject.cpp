@@ -14,6 +14,7 @@ CGameObject::CGameObject()
 	vx = vy = 0;
 	nx = 1;
 	health = 1;
+	weaponLevel = 1;
 }
 
 

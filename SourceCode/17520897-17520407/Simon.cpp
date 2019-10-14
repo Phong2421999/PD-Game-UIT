@@ -209,7 +209,16 @@ void CSimon::UpgradeWhip()
 {
 	state = SIMON_STATE_FREEZE;
 	isFreeze = true;
+	if (weaponLevel == 1)
+	{
+		weaponLevel = 2;
+	}
+	else if (weaponLevel == 2)
+	{
+		weaponLevel = 3;
+	}
 }
+
 
 void CSimon::SetState(int state)
 {
@@ -377,7 +386,8 @@ void CSimon::Attack()
 	{
 		isCanAttack = false;
 		isAttack = true;
-		simonWeapon = new Whip(x, y, nx);
+		DebugOut(L"\nSimon weapon level = %d", weaponLevel);
+		simonWeapon = new Whip(x, y, nx, weaponLevel);
 	}
 
 }

@@ -4,21 +4,21 @@
 WhipUpgrade::WhipUpgrade() {
 	this->AddAnimation(ANI_WHIP_UPGRADE);
 	makeTime = GetTickCount();
-	health = 1;
 	type = WHIP_UPGRADE;
 }
 
 void WhipUpgrade::Render() {
-	animations[0]->Render(x, y);
+	animations[ANI_WHIP_ID]->Render(x, y);
 	RenderBoundingBox(x,y);
 }
 
 void WhipUpgrade::RenderCurrentFrame()
 {
-	animations[0]->RenderCurrentFrame(x, y);
+	animations[ANI_WHIP_ID]->RenderCurrentFrame(x, y);
 }
 
 void WhipUpgrade::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
+	vy += WHIP_UPGRADE_GRAVITY * dt;
 	CItems::Update(dt, coObjects);
 	DWORD now = GetTickCount();
 	if (now - makeTime > WHIP_UPGRADE_TIME_LIVE)

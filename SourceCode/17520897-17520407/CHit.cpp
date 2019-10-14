@@ -6,5 +6,5 @@ CHit::CHit()
 }
 
 void CHit::Render() {
-	animations[0]->Render(x, y);
+	animations[ANI_HIT_ID]->Render(x, y);
 }
