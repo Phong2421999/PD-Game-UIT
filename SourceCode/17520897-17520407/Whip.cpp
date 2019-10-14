@@ -5,48 +5,39 @@ Whip::Whip(float x, float y, int nx, int level)
 	SetSpeed(WHIP_SPEED_X, WHIP_SPEED_Y);
 	SetTimeLive(WHIP_TIME_LIVE);
 	SetRenderPos(x, y);
+	curLevel = level;
 	SetPositionWithSimon(x, y, nx);
 	this->nx = nx;
 	this->curLevel = level;
 	this->AddAnimation(WHIP_ANI_LEVEL_1);
 	this->AddAnimation(WHIP_ANI_LEVEL_2);
 	this->AddAnimation(WHIP_ANI_LEVEL_3);
-	curLevel = level;
 	DebugOut(L"\nlevel = %d", curLevel);
 }
 
 void Whip::Render()
 {
+	int ani;
+	switch (curLevel)
+	{
+	case WHIP_LEVEL_1:
+		ani = WHIP_ANI_LEVEL_1_ID;
+		break;
+	case WHIP_LEVEL_2:
+		ani = WHIP_ANI_LEVEL_2_ID;
+		break;
+	case WHIP_LEVEL_3:
+		ani = WHIP_ANI_LEVEL_3_ID;
+		break;
+	}
 	if (nx > 0)
 	{
-		switch (curLevel)
-		{
-		case 1:
-			animations[WHIP_ANI_LEVEL_1_ID]->Render(xRender, yRender);
-			break;
-		case 2:
-			animations[WHIP_ANI_LEVEL_2_ID]->Render(xRender, yRender);
-			break;
-		case 3:
-			animations[WHIP_ANI_LEVEL_3_ID]->Render(xRender, yRender);
-			break;
-		}
+		animations[ani]->Render(xRender, yRender);
 		RenderBoundingBox(x, y);
 	}
 	else
 	{
-		switch (curLevel)
-		{
-		case 1:
-			animations[WHIP_ANI_LEVEL_1_ID]->RenderFlipX(xRender, yRender, 24);
-			break;
-		case 2:
-			animations[WHIP_ANI_LEVEL_2_ID]->RenderFlipX(xRender, yRender, 24);
-			break;
-		case 3:
-			animations[WHIP_ANI_LEVEL_3_ID]->RenderFlipX(xRender, yRender, 24);
-			break;
-		}
+		animations[ani]->RenderFlipX(xRender, yRender, 24);
 		RenderBoundingBox(x + 15.0f, y);
 	}
 }
@@ -64,16 +55,16 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	float width;
 	switch (curLevel)
 	{
-	case 1:
-		ani = 0;
+	case WHIP_LEVEL_1:
+		ani = WHIP_ANI_LEVEL_1_ID;
 		width = WHIP_BBOX_LEVEL1_WIDTH;
 		break;
-	case 2:
-		ani = 1;
+	case WHIP_LEVEL_2:
+		ani = WHIP_ANI_LEVEL_2_ID;
 		width = WHIP_BBOX_LEVEL2_WIDTH;
 		break;
-	case 3:
-		ani = 2;
+	case WHIP_LEVEL_3:
+		ani = WHIP_ANI_LEVEL_3_ID;
 		width = WHIP_BBOX_LEVEL3_WIDTH;
 		break;
 	}
@@ -105,13 +96,30 @@ void Whip::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 
 void Whip::SetPositionWithSimon(float x, float y, int nx)
 {
+	int offSetLeft, offSetRight;
+	switch (curLevel)
+	{
+	case WHIP_LEVEL_1:
+		offSetLeft = WHIP_OFFSET_X_TO_HAND_LEFT_SIMON_LEVEL_1;
+		offSetRight = WHIP_OFFSET_X_TO_HAND_RIGHT_SIMON_LEVEL_1;
+		break;
+	case WHIP_LEVEL_2:
+		offSetLeft = WHIP_OFFSET_X_TO_HAND_LEFT_SIMON_LEVEL_2;
+		offSetRight = WHIP_OFFSET_X_TO_HAND_RIGHT_SIMON_LEVEL_2;
+		break;
+	case WHIP_LEVEL_3:
+		offSetLeft = WHIP_OFFSET_X_TO_HAND_LEFT_SIMON_LEVEL_3;
+		offSetRight = WHIP_OFFSET_X_TO_HAND_RIGHT_SIMON_LEVEL_3;
+		break;
+	}
+
 	if (nx > 0)
 	{
-		SetPosition(x + WHIP_OFFSET_X_TO_HAND_RIGHT_SIMON, y + WHIP_OFFSET_Y_TO_HAND_SIMON);
+		SetPosition(x + offSetRight, y + WHIP_OFFSET_Y_TO_HAND_SIMON);
 	}
 	else
 	{
-		SetPosition(x - WHIP_OFFSET_X_TO_HAND_LEFT_SIMON, y + WHIP_OFFSET_Y_TO_HAND_SIMON);
+		SetPosition(x - offSetLeft, y + WHIP_OFFSET_Y_TO_HAND_SIMON);
 	}
 }
 
