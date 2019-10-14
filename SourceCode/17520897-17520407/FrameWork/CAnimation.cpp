@@ -12,10 +12,14 @@ void CAnimation::Add(int spriteId, DWORD time)
 }
 
 void CAnimation::RenderCurrentFrame(float x, float y, int alpha) {
+	if (currentFrame == frames.size())
+		currentFrame = 0;
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
 void CAnimation::RenderCurrentFrameFlipX(float x, float y, int alpha) {
+	if (currentFrame == frames.size())
+		currentFrame = 0;
 	frames[currentFrame]->GetSprite()->DrawFlipX(x, y, alpha);
 }
 

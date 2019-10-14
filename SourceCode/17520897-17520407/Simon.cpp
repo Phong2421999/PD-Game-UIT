@@ -29,13 +29,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Khi rơi gravity thấp hơn để rơi chậm lại
 	if (vy > 0)
 	{
-		isFalling = true;
 		vy += SIMON_FALLING_GRAVITY * dt;
 
 	}
 	else
 	{
-		isFalling = false;
 		vy += SIMON_GRAVITY * dt;
 	}
 
@@ -74,10 +72,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 			{
-				vy = 0;
 				if (simonWeapon)
 					simonWeapon->SetIsJump(false);
-				if (isJump == true && isAttack == false)
+
+				if (isJump == true)
 				{
 					ResetAfterJump();
 				}
@@ -118,7 +116,7 @@ void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects
 	{
 		if (dynamic_cast<Whip*>(simonWeapon))
 		{
-			simonWeapon->SetSpeed(vx, vy);
+			simonWeapon->SetDxDy(dx, dy);
 			simonWeapon->SetIsJump(isJump);
 		}
 		simonWeapon->Update(dt, colliable_objects);
@@ -132,6 +130,7 @@ void CSimon::Render()
 	{
 		simonWeapon->Render();
 	}
+
 	if (isFreeze)
 	{
 		ani = SIMON_ANI_FREEZE;
@@ -139,7 +138,6 @@ void CSimon::Render()
 	else if (isSit)
 	{
 		ani = SIMON_ANI_SIT;
-
 	}
 	else if (isJump)
 	{
@@ -196,8 +194,15 @@ void CSimon::AddItem(GAME_ITEM type) {
 }
 
 void CSimon::UpdateFreeze(DWORD dt)
-{		
+{
 	int ani = SIMON_ANI_FREEZE;
+	if (simonWeapon)
+	{
+		simonWeapon->ResetAnimation();
+		isAttack = false;
+		isUseSubWeapon = false;
+		DELETE_POINTER(simonWeapon);
+	}
 	if (animations[ani]->getLastFrame())
 	{
 		isFreeze = false;
@@ -256,30 +261,17 @@ void CSimon::Attacking(DWORD dt)
 	if (isAttack)
 	{
 		isCanAttack = false;
+
 		if (isSit)
 		{
 
 		}
-		else if (isJump)
-		{
-			int ani = SIMON_ANI_ATTACK;
-			bool isLastFrame = animations[ani]->getLastFrame();
-			if (isLastFrame)
-			{
-				state = SIMON_STATE_IDLE;
-				lastAttackTime = GetTickCount();
-				timeMakeWeapon = GetTickCount();
-				animations[ani]->reset();
-				MakeSubWeapon(x, y, nx);
-				isAttack = false;
-				isUseSubWeapon = false;
-
-			}
-		}
 		else
 		{
-			vx = 0;
-			vy = 0;
+			if (isJump == false)
+			{
+				vx = 0;
+			}
 			int ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
 			if (isLastFrame)
@@ -389,6 +381,11 @@ void CSimon::Sit()
 		state = SIMON_STATE_JUMP;
 		return;
 	}
+	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
+		return;
+	}
 	vx = 0; //Khi ngồi không được di chuyển
 	isSit = true;
 }
@@ -416,6 +413,11 @@ void CSimon::Jump()
 	if (isSit) // đang ngồi không được nhảy
 	{
 		state = SIMON_STATE_SIT;
+		return;
+	}
+	if (isAttack)
+	{
+		state = SIMON_STATE_ATTACK;
 		return;
 	}
 	vy = -SIMON_JUMP_SPEED_Y;
@@ -453,7 +455,6 @@ void CSimon::ResetAfterJump() // đẩy nhân vật lên 1 khoảng để không
 	isJump = false;
 	y -= RESET_SIMON_AFTER_JUMP;
 	this->state = SIMON_STATE_IDLE;
-
 }
 
 void CSimon::ResetAfterSit()
@@ -465,7 +466,7 @@ void CSimon::ResetAfterSit()
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if ((isSit || isJump) && isAttack == false)
+	if ((isSit || isJump))
 	{
 		left = x + 15;
 		top = y;

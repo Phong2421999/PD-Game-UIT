@@ -27,7 +27,6 @@ void Whip::Render()
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt);
 	if (isJump)
 	{
 		x += dx;

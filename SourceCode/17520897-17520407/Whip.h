@@ -25,7 +25,11 @@ public :
 	Whip(float x, float y, int nx);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-	
+	void SetDxDy(float dx, float dy)
+	{
+		this->dx = dx;
+		this->dy = dy;
+	}
 	bool GetLastFrame()
 	{
 		if(animations[WHIP_ANI_LEVEL_1]->getLastFrame())
