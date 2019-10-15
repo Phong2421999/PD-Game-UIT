@@ -26,6 +26,10 @@ public:
 		this->width = width;
 		this->height = height;
 	}
+	void SetMakeTime(DWORD time)
+	{
+		this->makeTime = time;
+	}
 	~LargeHeart()
 	{
 		DebugOut(L"\nXoa tim lon");

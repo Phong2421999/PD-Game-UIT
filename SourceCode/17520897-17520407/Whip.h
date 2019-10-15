@@ -36,6 +36,7 @@ class Whip : public Weapon {
 
 private:
 	int curLevel;
+	int simonX, simonY;
 public :
 	Whip(float x, float y, int nx, int level);
 	void SetLevel(int level) {
@@ -43,10 +44,10 @@ public :
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-	void SetDxDy(float dx, float dy)
+	void SetRenderPos(float x, float y)
 	{
-		this->dx = dx;
-		this->dy = dy;
+		xRender = x;
+		yRender = y;
 	}
 	bool GetLastFrame()
 	{

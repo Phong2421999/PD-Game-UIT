@@ -16,7 +16,8 @@ public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void RenderCurrentFrame() {};
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
+	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual void SetMakeTime(DWORD time) {};
 	bool IsTouchSimon(LPGAMEOBJECT gameObjet);
 	~CItems()
 	{

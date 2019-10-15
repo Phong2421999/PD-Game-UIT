@@ -71,7 +71,7 @@ public:
 	{
 		return false;
 	}
-
+	virtual void SetMakeTime(DWORD time){}
 	void RenderBoundingBox(float x, float y);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);

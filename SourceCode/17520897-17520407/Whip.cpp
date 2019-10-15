@@ -43,15 +43,9 @@ void Whip::Render()
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	if (isJump)
-	{
-		x += dx;
-		y += dy;
-		xRender += dx;
-		yRender += dy;
-	}
 	int ani;
 	float width;
+	SetPositionWithSimon(x, y, this->nx);
 	switch (curLevel)
 	{
 	case WHIP_LEVEL_1:

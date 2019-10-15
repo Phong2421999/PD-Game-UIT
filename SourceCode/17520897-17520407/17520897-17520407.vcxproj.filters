@@ -339,10 +339,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Textures\readfile_map_1.txt">
+    <Text Include="Textures\Map1.txt">
       <Filter>Textures</Filter>
     </Text>
-    <Text Include="Textures\readfile_map_1_gameobjects.txt">
+    <Text Include="Textures\Map1_Objects.txt">
       <Filter>Textures</Filter>
     </Text>
   </ItemGroup>

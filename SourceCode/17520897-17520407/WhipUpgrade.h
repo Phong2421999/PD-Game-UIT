@@ -18,6 +18,10 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFrame();
+	void SetMakeTime(DWORD time)
+	{
+		this->makeTime = time;
+	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void SetWidthHeight(int width, int height) {
 		this->width = width;

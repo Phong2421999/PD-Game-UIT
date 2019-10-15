@@ -219,8 +219,8 @@
     <Image Include="Textures\WhipTexture.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Textures\readfile_map_1.txt" />
-    <Text Include="Textures\readfile_map_1_gameobjects.txt" />
+    <Text Include="Textures\Map1.txt" />
+    <Text Include="Textures\Map1_Objects.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml" />

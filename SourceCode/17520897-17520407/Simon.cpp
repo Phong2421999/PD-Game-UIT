@@ -17,9 +17,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	if (x <= 0)
-	{
 		x = 0;
-	}
 	DWORD now = GetTickCount();
 	if (now - startUntouchableTime >= SIMON_UNTOUCHABLE_TIME)
 	{
@@ -75,7 +73,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (simonWeapon)
 					simonWeapon->SetIsJump(false);
 
-				if (isJump == true)
+				if (isJump)
 				{
 					ResetAfterJump();
 				}
@@ -116,8 +114,8 @@ void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects
 	{
 		if (dynamic_cast<Whip*>(simonWeapon))
 		{
-			simonWeapon->SetDxDy(dx, dy);
-			simonWeapon->SetIsJump(isJump);
+			simonWeapon->SetPosition(x,y);
+			simonWeapon->SetRenderPos(x, y);
 		}
 		simonWeapon->Update(dt, colliable_objects);
 	}
@@ -283,8 +281,6 @@ void CSimon::Attacking(DWORD dt)
 {
 	if (isAttack)
 	{
-		isCanAttack = false;
-
 		if (isSit)
 		{
 			vx = 0;
@@ -297,7 +293,6 @@ void CSimon::Attacking(DWORD dt)
 				lastAttackTime = GetTickCount();
 				timeMakeWeapon = GetTickCount();
 				animations[ani]->reset();
-				MakeSubWeapon(x, y, nx);
 				isAttack = false;
 				isUseSubWeapon = false;
 			}
@@ -308,6 +303,7 @@ void CSimon::Attacking(DWORD dt)
 			{
 				vx = 0;
 			}
+			vy = SIMON_JUMP_ATTACK_SPEED_Y;
 			int ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
 			if (isLastFrame)
@@ -382,12 +378,12 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 	{
 		switch (typeSubWeapon)
 		{
-			case SIMON_WEAPON::DANGER:
-			{
-				simonWeapon = new WeaponDanger(x, y, nx);
-				heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
-				break;
-			}
+		case SIMON_WEAPON::DANGER:
+		{
+			simonWeapon = new WeaponDanger(x, y, nx);
+			heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
+			break;
+		}
 		}
 	}
 }
@@ -493,6 +489,11 @@ void CSimon::WalkingRight()
 
 void CSimon::ResetAfterJump() // đẩy nhân vật lên 1 khoảng để không bị đè bbox
 {
+	if (isAttack)
+	{
+		isAttack = false;
+		animations[SIMON_ANI_ATTACK]->reset();
+	}
 	isJump = false;
 	y -= RESET_SIMON_AFTER_JUMP;
 	this->state = SIMON_STATE_IDLE;

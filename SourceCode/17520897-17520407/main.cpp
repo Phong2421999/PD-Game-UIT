@@ -71,7 +71,7 @@ void LoadResources()
 	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
 	textures->Add(ID_TEX_SIMON, "textures\\TexturesV3.png", D3DCOLOR_XRGB(34, 177, 76));
 
-	map->Add(ID_MAP1, "Textures\\readfile_map_1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
+	map->Add(ID_MAP1, "Textures\\Map1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
 
 
@@ -136,7 +136,7 @@ void LoadResources()
 	float  Width, Height;
 	int Quantity, id;
 
-	ifstream inp("Textures\\readfile_map_1_gameobjects.txt", ios::in);
+	ifstream inp("Textures\\Map1_Objects.txt", ios::in);
 	inp >> Quantity;
 	for (int i = 0; i < Quantity; i++) {
 		inp >> id >> x >> y >> Width >> Height;
@@ -154,7 +154,7 @@ void LoadResources()
 			largeCandle->SetWidthHeight(Width, Height);
 			objects.push_back(largeCandle);
 		}
-	
+
 	}
 	inp.close();
 
@@ -231,40 +231,36 @@ void Update(DWORD dt)
 				float x, y;
 				effects[i]->GetPosition(x, y);
 				animations->Get(ANI_HIT)->reset();
-				if (x == 90 || x == 340)
+
+				if (x == 90)
 				{
-					if (x == 90)
-					{
-						SmallHeart* smallHeart = new SmallHeart();
-						smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
-						smallHeart->SetPosition(x, y);
-						listItems.push_back(smallHeart);
-					}
-					else
-					{
-						LargeHeart* largeHeart = new LargeHeart();
-						largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
-						largeHeart->SetPosition(x, y);
-						listItems.push_back(largeHeart);
-					}
+					SmallHeart* smallHeart = new SmallHeart();
+					smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
+					smallHeart->SetPosition(x, y);
+					listItems.push_back(smallHeart);
+				}
+				else if (x == 340)
+				{
+					LargeHeart* largeHeart = new LargeHeart();
+					largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
+					largeHeart->SetPosition(x, y);
+					listItems.push_back(largeHeart);
+				}
+				else if (x == 600)
+				{
+					Danger* danger = new Danger();
+					danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
+					danger->SetPosition(x, y);
+					listItems.push_back(danger);
 				}
 				else
 				{
-					if (x == 600)
-					{
-						Danger* danger = new Danger();
-						danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
-						danger->SetPosition(x, y);
-						listItems.push_back(danger);
-					}
-					else
-					{
-						WhipUpgrade* whipUpgrade = new WhipUpgrade();
-						whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
-						whipUpgrade->SetPosition(x, y);
-						listItems.push_back(whipUpgrade);
-					}
+					WhipUpgrade* whipUpgrade = new WhipUpgrade();
+					whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
+					whipUpgrade->SetPosition(x, y);
+					listItems.push_back(whipUpgrade);
 				}
+
 				effects.erase(effects.begin() + i);
 			}
 		}
@@ -306,6 +302,8 @@ void Update(DWORD dt)
 		{
 			if (listItems[i]->GetHealth() <= 0)
 				listItems.erase(listItems.begin() + i);
+			else
+				listItems[i]->SetMakeTime(GetTickCount());
 		}
 		simon->UpdateFreeze(dt);
 	}
