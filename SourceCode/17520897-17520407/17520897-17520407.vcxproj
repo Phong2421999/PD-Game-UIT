@@ -221,6 +221,7 @@
   <ItemGroup>
     <Text Include="Textures\Map1.txt" />
     <Text Include="Textures\Map1_Objects.txt" />
+    <Text Include="Textures\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml" />

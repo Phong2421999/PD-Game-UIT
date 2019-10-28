@@ -345,6 +345,9 @@
     <Text Include="Textures\Map1_Objects.txt">
       <Filter>Textures</Filter>
     </Text>
+    <Text Include="Textures\TexturesFile.txt">
+      <Filter>Textures</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">

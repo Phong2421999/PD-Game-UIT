@@ -68,10 +68,10 @@ public:
 		isResetSitAfterAttack = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
-		isHasSubWeapon = true;
-		typeSubWeapon = SIMON_WEAPON::DANGER;
+		isHasSubWeapon = false;
+		typeSubWeapon = SIMON_WEAPON::NONE;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
-		heart = 500;
+		heart = 5;
 	}
 	//set thuộc tính
 	void setResetSitAffterAttack(bool b)

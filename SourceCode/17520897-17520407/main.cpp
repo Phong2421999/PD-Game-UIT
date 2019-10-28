@@ -64,12 +64,15 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
-
-	textures->Add(ID_TEX_BBOX, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_OBJECTS, "textures\\ObjectsAndEffect.png", D3DCOLOR_XRGB(34, 177, 76));
-	textures->Add(ID_TEX_ITEMS, "textures\\Items.png", D3DCOLOR_XRGB(128, 0, 0));
-	textures->Add(ID_TEX_ENEMIES, "textures\\Enemies-Castle.png", D3DCOLOR_XRGB(96, 68, 106));
-	textures->Add(ID_TEX_SIMON, "textures\\TexturesV3.png", D3DCOLOR_XRGB(34, 177, 76));
+	ifstream file("textures\\TexturesFile.txt", ios::in);
+	int texId,quantity, R,G,B;
+	string texFilePath;
+	file >> quantity;
+	for (int i = 0; i < quantity; i++)
+	{
+		file >> texId >> texFilePath >> R >> G >> B;
+		textures->Add(texId, texFilePath.c_str(), D3DCOLOR_XRGB(R, G, B));
+	}
 
 	map->Add(ID_MAP1, "Textures\\Map1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
 	map->Get(ID_MAP1)->LoadTile();
