@@ -124,6 +124,7 @@
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CGhost.cpp" />
+    <ClCompile Include="ChangeSceneObjects.cpp" />
     <ClCompile Include="CHit.cpp" />
     <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CGhost.h" />
+    <ClInclude Include="ChangeSceneObjects.h" />
     <ClInclude Include="CHit.h" />
     <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
@@ -233,6 +235,7 @@
     <Text Include="TXT\Map1.txt" />
     <Text Include="TXT\Map1_Objects.txt" />
     <Text Include="TXT\Scenes.txt" />
+    <Text Include="TXT\testScene.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>

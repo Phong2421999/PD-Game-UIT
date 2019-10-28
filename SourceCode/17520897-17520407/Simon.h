@@ -106,6 +106,10 @@ public:
 	{
 		this->isSit = b;
 	}
+	void setSceneId(int id)
+	{
+		this->currentScene = id;
+	}
 	//get thuộc tính
 	bool getUseSubWeapon()
 	{

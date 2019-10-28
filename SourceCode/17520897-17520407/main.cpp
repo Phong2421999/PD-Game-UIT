@@ -8,7 +8,6 @@
 #include "FrameWork/GameObject.h"
 #include "FrameWork/Textures.h"
 #include "FrameWork/CAnimations.h"
-#include "CMap.h"
 
 #include "FrameWork/debug.h"
 #include "FrameWork/Game.h"
@@ -25,6 +24,7 @@
 #include "GameItemLib.h"
 #include "GameEnemyLib.h"
 
+#include "CMap.h"
 #include "Scenes.h"
 
 
@@ -36,10 +36,12 @@ CSimon *simon;
 CAnimations * animations;
 
 int sceneId;
+int lastSceneId;
 
 CSimonKeyHandler * keyHandler;
 
 Scenes* scenes;
+
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -139,17 +141,19 @@ void LoadResources()
 	scenes = new Scenes();
 	fstream fileSence("TXT\\Scenes.txt", ios::in);
 	fileSence >> quantity;
-	int sceneId, sceneWidth, sceneMapId;
+	int sceneId, sceneWidth, sceneMapId, isLoadBlackScene, timeLoadBlackScene;
+	float simonStartX, simonStartY;
 	string sceneGameObjectPath;
 	for (int i = 0; i < quantity; i++)
 	{
-		fileSence >> sceneId >> sceneWidth >> sceneMapId >> sceneGameObjectPath;
-		Scene* scene = new Scene(scenceWidth);
+		fileSence >> sceneId >> sceneWidth >> sceneMapId >> sceneGameObjectPath >> isLoadBlackScene >> timeLoadBlackScene >> simonStartX >> simonStartY;
+		Scene* scene = new Scene(scenceWidth, isLoadBlackScene, timeLoadBlackScene);
 		scene->LoadSceneResource(sceneMapId, sceneGameObjectPath.c_str());
+		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
-			simon->SetPosition(SIMON_START_GAME_POSITION_X, SIMON_START_GAME_POSITION_Y);
+			scene->StartLoadScene();
 		}
 	}
 }
@@ -157,6 +161,11 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	sceneId = simon->getCurrentScene();
+	if (lastSceneId != sceneId)
+	{
+		scenes->Get(sceneId)->StartLoadScene();
+		lastSceneId = sceneId;
+	}
 	scenes->Get(sceneId)->Update(dt);
 }
 
@@ -279,6 +288,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSimonKeyHandler();
 	game->InitKeyboard(keyHandler);
 
+	lastSceneId = 0;
 	LoadResources();
 	DebugOut(L"[INFO] Init WinMain Success\n");
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

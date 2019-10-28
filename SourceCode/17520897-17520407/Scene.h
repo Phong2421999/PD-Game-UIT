@@ -24,7 +24,6 @@
 #include "CMap.h"
 
 
-
 class Scene {
 public:
 	CGame *game;
@@ -39,11 +38,25 @@ public:
 	int mapId;
 	int sceneWidth;
 
+	DWORD timeStartLoadScene;
+	DWORD timeLoadBlackScene;
+	bool isLoadBlackScene;
+	bool isCanLoadScene;
+
+	float simonStartX;
+	float simonStartY;
+
 public:
-	Scene(int sceneWidth);
+	Scene(int sceneWidth, int loadBlackScene, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
 	void Update(DWORD dt);
 	void Render();
+	void StartLoadScene();
+	void SetSimonStartPos(float x, float y)
+	{
+		this->simonStartX = x;
+		this->simonStartY = y;
+	}
 };
 
 typedef Scene* LPSCENE;

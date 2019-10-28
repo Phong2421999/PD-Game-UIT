@@ -192,6 +192,9 @@
     <ClCompile Include="Scenes.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="ChangeSceneObjects.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -323,6 +326,9 @@
     <ClInclude Include="Scenes.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ChangeSceneObjects.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -391,6 +397,9 @@
       <Filter>TXT</Filter>
     </Text>
     <Text Include="TXT\Scenes.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\testScene.txt">
       <Filter>TXT</Filter>
     </Text>
   </ItemGroup>
