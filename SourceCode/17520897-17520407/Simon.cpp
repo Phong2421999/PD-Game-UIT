@@ -10,8 +10,6 @@ CSimon* CSimon::getInstance()
 	return __instance;
 }
 
-
-
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 

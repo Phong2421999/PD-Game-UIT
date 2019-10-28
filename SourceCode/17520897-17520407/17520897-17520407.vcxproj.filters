@@ -55,6 +55,15 @@
     <Filter Include="GameObject\Items">
       <UniqueIdentifier>{8f5efdf5-85e1-419d-8203-c6b1ce8d80dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{4caf5165-eed9-4b57-a1aa-a16b6223951a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IncludeFile">
+      <UniqueIdentifier>{460f7daa-493b-4df0-bd3e-8e2139ef048f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TXT">
+      <UniqueIdentifier>{015b9abe-9989-441d-891a-c6dde3f86f89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,6 +186,12 @@
     <ClCompile Include="WeaponDanger.cpp">
       <Filter>GameObject\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -293,6 +308,21 @@
     <ClInclude Include="WeaponDanger.h">
       <Filter>GameObject\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameItemLib.h">
+      <Filter>IncludeFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectLib.h">
+      <Filter>IncludeFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEnemyLib.h">
+      <Filter>IncludeFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -347,6 +377,21 @@
     </Text>
     <Text Include="Textures\TexturesFile.txt">
       <Filter>Textures</Filter>
+    </Text>
+    <Text Include="TXT\Map1.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map1_Objects.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\TexturesFile.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Scenes.txt">
+      <Filter>TXT</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

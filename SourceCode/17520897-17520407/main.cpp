@@ -14,16 +14,6 @@
 #include "FrameWork/Game.h"
 
 #include "Simon.h"
-#include "LargeCandle.h"
-#include "CStaticObject.h"
-#include "Ground.h"
-#include "CTestEnemy.h"
-
-#include "CHit.h"
-#include "WhipUpgrade.h"
-#include "LargeHeart.h"
-#include "SmallHeart.h"
-#include "Danger.h"
 
 #include "GameConst.h"
 
@@ -31,22 +21,25 @@
 
 #include "CSimonKeyHandler.h"
 
+#include "GameObjectLib.h"
+#include "GameItemLib.h"
+#include "GameEnemyLib.h"
+
+#include "Scenes.h"
+
+
 
 
 CGame *game;
 
 CSimon *simon;
-CGround* ground;
-CMap * map = CMap::GetInstance();
 CAnimations * animations;
 
+int sceneId;
 
 CSimonKeyHandler * keyHandler;
 
-vector<LPGAMEOBJECT> objects;
-vector<LPITEMS> listItems;
-vector<LPEFT> effects;
-
+Scenes* scenes;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -64,26 +57,33 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
-	ifstream file("textures\\TexturesFile.txt", ios::in);
-	int texId,quantity, R,G,B;
+	//Lấy các file để load textures
+	ifstream fileTextures("TXT\\TexturesFile.txt", ios::in);
+	int texId, quantity, R, G, B;
 	string texFilePath;
-	file >> quantity;
+	fileTextures >> quantity;
 	for (int i = 0; i < quantity; i++)
 	{
-		file >> texId >> texFilePath >> R >> G >> B;
+		fileTextures >> texId >> texFilePath >> R >> G >> B;
 		textures->Add(texId, texFilePath.c_str(), D3DCOLOR_XRGB(R, G, B));
 	}
 
-	map->Add(ID_MAP1, "Textures\\Map1.txt", ID_TEX_MAP1, "Textures\\tileset_map1.png", D3DCOLOR_XRGB(255, 0, 255));
-	map->Get(ID_MAP1)->LoadTile();
+	//Load tất cả map
+	CMap * map = CMap::GetInstance();
+	ifstream fileMap("TXT\\Map.txt", ios::in);
+	int mapId, texMapId;
+	string mapPath, tileMapPath;
+	fileMap >> quantity;
+	for (int i = 0; i < quantity; i++)
+	{
+		fileMap >> mapId >> mapPath >> texMapId >> tileMapPath >> R >> G >> B;
+		map->Add(mapId, mapPath.c_str(), texMapId, tileMapPath.c_str(), D3DCOLOR_XRGB(R, G, B));
+	}
 
-
+	//Load tất cả animations
 	CSprites * sprites = CSprites::GetInstance();
-
 	LPDIRECT3DTEXTURE9 directTexture;
-
 	TiXmlDocument doc("XML/Textures.xml");
-
 	if (!doc.LoadFile())
 	{
 		DebugOut(L"Can't read XML file");
@@ -135,182 +135,29 @@ void LoadResources()
 		};
 	}
 
-	float x, y;
-	float  Width, Height;
-	int Quantity, id;
-
-	ifstream inp("Textures\\Map1_Objects.txt", ios::in);
-	inp >> Quantity;
-	for (int i = 0; i < Quantity; i++) {
-		inp >> id >> x >> y >> Width >> Height;
-		if (id == 0)
+	//Load tất cả scene - không đặt instance được vì trong scene có gọi singleton - Quản lý scene duy nhất ở đây
+	scenes = new Scenes();
+	fstream fileSence("TXT\\Scenes.txt", ios::in);
+	fileSence >> quantity;
+	int sceneId, sceneWidth, sceneMapId;
+	string sceneGameObjectPath;
+	for (int i = 0; i < quantity; i++)
+	{
+		fileSence >> sceneId >> sceneWidth >> sceneMapId >> sceneGameObjectPath;
+		Scene* scene = new Scene(scenceWidth);
+		scene->LoadSceneResource(sceneMapId, sceneGameObjectPath.c_str());
+		scenes->Add(sceneId, scene);
+		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
-			ground = new CGround();
-			ground->SetWidthHeigth(Width, Height);
-			ground->SetPosition(x, y);
-			objects.push_back(ground);
-
+			simon->SetPosition(SIMON_START_GAME_POSITION_X, SIMON_START_GAME_POSITION_Y);
 		}
-		else if (id == 1) {
-			CLargeCandle* largeCandle = new CLargeCandle();
-			largeCandle->SetPosition(x, y);
-			largeCandle->SetWidthHeight(Width, Height);
-			objects.push_back(largeCandle);
-		}
-
 	}
-	inp.close();
-
-
-	simon->SetPosition(32.0f, 163.0f);
-	objects.push_back(simon);
 }
 
 void Update(DWORD dt)
 {
-	if (simon->getFreeze() == false)
-	{
-		vector<LPGAMEOBJECT> coObjects;
-		vector<LPGAMEOBJECT> coWeaponObjects;
-		vector<LPGAMEOBJECT> coItemObjects;
-
-		//lấy objects để tính colisions
-		for (int i = 0; i < objects.size(); i++)
-		{
-			if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
-			{
-				coItemObjects.push_back(objects[i]);
-			}
-			if (!dynamic_cast<CGround*> (objects[i])
-				&& !dynamic_cast<CSimon*> (objects[i]))
-			{
-				coWeaponObjects.push_back(objects[i]);
-			}
-			if (simon->getUntouchable())
-			{
-				if (dynamic_cast<CGround*> (objects[i]))
-				{
-					coObjects.push_back(objects[i]);
-				}
-			}
-			else
-			{
-				if (!dynamic_cast<CItems*>(objects[i]) && !dynamic_cast<CStaticObject*> (objects[i]))
-					coObjects.push_back(objects[i]);
-			}
-			if (objects[i]->GetHealth() <= 0)
-			{
-				float x, y;
-				objects[i]->GetPosition(x, y);
-				CHit * hit = new CHit();
-				hit->SetPosition(x, y);
-				effects.push_back(hit);
-				objects.erase(objects.begin() + i);
-			}
-		}
-
-
-		//Gọi update với colision tính được
-
-		for (int i = 0; i < objects.size(); i++)
-		{
-			if (dynamic_cast<CItems*> (objects[i]))
-			{
-				objects[i]->Update(dt, &coItemObjects);
-			}
-			else {
-				objects[i]->Update(dt, &coObjects);
-			}
-		}
-
-
-		simon->UpdateSimonWeapon(dt, &coWeaponObjects);
-
-
-		for (int i = 0; i < effects.size(); i++)
-		{
-			if (effects[i]->GetLastFrame())
-			{
-				float x, y;
-				effects[i]->GetPosition(x, y);
-				animations->Get(ANI_HIT)->reset();
-
-				if (x == 90)
-				{
-					SmallHeart* smallHeart = new SmallHeart();
-					smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
-					smallHeart->SetPosition(x, y);
-					listItems.push_back(smallHeart);
-				}
-				else if (x == 340)
-				{
-					LargeHeart* largeHeart = new LargeHeart();
-					largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
-					largeHeart->SetPosition(x, y);
-					listItems.push_back(largeHeart);
-				}
-				else if (x == 600)
-				{
-					Danger* danger = new Danger();
-					danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
-					danger->SetPosition(x, y);
-					listItems.push_back(danger);
-				}
-				else
-				{
-					WhipUpgrade* whipUpgrade = new WhipUpgrade();
-					whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
-					whipUpgrade->SetPosition(x, y);
-					listItems.push_back(whipUpgrade);
-				}
-
-				effects.erase(effects.begin() + i);
-			}
-		}
-
-		for (int i = 0; i < listItems.size(); i++)
-		{
-			if (listItems[i]->GetHealth() > 0)
-				listItems[i]->Update(dt, &coItemObjects);
-			else
-				listItems.erase(listItems.begin() + i);
-		}
-
-		float cx, cy;
-		simon->GetPosition(cx, cy);
-
-		cx -= SCREEN_WIDTH / 2;
-		cy -= SCREEN_HEIGHT / 2;
-		if (cx <= 0)
-		{
-			CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
-		}
-		else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
-		{
-			CGame::GetInstance()->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
-		}
-		else
-		{
-			CGame::GetInstance()->SetCamPos(cx, 0.0f);
-		}
-	}
-	else
-	{
-		for (int i = 0; i < objects.size(); i++)
-		{
-			if (objects[i]->GetHealth() <= 0)
-				objects.erase(objects.begin() + i);
-		}
-		for (int i = 0; i < listItems.size(); i++)
-		{
-			if (listItems[i]->GetHealth() <= 0)
-				listItems.erase(listItems.begin() + i);
-			else
-				listItems[i]->SetMakeTime(GetTickCount());
-		}
-		simon->UpdateFreeze(dt);
-	}
-
+	sceneId = simon->getCurrentScene();
+	scenes->Get(sceneId)->Update(dt);
 }
 
 void Render()
@@ -326,33 +173,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		map->Get(ID_MAP1)->Render();
-
-		if (simon->getFreeze() == true)
-		{
-			for (int i = 0; i < objects.size(); i++)
-			{
-				if (dynamic_cast<CSimon*> (objects[i]) == false)
-				{
-					objects[i]->RenderCurrentFrame();
-				}
-				else
-					objects[i]->Render();
-			}
-			for (int i = 0; i < effects.size(); i++)
-				effects[i]->RenderCurrentFrame();
-			for (int i = 0; i < listItems.size(); i++)
-				listItems[i]->RenderCurrentFrame();
-		}
-		else
-		{
-			for (int i = 0; i < objects.size(); i++)
-				objects[i]->Render();
-			for (int i = 0; i < effects.size(); i++)
-				effects[i]->Render();
-			for (int i = 0; i < listItems.size(); i++)
-				listItems[i]->Render();
-		}
+		scenes->Get(sceneId)->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -457,7 +278,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	keyHandler = new CSimonKeyHandler();
 	game->InitKeyboard(keyHandler);
-
 
 	LoadResources();
 	DebugOut(L"[INFO] Init WinMain Success\n");

@@ -3,12 +3,12 @@
 Whip::Whip(float x, float y, int nx, int level)
 {
 	SetSpeed(WHIP_SPEED_X, WHIP_SPEED_Y);
-	SetTimeLive(WHIP_TIME_LIVE);
 	SetRenderPos(x, y);
 	curLevel = level;
 	SetPositionWithSimon(x, y, nx);
 	this->nx = nx;
 	this->curLevel = level;
+	SetTimeLive(WHIP_TIME_LIVE);
 	this->AddAnimation(WHIP_ANI_LEVEL_1);
 	this->AddAnimation(WHIP_ANI_LEVEL_2);
 	this->AddAnimation(WHIP_ANI_LEVEL_3);

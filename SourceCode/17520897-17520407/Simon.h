@@ -49,6 +49,8 @@ private:
 	static CSimon *__instance;
 
 	SIMON_WEAPON typeSubWeapon;
+
+	int currentScene; //id của scene hiện tại
 public:
 
 	static CSimon* getInstance();
@@ -72,6 +74,7 @@ public:
 		typeSubWeapon = SIMON_WEAPON::NONE;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
+		currentScene = 0;
 	}
 	//set thuộc tính
 	void setResetSitAffterAttack(bool b)
@@ -143,13 +146,17 @@ public:
 	{
 		return isFreeze;
 	}
+	int getCurrentScene()
+	{
+		return currentScene;
+	}
 	//Xử lí khi chạm vào enemies
 	void StartUntouchable()
 	{
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
-
+	//Load simon weapon
 
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

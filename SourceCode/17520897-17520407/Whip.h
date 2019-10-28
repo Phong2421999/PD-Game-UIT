@@ -39,6 +39,13 @@ private:
 	int simonX, simonY;
 public :
 	Whip(float x, float y, int nx, int level);
+	Whip()
+	{
+		SetTimeLive(WHIP_TIME_LIVE);
+		this->AddAnimation(WHIP_ANI_LEVEL_1);
+		this->AddAnimation(WHIP_ANI_LEVEL_2);
+		this->AddAnimation(WHIP_ANI_LEVEL_3);
+	}
 	void SetLevel(int level) {
 		this->curLevel = level;
 	}

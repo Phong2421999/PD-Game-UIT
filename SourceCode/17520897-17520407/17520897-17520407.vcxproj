@@ -151,6 +151,8 @@
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
     <ClCompile Include="SampleMario\Mario.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scenes.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="tinystr.cpp" />
@@ -186,12 +188,17 @@
     <ClInclude Include="FrameWork\Sprites.h" />
     <ClInclude Include="FrameWork\Textures.h" />
     <ClInclude Include="GameConst.h" />
+    <ClInclude Include="GameEnemyLib.h" />
+    <ClInclude Include="GameObjectLib.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="GameItemLib.h" />
     <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="LargeHeart.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scenes.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonConst.h" />
     <ClInclude Include="SmallHeart.h" />
@@ -222,6 +229,11 @@
     <Text Include="Textures\Map1.txt" />
     <Text Include="Textures\Map1_Objects.txt" />
     <Text Include="Textures\TexturesFile.txt" />
+    <Text Include="TXT\Map.txt" />
+    <Text Include="TXT\Map1.txt" />
+    <Text Include="TXT\Map1_Objects.txt" />
+    <Text Include="TXT\Scenes.txt" />
+    <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml" />

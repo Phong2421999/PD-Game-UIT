@@ -22,6 +22,10 @@ private:
 	DWORD makeTime;
 public:
 	WeaponDanger(float x, float y, int nx);
+	WeaponDanger()
+	{
+
+	}
 	void Render();
 	void SetPositionWithSimon(float x, float y, int nx);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

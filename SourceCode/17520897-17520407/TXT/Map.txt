@@ -1,0 +1,2 @@
+1
+100000 TXT\\Map1.txt 100000 Textures\\tileset_map1.png 255 0 255
