@@ -1,3 +1,5 @@
 2
-0 767 100000 TXT\\Map1_Objects.txt 0 0 32 163
-1 767 100000 TXT\\testScene.txt 1 500 32 163
+0 768 100000 TXT\\Map1_Objects.txt 0 0 32 163
+1 1760 200000 TXT\\Map2_Objects.txt 1 500 32 163
+2 512 300000 TXT\\Map3_Objects.txt 1 500 32 163
+4 768 400000 TXT\\Map4_Objects.txt 1 500 32 163

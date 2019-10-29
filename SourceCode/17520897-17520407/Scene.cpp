@@ -6,9 +6,9 @@ Scene::Scene(int sceneWidth, int loadBlackScene, DWORD timeLoadBlackScene)
 	map = CMap::GetInstance();
 	simon = CSimon::getInstance();
 	animations = CAnimations::GetInstance();
-	this->sceneWidth = sceneWidth;
+	this->sceneWidthEachMap = sceneWidth;
 	this->timeLoadBlackScene = timeLoadBlackScene;
-	SCENCE_WITDH = scenceWidth;
+	SCENCE_WITDH = sceneWidthEachMap;
 	if (loadBlackScene == 1)
 		isLoadBlackScene = true;
 	else

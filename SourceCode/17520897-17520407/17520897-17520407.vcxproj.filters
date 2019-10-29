@@ -373,6 +373,9 @@
     <Image Include="Textures\TexturesV3.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\tileset_map2.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">
@@ -400,6 +403,24 @@
       <Filter>TXT</Filter>
     </Text>
     <Text Include="TXT\testScene.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map2.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map2_Objects.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map3.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map3_Objects.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map4.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map4_Objects.txt">
       <Filter>TXT</Filter>
     </Text>
   </ItemGroup>

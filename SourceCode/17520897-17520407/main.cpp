@@ -141,13 +141,13 @@ void LoadResources()
 	scenes = new Scenes();
 	fstream fileSence("TXT\\Scenes.txt", ios::in);
 	fileSence >> quantity;
-	int sceneId, sceneWidth, sceneMapId, isLoadBlackScene, timeLoadBlackScene;
+	int sceneId, sceneWidthEachMap, sceneMapId, isLoadBlackScene, timeLoadBlackScene;
 	float simonStartX, simonStartY;
 	string sceneGameObjectPath;
 	for (int i = 0; i < quantity; i++)
 	{
-		fileSence >> sceneId >> sceneWidth >> sceneMapId >> sceneGameObjectPath >> isLoadBlackScene >> timeLoadBlackScene >> simonStartX >> simonStartY;
-		Scene* scene = new Scene(scenceWidth, isLoadBlackScene, timeLoadBlackScene);
+		fileSence >> sceneId >> sceneWidthEachMap >> sceneMapId >> sceneGameObjectPath >> isLoadBlackScene >> timeLoadBlackScene >> simonStartX >> simonStartY;
+		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, timeLoadBlackScene);
 		scene->LoadSceneResource(sceneMapId, sceneGameObjectPath.c_str());
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);

@@ -36,7 +36,7 @@ public:
 	vector<LPEFT> effects;
 
 	int mapId;
-	int sceneWidth;
+	int sceneWidthEachMap;
 
 	DWORD timeStartLoadScene;
 	DWORD timeLoadBlackScene;

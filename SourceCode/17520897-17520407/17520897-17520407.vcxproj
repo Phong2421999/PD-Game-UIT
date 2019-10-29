@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10C77508-3D33-4A9A-9657-58814B9B6F25}</ProjectGuid>
     <RootNamespace>My1752089717520407</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -225,6 +225,7 @@
     <Image Include="Textures\TexturesV2.png" />
     <Image Include="Textures\TexturesV3.png" />
     <Image Include="Textures\tileset_map1.png" />
+    <Image Include="Textures\tileset_map2.png" />
     <Image Include="Textures\WhipTexture.png" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +235,12 @@
     <Text Include="TXT\Map.txt" />
     <Text Include="TXT\Map1.txt" />
     <Text Include="TXT\Map1_Objects.txt" />
+    <Text Include="TXT\Map2.txt" />
+    <Text Include="TXT\Map2_Objects.txt" />
+    <Text Include="TXT\Map3.txt" />
+    <Text Include="TXT\Map3_Objects.txt" />
+    <Text Include="TXT\Map4.txt" />
+    <Text Include="TXT\Map4_Objects.txt" />
     <Text Include="TXT\Scenes.txt" />
     <Text Include="TXT\testScene.txt" />
     <Text Include="TXT\TexturesFile.txt" />
