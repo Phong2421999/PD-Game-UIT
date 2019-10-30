@@ -1,14 +1,13 @@
 ﻿#include "Scene.h"
 
-Scene::Scene(int sceneWidth, int loadBlackScene, DWORD timeLoadBlackScene)
+Scene::Scene(int sceneWidthEachMap, int loadBlackScene, DWORD timeLoadBlackScene)
 {
 	game = CGame::GetInstance();
 	map = CMap::GetInstance();
 	simon = CSimon::getInstance();
 	animations = CAnimations::GetInstance();
-	this->sceneWidthEachMap = sceneWidth;
+	this->sceneWidthEachMap = sceneWidthEachMap;
 	this->timeLoadBlackScene = timeLoadBlackScene;
-	SCENCE_WITDH = sceneWidthEachMap;
 	if (loadBlackScene == 1)
 		isLoadBlackScene = true;
 	else
@@ -22,7 +21,56 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 {
 	this->mapId = mapId;
 	map->Get(mapId)->LoadTile();
-	ifstream inp(senceGameObjects, ios::in);
+
+	TiXmlDocument mapObjects(senceGameObjects);
+	if (!mapObjects.LoadFile())
+	{
+		DebugOut(L"Can't read XML file: %s", senceGameObjects);
+		MessageBox(NULL, L"Can't Read XML File", L"Error", MB_OK);
+		return;
+	}
+	// get info root
+	TiXmlElement* root = mapObjects.RootElement();
+	TiXmlElement* Objects = nullptr;
+	TiXmlElement* Object = nullptr;
+	for (Objects = root->FirstChildElement(); Objects != NULL; Objects = Objects->NextSiblingElement())
+	{
+		int id, sceneId;
+		float x, y, Width, Height;
+		Objects->QueryIntAttribute("id", &id);
+		Objects->QueryFloatAttribute("width", &Width);
+		Objects->QueryFloatAttribute("height", &Height);
+		for (Object = Objects->FirstChildElement(); Object != NULL; Object = Object->NextSiblingElement())
+		{
+			Object->QueryFloatAttribute("x", &x);
+			Object->QueryFloatAttribute("y", &y);
+			DebugOut(L"\nx=%f", x);
+			if (id == 0)
+			{
+				CGround* ground = new CGround();
+				ground->SetWidthHeigth(Width, Height);
+				ground->SetPosition(x, y);
+				objects.push_back(ground);
+			}
+			else if (id == 1) {
+				CLargeCandle* largeCandle = new CLargeCandle();
+				largeCandle->SetPosition(x, y);
+				largeCandle->SetWidthHeight(Width, Height);
+				objects.push_back(largeCandle);
+			}
+			else if (id == -1)
+			{
+				Object->QueryIntAttribute("sceneId", &sceneId);
+				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
+				changeScene->SetPosition(x, y);
+				changeScene->SetWidthHeight(Width, Height);
+				changeScene->SetSceneId(sceneId);
+				objects.push_back(changeScene);
+			}
+		}
+	}
+
+	/*ifstream inp(senceGameObjects, ios::in);
 	float x, y;
 	float  Width, Height;
 	int Quantity, id;
@@ -54,7 +102,7 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 		}
 	}
 	inp.close();
-
+*/
 	objects.push_back(simon);
 }
 
@@ -267,6 +315,7 @@ void Scene::Render()
 
 void Scene::StartLoadScene()
 {
+	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
 	simon->SetPosition(simonStartX, simonStartY);

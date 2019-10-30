@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Objects>
+  <Grounds id="0" width="780" height="8">
+    <Ground x="0" y="196" />
+  </Grounds>
+  <LargeCandles id="1" width="16" height="30">
+    <LargeCandle x="90" y="168" />
+    <LargeCandle x="220" y="168"/>
+    <LargeCandle x="340" y="168"/>
+    <LargeCandle x="480" y="168"/>
+    <LargeCandle x="600" y="168"/>
+  </LargeCandles>
+  <ChangeScenes id="-1" width="16" height="30">
+    <Ground x="115" y="168" sceneId="1"/>
+  </ChangeScenes>
+</Objects>

@@ -423,9 +423,24 @@
     <Text Include="TXT\Map4_Objects.txt">
       <Filter>TXT</Filter>
     </Text>
+    <Text Include="TXT\Map5.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map5_Objects.txt">
+      <Filter>TXT</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Maps.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Scenes.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Map1_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>

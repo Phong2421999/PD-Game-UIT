@@ -23,6 +23,8 @@
 #include "Simon.h"
 #include "CMap.h"
 
+#include "tinyxml.h"
+
 
 class Scene {
 public:
@@ -47,7 +49,7 @@ public:
 	float simonStartY;
 
 public:
-	Scene(int sceneWidth, int loadBlackScene, DWORD timeLoadBlackScene);
+	Scene(int sceneWidthEachMap, int loadBlackScene, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
 	void Update(DWORD dt);
 	void Render();

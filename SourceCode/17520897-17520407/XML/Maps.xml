@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Maps>
+  <TileSet texMapId="100000" tileSetPath="Textures\\tileset_map1.png" R="255" G="0" B="255">
+    <Map mapPath="TXT\\Map1.txt" mapId="100000"/>
+  </TileSet>
+  <TileSet texMapId="200000" tileSetPath="Textures\\tileset_map2.png" R="255" G="255" B="255">
+    <Map mapPath="TXT\\Map2.txt" mapId="200000" />
+    <Map mapPath="TXT\\Map3.txt" mapId="300000"/>
+    <Map mapPath="TXT\\Map4.txt" mapId="400000"/>
+    <Map mapPath="TXT\\Map5.txt" mapId="500000"/>
+  </TileSet>
+</Maps>

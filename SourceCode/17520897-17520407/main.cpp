@@ -71,15 +71,34 @@ void LoadResources()
 	}
 
 	//Load tất cả map
-	CMap * map = CMap::GetInstance();
-	ifstream fileMap("TXT\\Map.txt", ios::in);
-	int mapId, texMapId;
-	string mapPath, tileMapPath;
-	fileMap >> quantity;
-	for (int i = 0; i < quantity; i++)
+	TiXmlDocument mapXML("XML/Maps.xml");
+	if (!mapXML.LoadFile())
 	{
-		fileMap >> mapId >> mapPath >> texMapId >> tileMapPath >> R >> G >> B;
-		map->Add(mapId, mapPath.c_str(), texMapId, tileMapPath.c_str(), D3DCOLOR_XRGB(R, G, B));
+		DebugOut(L"Can't read XMLMAP file");
+		MessageBox(NULL, L"Can't Read XML Map File", L"Error", MB_OK);
+		return;
+	}
+	else
+		DebugOut(L"[INFO]Read XMLMAP success\n");
+	TiXmlElement* rootMap = mapXML.RootElement();
+	TiXmlElement* tileSet = nullptr;
+	TiXmlElement* mapXMLElem = nullptr;
+	CMap * map = CMap::GetInstance();
+	for (tileSet = rootMap->FirstChildElement(); tileSet != NULL; tileSet = tileSet->NextSiblingElement())
+	{
+		int mapId, texMapId, R, B, G;
+		string tileSetPath,mapPath;
+		tileSetPath = tileSet->Attribute("tileSetPath");
+		tileSet->QueryIntAttribute("R", &R);
+		tileSet->QueryIntAttribute("G", &G);
+		tileSet->QueryIntAttribute("B", &B);
+		tileSet->QueryIntAttribute("texMapId", &texMapId);
+		for (mapXMLElem = tileSet->FirstChildElement(); mapXMLElem != NULL; mapXMLElem = mapXMLElem->NextSiblingElement())
+		{
+			mapXMLElem->QueryIntAttribute("mapId", &mapId);
+			mapPath = mapXMLElem->Attribute("mapPath");
+			map->Add(mapId, mapPath.c_str(), texId, tileSetPath.c_str(), D3DCOLOR_XRGB(R, G, B));
+		}
 	}
 
 	//Load tất cả animations
@@ -137,18 +156,41 @@ void LoadResources()
 		};
 	}
 
+
+
 	//Load tất cả scene - không đặt instance được vì trong scene có gọi singleton - Quản lý scene duy nhất ở đây
 	scenes = new Scenes();
-	fstream fileSence("TXT\\Scenes.txt", ios::in);
-	fileSence >> quantity;
-	int sceneId, sceneWidthEachMap, sceneMapId, isLoadBlackScene, timeLoadBlackScene;
-	float simonStartX, simonStartY;
-	string sceneGameObjectPath;
-	for (int i = 0; i < quantity; i++)
+	
+	TiXmlDocument scenesXML("XML/Scenes.xml");
+	if (!scenesXML.LoadFile())
 	{
-		fileSence >> sceneId >> sceneWidthEachMap >> sceneMapId >> sceneGameObjectPath >> isLoadBlackScene >> timeLoadBlackScene >> simonStartX >> simonStartY;
+		DebugOut(L"Can't read XML Scenes file");
+		MessageBox(NULL, L"Can't Read XML Scenes File", L"Error", MB_OK);
+		return;
+	}
+	else
+	{
+		DebugOut(L"[INFO]Read XML Scenes success\n");
+	}
+	// get info root
+	TiXmlElement* rootScenes = scenesXML.RootElement();
+	TiXmlElement* sceneXMLElem = nullptr;
+
+	for (sceneXMLElem = rootScenes->FirstChildElement(); sceneXMLElem != NULL; sceneXMLElem = sceneXMLElem->NextSiblingElement())
+	{
+		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene;
+		float simonStartX, simonStartY;
+		string sceneGameObjectPath;
+		sceneXMLElem->QueryIntAttribute("sceneId", &sceneId);
+		sceneXMLElem->QueryIntAttribute("mapId", &mapId);
+		sceneXMLElem->QueryIntAttribute("sceneWidthEachMap", &sceneWidthEachMap);
+		sceneXMLElem->QueryIntAttribute("isLoadBlackScene", &isLoadBlackScene);
+		sceneXMLElem->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
+		sceneXMLElem->QueryFloatAttribute("simonStartX", &simonStartX);
+		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
+		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
 		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, timeLoadBlackScene);
-		scene->LoadSceneResource(sceneMapId, sceneGameObjectPath.c_str());
+		scene->LoadSceneResource(mapId, sceneGameObjectPath.c_str());
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài

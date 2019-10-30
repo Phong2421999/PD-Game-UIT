@@ -1,5 +1,0 @@
-4
-100000 TXT\\Map1.txt 100000 Textures\\tileset_map1.png 255 0 255
-200000 TXT\\Map2.txt 200000 Textures\\tileset_map2.png 255 255 255
-300000 TXT\\Map3.txt 200000 Textures\\tileset_map2.png 255 255 255
-400000 TXT\\Map4.txt 200000 Textures\\tileset_map2.png 255 255 255
