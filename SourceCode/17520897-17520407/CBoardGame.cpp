@@ -14,7 +14,7 @@ CBoardGame *CBoardGame::GetInstance() {
 void CBoardGame::ReadFontTXT(LPCSTR filePath)
 {
 	ifstream inp(filePath, ios::in);
-	inp >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight;
+	inp >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight ;
 
 	DebugOut(L"[INFO] Read font Success \n");
 	inp.close();

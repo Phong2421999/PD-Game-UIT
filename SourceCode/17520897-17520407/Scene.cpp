@@ -24,7 +24,7 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 	this->mapId = mapId;
 	map->Get(mapId)->LoadTile();
 	boardGame->ReadFontTXT("TXT\\Font.txt");
-	boardGame->LoadBackBoard(5, "textures\\board.png");
+	boardGame->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
 	boardGame->LoadFont(TEX_FONT_ID);
 
 	ifstream inpLetters("TXT\\LettersPosition.txt", ios::in);
