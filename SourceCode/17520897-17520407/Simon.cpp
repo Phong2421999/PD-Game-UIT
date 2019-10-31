@@ -14,96 +14,119 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	if (x <= 0)
-		x = 0;
-	DWORD now = GetTickCount();
-	if (now - startUntouchableTime >= SIMON_UNTOUCHABLE_TIME)
+	if (isAutoGo && isCanAutoGo)
 	{
-		isUntouchable = false;
-		startUntouchableTime = 0;
-	}
-	// Khi rơi gravity thấp hơn để rơi chậm lại
-	if (vy > 0)
-	{
-		vy += SIMON_FALLING_GRAVITY * dt;
-
-	}
-	else
-	{
-		vy += SIMON_GRAVITY * dt;
-	}
-
-	// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
-	Attacking(dt);
-	Jumping();
-	UsingWeapon();
-	ResetAfterSit();
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents);
-
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		// block
-		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		DebugOut(L"\nAutoGo");
+		state = SIMON_STATE_WALKING_RIGHT;
+		vx = SIMON_AUTO_WALKING_SPEED;
+		simonAutoGoDistance += vx*dt;
+		this->x += vx * dt;
+		if (simonAutoGoDistance > autoGoDistance)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
-			{
-				if (simonWeapon)
-					simonWeapon->SetIsJump(false);
-
-				if (isJump)
-				{
-					ResetAfterJump();
-				}
-			}
-			if (dynamic_cast<CEnemies *>(e->obj))
-			{
-				if (isUntouchable == false)
-				{
-
-					if (e->nx > 0)
-					{
-						isUntouchable = true;
-						x += PUSH_SIMON_TOUCH_ENEMIES_X;
-						y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-						vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-						StartUntouchable();
-					}
-					else
-					{
-						isUntouchable = true;
-						x -= PUSH_SIMON_TOUCH_ENEMIES_X;
-						y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-						vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-						StartUntouchable();
-					}
-				}
-				//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
-			}
+			DebugOut(L"\nStop AutoGo");
+			isAutoGo = false;
+			simonAutoGoDistance = 0;
+			autoGoDistance = 0;
 		}
 	}
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	else if (isAutoGo && isCanAutoGo == false)
+	{
+		state = SIMON_STATE_IDLE;
+	}
+	else
+	{
+
+		if (x <= 0)
+			x = 0;
+		DWORD now = GetTickCount();
+		if (now - startUntouchableTime >= SIMON_UNTOUCHABLE_TIME)
+		{
+			isUntouchable = false;
+			startUntouchableTime = 0;
+		}
+		// Khi rơi gravity thấp hơn để rơi chậm lại
+
+		if (vy > 0)
+		{
+			vy += SIMON_FALLING_GRAVITY * dt;
+		}
+		else
+		{
+			vy += SIMON_GRAVITY * dt;
+		}
+
+		// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
+		Attacking(dt);
+		Jumping();
+		UsingWeapon();
+		ResetAfterSit();
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+
+		CalcPotentialCollisions(coObjects, coEvents);
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			float min_tx, min_ty, nx = 0, ny;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			// block
+			x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy + ny * 0.4f;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+
+				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
+				{
+					if (simonWeapon)
+						simonWeapon->SetIsJump(false);
+
+					if (isJump)
+					{
+						ResetAfterJump();
+					}
+				}
+				if (dynamic_cast<CEnemies *>(e->obj))
+				{
+					if (isUntouchable == false)
+					{
+
+						if (e->nx > 0)
+						{
+							isUntouchable = true;
+							x += PUSH_SIMON_TOUCH_ENEMIES_X;
+							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+							StartUntouchable();
+						}
+						else
+						{
+							isUntouchable = true;
+							x -= PUSH_SIMON_TOUCH_ENEMIES_X;
+							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+							StartUntouchable();
+						}
+					}
+					//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
+				}
+			}
+		}
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
 }
 
 void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects)
@@ -112,7 +135,7 @@ void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects
 	{
 		if (dynamic_cast<Whip*>(simonWeapon))
 		{
-			simonWeapon->SetPosition(x,y);
+			simonWeapon->SetPosition(x, y);
 			simonWeapon->SetRenderPos(x, y);
 		}
 		simonWeapon->Update(dt, colliable_objects);

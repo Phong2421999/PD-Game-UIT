@@ -59,6 +59,8 @@ public:
 
 	int stage;
 
+	DWORD deltaTime;
+	
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);

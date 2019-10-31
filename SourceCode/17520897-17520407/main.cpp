@@ -204,10 +204,17 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	sceneId = simon->getCurrentScene();
-	if (lastSceneId != sceneId)
+	if (simon->getAutoGo())
 	{
-		scenes->Get(sceneId)->StartLoadScene();
-		lastSceneId = sceneId;
+		sceneId = lastSceneId;
+	}
+	else
+	{
+		if (lastSceneId != sceneId)
+		{
+			scenes->Get(sceneId)->StartLoadScene();
+			lastSceneId = sceneId;
+		}
 	}
 	scenes->Get(sceneId)->Update(dt);
 }

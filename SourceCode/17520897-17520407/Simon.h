@@ -54,6 +54,11 @@ private:
 	int score;		  //Điểm người chơi
 	int live;		  //Số mạng của simon
 
+	//Tự động di chuyển khi chuyển sence
+	bool isAutoGo;
+	bool isCanAutoGo;
+	float autoGoDistance;
+	float simonAutoGoDistance;
 public:
 
 	static CSimon* getInstance();
@@ -80,8 +85,24 @@ public:
 		currentScene = 0;
 		score = 123456;
 		live = 3;
+		isAutoGo = false;
+		autoGoDistance = 0;
+		simonAutoGoDistance = 0;
+		isCanAutoGo = false;
 	}
 	//set thuộc tính
+	void setCanAutoGo(bool b)
+	{
+		this->isCanAutoGo = b;
+	}
+	void setAutoGoDistance(float dis)
+	{
+		this->autoGoDistance = dis;
+	}
+	void setAutoGo(bool b)
+	{
+		this->isAutoGo = b;
+	}
 	void setResetSitAffterAttack(bool b)
 	{
 		this->isResetSitAfterAttack = b;
@@ -116,6 +137,10 @@ public:
 		this->currentScene = id;
 	}
 	//get thuộc tính
+	bool getAutoGo()
+	{
+		return isAutoGo;
+	}
 	int getLive()
 	{
 		return live;

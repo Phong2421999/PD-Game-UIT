@@ -1,5 +1,7 @@
 ﻿#pragma once
 #define SIMON_WALKING_SPEED		0.07f 
+#define SIMON_AUTO_WALKING_SPEED		0.035f 
+
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.35f
 #define SIMON_JUMP_ATTACK_SPEED_Y		0.035f
