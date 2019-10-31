@@ -59,7 +59,7 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 	TiXmlElement* Object = nullptr;
 	for (Objects = root->FirstChildElement(); Objects != NULL; Objects = Objects->NextSiblingElement())
 	{
-		int id, sceneId;
+		int id;
 		float x, y, Width, Height;
 		Objects->QueryIntAttribute("id", &id);
 		Objects->QueryFloatAttribute("width", &Width);
@@ -68,7 +68,6 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 		{
 			Object->QueryFloatAttribute("x", &x);
 			Object->QueryFloatAttribute("y", &y);
-			DebugOut(L"\nx=%f", x);
 			if (id == 0)
 			{
 				CGround* ground = new CGround();
@@ -84,49 +83,38 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 			}
 			else if (id == -1)
 			{
+				int sceneId, simonAutoGo;
+				int isDoor, camAutoGo;
+				float simonAutoGoDistance;
 				Object->QueryIntAttribute("sceneId", &sceneId);
+				Object->QueryIntAttribute("simonAutoGo", &simonAutoGo);
+				Object->QueryFloatAttribute("simonAutoGoDistance", &simonAutoGoDistance);
+				Object->QueryIntAttribute("camAutoGo", &camAutoGo);
+				Object->QueryIntAttribute("isDoor", &isDoor);
+
 				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
 				changeScene->SetPosition(x, y);
 				changeScene->SetWidthHeight(Width, Height);
 				changeScene->SetSceneId(sceneId);
+				if (camAutoGo == 1)
+				{
+					changeScene->SetCamAutoGo(true);
+				}
+				if (isDoor)
+				{
+					changeScene->SetIsDoor(true);
+				}
+				if (simonAutoGo == 1)
+				{
+					changeScene->SetSimonAutoGo(true);
+					changeScene->SetAutoGoDistance(simonAutoGoDistance);
+				}
+				else
+					changeScene->SetSimonAutoGo(false);
 				objects.push_back(changeScene);
 			}
 		}
 	}
-
-	/*ifstream inp(senceGameObjects, ios::in);
-	float x, y;
-	float  Width, Height;
-	int Quantity, id;
-	inp >> Quantity;
-	for (int i = 0; i < Quantity; i++) {
-		inp >> id >> x >> y >> Width >> Height;
-		if (id == 0)
-		{
-			CGround* ground = new CGround();
-			ground->SetWidthHeigth(Width, Height);
-			ground->SetPosition(x, y);
-			objects.push_back(ground);
-		}
-		else if (id == 1) {
-			CLargeCandle* largeCandle = new CLargeCandle();
-			largeCandle->SetPosition(x, y);
-			largeCandle->SetWidthHeight(Width, Height);
-			objects.push_back(largeCandle);
-		}
-		else if (id == -1)
-		{
-			int loadSceneId;
-			inp >> loadSceneId;
-			ChangeSceneObjects* changeScene = new ChangeSceneObjects();
-			changeScene->SetPosition(x, y);
-			changeScene->SetWidthHeight(Width, Height);
-			changeScene->SetSceneId(loadSceneId);
-			objects.push_back(changeScene);
-		}
-	}
-	inp.close();
-*/
 	objects.push_back(simon);
 }
 
@@ -189,6 +177,7 @@ void Scene::UpdateBoardGame(DWORD dt) {
 
 void Scene::Update(DWORD dt)
 {
+	this->deltaTime = dt;
 	if (isLoadBlackScene)
 	{
 		DWORD now = GetTickCount();
@@ -201,7 +190,37 @@ void Scene::Update(DWORD dt)
 	{
 		isCanLoadScene = true;
 	}
-	if (isCanLoadScene)
+	if (game->GetCamAutoGo() == false)
+	{
+		simon->setCanAutoGo(true);
+	}
+	if (isCanLoadScene && game->GetCamAutoGo())
+	{
+		if (game->GetCamAutoGoDistance() < SCREEN_WIDTH / 2)
+		{
+			game->AutoGoCam(dt);
+		}
+		else
+		{
+			game->SetStopCamAutoGo(true);
+			game->SetRenderDoorChangeScene(true);
+			simon->Update(dt);
+			if (simon->getAutoGo() == false)
+			{
+				if (game->GetCamAutoGoDistance() < SCREEN_WIDTH)
+				{
+					game->AutoGoCam(dt);
+				}
+				else
+				{
+					game->SetCamAutoGo(false);
+					game->SetCamAutoGoDistance(0);
+					simon->setCanAutoGo(false);
+				}
+			}
+		}
+	}
+	else if (isCanLoadScene && game->GetCamAutoGo() == false)
 	{
 		if (simon->getFreeze() == false)
 		{
@@ -261,6 +280,7 @@ void Scene::Update(DWORD dt)
 				}
 				else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
 				{
+
 					objects[i]->Update(dt, &coChangeScence);
 				}
 				else {
@@ -341,7 +361,7 @@ void Scene::Update(DWORD dt)
 		float cx, cy;
 		simon->GetPosition(cx, cy);
 
-		cx -= SCREEN_WIDTH / 2;
+		cx -= SCREEN_WIDTH / 2 - 32;
 		cy -= SCREEN_HEIGHT / 2;
 		if (cx <= 0)
 		{
@@ -368,10 +388,10 @@ void Scene::Render()
 {
 	if (isCanLoadScene)
 	{
-		map->Get(mapId)->Render();
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
+		map->Get(mapId)->Render();
 		CSprites::GetInstance()->Get(BLACK_BOARD_ID)->Draw(camX, camY);
 
 		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
@@ -418,33 +438,46 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
-
-
-		if (simon->getFreeze() == true)
+		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
+			simon->Render();
 			for (int i = 0; i < objects.size(); i++)
 			{
-				if (dynamic_cast<CSimon*> (objects[i]) == false)
+				if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
 				{
-					objects[i]->RenderCurrentFrame();
-				}
-				else
 					objects[i]->Render();
+				}
 			}
-			for (int i = 0; i < effects.size(); i++)
-				effects[i]->RenderCurrentFrame();
-			for (int i = 0; i < listItems.size(); i++)
-				listItems[i]->RenderCurrentFrame();
 		}
 		else
 		{
-			for (int i = 0; i < objects.size(); i++)
-				objects[i]->Render();
-			for (int i = 0; i < effects.size(); i++)
-				effects[i]->Render();
-			for (int i = 0; i < listItems.size(); i++)
-				listItems[i]->Render();
+			if (simon->getFreeze() == true)
+			{
+				for (int i = 0; i < objects.size(); i++)
+				{
+					if (dynamic_cast<CSimon*> (objects[i]) == false)
+					{
+						objects[i]->RenderCurrentFrame();
+					}
+					else
+						objects[i]->Render();
+				}
+				for (int i = 0; i < effects.size(); i++)
+					effects[i]->RenderCurrentFrame();
+				for (int i = 0; i < listItems.size(); i++)
+					listItems[i]->RenderCurrentFrame();
+			}
+			else
+			{
+				for (int i = 0; i < objects.size(); i++)
+					objects[i]->Render();
+				for (int i = 0; i < effects.size(); i++)
+					effects[i]->Render();
+				for (int i = 0; i < listItems.size(); i++)
+					listItems[i]->Render();
+			}
 		}
+
 	}
 }
 

@@ -446,5 +446,8 @@
     <Xml Include="XML\Map1_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="XML\Map2_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 #include <dinput.h>
 
 #define KEYBOARD_BUFFER_SIZE 1024
-
+#define CAM_AUTO_GO_SPEED 0.07f
 class CGame
 {
 	static CGame * __instance;
@@ -30,11 +30,58 @@ class CGame
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
+
+	bool isCamAutoGo;
+	float camAutoGoDistance;
+
+	bool isRenderDoorChangeScene;
+	bool isStopCamAutoGo;
 public:
 	void Init(HWND hWnd);
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 
+
+	//Set
+	void SetCamAutoGo(bool b)
+	{
+		this->isCamAutoGo = b;
+	}
+	void SetCamAutoGoDistance(float dis)
+	{
+		this->camAutoGoDistance = dis;
+	}
+	void SetRenderDoorChangeScene(bool b)
+	{
+		this->isRenderDoorChangeScene = b;
+	}
+	void SetStopCamAutoGo(bool b)
+	{
+		this->isStopCamAutoGo = b;
+	}
+	//Get
+	bool GetCamAutoGo()
+	{
+		return isCamAutoGo;
+	}
+	float GetCamAutoGoDistance()
+	{
+		return camAutoGoDistance;
+	}
+	bool GetRenderDoorChangeScene()
+	{
+		return isRenderDoorChangeScene;
+	}
+	//CamAutoGo
+	void AutoGoCam(DWORD dt)
+	{
+		if (isStopCamAutoGo == false)
+		{
+			float dx = CAM_AUTO_GO_SPEED * dt;
+			cam_x += floor(dx);
+			camAutoGoDistance += floor(dx);
+		}
+	}
 
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();

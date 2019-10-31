@@ -15,7 +15,7 @@ public:
 	CAnimation(int defaultTime) {
 		this->defaultTime = defaultTime;
 		lastFrameTime = -1;
-		currentFrame = -1;
+		currentFrame = 0;
 		nextIsLastFrame = false;
 		lastFrame = false;
 	}
