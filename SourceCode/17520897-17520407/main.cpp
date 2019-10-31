@@ -97,7 +97,7 @@ void LoadResources()
 		{
 			mapXMLElem->QueryIntAttribute("mapId", &mapId);
 			mapPath = mapXMLElem->Attribute("mapPath");
-			map->Add(mapId, mapPath.c_str(), texId, tileSetPath.c_str(), D3DCOLOR_XRGB(R, G, B));
+			map->Add(mapId, mapPath.c_str(), texMapId, tileSetPath.c_str());
 		}
 	}
 
@@ -178,7 +178,7 @@ void LoadResources()
 
 	for (sceneXMLElem = rootScenes->FirstChildElement(); sceneXMLElem != NULL; sceneXMLElem = sceneXMLElem->NextSiblingElement())
 	{
-		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene;
+		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene, stage;
 		float simonStartX, simonStartY;
 		string sceneGameObjectPath;
 		sceneXMLElem->QueryIntAttribute("sceneId", &sceneId);
@@ -186,10 +186,11 @@ void LoadResources()
 		sceneXMLElem->QueryIntAttribute("sceneWidthEachMap", &sceneWidthEachMap);
 		sceneXMLElem->QueryIntAttribute("isLoadBlackScene", &isLoadBlackScene);
 		sceneXMLElem->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
+		sceneXMLElem->QueryIntAttribute("stage", &stage);
 		sceneXMLElem->QueryFloatAttribute("simonStartX", &simonStartX);
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
-		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, timeLoadBlackScene);
+		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene);
 		scene->LoadSceneResource(mapId, sceneGameObjectPath.c_str());
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);

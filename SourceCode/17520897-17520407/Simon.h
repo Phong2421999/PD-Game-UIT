@@ -51,6 +51,9 @@ private:
 	SIMON_WEAPON typeSubWeapon;
 
 	int currentScene; //id của scene hiện tại
+	int score;		  //Điểm người chơi
+	int live;		  //Số mạng của simon
+
 public:
 
 	static CSimon* getInstance();
@@ -75,6 +78,8 @@ public:
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
 		currentScene = 0;
+		score = 123456;
+		live = 3;
 	}
 	//set thuộc tính
 	void setResetSitAffterAttack(bool b)
@@ -111,6 +116,18 @@ public:
 		this->currentScene = id;
 	}
 	//get thuộc tính
+	int getLive()
+	{
+		return live;
+	}
+	int getScore()
+	{
+		return score;
+	}
+	int getHeart()
+	{
+		return heart;
+	}
 	bool getUseSubWeapon()
 	{
 		return isUseSubWeapon;

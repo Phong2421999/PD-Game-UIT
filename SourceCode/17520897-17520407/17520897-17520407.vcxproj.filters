@@ -64,6 +64,9 @@
     <Filter Include="TXT">
       <UniqueIdentifier>{015b9abe-9989-441d-891a-c6dde3f86f89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BoardGame">
+      <UniqueIdentifier>{169f9e21-e7a8-4734-8479-0c94c9152676}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -194,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="ChangeSceneObjects.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CFont.cpp">
+      <Filter>BoardGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoardGame.cpp">
+      <Filter>BoardGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +338,12 @@
     <ClInclude Include="ChangeSceneObjects.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="CFont.h">
+      <Filter>BoardGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoardGame.h">
+      <Filter>BoardGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -376,6 +391,12 @@
     <Image Include="Textures\tileset_map2.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\board.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Font.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">
@@ -390,43 +411,25 @@
     <Text Include="TXT\Map1.txt">
       <Filter>TXT</Filter>
     </Text>
-    <Text Include="TXT\Map1_Objects.txt">
-      <Filter>TXT</Filter>
-    </Text>
     <Text Include="TXT\TexturesFile.txt">
-      <Filter>TXT</Filter>
-    </Text>
-    <Text Include="TXT\Map.txt">
-      <Filter>TXT</Filter>
-    </Text>
-    <Text Include="TXT\Scenes.txt">
-      <Filter>TXT</Filter>
-    </Text>
-    <Text Include="TXT\testScene.txt">
       <Filter>TXT</Filter>
     </Text>
     <Text Include="TXT\Map2.txt">
       <Filter>TXT</Filter>
     </Text>
-    <Text Include="TXT\Map2_Objects.txt">
-      <Filter>TXT</Filter>
-    </Text>
     <Text Include="TXT\Map3.txt">
-      <Filter>TXT</Filter>
-    </Text>
-    <Text Include="TXT\Map3_Objects.txt">
       <Filter>TXT</Filter>
     </Text>
     <Text Include="TXT\Map4.txt">
       <Filter>TXT</Filter>
     </Text>
-    <Text Include="TXT\Map4_Objects.txt">
-      <Filter>TXT</Filter>
-    </Text>
     <Text Include="TXT\Map5.txt">
       <Filter>TXT</Filter>
     </Text>
-    <Text Include="TXT\Map5_Objects.txt">
+    <Text Include="TXT\Font.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\LettersPosition.txt">
       <Filter>TXT</Filter>
     </Text>
   </ItemGroup>

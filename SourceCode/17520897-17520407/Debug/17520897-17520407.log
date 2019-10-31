@@ -1,0 +1,18 @@
+﻿  Scene.cpp
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(66): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(132): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(206): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(247): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(266): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(307): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(317): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(322): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(343): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(366): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(387): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(396): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(398): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(403): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(405): warning C4018: '<': signed/unsigned mismatch
+e:\game is my life\pd-game-uit\sourcecode\17520897-17520407\scene.cpp(407): warning C4018: '<': signed/unsigned mismatch
+  17520897-17520407.vcxproj -> E:\Game is my life\PD-Game-UIT\SourceCode\Debug\17520897-17520407.exe

@@ -1,7 +1,10 @@
-5
+9
 -100 textures\\bbox.png 255 255 255
 0 textures\\TexturesV3.png 34 177 76
 1 textures\\Items.png 128 0 0
 2 textures\\ObjectsAndEffect.png 34 177 76
 3 textures\\Enemies-Castle.png 34 177 76
-
+4 textures\\Font.png 0 0 0
+5 textures\\board.png 0 0 0
+100000 Textures\\tileset_map1.png 255 0 255
+200000 Textures\\tileset_map2.png 255 255 255

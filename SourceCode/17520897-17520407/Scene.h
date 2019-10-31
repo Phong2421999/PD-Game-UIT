@@ -22,25 +22,34 @@
 
 #include "Simon.h"
 #include "CMap.h"
+#include "CBoardGame.h"
 
 #include "tinyxml.h"
 
+struct Letter
+{
+	float x, y;
+	int letter;
+};
 
 class Scene {
 public:
 	CGame *game;
 	CMap * map;
 	CSimon *simon;
+	CBoardGame *boardGame;
 	CAnimations * animations;
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPITEMS> listItems;
 	vector<LPEFT> effects;
+	vector<Letter> letters;
 
 	int mapId;
 	int sceneWidthEachMap;
 
 	DWORD timeStartLoadScene;
+	DWORD lastTimeEachStage;
 	DWORD timeLoadBlackScene;
 	bool isLoadBlackScene;
 	bool isCanLoadScene;
@@ -48,10 +57,13 @@ public:
 	float simonStartX;
 	float simonStartY;
 
+	int stage;
+
 public:
-	Scene(int sceneWidthEachMap, int loadBlackScene, DWORD timeLoadBlackScene);
+	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
 	void Update(DWORD dt);
+	void UpdateBoardGame(DWORD dt);
 	void Render();
 	void StartLoadScene();
 	void SetSimonStartPos(float x, float y)

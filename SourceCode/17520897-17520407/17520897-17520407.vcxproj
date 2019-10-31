@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10C77508-3D33-4A9A-9657-58814B9B6F25}</ProjectGuid>
     <RootNamespace>My1752089717520407</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,6 +123,8 @@
   <ItemGroup>
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
+    <ClCompile Include="CFont.cpp" />
+    <ClCompile Include="CBoardGame.cpp" />
     <ClCompile Include="CGhost.cpp" />
     <ClCompile Include="ChangeSceneObjects.cpp" />
     <ClCompile Include="CHit.cpp" />
@@ -168,6 +170,8 @@
   <ItemGroup>
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
+    <ClInclude Include="CFont.h" />
+    <ClInclude Include="CBoardGame.h" />
     <ClInclude Include="CGhost.h" />
     <ClInclude Include="ChangeSceneObjects.h" />
     <ClInclude Include="CHit.h" />
@@ -216,8 +220,10 @@
     <Image Include="Assess\Misc.png" />
     <Image Include="Assess\Simon.png" />
     <Image Include="Textures\bbox.png" />
+    <Image Include="Textures\board.png" />
     <Image Include="Textures\Enemies-Castle.png" />
     <Image Include="Textures\enemies.png" />
+    <Image Include="Textures\Font.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
     <Image Include="Textures\Items.png" />
@@ -232,19 +238,13 @@
     <Text Include="Textures\Map1.txt" />
     <Text Include="Textures\Map1_Objects.txt" />
     <Text Include="Textures\TexturesFile.txt" />
-    <Text Include="TXT\Map.txt" />
+    <Text Include="TXT\Font.txt" />
+    <Text Include="TXT\LettersPosition.txt" />
     <Text Include="TXT\Map1.txt" />
-    <Text Include="TXT\Map1_Objects.txt" />
     <Text Include="TXT\Map2.txt" />
-    <Text Include="TXT\Map2_Objects.txt" />
     <Text Include="TXT\Map3.txt" />
-    <Text Include="TXT\Map3_Objects.txt" />
     <Text Include="TXT\Map4.txt" />
-    <Text Include="TXT\Map4_Objects.txt" />
     <Text Include="TXT\Map5.txt" />
-    <Text Include="TXT\Map5_Objects.txt" />
-    <Text Include="TXT\Scenes.txt" />
-    <Text Include="TXT\testScene.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>

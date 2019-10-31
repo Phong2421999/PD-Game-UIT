@@ -7,9 +7,9 @@ CMap *CMap::GetInstance()
 	return __instance;
 }
 
-void CMap::Add(int mapId, LPCSTR mapPath, int texId, LPCSTR texPath, D3DCOLOR color)
+void CMap::Add(int mapId, LPCSTR mapPath, int texId, LPCSTR texPath)
 {
-	CTiles* map = new CTiles(texId, texPath, color);
+	CTiles* map = new CTiles(texId, texPath);
 	maps[mapId] = map;
 	maps[mapId]->ReadMapTXT(mapPath);
 	DebugOut(L"[INFO] Add filepath Success\n");

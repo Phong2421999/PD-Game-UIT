@@ -14,7 +14,7 @@ class CMap
 	unordered_map<int, LPTILES> maps;
 
 public:
-	void Add(int mapId, LPCSTR mapPath, int texId, LPCSTR filePath, D3DCOLOR color);
+	void Add(int mapId, LPCSTR mapPath, int texId, LPCSTR filePath);
 
 	LPTILES Get(int id);
 

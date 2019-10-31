@@ -1,7 +1,7 @@
 #include "CTiles.h"
 
 
-CTiles::CTiles(int texId, LPCSTR filePath, D3DCOLOR color)
+CTiles::CTiles(int texId, LPCSTR filePath)
 {
 	HRESULT result = D3DXGetImageInfoFromFileA(filePath, &info);
 	if (result != D3D_OK)
@@ -9,8 +9,6 @@ CTiles::CTiles(int texId, LPCSTR filePath, D3DCOLOR color)
 		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
 		return;
 	}
-
-	CTextures::GetInstance()->Add(texId, filePath, color);
 
 	tex = CTextures::GetInstance()->Get(texId);
 }

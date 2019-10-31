@@ -29,7 +29,7 @@ class CTiles
 	vector<LPTILE> tiles;
 public:
 
-	CTiles(int texId, LPCSTR filePath, D3DCOLOR color);
+	CTiles(int texId, LPCSTR filePath);
 
 	void ReadMapTXT(LPCSTR filePath);
 

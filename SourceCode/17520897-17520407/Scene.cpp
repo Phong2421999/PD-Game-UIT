@@ -1,13 +1,15 @@
 ﻿#include "Scene.h"
 
-Scene::Scene(int sceneWidthEachMap, int loadBlackScene, DWORD timeLoadBlackScene)
+Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene)
 {
 	game = CGame::GetInstance();
 	map = CMap::GetInstance();
 	simon = CSimon::getInstance();
+	boardGame = CBoardGame::GetInstance();
 	animations = CAnimations::GetInstance();
 	this->sceneWidthEachMap = sceneWidthEachMap;
 	this->timeLoadBlackScene = timeLoadBlackScene;
+	this->stage = stage;
 	if (loadBlackScene == 1)
 		isLoadBlackScene = true;
 	else
@@ -21,6 +23,19 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 {
 	this->mapId = mapId;
 	map->Get(mapId)->LoadTile();
+	boardGame->ReadFontTXT("TXT\\Font.txt");
+	boardGame->LoadBackBoard(5, "textures\\board.png");
+	boardGame->LoadFont(TEX_FONT_ID);
+
+	ifstream inpLetters("TXT\\LettersPosition.txt", ios::in);
+	int lettersQuantity;
+	inpLetters >> lettersQuantity;
+	for (int i = 0; i < lettersQuantity; i++)
+	{
+		Letter l;
+		inpLetters >> l.x >> l.y >> l.letter;
+		letters.push_back(l);
+	}
 
 	TiXmlDocument mapObjects(senceGameObjects);
 	if (!mapObjects.LoadFile())
@@ -106,13 +121,72 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 	objects.push_back(simon);
 }
 
+void Scene::UpdateBoardGame(DWORD dt) {
+	DWORD now = GetTickCount();
+	if (now - lastTimeEachStage >= 1000)
+	{
+		lastTimeEachStage = GetTickCount();
+		int time = boardGame->getLimitTime();
+		boardGame->setLimitTime(--time);
+	}
+	for (int i = 0; i < letters.size(); i++)
+	{
+		int n;
+		int temp;
+		if (i < 6) {
+			temp = simon->getScore();
+			for (int j = 0; j < (0 + SCORE_LENGTH) - i; j++) // Bắt đầu là 0 muốn chia 6 lần trong trường hợp này thì i = 0, 1, 2, 3, 4, 5
+			{
+				n = temp % 10;
+				temp = temp / 10;
+			}
+		}
+		if (i >= 6 && i < 10) {
+			temp = boardGame->getLimitTime();
+			for (int j = 0; j < (6 + TIME_LENGTH) - i; j++) // Bắt đầu là 6 muốn chia 4 lần trong trường hợp này thì i = 6, 7, 8, 9
+			{
+				n = temp % 10;
+				temp = temp / 10;
+			}
+		}
+		if (i >= 10 && i < 12) {
+			temp = this->stage;
+			for (int j = 0; j < (10 + STAGE_LENGTH) - i; j++) // Bắt đầu là 10 muốn chia 2 lần trong trường hợp này thì i = 10, 11
+			{
+				n = temp % 10;
+				temp = temp / 10;
+			}
+		}
+		if (i >= 12 && i < 14) {
+			temp = simon->getHeart();
+			for (int j = 0; j < (12 + HEART_LENGTH) - i; j++) // Bắt đầu là 12 muốn chia 2 lần trong trường hợp này thì i = 12, 13
+			{
+				n = temp % 10;
+				temp = temp / 10;
+			}
+		}
+		if (i >= 14 && i < 16) {
+			temp = simon->getLive();
+			for (int j = 0; j < (14 + LIVE_LENGTH) - i; j++) // Bắt đầu là 14 muốn chia 2 lần trong trường hợp này thì i = 14, 15
+			{
+				n = temp % 10;
+				temp = temp / 10;
+			}
+		}
+		letters.at(i).letter = boardGame->GetWithNumber(n);
+	}
+}
+
+
 void Scene::Update(DWORD dt)
 {
 	if (isLoadBlackScene)
 	{
 		DWORD now = GetTickCount();
 		if (now - timeStartLoadScene > timeLoadBlackScene)
+		{
 			isCanLoadScene = true;
+		}
 	}
 	else
 	{
@@ -126,6 +200,7 @@ void Scene::Update(DWORD dt)
 			vector<LPGAMEOBJECT> coWeaponObjects;
 			vector<LPGAMEOBJECT> coItemObjects;
 			vector<LPGAMEOBJECT> coChangeScence;
+			UpdateBoardGame(dt);
 
 			//lấy objects để tính colisions
 			for (int i = 0; i < objects.size(); i++)
@@ -285,6 +360,28 @@ void Scene::Render()
 	if (isCanLoadScene)
 	{
 		map->Get(mapId)->Render();
+		float camX = game->GetCamPos_x();
+		float camY = game->GetCamPos_y();
+		CSprites::GetInstance()->Get(BLACK_BOARD_ID)->Draw(camX, camY);
+		for (int i = 0; i < letters.size(); i++)
+		{
+			int id = letters.at(i).letter;
+			float x, y;
+			if (simon->x < SCREEN_WIDTH / 2)
+			{
+				x = floor(camX + letters.at(i).x - 1);
+				y = floor(letters.at(i).y + camY);
+			}
+			else
+			{
+				x = floor(camX + letters.at(i).x);
+				y = floor(letters.at(i).y + camY);
+			}
+
+			boardGame->Get(id)->Draw(x, y);
+		}
+
+
 		if (simon->getFreeze() == true)
 		{
 			for (int i = 0; i < objects.size(); i++)
@@ -319,4 +416,5 @@ void Scene::StartLoadScene()
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
 	simon->SetPosition(simonStartX, simonStartY);
+	lastTimeEachStage = GetTickCount();
 }
