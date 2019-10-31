@@ -23,13 +23,22 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 {
 	this->mapId = mapId;
 	map->Get(mapId)->LoadTile();
-	boardGame->ReadFontTXT("TXT\\Font.txt");
 	boardGame->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
+
+	ifstream inpLetters("TXT\\BoardGame.txt", ios::in);
+	int lettersQuantity, letterWidth, letterHeight, ColumLetterBoard, RowLetterBoard;
+	float subWeapon_posX, subWeapon_posY;
+
+	float simonHealthBar_posX = 0, simonHealthBar_posY = 0;
+	float enemyHealthBar_posX = 0, enemyHealthBar_posY = 0;
+
+	inpLetters >> lettersQuantity >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight >> subWeapon_posX >> subWeapon_posY >> simonHealthBar_posX >> simonHealthBar_posY >> enemyHealthBar_posX >> enemyHealthBar_posY;
+
+	boardGame->GetBoardInfo(RowLetterBoard, ColumLetterBoard, letterWidth, letterHeight, subWeapon_posX, subWeapon_posY, simonHealthBar_posX, simonHealthBar_posY, enemyHealthBar_posX, enemyHealthBar_posY);
+
+	DebugOut(L"\nQuantity %d", lettersQuantity);
 	boardGame->LoadFont(TEX_FONT_ID);
 
-	ifstream inpLetters("TXT\\LettersPosition.txt", ios::in);
-	int lettersQuantity;
-	inpLetters >> lettersQuantity;
 	for (int i = 0; i < lettersQuantity; i++)
 	{
 		Letter l;
@@ -362,7 +371,36 @@ void Scene::Render()
 		map->Get(mapId)->Render();
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
+		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
 		CSprites::GetInstance()->Get(BLACK_BOARD_ID)->Draw(camX, camY);
+
+		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
+			float posX, posY;
+			boardGame->GetPositionSimonHealthBar(posX, posY);
+			CSprites::GetInstance()->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+
+			if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
+			{
+				for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
+					CSprites::GetInstance()->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+				}
+			}
+		}
+
+		if (weaponSpriteId != -1)
+		{
+			float posX, posY;
+			boardGame->GetPositionSubWeapon(posX, posY);
+			if (simon->x < SCREEN_WIDTH / 2)
+			{
+				CSprites::GetInstance()->Get(weaponSpriteId)->Draw(floor(camX + posX - 1), floor(camY + posY));
+			}
+			else
+			{
+				CSprites::GetInstance()->Get(weaponSpriteId)->Draw(floor(camX + posX), floor(camY + posY));
+			}
+		}
+
 		for (int i = 0; i < letters.size(); i++)
 		{
 			int id = letters.at(i).letter;

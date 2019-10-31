@@ -397,6 +397,9 @@
     <Image Include="Textures\Font.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\heal.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">
@@ -426,10 +429,7 @@
     <Text Include="TXT\Map5.txt">
       <Filter>TXT</Filter>
     </Text>
-    <Text Include="TXT\Font.txt">
-      <Filter>TXT</Filter>
-    </Text>
-    <Text Include="TXT\LettersPosition.txt">
+    <Text Include="TXT\BoardGame.txt">
       <Filter>TXT</Filter>
     </Text>
   </ItemGroup>

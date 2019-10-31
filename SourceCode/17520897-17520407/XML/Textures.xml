@@ -384,4 +384,14 @@
       <sprite id="20032" left="174" top="377" right="250" bottom="407"/>
     </Animation>
   </Texture>
+
+            <!--Texture Health-->
+  <!-- Animation HEALTH_BAR -->
+  <Texture  textureId ="6" gameObjectId ="-1">
+    <Animation aniId="2000" frameTime="100" name="HEALTH_BAR">
+      <sprite id="60165" left="1" top="0" right="6" bottom="7"/>
+      <sprite id="60166" left="7" top="0" right="12" bottom="7"/>
+      <sprite id="60167" left="13" top="0" right="18" bottom="7"/>
+    </Animation>
+  </Texture>
 </Textures>

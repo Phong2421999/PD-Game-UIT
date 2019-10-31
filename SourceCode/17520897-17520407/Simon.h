@@ -42,7 +42,7 @@ private:
 	int lastAttackSide;
 
 	bool isEnoughHeart;
-	int heart;
+	int heart;			//Số lượng tim để sử dụng subweapon
 
 	Weapon* simonWeapon;
 
@@ -50,9 +50,9 @@ private:
 
 	SIMON_WEAPON typeSubWeapon;
 
-	int currentScene; //id của scene hiện tại
-	int score;		  //Điểm người chơi
-	int live;		  //Số mạng của simon
+	int currentScene;	//id của scene hiện tại
+	int score;			//Điểm người chơi
+	int live;			//Số mạng của simon
 
 public:
 
@@ -77,8 +77,9 @@ public:
 		typeSubWeapon = SIMON_WEAPON::NONE;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
+		health = 8;
 		currentScene = 0;
-		score = 123456;
+		score = 1;
 		live = 3;
 	}
 	//set thuộc tính
@@ -116,6 +117,9 @@ public:
 		this->currentScene = id;
 	}
 	//get thuộc tính
+	SIMON_WEAPON getSubWeapon() {
+		return typeSubWeapon;
+	}
 	int getLive()
 	{
 		return live;

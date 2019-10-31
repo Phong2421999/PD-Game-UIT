@@ -11,13 +11,18 @@ CBoardGame *CBoardGame::GetInstance() {
 }
 
 
-void CBoardGame::ReadFontTXT(LPCSTR filePath)
+void CBoardGame::GetBoardInfo(int rowLetter, int columnLetter, int letterWidth, int letterHeight, int subWeapon_posX, int subWeapon_posY, int simonHealthBar_posX, int simonHealthBar_posY, int enemyHealthBar_posX, int enemyHealthBar_posY)
 {
-	ifstream inp(filePath, ios::in);
-	inp >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight ;
-
-	DebugOut(L"[INFO] Read font Success \n");
-	inp.close();
+	this->RowLetterBoard = rowLetter;
+	this->ColumLetterBoard = columnLetter;
+	this->letterWidth = letterWidth;
+	this->letterHeight = letterHeight;
+	this->subWeapon_posX = subWeapon_posX;
+	this->subWeapon_posY = subWeapon_posY;
+	this->simonHealthBar_posX = simonHealthBar_posX;
+	this->simonHealthBar_posY = simonHealthBar_posY;
+	this->enemyHealthBar_posX = enemyHealthBar_posX;
+	this->enemyHealthBar_posY = enemyHealthBar_posY;
 }
 
 void CBoardGame::LoadBackBoard(int texId, LPCSTR filePath) {
@@ -59,6 +64,21 @@ void CBoardGame::LoadFont(int texId) {
 LPCFONT CBoardGame::Get(int fontId) {
 	if(fontId != -1)
 		return letters[fontId];
+}
+
+int CBoardGame::GetSubWeapon(SIMON_WEAPON type) {
+	switch (type)
+	{
+	case NONE:
+		return -1;
+		break;
+	case AXE:
+		return SPRITE_AXE_ID;
+		break;
+	case DANGER:
+		return SPRITE_DANGER_ID;
+		break;
+	}
 }
 
 int CBoardGame::GetWithNumber(int number) {

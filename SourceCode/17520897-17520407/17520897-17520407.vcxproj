@@ -224,6 +224,7 @@
     <Image Include="Textures\Enemies-Castle.png" />
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\Font.png" />
+    <Image Include="Textures\heal.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
     <Image Include="Textures\Items.png" />
@@ -238,8 +239,7 @@
     <Text Include="Textures\Map1.txt" />
     <Text Include="Textures\Map1_Objects.txt" />
     <Text Include="Textures\TexturesFile.txt" />
-    <Text Include="TXT\Font.txt" />
-    <Text Include="TXT\LettersPosition.txt" />
+    <Text Include="TXT\BoardGame.txt" />
     <Text Include="TXT\Map1.txt" />
     <Text Include="TXT\Map2.txt" />
     <Text Include="TXT\Map3.txt" />

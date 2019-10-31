@@ -11,6 +11,7 @@
 #include "FrameWork/Textures.h"
 #include "FrameWork/debug.h"
 #include "FrameWork/CSprites.h"
+#include "SimonConst.h"
 
 #define BLACK_BOARD_ID 999999
 
@@ -20,9 +21,18 @@
 #define HEART_LENGTH 2
 #define LIVE_LENGTH 2
 
-
 #define TEX_FONT_ID 4
 #define TEX_BLACK_BOARD_ID 5
+
+#define SIMON_MAX_HEALTH 16
+#define CELL_MARGIN 6
+
+#define SPRITE_SIMON_HEALTH_CELL_ID 60165 
+#define SPRITE_ENEMY_HEALTH_CELL_ID 60167
+#define SPRITE_LOST_HEALTH_ID 60166
+
+#define SPRITE_DANGER_ID 10111 
+#define SPRITE_AXE_ID 10112
 
 
 using namespace std;
@@ -34,6 +44,11 @@ class CBoardGame
 	int letterWidth, letterHeight;
 
 	int ColumLetterBoard, RowLetterBoard;
+
+	float subWeapon_posX, subWeapon_posY;
+
+	float simonHealthBar_posX, simonHealthBar_posY;
+	float enemyHealthBar_posX, enemyHealthBar_posY;
 
 	int limitTime;
 
@@ -47,7 +62,7 @@ public:
 
 	CBoardGame()
 	{
-		limitTime=300;
+		limitTime = 300;
 	}
 
 	void setLimitTime(int time) {
@@ -58,13 +73,35 @@ public:
 	{
 		return limitTime;
 	}
-	void ReadFontTXT(LPCSTR filePath);
+
+	void GetPositionSubWeapon(float &x, float &y)
+	{
+		x = subWeapon_posX;
+		y = subWeapon_posY;
+	}
+
+	void GetPositionSimonHealthBar(float &x, float &y)
+	{
+		x = simonHealthBar_posX;
+		y = simonHealthBar_posY;
+	}
+
+	void GetPositionEnemyHealthBar(float &x, float &y)
+	{
+		x = enemyHealthBar_posX;
+		y = enemyHealthBar_posY;
+	}
+
+	void GetBoardInfo(int rowLetter, int columnLetter, int letterWidth, int letterHeight, int subWeapon_posX, int subWeapon_posY, int simonHealthBar_posX, int simonHealthBar_posY, int enemyHealthBar_posX, int enemyHealthBar_posY);
 
 	void LoadBackBoard(int texId, LPCSTR filePath);
 
 	void LoadFont(int texId);
 
+
 	LPCFONT Get(int fontId);
+
+	int GetSubWeapon(SIMON_WEAPON type);
 
 	int GetWithNumber(int number);
 
