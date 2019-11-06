@@ -204,6 +204,9 @@
     <ClCompile Include="CBoardGame.cpp">
       <Filter>BoardGame</Filter>
     </ClCompile>
+    <ClCompile Include="SmallCandle.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="CBoardGame.h">
       <Filter>BoardGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallCandle.h">
+      <Filter>GameObject\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

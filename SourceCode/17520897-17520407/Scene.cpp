@@ -29,14 +29,13 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 	int lettersQuantity, letterWidth, letterHeight, ColumLetterBoard, RowLetterBoard;
 	float subWeapon_posX, subWeapon_posY;
 
-	float simonHealthBar_posX = 0, simonHealthBar_posY = 0;
-	float enemyHealthBar_posX = 0, enemyHealthBar_posY = 0;
+	float simonHealthBar_posX, simonHealthBar_posY;
+	float enemyHealthBar_posX, enemyHealthBar_posY;
 
 	inpLetters >> lettersQuantity >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight >> subWeapon_posX >> subWeapon_posY >> simonHealthBar_posX >> simonHealthBar_posY >> enemyHealthBar_posX >> enemyHealthBar_posY;
 
 	boardGame->GetBoardInfo(RowLetterBoard, ColumLetterBoard, letterWidth, letterHeight, subWeapon_posX, subWeapon_posY, simonHealthBar_posX, simonHealthBar_posY, enemyHealthBar_posX, enemyHealthBar_posY);
 
-	DebugOut(L"\nQuantity %d", lettersQuantity);
 	boardGame->LoadFont(TEX_FONT_ID);
 
 	for (int i = 0; i < lettersQuantity; i++)
@@ -80,6 +79,12 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				largeCandle->SetPosition(x, y);
 				largeCandle->SetWidthHeight(Width, Height);
 				objects.push_back(largeCandle);
+			}
+			else if (id == 2) {
+				CSmallCandle* smallCandle = new CSmallCandle();
+				smallCandle->SetPosition(x, y);
+				smallCandle->SetWidthHeight(Width, Height);
+				objects.push_back(smallCandle);
 			}
 			else if (id == -1)
 			{

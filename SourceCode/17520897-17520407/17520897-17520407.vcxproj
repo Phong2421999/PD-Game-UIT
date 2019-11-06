@@ -157,6 +157,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scenes.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SmallCandle.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="Scenes.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonConst.h" />
+    <ClInclude Include="SmallCandle.h" />
     <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
