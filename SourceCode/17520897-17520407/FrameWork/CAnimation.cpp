@@ -108,6 +108,6 @@ void CAnimation::setIsLastFrame(bool l)
 
 void CAnimation::reset()
 {
-	this->currentFrame = -1;
+	this->currentFrame = 0;
 	lastFrame = false;
 }

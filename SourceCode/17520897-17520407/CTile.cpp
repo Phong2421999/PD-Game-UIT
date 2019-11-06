@@ -10,6 +10,7 @@ CTile::CTile(int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex) {
 
 void CTile::Draw(int x, int y)
 {
+	
 	CGame::GetInstance()->Draw(x, y, texture, left, top, right, bottom);
 }
 

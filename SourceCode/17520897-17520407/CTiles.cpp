@@ -44,10 +44,10 @@ void CTiles::LoadTile() {
 void CTiles::Render() {
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	int beginColumn = cx / frameWidth;
-	int endColumn = cx + SCREEN_WIDTH / frameWidth + 1;
+	int endColumn = (cx + SCREEN_WIDTH) / frameWidth + 1;
 	for (int i = 0; i < RowMap; i++) {
 		for (int j = beginColumn; j < endColumn; j++) {
-			tiles[TileMap[i][j]]->Draw(j*frameWidth + DrawPositionX, i*frameHeight + DrawPositionY);
+			tiles[TileMap[i][j]]->Draw(j*frameWidth, i*frameHeight + DrawPositionY);
 		}
 	}
 };

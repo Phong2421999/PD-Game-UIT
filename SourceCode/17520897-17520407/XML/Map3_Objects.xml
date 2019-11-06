@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Objects>
+  <Grounds id="0" width="100000" height="8">
+    <Ground x="0" y="212" />
+  </Grounds>
+  <ChangeSceneObjects id="-1" width="8" height="14">
+    <ChangeScene x="492" y="168" sceneId="3"
+    simonAutoGo="0" simonAutoGoDistance="35"
+    camAutoGo="1" isDoor="1"/>
+  </ChangeSceneObjects>
+</Objects>

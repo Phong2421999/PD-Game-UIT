@@ -3,7 +3,7 @@
 void CSimonKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	if (simon->getAutoGo() == false)
+	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false)
 	{
 		switch (KeyCode)
 		{
@@ -17,6 +17,7 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->SetState(SIMON_STATE_IDLE);
 			simon->SetPosition(30.0f, 0.0f);
 			simon->SetSpeed(0, 0);
+			simon->setSceneId(0);
 			break;
 		case DIK_F: //attack
 			if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
@@ -32,17 +33,19 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->setUntouchable();
 			break;
 		case DIK_F3:
-			bool b = simon->getAutoGo();
-			simon->setAutoGo(!b);
-			simon->setAutoGoDistance(100000000);
+			simon->SetPosition(1500.0f, 32.0f);
 			break;
+		case DIK_F4:
+			simon->SetPosition(600.0f, 32.0f);
+			break;
+		
 		}
 	}
 }
 
 void CSimonKeyHandler::OnKeyUp(int KeyCode)
 {
-	if (simon->getAutoGo() == false)
+	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false)
 	{
 		if (KeyCode == DIK_DOWN)
 		{
@@ -55,7 +58,7 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 void CSimonKeyHandler::KeyState(BYTE *states)
 {
 	// disable control key when Mario die
-	if (simon->getAutoGo() == false)
+	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false)
 	{
 
 		if (simon->GetState() == SIMON_STATE_DIE) return;

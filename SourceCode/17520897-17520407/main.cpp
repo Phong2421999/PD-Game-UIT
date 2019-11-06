@@ -204,7 +204,7 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	sceneId = simon->getCurrentScene();
-	if (simon->getAutoGo())
+	if (simon->getAutoGo() || game->GetCamAutoGo())
 	{
 		sceneId = lastSceneId;
 	}

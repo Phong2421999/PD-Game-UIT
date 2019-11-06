@@ -17,6 +17,7 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 	isCanLoadScene = false;
 	simonStartX = 0;
 	simonStartY = 0;
+	hasSetRenderOpenDoor = false;
 }
 
 void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
@@ -101,6 +102,7 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				changeScene->SetPosition(x, y);
 				changeScene->SetWidthHeight(Width, Height);
 				changeScene->SetSceneId(sceneId);
+				changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				if (camAutoGo == 1)
 				{
 					changeScene->SetCamAutoGo(true);
@@ -114,8 +116,6 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 					changeScene->SetSimonAutoGo(true);
 					changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				}
-				else
-					changeScene->SetSimonAutoGo(false);
 				objects.push_back(changeScene);
 			}
 		}
@@ -195,37 +195,35 @@ void Scene::Update(DWORD dt)
 	{
 		isCanLoadScene = true;
 	}
-	if (game->GetCamAutoGo() == false)
+	if (game->GetCamAutoGo() && isCanLoadScene)
 	{
-		simon->setCanAutoGo(true);
-	}
-	if (isCanLoadScene && game->GetCamAutoGo())
-	{
-		if (game->GetCamAutoGoDistance() < SCREEN_WIDTH / 2)
+		game->AutoGoCam(dt);
+		if (game->GetCamAutoGoDistance() >= SCREEN_WIDTH / 2 - 16 && hasSetRenderOpenDoor == false)
 		{
-			game->AutoGoCam(dt);
+			game->SetRenderOpenDoor(true);
+			hasSetRenderOpenDoor = true;
 		}
-		else
+		if (game->GetCamAutoGoDistance() >= SCREEN_WIDTH - 16)
 		{
-			game->SetStopCamAutoGo(true);
-			game->SetRenderDoorChangeScene(true);
-			simon->Update(dt);
-			if (simon->getAutoGo() == false)
+			game->SetCamAutoGo(false);
+			game->SetCamAutoGoDistance(0);
+			simon->setAutoGo(false);
+			simon->setAutoGoDistance(0);
+		}
+		if (game->GetCamAutoGo())
+		{
+			for (int i = 0; i < objects.size(); i++)
 			{
-				if (game->GetCamAutoGoDistance() < SCREEN_WIDTH)
+				if (dynamic_cast<ChangeSceneObjects*>(objects[i]))
 				{
-					game->AutoGoCam(dt);
-				}
-				else
-				{
-					game->SetCamAutoGo(false);
-					game->SetCamAutoGoDistance(0);
-					simon->setCanAutoGo(false);
+					objects[i]->Update(dt);
 				}
 			}
+			simon->Update(dt);
 		}
+		
 	}
-	else if (isCanLoadScene && game->GetCamAutoGo() == false)
+	else if (isCanLoadScene)
 	{
 		if (simon->getFreeze() == false)
 		{
@@ -396,7 +394,6 @@ void Scene::Render()
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
-		map->Get(mapId)->Render();
 		CSprites::GetInstance()->Get(BLACK_BOARD_ID)->Draw(camX, camY);
 
 		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
@@ -443,6 +440,7 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
+		map->Get(mapId)->Render();
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
 			simon->Render();
@@ -484,6 +482,7 @@ void Scene::Render()
 		}
 
 	}
+
 }
 
 void Scene::StartLoadScene()

@@ -14,22 +14,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	if (isAutoGo && isCanAutoGo)
+	if (isAutoGo)
 	{
-		DebugOut(L"\nAutoGo");
 		state = SIMON_STATE_WALKING_RIGHT;
 		vx = SIMON_AUTO_WALKING_SPEED;
-		simonAutoGoDistance += vx*dt;
+		simonAutoGoDistance += vx * dt;
 		this->x += vx * dt;
 		if (simonAutoGoDistance > autoGoDistance)
 		{
-			DebugOut(L"\nStop AutoGo");
 			isAutoGo = false;
 			simonAutoGoDistance = 0;
 			autoGoDistance = 0;
+			if (CGame::GetInstance()->GetCamAutoGo())
+			{
+				CGame::GetInstance()->SetRenderCloseDoor(true);
+			}
 		}
+
 	}
-	else if (isAutoGo && isCanAutoGo == false)
+	else if (CGame::GetInstance()->GetCamAutoGo())
 	{
 		state = SIMON_STATE_IDLE;
 	}

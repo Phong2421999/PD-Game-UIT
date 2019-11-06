@@ -60,6 +60,8 @@ public:
 	int stage;
 
 	DWORD deltaTime;
+
+	bool hasSetRenderOpenDoor;
 	
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
@@ -72,6 +74,13 @@ public:
 	{
 		this->simonStartX = x;
 		this->simonStartY = y;
+	}
+	void clear()
+	{
+		objects.clear();
+		listItems.clear();
+		effects.clear();
+		letters.clear();
 	}
 };
 
