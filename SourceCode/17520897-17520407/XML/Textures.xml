@@ -276,10 +276,19 @@
   </Texture>
   <!-- Animation DOORS -->
   <Texture  textureId ="2" gameObjectId ="22">
-    <Animation aniId="561" frameTime="100" name="DOORS">
-      <sprite id="10138" left="24" top="121" right="32" bottom="171"/>
-      <sprite id="10139" left="36" top="121" right="52" bottom="171"/>
-      <sprite id="10149" left="55" top="121" right="78" bottom="171"/>
+    <Animation aniId="561" frameTime="200" name="DOORS">
+      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
+      <sprite id="10139" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
+      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+    </Animation>
+  </Texture>
+  <Texture  textureId ="2" gameObjectId ="22">
+    <Animation aniId="5611" frameTime="200" name="DOORS">
+      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+      <sprite id="10139" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
+      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
+      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
     </Animation>
   </Texture>
   <!-- Animation BREAKING_WALL -->

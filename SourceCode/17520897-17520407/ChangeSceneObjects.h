@@ -2,7 +2,9 @@
 #include "Simon.h"
 #include "CStaticObject.h"
 
-#define ANI_DOOR 561
+#define ANI_DOOR_OPNEN 561
+#define ANI_DOOR_CLOSE 5611
+
 
 class ChangeSceneObjects : public CStaticObject {
 private:
@@ -13,8 +15,10 @@ private:
 	bool camAutoGo;
 	bool isCanRender;
 	bool isDoor;
+
+	int aniId;
+
 	CSimon* simon;
-	int changeSceneObjectIndex;
 public:
 	ChangeSceneObjects()
 	{
@@ -22,10 +26,11 @@ public:
 		simonAutoGoDistance = 0;
 		simonAutoGo = false;
 		isDoor = false;
-		this->AddAnimation(ANI_DOOR);
-		changeSceneObjectIndex = 0;
+		this->AddAnimation(ANI_DOOR_OPNEN);
+		this->AddAnimation(ANI_DOOR_CLOSE);
 		camAutoGo = false;
 		isCanRender = true;
+		aniId = 0;
 	}
 	void SetWidthHeight(float width, float height)
 	{
@@ -51,14 +56,6 @@ public:
 	void SetSceneId(int sceneId)
 	{
 		this->sceneId = sceneId;
-	}
-	void SetChangeSceneObjectIndex(int i)
-	{
-		this->changeSceneObjectIndex = i;
-	}
-	int GetChangeSceneObjectIndex()
-	{
-		return changeSceneObjectIndex;
 	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	{

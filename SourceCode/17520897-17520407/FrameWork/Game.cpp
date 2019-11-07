@@ -12,7 +12,8 @@ void CGame::Init(HWND hWnd)
 {
 	isCamAutoGo = false;
 	camAutoGoDistance = 0;
-	isRenderDoorChangeScene = false;
+	isRenderOpenDoor = false;
+	isRenderCloseDoor = false;
 	isStopCamAutoGo = false;
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 

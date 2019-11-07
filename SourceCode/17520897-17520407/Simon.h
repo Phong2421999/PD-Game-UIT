@@ -56,7 +56,6 @@ private:
 
 	//Tự động di chuyển khi chuyển sence
 	bool isAutoGo;
-	bool isCanAutoGo;
 	float autoGoDistance;
 	float simonAutoGoDistance;
 public:
@@ -89,13 +88,9 @@ public:
 		isAutoGo = false;
 		autoGoDistance = 0;
 		simonAutoGoDistance = 0;
-		isCanAutoGo = false;
 	}
+#pragma region set thuộc tính
 	//set thuộc tính
-	void setCanAutoGo(bool b)
-	{
-		this->isCanAutoGo = b;
-	}
 	void setAutoGoDistance(float dis)
 	{
 		this->autoGoDistance = dis;
@@ -137,9 +132,15 @@ public:
 	{
 		this->currentScene = id;
 	}
-	//get thuộc tính
+#pragma endregion
+
+#pragma region //get thuộc tính
 	SIMON_WEAPON getSubWeapon() {
 		return typeSubWeapon;
+	}
+	int getState()
+	{
+		return state;
 	}
 	bool getAutoGo()
 	{
@@ -203,6 +204,11 @@ public:
 	{
 		return currentScene;
 	}
+#pragma endregion
+
+	
+	
+
 	//Xử lí khi chạm vào enemies
 	void StartUntouchable()
 	{

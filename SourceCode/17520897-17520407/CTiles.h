@@ -27,6 +27,7 @@ class CTiles
 	LPDIRECT3DTEXTURE9 tex;
 	D3DXIMAGE_INFO info;
 	vector<LPTILE> tiles;
+
 public:
 
 	CTiles(int texId, LPCSTR filePath);

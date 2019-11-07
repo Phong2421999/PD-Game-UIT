@@ -455,5 +455,11 @@
     <Xml Include="XML\Map2_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="XML\Map3_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Map4_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

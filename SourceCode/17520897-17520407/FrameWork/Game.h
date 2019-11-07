@@ -34,7 +34,8 @@ class CGame
 	bool isCamAutoGo;
 	float camAutoGoDistance;
 
-	bool isRenderDoorChangeScene;
+	bool isRenderOpenDoor;
+	bool isRenderCloseDoor;
 	bool isStopCamAutoGo;
 public:
 	void Init(HWND hWnd);
@@ -51,9 +52,13 @@ public:
 	{
 		this->camAutoGoDistance = dis;
 	}
-	void SetRenderDoorChangeScene(bool b)
+	void SetRenderOpenDoor(bool b)
 	{
-		this->isRenderDoorChangeScene = b;
+		this->isRenderOpenDoor = b;
+	}
+	void SetRenderCloseDoor(bool b)
+	{
+		this->isRenderCloseDoor = b;
 	}
 	void SetStopCamAutoGo(bool b)
 	{
@@ -68,9 +73,13 @@ public:
 	{
 		return camAutoGoDistance;
 	}
-	bool GetRenderDoorChangeScene()
+	bool GetRenderOpenDoor()
 	{
-		return isRenderDoorChangeScene;
+		return isRenderOpenDoor;
+	}
+	bool GetRenderCloseDoor()
+	{
+		return isRenderCloseDoor;
 	}
 	//CamAutoGo
 	void AutoGoCam(DWORD dt)

@@ -2,37 +2,57 @@
 
 void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	for (int i = 0; i < coObjects->size(); i++)
+	if (CGame::GetInstance()->GetCamAutoGo() == false)
 	{
-		if (dynamic_cast<CSimon*> (coObjects->at(i)))
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (this->checkAABBTouch(coObjects->at(i)))
+			if (dynamic_cast<CSimon*> (coObjects->at(i)))
 			{
-				simon->setSceneId(this->sceneId);
-				if (simonAutoGo)
+				if (CSimon::getInstance()->getState() == SIMON_STATE_IDLE || CSimon::getInstance()->getState() == SIMON_STATE_WALKING_LEFT || CSimon::getInstance()->getState() == SIMON_STATE_WALKING_RIGHT)
 				{
-					simon->setAutoGo(true);
-					simon->setAutoGoDistance(this->simonAutoGoDistance);
-				}
-				if (camAutoGo)
-				{
-					CGame::GetInstance()->SetCamAutoGo(true);
+					if (this->checkAABBTouch(coObjects->at(i)))
+					{
+						simon->setSceneId(this->sceneId);
+						if (camAutoGo)
+						{
+							CGame::GetInstance()->SetCamAutoGo(true);
+							simon->setAutoGoDistance(simonAutoGoDistance);
+						}
+						if (simonAutoGo)
+						{
+							simon->setAutoGo(true);
+							simon->setAutoGoDistance(this->simonAutoGoDistance);
+						}
+
+					}
 				}
 			}
 		}
 	}
-	if (animations[0]->getLastFrame())
-	{
-		DebugOut(L"\nLast frame");
-	}
 	if (isDoor)
 	{
-		if (CGame::GetInstance()->GetRenderDoorChangeScene() && isCanRender)
+		if (CGame::GetInstance()->GetRenderOpenDoor())
 		{
-			if (animations[0]->getLastFrame())
+			CGame::GetInstance()->SetStopCamAutoGo(true);
+			if (animations[aniId]->getNextIsLastFrame())
 			{
-				DebugOut(L"\nLastFrame");
-				simon->setCanAutoGo(true);
+				simon->setAutoGo(true);
+				simon->setAutoGoDistance(this->simonAutoGoDistance);
+				this->isCanRender = false;
+				CGame::GetInstance()->SetRenderOpenDoor(false);
+				animations[aniId]->reset();
+				aniId = 1;
+			}
+		}
+		if (CGame::GetInstance()->GetRenderCloseDoor())
+		{
+			CGame::GetInstance()->SetStopCamAutoGo(true);
+			if (animations[aniId]->getNextIsLastFrame())
+			{
+				CGame::GetInstance()->SetStopCamAutoGo(false);
+				CGame::GetInstance()->SetRenderCloseDoor(false);
+				animations[aniId]->reset();
+				aniId = 0;
 				this->isCanRender = false;
 			}
 		}
@@ -44,14 +64,15 @@ void ChangeSceneObjects::Render()
 
 	if (isDoor)
 	{
-		if (CGame::GetInstance()->GetRenderDoorChangeScene() && isCanRender)
+		if ((CGame::GetInstance()->GetRenderOpenDoor()||CGame::GetInstance()->GetRenderCloseDoor()))
 		{
-			animations[0]->Render(x, y);
+			animations[aniId]->Render(x, y);
 		}
 		else
 		{
-			animations[0]->RenderCurrentFrame(x, y);
+			animations[aniId]->RenderCurrentFrame(x, y);
 		}
+
 	}
 	RenderBoundingBox(x, y);
 
