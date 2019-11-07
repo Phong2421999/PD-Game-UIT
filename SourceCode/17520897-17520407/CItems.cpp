@@ -8,8 +8,7 @@ void CItems::Render()
 void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-
-
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -20,7 +19,7 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		x += dx;
+		//x += dx;
 		y += dy;
 	}
 	else

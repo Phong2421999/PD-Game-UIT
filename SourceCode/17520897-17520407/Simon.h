@@ -145,6 +145,9 @@ public:
 	{
 		return isAutoGo;
 	}
+	int getWeaponLevel() {
+		return weaponLevel;
+	}
 	int getLive()
 	{
 		return live;

@@ -14,6 +14,8 @@ class SmallHeart :public CItems
 {
 private:
 	DWORD makeTime;
+	int flyDistance;
+	bool turnAround;
 	int width, height;
 public:
 	SmallHeart();

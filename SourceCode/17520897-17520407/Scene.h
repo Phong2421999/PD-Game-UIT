@@ -68,6 +68,9 @@ public:
 	void UpdateBoardGame(DWORD dt);
 	void Render();
 	void StartLoadScene();
+	int Random(int minN, int maxN) {
+		return minN + rand() % (maxN + 1 - minN);
+	}
 	void SetSimonStartPos(float x, float y)
 	{
 		this->simonStartX = x;

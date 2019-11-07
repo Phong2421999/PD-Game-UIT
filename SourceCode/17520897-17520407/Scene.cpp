@@ -302,24 +302,26 @@ void Scene::Update(DWORD dt)
 				if (effects[i]->GetLastFrame())
 				{
 					float x, y;
+					int rand = Random(1, 10);
+					DebugOut(L"\nRandom %d", rand);
 					effects[i]->GetPosition(x, y);
 					animations->Get(ANI_HIT)->reset();
-
-					if (x == 90)
-					{
-						SmallHeart* smallHeart = new SmallHeart();
-						smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
-						smallHeart->SetPosition(x, y);
-						listItems.push_back(smallHeart);
-					}
-					else if (x == 340)
+					
+					if(rand == 1)
 					{
 						LargeHeart* largeHeart = new LargeHeart();
 						largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
 						largeHeart->SetPosition(x, y);
 						listItems.push_back(largeHeart);
 					}
-					else if (x == 600)
+					else if (simon->getWeaponLevel() < 3)
+					{
+						WhipUpgrade* whipUpgrade = new WhipUpgrade();
+						whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
+						whipUpgrade->SetPosition(x, y);
+						listItems.push_back(whipUpgrade);
+					}
+					else if (simon->getSubWeapon() != SIMON_WEAPON::DANGER)
 					{
 						Danger* danger = new Danger();
 						danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
@@ -328,10 +330,10 @@ void Scene::Update(DWORD dt)
 					}
 					else
 					{
-						WhipUpgrade* whipUpgrade = new WhipUpgrade();
-						whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
-						whipUpgrade->SetPosition(x, y);
-						listItems.push_back(whipUpgrade);
+						SmallHeart* smallHeart = new SmallHeart();
+						smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
+						smallHeart->SetPosition(x, y);
+						listItems.push_back(smallHeart);
 					}
 
 					effects.erase(effects.begin() + i);
