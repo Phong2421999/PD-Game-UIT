@@ -40,6 +40,17 @@ enum GAME_ITEM
 	DANGER_ITEM
 };
 
+enum TYPE_DESTROY_ITEM
+{
+	LEFT,
+	RIGHT
+};
+
+enum TYPE_MAKE_ITEM
+{
+	STATIC_OBJECT,
+	ENEMY
+};
 
 //Chia sau
 

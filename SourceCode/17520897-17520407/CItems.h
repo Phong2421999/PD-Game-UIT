@@ -4,19 +4,16 @@
 #include "SimonConst.h"
 
 #define PI 3.14
-#define GRAVITY 0.02f
+#define GRAVITY 0.0002
 
 class CItems : public CGameObject {
 public:
 	GAME_ITEM type;
-	float vx, vy;
-	float dx, dy;
+
 public:
 	CItems()
 	{
-		vx = 0;
-		dx = dy = 0;
-		vy = GRAVITY;
+	
 	}
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

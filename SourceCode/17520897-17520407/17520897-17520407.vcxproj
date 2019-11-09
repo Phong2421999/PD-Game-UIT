@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10C77508-3D33-4A9A-9657-58814B9B6F25}</ProjectGuid>
     <RootNamespace>My1752089717520407</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CDestroy.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CFont.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
+    <ClCompile Include="CSpawn.cpp" />
     <ClCompile Include="CStaticObject.cpp" />
     <ClCompile Include="CTestEnemy.cpp" />
     <ClCompile Include="CTile.cpp" />
@@ -159,6 +161,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallCandle.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
@@ -169,6 +172,7 @@
     <ClCompile Include="WhipUpgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CDestroy.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CFont.h" />
@@ -179,6 +183,7 @@
     <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
+    <ClInclude Include="CSpawn.h" />
     <ClInclude Include="CStaticObject.h" />
     <ClInclude Include="CTestEnemy.h" />
     <ClInclude Include="CTile.h" />
@@ -210,6 +215,7 @@
     <ClInclude Include="SimonConst.h" />
     <ClInclude Include="SmallCandle.h" />
     <ClInclude Include="SmallHeart.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Weapon.h" />
@@ -250,7 +256,9 @@
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="XML\Map1_Objects.xml" />
+    <Xml Include="XML\Map1_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map2_Objects.xml" />
     <Xml Include="XML\Map3_Objects.xml" />
     <Xml Include="XML\Map4_Objects.xml" />

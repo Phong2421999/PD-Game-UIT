@@ -18,9 +18,6 @@ void LargeHeart::RenderCurrentFame() {
 }
 
 void LargeHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-	x += vx * sin(PI / 8)*dt;
-	vy += LARGE_HEART_ITEM_GRAVITY * dt;
-
 	CItems::Update(dt, coObjects);
 	DWORD now = GetTickCount();
 	if (now - makeTime > LARGE_HEART_TIME_LIVE)

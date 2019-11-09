@@ -2,11 +2,6 @@
 
 Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene)
 {
-	game = CGame::GetInstance();
-	map = CMap::GetInstance();
-	simon = CSimon::getInstance();
-	boardGame = CBoardGame::GetInstance();
-	animations = CAnimations::GetInstance();
 	this->sceneWidthEachMap = sceneWidthEachMap;
 	this->timeLoadBlackScene = timeLoadBlackScene;
 	this->stage = stage;
@@ -18,13 +13,14 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 	simonStartX = 0;
 	simonStartY = 0;
 	hasSetRenderOpenDoor = false;
+
 }
 
 void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 {
 	this->mapId = mapId;
-	map->Get(mapId)->LoadTile();
-	boardGame->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
+	CMap::GetInstance()->Get(mapId)->LoadTile();
+	CBoardGame::GetInstance()->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
 
 	ifstream inpLetters("TXT\\BoardGame.txt", ios::in);
 	int lettersQuantity, letterWidth, letterHeight, ColumLetterBoard, RowLetterBoard;
@@ -35,9 +31,9 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 
 	inpLetters >> lettersQuantity >> RowLetterBoard >> ColumLetterBoard >> letterWidth >> letterHeight >> subWeapon_posX >> subWeapon_posY >> simonHealthBar_posX >> simonHealthBar_posY >> enemyHealthBar_posX >> enemyHealthBar_posY;
 
-	boardGame->GetBoardInfo(RowLetterBoard, ColumLetterBoard, letterWidth, letterHeight, subWeapon_posX, subWeapon_posY, simonHealthBar_posX, simonHealthBar_posY, enemyHealthBar_posX, enemyHealthBar_posY);
+	 CBoardGame::GetInstance()->GetBoardInfo(RowLetterBoard, ColumLetterBoard, letterWidth, letterHeight, subWeapon_posX, subWeapon_posY, simonHealthBar_posX, simonHealthBar_posY, enemyHealthBar_posX, enemyHealthBar_posY);
 
-	boardGame->LoadFont(TEX_FONT_ID);
+	 CBoardGame::GetInstance()->LoadFont(TEX_FONT_ID);
 
 	for (int i = 0; i < lettersQuantity; i++)
 	{
@@ -118,12 +114,39 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				}
 				objects.push_back(changeScene);
 			}
+			else if (id == -2)
+			{
+				int enemyId, quantityEachSpawn;
+				Object->QueryIntAttribute("enemyId", &enemyId);
+				Object->QueryIntAttribute("quantityEachSpawn", &quantityEachSpawn);
+				CSpawn* spawner = new CSpawn();
+				spawner->SetPosition(x, y);
+				spawner->SetWidthHeight(Width, Height);
+				spawner->SetSpawnEnemyType(enemyId);
+				spawner->SetQuantitySpawnEnemy(quantityEachSpawn);
+				objects.push_back(spawner);
+			}
+			else if (id == -99)
+			{
+				CDestroy* detroy = new CDestroy();
+				int type;
+				Object->QueryIntAttribute("type", &type);
+				if (type == 1)
+					detroy->SetType(RIGHT);
+				else
+					detroy->SetType(LEFT);
+				objects.push_back(detroy);
+			}
 		}
 	}
+	CSimon* simon = CSimon::getInstance();
+	// toa 2 cai => 1 cx - distance; cx + SCREENWIDTH + distance;
 	objects.push_back(simon);
 }
 
 void Scene::UpdateBoardGame(DWORD dt) {
+	CBoardGame * boardGame = CBoardGame::GetInstance();
+	CSimon *simon = CSimon::getInstance();
 	DWORD now = GetTickCount();
 	if (now - lastTimeEachStage >= 1000)
 	{
@@ -177,11 +200,59 @@ void Scene::UpdateBoardGame(DWORD dt) {
 		}
 		letters.at(i).letter = boardGame->GetWithNumber(n);
 	}
+
 }
 
+void Scene::UpdateEnemies(DWORD dt)
+{
+	CSpawner* spawner = CSpawner::GetInstance();
+	float cx, cy;
+	float sx, sy;
+	cx = CGame::GetInstance()->GetCamPos_x();
+	cy = CGame::GetInstance()->GetCamPos_y();
+	CSimon::getInstance()->GetPosition(sx, sy);
+
+	int quantityEachSpawn = spawner->quantityEachSpawn;
+	int lastNx = 1;
+	DWORD now = GetTickCount();
+	if (spawner->quantitySpawned == spawner->quantityEachSpawn)
+		spawner->canSpawn = false;
+	if (spawner->quantityEnemyDied == spawner->quantityEachSpawn)
+	{
+		if (now - spawner->lastSpawnTime > spawner->delaySpawnTime)
+		{
+			spawner->quantitySpawned = 0;
+			spawner->quantityEnemyDied = 0;
+			spawner->canSpawn = true;
+		}
+	}
+	if (spawner->quantitySpawned < quantityEachSpawn && spawner->canSpawn)
+	{
+		if (now - spawner->lastSpawnTime > 1000)
+		{
+			if (spawner->enemyId == 0)
+			{
+				CGhost* ghost = new CGhost();
+				int ghostNx = ghost->GetNx();
+				if (ghostNx > 0)
+					ghost->SetPosition(cx, sy - 6);
+				else
+					ghost->SetPosition(cx + SCREEN_WIDTH - 16, sy - 6);
+				spawner->quantitySpawned += 1;
+				objects.push_back(ghost);
+
+			}
+			spawner->lastSpawnTime = GetTickCount();
+		}
+	}
+}
 
 void Scene::Update(DWORD dt)
 {
+	CGame*game = CGame::GetInstance();
+	CSimon*simon = CSimon::getInstance();
+	CAnimations *animations = CAnimations::GetInstance();
+
 	this->deltaTime = dt;
 	if (isLoadBlackScene)
 	{
@@ -219,26 +290,35 @@ void Scene::Update(DWORD dt)
 					objects[i]->Update(dt);
 				}
 			}
-			simon->Update(dt);
+			 CSimon::getInstance()->Update(dt);
 		}
-		
+
 	}
 	else if (isCanLoadScene)
 	{
 		if (simon->getFreeze() == false)
 		{
 			vector<LPGAMEOBJECT> coObjects;
+			vector<LPGAMEOBJECT> coEnemies;
 			vector<LPGAMEOBJECT> coWeaponObjects;
 			vector<LPGAMEOBJECT> coItemObjects;
 			vector<LPGAMEOBJECT> coChangeScence;
+			vector<LPGAMEOBJECT> coSpawn;
+			vector<LPGAMEOBJECT> coDestroy;
 			UpdateBoardGame(dt);
+			UpdateEnemies(dt); // luôn gọi trước khi update các thứ khác
 
 			//lấy objects để tính colisions
 			for (int i = 0; i < objects.size(); i++)
 			{
-				if ((dynamic_cast<CSimon*> (objects[i])))
+				if (dynamic_cast<CSimon*> (objects[i]))
 				{
 					coChangeScence.push_back(objects[i]);
+					coSpawn.push_back(objects[i]);
+				}
+				if (dynamic_cast<CGround*> (objects[i]))
+				{
+					coEnemies.push_back(objects[i]);
 				}
 				if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
 				{
@@ -249,6 +329,9 @@ void Scene::Update(DWORD dt)
 				{
 					coWeaponObjects.push_back(objects[i]);
 				}
+				if (dynamic_cast<CEnemies*> (objects[i]) || dynamic_cast<CSpawn*>(objects[i])) {
+					coDestroy.push_back(objects[i]);
+				}
 				if (simon->getUntouchable())
 				{
 					if (dynamic_cast<CGround*> (objects[i]))
@@ -258,22 +341,36 @@ void Scene::Update(DWORD dt)
 				}
 				else
 				{
-					if (!dynamic_cast<CItems*>(objects[i]) && !dynamic_cast<CStaticObject*> (objects[i]))
+					if (!dynamic_cast<CItems*>(objects[i]) && !dynamic_cast<CStaticObject*> (objects[i]) && !dynamic_cast<CSpawn*> (objects[i]))
+					{
 						coObjects.push_back(objects[i]);
+					}
 				}
 				if (objects[i]->GetHealth() <= 0)
 				{
 					float x, y;
+					CEffect * hit = new CHit();
+					if (objects[i]->GetKillBySimon())
+						hit->SetKillBySimon(true);
+					if (dynamic_cast<CStaticObject*>(objects[i]))
+						hit->SetMakeItem(STATIC_OBJECT);
+					if (dynamic_cast<CEnemies*> (objects[i]))
+					{
+						hit->SetMakeItem(ENEMY);
+						CSpawner::GetInstance()->quantityEnemyDied++;
+					}
 					objects[i]->GetPosition(x, y);
-					CHit * hit = new CHit();
 					hit->SetPosition(x, y);
 					effects.push_back(hit);
+
+
 					objects.erase(objects.begin() + i);
 				}
 			}
 
 
 			//Gọi update với colision tính được
+			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
 			for (int i = 0; i < objects.size(); i++)
 			{
@@ -281,9 +378,19 @@ void Scene::Update(DWORD dt)
 				{
 					objects[i]->Update(dt, &coItemObjects);
 				}
+				else if (dynamic_cast<CEnemies*>(objects[i])) {
+					objects[i]->Update(dt, &coEnemies);
+				}
+				else if (dynamic_cast<CSpawn*> (objects[i]))
+				{
+					objects[i]->Update(dt, &coSpawn);
+				}
+				else if (dynamic_cast<CDestroy*> (objects[i]))
+				{
+					objects[i]->Update(dt, &coDestroy);
+				}
 				else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
 				{
-
 					objects[i]->Update(dt, &coChangeScence);
 				}
 				else {
@@ -292,49 +399,73 @@ void Scene::Update(DWORD dt)
 			}
 
 
-			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
-
 
 			for (int i = 0; i < effects.size(); i++)
 			{
 				if (effects[i]->GetLastFrame())
 				{
 					float x, y;
-					int rand = Random(1, 10);
-					DebugOut(L"\nRandom %d", rand);
 					effects[i]->GetPosition(x, y);
-					animations->Get(ANI_HIT)->reset();
-					
-					if(rand == 1)
+					if (effects[i]->GetKillBySimon())
 					{
-						LargeHeart* largeHeart = new LargeHeart();
-						largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
-						largeHeart->SetPosition(x, y);
-						listItems.push_back(largeHeart);
-					}
-					else if (simon->getWeaponLevel() < 3)
-					{
-						WhipUpgrade* whipUpgrade = new WhipUpgrade();
-						whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
-						whipUpgrade->SetPosition(x, y);
-						listItems.push_back(whipUpgrade);
-					}
-					else if (simon->getSubWeapon() != SIMON_WEAPON::DANGER)
-					{
-						Danger* danger = new Danger();
-						danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
-						danger->SetPosition(x, y);
-						listItems.push_back(danger);
-					}
-					else
-					{
-						SmallHeart* smallHeart = new SmallHeart();
-						smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
-						smallHeart->SetPosition(x, y);
-						listItems.push_back(smallHeart);
-					}
+						if (effects[i]->GetMakeItem() == STATIC_OBJECT)
+						{
 
+							int rand = Random(1, 10);
+							animations->Get(ANI_HIT)->reset();
+							if (rand == 1)
+							{
+								LargeHeart* largeHeart = new LargeHeart();
+								largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
+								largeHeart->SetPosition(x, y);
+								listItems.push_back(largeHeart);
+							}
+							else if ( CSimon::getInstance()->getWeaponLevel() < 3)
+							{
+								WhipUpgrade* whipUpgrade = new WhipUpgrade();
+								whipUpgrade->SetWidthHeight(WHIP_WIDTH, WHIP_HEIGHT);
+								whipUpgrade->SetPosition(x, y);
+								listItems.push_back(whipUpgrade);
+							}
+							else if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+							{
+								Danger* danger = new Danger();
+								danger->SetWidthHeight(DANGER_WIDTH, DANGER_HEIGHT);
+								danger->SetPosition(x, y);
+								listItems.push_back(danger);
+							}
+							else
+							{
+								SmallHeart* smallHeart = new SmallHeart();
+								smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
+								smallHeart->SetPosition(x, y);
+								listItems.push_back(smallHeart);
+							}
+
+						}
+						if (effects[i]->GetMakeItem() == ENEMY)
+						{
+							int rand = Random(1, 100);
+							animations->Get(ANI_HIT)->reset();
+							if (rand == 1)
+							{
+								LargeHeart* largeHeart = new LargeHeart();
+								largeHeart->SetWidthHeight(LARGE_HEART_WIDTH, LARGE_HEART_HEIGHT);
+								largeHeart->SetPosition(x, y);
+								listItems.push_back(largeHeart);
+							}
+							if (rand == 99)
+							{
+								SmallHeart* smallHeart = new SmallHeart();
+								smallHeart->SetWidthHeight(SMALL_HEART_WIDTH, SMALL_HEART_HEIGHT);
+								smallHeart->SetPosition(x, y);
+								listItems.push_back(smallHeart);
+							}
+						}
+
+					}
 					effects.erase(effects.begin() + i);
+
 				}
 			}
 
@@ -370,43 +501,48 @@ void Scene::Update(DWORD dt)
 		cy -= SCREEN_HEIGHT / 2;
 		if (cx <= 0)
 		{
-			CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
+			game->SetCamPos(0.0f, 0.0f /*cy*/);
 		}
 		else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
 		{
-			CGame::GetInstance()->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
+			game->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
 		}
 		else
 		{
-			CGame::GetInstance()->SetCamPos(cx, 0.0f);
+			game->SetCamPos(cx, 0.0f);
 		}
 
 	}
 	else
 	{
-		CGame::GetInstance()->SetCamPos(0.0f, 0.0f);
+		game->SetCamPos(0.0f, 0.0f);
 	}
 
 }
 
 void Scene::Render()
 {
+	CGame *game = CGame::GetInstance();
+	CSimon *simon = CSimon::getInstance();
+	CSprites *sprites = CSprites::GetInstance();
+	CBoardGame *boardGame = CBoardGame::GetInstance();
+
 	if (isCanLoadScene)
 	{
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
-		CSprites::GetInstance()->Get(BLACK_BOARD_ID)->Draw(camX, camY);
+		sprites->Get(BLACK_BOARD_ID)->Draw(camX, camY);
 
 		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
 			float posX, posY;
 			boardGame->GetPositionSimonHealthBar(posX, posY);
-			CSprites::GetInstance()->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+			sprites->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
 
 			if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
 			{
 				for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
-					CSprites::GetInstance()->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
 				}
 			}
 		}
@@ -417,11 +553,11 @@ void Scene::Render()
 			boardGame->GetPositionSubWeapon(posX, posY);
 			if (simon->x < SCREEN_WIDTH / 2)
 			{
-				CSprites::GetInstance()->Get(weaponSpriteId)->Draw(floor(camX + posX - 1), floor(camY + posY));
+				sprites->Get(weaponSpriteId)->Draw(floor(camX + posX - 1), floor(camY + posY));
 			}
 			else
 			{
-				CSprites::GetInstance()->Get(weaponSpriteId)->Draw(floor(camX + posX), floor(camY + posY));
+				sprites->Get(weaponSpriteId)->Draw(floor(camX + posX), floor(camY + posY));
 			}
 		}
 
@@ -442,7 +578,7 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
-		map->Get(mapId)->Render();
+		CMap::GetInstance()->Get(mapId)->Render();
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
 			simon->Render();
@@ -492,6 +628,6 @@ void Scene::StartLoadScene()
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
-	simon->SetPosition(simonStartX, simonStartY);
+	CSimon::getInstance()->SetPosition(simonStartX, simonStartY);
 	lastTimeEachStage = GetTickCount();
 }

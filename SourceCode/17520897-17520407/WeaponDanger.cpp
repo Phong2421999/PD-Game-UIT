@@ -76,6 +76,7 @@ void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
 				{
 					coObjects->at(i)->Damage(1);
+					coObjects->at(i)->SetKillBySimon(true);
 					health = 0;
 				}
 			}

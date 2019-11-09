@@ -74,7 +74,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (coEvents.size() == 0)
 		{
 			x += dx;
-			y += dy;
+			if (!isAttack)
+			{
+				y += dy;
+			}	
 		}
 		else
 		{
@@ -90,7 +93,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
-
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
 					if (simonWeapon)
@@ -105,7 +107,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (isUntouchable == false)
 					{
-
 						if (e->nx > 0)
 						{
 							isUntouchable = true;

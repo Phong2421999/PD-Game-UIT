@@ -4,6 +4,7 @@
 
 class Scenes {
 private:
+	static Scenes* __instance;
 	unordered_map <int, LPSCENE> scenes;
 public:
 	void Add(int id, LPSCENE scene)
@@ -14,4 +15,5 @@ public:
 	{
 		return scenes[id];
 	}
+	static  Scenes* GetInstance();
 };

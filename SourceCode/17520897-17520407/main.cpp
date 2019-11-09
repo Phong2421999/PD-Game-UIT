@@ -159,7 +159,7 @@ void LoadResources()
 
 
 	//Load tất cả scene - không đặt instance được vì trong scene có gọi singleton - Quản lý scene duy nhất ở đây
-	scenes = new Scenes();
+	scenes = Scenes::GetInstance();
 	
 	TiXmlDocument scenesXML("XML/Scenes.xml");
 	if (!scenesXML.LoadFile())

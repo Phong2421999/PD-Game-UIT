@@ -23,8 +23,10 @@
 #include "Simon.h"
 #include "CMap.h"
 #include "CBoardGame.h"
-
+#include "CDestroy.h"
 #include "tinyxml.h"
+
+#include "Spawner.h"
 
 struct Letter
 {
@@ -34,12 +36,7 @@ struct Letter
 
 class Scene {
 public:
-	CGame *game;
-	CMap * map;
-	CSimon *simon;
-	CBoardGame *boardGame;
-	CAnimations * animations;
-
+	
 	vector<LPGAMEOBJECT> objects;
 	vector<LPITEMS> listItems;
 	vector<LPEFT> effects;
@@ -51,6 +48,7 @@ public:
 	DWORD timeStartLoadScene;
 	DWORD lastTimeEachStage;
 	DWORD timeLoadBlackScene;
+	DWORD timeSpawn;
 	bool isLoadBlackScene;
 	bool isCanLoadScene;
 
@@ -62,12 +60,14 @@ public:
 	DWORD deltaTime;
 
 	bool hasSetRenderOpenDoor;
+
 	
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
 	void Update(DWORD dt);
 	void UpdateBoardGame(DWORD dt);
+	void UpdateEnemies(DWORD dt);
 	void Render();
 	void StartLoadScene();
 	int Random(int minN, int maxN) {

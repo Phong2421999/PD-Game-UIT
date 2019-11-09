@@ -207,6 +207,15 @@
     <ClCompile Include="SmallCandle.cpp">
       <Filter>GameObject\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="CSpawn.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CDestroy.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -349,6 +358,15 @@
     </ClInclude>
     <ClInclude Include="SmallCandle.h">
       <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawn.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CDestroy.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

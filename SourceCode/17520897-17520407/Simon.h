@@ -6,12 +6,11 @@
 #include "GameConst.h"
 #include "SimonConst.h"
 
-#include"CEnemies.h"
-
 #include "Ground.h"
 #include "Weapon.h"
 #include "Whip.h"
 #include "WeaponDanger.h"
+#include "CSpawn.h"
 
 class CSimon: public CGameObject
 {
@@ -58,6 +57,7 @@ private:
 	bool isAutoGo;
 	float autoGoDistance;
 	float simonAutoGoDistance;
+	int enemyId;
 public:
 
 	static CSimon* getInstance();

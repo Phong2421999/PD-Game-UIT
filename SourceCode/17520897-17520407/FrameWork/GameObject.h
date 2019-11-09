@@ -7,6 +7,7 @@
 #include "Sprites.h"
 #include "CAnimations.h"
 #include "../GameConst.h"
+#include "debug.h"
 
 
 using namespace std;
@@ -52,6 +53,8 @@ public:
 	int health;
 
 	int weaponLevel;
+	
+	bool killBySimon;
 
 	DWORD dt;
 
@@ -61,12 +64,27 @@ public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void SetHealth(int health) { this->health = health; }
+	void SetKillBySimon(bool b) { this->killBySimon = b; }
 	int GetHealth() { return health; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	bool GetKillBySimon() { return killBySimon; }
+
 	int getDirection() { return nx; }
 	int GetState() { return this->state; }
-	virtual void RenderCurrentFrame(){}
+	virtual void RenderCurrentFrame(){
+	}
+	virtual bool GetCanSpawn() { return false; }
+	virtual bool GetSpawn() { return false; }
+	virtual void SetSimonHasTouch(bool b){}
+	virtual bool GetSimonHasTouch(){ return false; }
+	virtual void SetCanSpwan(bool b) {}
+	virtual void SetSpawn(bool b){}
+	virtual void SetSpawnEnemyType(int type){}
+	virtual void SetQuantitySpawnEnemy(int quantity){}
+	virtual int GetQuantitySpawnEnemy() { return 0; }
+	virtual int GetSpawnEnemyType() { return -1; }
+
 	virtual bool getDeath()
 	{
 		return false;

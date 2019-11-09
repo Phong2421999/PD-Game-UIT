@@ -17,10 +17,10 @@ void CAnimation::RenderCurrentFrame(float x, float y, int alpha) {
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
-void CAnimation::RenderCurrentFrameFlipX(float x, float y, int alpha) {
+void CAnimation::RenderCurrentFrameFlipX(float x, float y,float offset, int alpha) {
 	if (currentFrame == frames.size())
 		currentFrame = 0;
-	frames[currentFrame]->GetSprite()->DrawFlipX(x, y, alpha);
+	frames[currentFrame]->GetSprite()->DrawFlipX(x, y, offset, alpha);
 }
 
 void CAnimation::Render(float x, float y, int alpha)

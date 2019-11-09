@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
-  <Grounds id="0" width="780" height="8">
-    <Ground x="0" y="196" />
+  <Grounds id="0" width="976" height="8">
+    <Ground x="-196" y="196" />
   </Grounds>
   <LargeCandles id="1" width="16" height="30">
     <LargeCandle x="90" y="168" />
@@ -15,4 +15,11 @@
      simonAutoGo="1" simonAutoGoDistance="35"
      camAutoGo="0" isDoor="0"/>
   </ChangeScenes>
+  <Spawns id="-2" width="8" height="300">
+    <Spawn x="84" y="0" enemyId="0" quantityEachSpawn ="3"/>
+  </Spawns>
+  <Detroys id="-99" width="0" height="0">
+    <Detroy x="0" y="0" type="-1"/>
+    <Detroy x="0" y="0" type="1"/>
+  </Detroys>
 </Objects>

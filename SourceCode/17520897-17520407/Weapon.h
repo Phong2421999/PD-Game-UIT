@@ -1,6 +1,6 @@
 #pragma once
 #include "FrameWork/GameObject.h"
-#include "CTestEnemy.h"
+#include "CEnemies.h"
 #include "FrameWork/debug.h"
 #include "CStaticObject.h"
 

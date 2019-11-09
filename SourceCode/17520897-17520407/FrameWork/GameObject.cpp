@@ -15,6 +15,7 @@ CGameObject::CGameObject()
 	nx = 1;
 	health = 1;
 	weaponLevel = 1;
+	killBySimon = false;
 }
 
 
