@@ -9,15 +9,13 @@ class CSpawn: public CGameObject
 {
 private:
 	int width, height;
-	bool isCanSpawn;
-	bool simonHasTouch;
 	int enemyId;
-	int spawnerId;
 	int quantityEachSpawn;
+	int timeEachSpawn;
+	int spawnerId;
+	int delaySpawnTime;
 public:
 	CSpawn() {
-		isCanSpawn = true;
-		simonHasTouch = false;
 		spawnerId = -1;
 	}
 	void Render();
@@ -25,19 +23,34 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	bool IsTouchSimon(LPGAMEOBJECT gameObjet);
 
-	
+	void SetDelaySpawnTime(int delaySpawnTime)
+	{
+		this->delaySpawnTime = delaySpawnTime;
+	}
+	int GetDelaySpawnTime()
+	{
+		return delaySpawnTime;
+	}
+
+	void SetTimeEachSpawn(int timeEachSpawn) {
+		this->timeEachSpawn = timeEachSpawn;
+	}
+	int GetTimeEachSpawn() {
+		return timeEachSpawn;
+	}
+
+	void SetSpawnerId(int id) {
+		this->spawnerId = id;
+	}
+	int GetSpawnerId() {
+		return spawnerId;
+	}
+
 	void SetWidthHeight(float width, float height)
 	{
 		this->width = width;
 		this->height = height;
 	};
-	void SetCanSpwan(bool b) {
-		this->isCanSpawn = b;
-	}
-	void SetSimonHasTouch(bool b)
-	{
-		this->simonHasTouch = b;
-	}
 	void SetSpawnEnemyType(int type)
 	{
 		this->enemyId = type;
@@ -52,13 +65,6 @@ public:
 	};
 	int GetSpawnEnemyType() {
 		return enemyId;
-	}
-	bool GetCanSpawn() {
-		return isCanSpawn;
-	}
-	bool GetSimonHasTouch()
-	{
-		return this->simonHasTouch;
 	}
 };
 

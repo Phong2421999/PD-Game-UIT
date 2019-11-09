@@ -1,15 +1,23 @@
 #pragma once
 #include "CEnemies.h"
 #define ANI_GHOST 565
+#define GHOST_ACTIVE_TIME 500
+
 #define GHOST_WIDTH 16
 #define GHOST_HEIGHT 32
+
+#define GHOST_GRAVITY 0.005
+#define GHOST_VELOCITY_X 0.06
+
+#define GHOST_OFFSET_X 16;
+#define GHOST_OFFSET_Y 8;
 
 class CGhost : public CEnemies {
 private:
 	int width, height;
 	DWORD startSpawnTime;
 public:
-	CGhost();
+	CGhost(float x, float y);
 	void Render();
 	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

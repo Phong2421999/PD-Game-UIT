@@ -7,11 +7,11 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	y = CGame::GetInstance()->GetCamPos_y();
 
 	if (type == LEFT) {
-		x = CGame::GetInstance()->GetCamPos_x() - 8;
+		x = CGame::GetInstance()->GetCamPos_x() - DESTROY_OFFSET_LEFT;
 	}
 	else
 	{
-		x = CGame::GetInstance()->GetCamPos_x() + SCREEN_WIDTH - 16;
+		x = CGame::GetInstance()->GetCamPos_x() + SCREEN_WIDTH + DESTROY_OFFSET_RIGHT;
 	}
 	for (int i = 0; i < coObjects->size(); i++)
 	{
@@ -23,11 +23,6 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if(enemy->GetActive())
 					coObjects->at(i)->Damage(1);
 			}
-			/*if (dynamic_cast<CSpawn*>(coObjects->at(i)))
-			{
-				coObjects->at(i)->SetCanSpwan(true);
-				coObjects->at(i)->SetSimonHasTouch(false);
-			}*/
 		}
 	}
 }

@@ -10,14 +10,16 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (dynamic_cast<CSimon*>(coObjects->at(i)))
 			{
-				simonHasTouch = true;
-				if (CSpawner::GetInstance()->spawnerId != this->spawnerId)
+				CSpawner *spawner = CSpawner::GetInstance();
+				if (spawner->spawnerId != this->spawnerId)
 				{
-					CSpawner::GetInstance()->reset();
+					spawner->reset();
 				}
-				CSpawner::GetInstance()->enemyId = this->enemyId;
-				CSpawner::GetInstance()->quantityEachSpawn = this->quantityEachSpawn;
-				CSpawner::GetInstance()->spawnerId = this->spawnerId;
+				spawner->enemyId = this->enemyId;
+				spawner->quantityEachSpawn = this->quantityEachSpawn;
+				spawner->spawnerId = this->spawnerId;
+				spawner->delaySpawnTime = this->delaySpawnTime;
+				spawner->timeEachSpawn = this->timeEachSpawn;
 			}
 		}
 	}

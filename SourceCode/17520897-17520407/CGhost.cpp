@@ -1,14 +1,22 @@
 #include "CGhost.h"
 
-CGhost::CGhost() {
+CGhost::CGhost(float x, float y) {
 	width = GHOST_WIDTH;
 	height = GHOST_HEIGHT;
 	this->AddAnimation(ANI_GHOST);
 	int random = rand() % 2;
 	if (random == 1)
+	{
 		nx = 1;
+		this->x = x;
+		this->y = y - GHOST_OFFSET_Y;
+	}
 	else
+	{
 		nx = -1;
+		this->x = x + SCREEN_WIDTH - GHOST_OFFSET_X;
+		this->y = y - GHOST_OFFSET_Y;
+	}
 	startSpawnTime = GetTickCount();
 }
 
@@ -32,13 +40,13 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	DWORD now = GetTickCount();
-	if (now - startSpawnTime >= 500)
+	if (now - startSpawnTime >= GHOST_ACTIVE_TIME)
 		isActive = true;
-	vy += 0.005 * dt;
+	vy += GHOST_GRAVITY * dt;
 	if (nx > 0)
-		vx = 0.08f;
+		vx = GHOST_VELOCITY_X;
 	else
-		vx = -0.08f;
+		vx = -GHOST_VELOCITY_X;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 

@@ -116,15 +116,23 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 			}
 			else if (id == -2)
 			{
-				int enemyId, quantityEachSpawn;
+				int enemyId, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime;
 				Object->QueryIntAttribute("enemyId", &enemyId);
+				Object->QueryIntAttribute("spawnerId", &spawnerId);
 				Object->QueryIntAttribute("quantityEachSpawn", &quantityEachSpawn);
-				CSpawn* spawner = new CSpawn();
-				spawner->SetPosition(x, y);
-				spawner->SetWidthHeight(Width, Height);
-				spawner->SetSpawnEnemyType(enemyId);
-				spawner->SetQuantitySpawnEnemy(quantityEachSpawn);
-				objects.push_back(spawner);
+				Object->QueryIntAttribute("timeEachSpawn", &timeEachSpawn);
+				Object->QueryIntAttribute("delaySpawnTime", &delaySpawnTime);
+
+				CSpawn* spawn = new CSpawn();
+				spawn->SetPosition(x, y);
+				spawn->SetWidthHeight(Width, Height);
+				spawn->SetSpawnEnemyType(enemyId);
+				spawn->SetSpawnerId(spawnerId);
+				spawn->SetQuantitySpawnEnemy(quantityEachSpawn);
+				spawn->SetTimeEachSpawn(timeEachSpawn);
+				spawn->SetDelaySpawnTime(delaySpawnTime);
+
+				objects.push_back(spawn);
 			}
 			else if (id == -99)
 			{
@@ -140,7 +148,6 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 		}
 	}
 	CSimon* simon = CSimon::getInstance();
-	// toa 2 cai => 1 cx - distance; cx + SCREENWIDTH + distance;
 	objects.push_back(simon);
 }
 
@@ -212,7 +219,6 @@ void Scene::UpdateEnemies(DWORD dt)
 	cy = CGame::GetInstance()->GetCamPos_y();
 	CSimon::getInstance()->GetPosition(sx, sy);
 
-	int quantityEachSpawn = spawner->quantityEachSpawn;
 	int lastNx = 1;
 	DWORD now = GetTickCount();
 	if (spawner->quantitySpawned == spawner->quantityEachSpawn)
@@ -226,18 +232,13 @@ void Scene::UpdateEnemies(DWORD dt)
 			spawner->canSpawn = true;
 		}
 	}
-	if (spawner->quantitySpawned < quantityEachSpawn && spawner->canSpawn)
+	if (spawner->quantitySpawned < spawner->quantityEachSpawn && spawner->canSpawn)
 	{
-		if (now - spawner->lastSpawnTime > 1000)
+		if (now - spawner->lastSpawnTime > spawner->timeEachSpawn)
 		{
 			if (spawner->enemyId == 0)
 			{
-				CGhost* ghost = new CGhost();
-				int ghostNx = ghost->GetNx();
-				if (ghostNx > 0)
-					ghost->SetPosition(cx, sy - 6);
-				else
-					ghost->SetPosition(cx + SCREEN_WIDTH - 16, sy - 6);
+				CGhost* ghost = new CGhost(cx, sy);
 				spawner->quantitySpawned += 1;
 				objects.push_back(ghost);
 
