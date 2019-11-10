@@ -3,6 +3,10 @@
 #include "FrameWork/debug.h"
 #define GRAVITY 0.0002
 
+#define GHOST_ID 0
+#define PANTHER_ID 1
+#define BAT_ID 2
+
 class CEnemies : public CGameObject {
 protected:
 	bool isActive;

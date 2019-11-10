@@ -17,7 +17,7 @@ private:
 	bool isDeath;
 	DWORD makeTime;
 public:
-	LargeHeart();
+	LargeHeart(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFame();

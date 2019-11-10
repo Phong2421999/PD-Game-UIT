@@ -8,9 +8,9 @@
 
 #define DANGER_WEAPON_TIME_LIVE 1000
 
-#define DANGER_ANI_ID 543
+#define DANGER_ANI 543
+#define DANGER_ANI_ID  0
 
-#define DANGER_ANI 0
 #define OFFSET_DANGER_X_TO_HAND_LEFT_SIMON 4.0f
 #define OFFSET_DANGER_X_TO_HAND_RIGHT_SIMON 28.0f
 #define OFFSET_DANGER_Y_TO_HAND_SIMON 7.0f
@@ -32,13 +32,13 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	bool GetLastFrame()
 	{
-		if (animations[DANGER_ANI]->getLastFrame())
+		if (animations[DANGER_ANI_ID]->getLastFrame())
 			return  true;
 		return false;
 	}
 	void ResetAnimation()
 	{
-		animations[DANGER_ANI]->reset();
+		animations[DANGER_ANI_ID]->reset();
 	}
 	bool getDeath()
 	{

@@ -3,4 +3,8 @@
   <Grounds id="0" width="100000" height="8">
     <Ground x="0" y="212" />
   </Grounds>
+  <Detroys id="-99" width="0" height="0">
+    <Detroy x="0" y="0" type="-1"/>
+    <Detroy x="0" y="0" type="1"/>
+  </Detroys>
 </Objects>

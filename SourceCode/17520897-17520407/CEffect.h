@@ -15,6 +15,7 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
 	bool GetLastFrame();
+	void reset();
 	void SetKillBySimon(bool b)
 	{
 		this->killBySimon = b;

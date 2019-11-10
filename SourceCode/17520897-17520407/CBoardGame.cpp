@@ -29,7 +29,6 @@ void CBoardGame::LoadBackBoard(int texId, LPCSTR filePath) {
 
 	tex = CTextures::GetInstance()->Get(texId);
 
-	DebugOut(L"\[INFO] TEXTURES %d", texId);
 	HRESULT result = D3DXGetImageInfoFromFileA(filePath, &info);
 	if (result != D3D_OK)
 	{
@@ -77,6 +76,11 @@ int CBoardGame::GetSubWeapon(SIMON_WEAPON type) {
 		break;
 	case DANGER:
 		return SPRITE_DANGER_ID;
+	case HOLY_WATER:
+		return SPRITE_HOLY_WATER_ID;
+		break;
+	case STOP_WATCH:
+		return SPRITE_STOP_WATCH_ID;
 		break;
 	}
 }

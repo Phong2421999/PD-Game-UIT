@@ -4,13 +4,12 @@
 #include "FrameWork/debug.h"
 
 #include "GameConst.h"
+#include "GameWeaponLib.h"
+
 #include "SimonConst.h"
 
-#include "Ground.h"
-#include "Weapon.h"
-#include "Whip.h"
-#include "WeaponDanger.h"
 #include "CSpawn.h"
+#include "Ground.h"
 
 class CSimon: public CGameObject
 {
@@ -83,7 +82,7 @@ public:
 		heart = 5;
 		health = 8;
 		currentScene = 0;
-		score = 1;
+		score = 0;
 		live = 3;
 		isAutoGo = false;
 		autoGoDistance = 0;

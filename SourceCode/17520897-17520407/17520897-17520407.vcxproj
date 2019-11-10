@@ -121,6 +121,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="CBat.cpp" />
     <ClCompile Include="CDestroy.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
@@ -131,10 +133,11 @@
     <ClCompile Include="CHit.cpp" />
     <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="CMoneyEffect.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CSpawn.cpp" />
     <ClCompile Include="CStaticObject.cpp" />
-    <ClCompile Include="CTestEnemy.cpp" />
+    <ClCompile Include="CPanther.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTiles.cpp" />
     <ClCompile Include="Danger.cpp" />
@@ -150,9 +153,11 @@
     <ClCompile Include="FrameWork\Textures.cpp" />
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HolyWater.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoneyBag.cpp" />
     <ClCompile Include="SampleMario\Brick.cpp" />
     <ClCompile Include="SampleMario\Goomba.cpp" />
     <ClCompile Include="SampleMario\Mario.cpp" />
@@ -162,16 +167,22 @@
     <ClCompile Include="SmallCandle.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WeaponAxe.cpp" />
     <ClCompile Include="WeaponDanger.cpp" />
+    <ClCompile Include="WeaponHolyWater.cpp" />
+    <ClCompile Include="WeaponStopWatch.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="WhipUpgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Axe.h" />
+    <ClInclude Include="CBat.h" />
     <ClInclude Include="CDestroy.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
@@ -182,10 +193,11 @@
     <ClInclude Include="CHit.h" />
     <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
+    <ClInclude Include="CMoneyEffect.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CSpawn.h" />
     <ClInclude Include="CStaticObject.h" />
-    <ClInclude Include="CTestEnemy.h" />
+    <ClInclude Include="CPanther.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
     <ClInclude Include="Danger.h" />
@@ -202,10 +214,13 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="GameEnemyLib.h" />
     <ClInclude Include="GameObjectLib.h" />
+    <ClInclude Include="GameWeaponLib.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="GameItemLib.h" />
+    <ClInclude Include="HolyWater.h" />
     <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="LargeHeart.h" />
+    <ClInclude Include="MoneyBag.h" />
     <ClInclude Include="SampleMario\Brick.h" />
     <ClInclude Include="SampleMario\Goomba.h" />
     <ClInclude Include="SampleMario\Mario.h" />
@@ -216,10 +231,14 @@
     <ClInclude Include="SmallCandle.h" />
     <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="Spawner.h" />
+    <ClInclude Include="StopWatch.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponAxe.h" />
     <ClInclude Include="WeaponDanger.h" />
+    <ClInclude Include="WeaponHolyWater.h" />
+    <ClInclude Include="WeaponStopWatch.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="WhipUpgrade.h" />
   </ItemGroup>
@@ -259,7 +278,9 @@
     <Xml Include="XML\Map1_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="XML\Map2_Objects.xml" />
+    <Xml Include="XML\Map2_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map3_Objects.xml" />
     <Xml Include="XML\Map4_Objects.xml" />
     <Xml Include="XML\Maps.xml" />

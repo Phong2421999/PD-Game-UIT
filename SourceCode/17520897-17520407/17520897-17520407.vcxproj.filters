@@ -147,9 +147,6 @@
     <ClCompile Include="CEnemies.cpp">
       <Filter>GameObject\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="CTestEnemy.cpp">
-      <Filter>GameObject\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>GameObject\Weapon</Filter>
     </ClCompile>
@@ -215,6 +212,36 @@
     </ClCompile>
     <ClCompile Include="Spawner.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CPanther.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CBat.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponAxe.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponHolyWater.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponStopWatch.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="CMoneyEffect.cpp">
+      <Filter>GameObject\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +315,6 @@
       <Filter>KeyControll</Filter>
     </ClInclude>
     <ClInclude Include="CEnemies.h">
-      <Filter>GameObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="CTestEnemy.h">
       <Filter>GameObject\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
@@ -367,6 +391,39 @@
     </ClInclude>
     <ClInclude Include="Spawner.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CPanther.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CBat.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponAxe.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWeaponLib.h">
+      <Filter>IncludeFile</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponHolyWater.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponStopWatch.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="CMoneyEffect.h">
+      <Filter>GameObject\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

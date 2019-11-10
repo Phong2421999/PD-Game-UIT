@@ -1,8 +1,12 @@
 #include "WhipUpgrade.h"
 
 
-WhipUpgrade::WhipUpgrade() {
+WhipUpgrade::WhipUpgrade(float x, float y) {
 	this->AddAnimation(ANI_WHIP_UPGRADE);
+	this->x = x;
+	this->y = y;
+	this->width = WHIP_UPGRADE_WIDTH;
+	this->height = WHIP_UPGRADE_HEIGHT;
 	makeTime = GetTickCount();
 	type = WHIP_UPGRADE;
 }

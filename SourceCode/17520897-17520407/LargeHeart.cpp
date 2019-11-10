@@ -1,8 +1,12 @@
 #include "LargeHeart.h"
 
 
-LargeHeart::LargeHeart() {
+LargeHeart::LargeHeart(float x, float y) {
 	this->AddAnimation(ANI_LARGE_HEART);
+	this->width = LARGE_HEART_WIDTH;
+	this->height = LARGE_HEART_HEIGHT;
+	this->x = x;
+	this->y = y;
 	makeTime = GetTickCount();
 	vx = LARGE_HEART_VELOCITY_X;
 	type = LARGE_HEART;

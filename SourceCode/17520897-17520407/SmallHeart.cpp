@@ -1,8 +1,12 @@
 #include "SmallHeart.h"
 
 
-SmallHeart::SmallHeart() {
+SmallHeart::SmallHeart(float x, float y) {
 	this->AddAnimation(ANI_SMALL_HEART);
+	this->width = SMALL_HEART_WIDTH;
+	this->height = SMALL_HEART_HEIGHT;
+	this->x = x;
+	this->y = y;
 	type = SMALL_HEART;
 	flyDistance = 0;
 	vx = SMALL_HEART_VELOCITY_X;

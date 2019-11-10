@@ -1,3 +1,4 @@
 #pragma once
-#include "CTestEnemy.h"
 #include "CGhost.h"
+#include "CPanther.h"
+#include "CBat.h"

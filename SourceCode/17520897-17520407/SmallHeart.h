@@ -18,7 +18,7 @@ private:
 	bool turnAround;
 	int width, height;
 public:
-	SmallHeart();
+	SmallHeart(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFrame();

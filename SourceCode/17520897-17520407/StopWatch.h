@@ -1,20 +1,20 @@
 #pragma once
 #include "CItems.h"
-#define ANI_WHIP_UPGRADE 540
-#define ANI_WHIP_ID 0
-#define WHIP_UPGRADE_WIDTH 17
-#define WHIP_UPGRADE_HEIGHT 17
-#define WHIP_UPGRADE_TIME_LIVE 2000
+#define ANI_STOP_WATCH 548
+#define ANI_STOP_WATCH_ID 0
 
-#define WHIP_UPGRADE_GRAVITY 0.0005
+#define STOP_WATCH_WIDTH 15
+#define STOP_WATCH_HEIGHT 16
 
-class WhipUpgrade :public CItems
+#define STOP_WATCH_TIME_LIVE 2000
+
+class StopWatch : public CItems
 {
 private:
 	int width, height;
 	DWORD makeTime;
 public:
-	WhipUpgrade(float x, float y);
+	StopWatch(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFrame();

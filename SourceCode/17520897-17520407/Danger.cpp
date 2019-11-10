@@ -1,8 +1,13 @@
 #include "Danger.h"
 
 
-Danger::Danger() {
+Danger::Danger(float x, float y) {
 	this->AddAnimation(ANI_DANGER);
+	this->x = x;
+	this->y = y;
+	this->width = DANGER_WIDTH;
+	this->height = DANGER_HEIGHT;
+
 	makeTime = GetTickCount();
 	type = DANGER_ITEM;
 }

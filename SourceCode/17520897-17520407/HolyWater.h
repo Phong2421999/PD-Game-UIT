@@ -1,20 +1,19 @@
-#pragma once
 #include "CItems.h"
-#define ANI_WHIP_UPGRADE 540
-#define ANI_WHIP_ID 0
-#define WHIP_UPGRADE_WIDTH 17
-#define WHIP_UPGRADE_HEIGHT 17
-#define WHIP_UPGRADE_TIME_LIVE 2000
+#define ANI_HOLY_WATER 549
+#define ANI_HOLY_WATER_ID 0
 
-#define WHIP_UPGRADE_GRAVITY 0.0005
+#define HOLY_WATER_WIDTH 15
+#define HOLY_WATER_HEIGHT 16
 
-class WhipUpgrade :public CItems
+#define HOLY_WATER_TIME_LIVE 2000
+
+class HolyWater : public CItems
 {
 private:
 	int width, height;
 	DWORD makeTime;
 public:
-	WhipUpgrade(float x, float y);
+	HolyWater(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFrame();

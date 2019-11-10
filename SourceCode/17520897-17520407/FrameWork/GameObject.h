@@ -56,6 +56,8 @@ public:
 	
 	bool killBySimon;
 
+	GAME_ITEM type;
+
 	DWORD dt;
 
 	vector<LPANIMATION> animations;
@@ -74,6 +76,7 @@ public:
 	int GetState() { return this->state; }
 	virtual void RenderCurrentFrame(){
 	}
+	virtual GAME_ITEM GetGameItem() { return type; }
 	virtual bool GetCanSpawn() { return false; }
 	virtual bool GetSpawn() { return false; }
 	virtual void SetSimonHasTouch(bool b){}

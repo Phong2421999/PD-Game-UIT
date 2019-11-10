@@ -24,7 +24,7 @@ void CGhost::Render() {
 	if (nx < 0)
 		animations[0]->Render(x, y);
 	else
-		animations[0]->RenderFlipX(x, y, 8);
+		animations[0]->RenderFlipX(x, y, GHOST_OFFSET_FLIP_X);
 	RenderBoundingBox(x, y);
 }
 
@@ -33,7 +33,7 @@ void CGhost::RenderCurrentFrame()
 	if (nx < 0)
 		animations[0]->RenderCurrentFrame(x, y);
 	else
-		animations[0]->RenderCurrentFrameFlipX(x, y,8);
+		animations[0]->RenderCurrentFrameFlipX(x, y, GHOST_OFFSET_FLIP_X);
 }
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

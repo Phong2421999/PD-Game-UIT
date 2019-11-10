@@ -133,20 +133,22 @@ void LoadResources()
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
 		{
 			int aniId, frameTime;
-			animation->QueryIntAttribute("frameTime", &frameTime);
 			LPANIMATION ani;
+			animation->QueryIntAttribute("frameTime", &frameTime);
 			ani = new CAnimation(frameTime);
 			for (sprite = animation->FirstChildElement(); sprite != NULL; sprite = sprite->NextSiblingElement())
 			{
-				int left, top, right, bottom, id;
+				int left, top, right, bottom, id, frameTimeEachSprite;
 				sprite->QueryIntAttribute("id", &id);
 				sprite->QueryIntAttribute("top", &top);
 				sprite->QueryIntAttribute("left", &left);
 				sprite->QueryIntAttribute("right", &right);
 				sprite->QueryIntAttribute("bottom", &bottom);
+				sprite->QueryIntAttribute("frameTime", &frameTimeEachSprite);
 				sprites->Add(id, left, top, right, bottom, directTexture);
-				ani->Add(id);
+				ani->Add(id, frameTimeEachSprite);
 			}
+
 			animation->QueryIntAttribute("aniId", &aniId);
 			animations->Add(aniId, ani);
 			if (gameObjectId == 0)

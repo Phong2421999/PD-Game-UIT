@@ -20,6 +20,7 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				spawner->spawnerId = this->spawnerId;
 				spawner->delaySpawnTime = this->delaySpawnTime;
 				spawner->timeEachSpawn = this->timeEachSpawn;
+				spawner->canSpawn = true;
 			}
 		}
 	}

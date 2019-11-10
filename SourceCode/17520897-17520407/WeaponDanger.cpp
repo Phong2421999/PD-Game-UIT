@@ -2,6 +2,7 @@
 
 WeaponDanger::WeaponDanger(float x, float y, int nx)
 {
+	this->AddAnimation(DANGER_ANI);
 	if (nx > 0)
 		vx = DANGER_SPEED_X;
 	else
@@ -10,7 +11,6 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	SetTimeLive(DANGER_WEAPON_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
 	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
-	this->AddAnimation(DANGER_ANI_ID);
 	isDeath = false;
 	makeTime = GetTickCount();
 	health = 1;
@@ -41,12 +41,12 @@ void WeaponDanger::Render()
 {
 	if (nx > 0)
 	{
-		animations[DANGER_ANI]->Render(x, y);
+		animations[DANGER_ANI_ID]->Render(x, y);
 		RenderBoundingBox(x, y);
 	}
 	else
 	{
-		animations[DANGER_ANI]->RenderFlipX(x, y, 8.5f);
+		animations[DANGER_ANI_ID]->RenderFlipX(x, y, 8.5f);
 		RenderBoundingBox(x, y);
 	}
 

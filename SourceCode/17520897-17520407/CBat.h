@@ -1,24 +1,31 @@
 #pragma once
 #include "CEnemies.h"
-#define ANI_GHOST 565
-#define GHOST_ACTIVE_TIME 500
-#define GHOST_OFFSET_FLIP_X 8
+#include "Simon.h"
+#define ANI_BAT_IDLE 569
+#define ANI_BAT_FLY 570
 
-#define GHOST_WIDTH 16
-#define GHOST_HEIGHT 32
+#define ANI_ID_BAT_IDLE 0
+#define ANI_ID_BAT_FLY 1
 
-#define GHOST_GRAVITY 0.005
-#define GHOST_VELOCITY_X 0.06
+#define BAT_ACTIVE_TIME 2000
 
-#define GHOST_OFFSET_X 16
-#define GHOST_OFFSET_Y 8
+#define BAT_OFFSET_FLIP_X 8
+#define BAT_FLY_DISTANCE_Y 8
 
-class CGhost : public CEnemies {
+#define BAT_VELOCITY_X 0.03
+#define BAT_VELOCITY_Y 0.03
+
+#define BAT_WIDTH 16
+#define BAT_HEIGHT 16
+
+class CBat :public CEnemies
+{
 private:
-	int width, height;
+	int width, height, ani;
 	DWORD startSpawnTime;
+
 public:
-	CGhost(float x, float y);
+	CBat(float x, float y);
 	void Render();
 	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
@@ -32,9 +39,5 @@ public:
 	{
 		x = this->x;
 		y = this->y;
-	}
-	int GetNx()
-	{
-		return nx;
 	}
 };

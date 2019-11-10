@@ -7,7 +7,7 @@
 #define DESTROY_HEIGHT 260
 
 #define DESTROY_OFFSET_LEFT  8
-#define DESTROY_OFFSET_RIGHT 24
+#define DESTROY_OFFSET_RIGHT -8
 
 class CDestroy:public CGameObject
 {

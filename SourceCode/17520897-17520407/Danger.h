@@ -16,7 +16,7 @@ private:
 	int width, height;
 	DWORD makeTime;
 public:
-	Danger();
+	Danger(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Render();
 	void RenderCurrentFrame();

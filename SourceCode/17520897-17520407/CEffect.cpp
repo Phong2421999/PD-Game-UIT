@@ -10,3 +10,7 @@ void CEffect::Render()
 bool CEffect::GetLastFrame() {
 	return animations[0]->getLastFrame();
 }
+
+void CEffect::reset() {
+	animations[0]->reset();
+}
