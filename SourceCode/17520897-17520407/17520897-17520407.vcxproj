@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="CBat.cpp" />
+    <ClCompile Include="CBreakingWall.cpp" />
     <ClCompile Include="CDestroy.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="FrameWork\Textures.cpp" />
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HiddenWall.cpp" />
     <ClCompile Include="HolyWater.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
@@ -183,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="Axe.h" />
     <ClInclude Include="CBat.h" />
+    <ClInclude Include="CBreakingWall.h" />
     <ClInclude Include="CDestroy.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
@@ -217,6 +220,7 @@
     <ClInclude Include="GameWeaponLib.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="GameItemLib.h" />
+    <ClInclude Include="HiddenWall.h" />
     <ClInclude Include="HolyWater.h" />
     <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="LargeHeart.h" />

@@ -1,6 +1,5 @@
 #pragma once
 #include "CStaticObject.h"
-#include "CHit.h"
 #include "FrameWork/debug.h"
 
 #define ANI_IDLE 560

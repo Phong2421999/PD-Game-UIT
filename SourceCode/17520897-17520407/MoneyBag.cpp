@@ -42,11 +42,11 @@ void MoneyBag::RenderCurrentFrame() {
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	vy += MONEY_BAG_GRAVITY * dt;
 	CItems::Update(dt, coObjects);
-	//DWORD now = GetTickCount();
-	//if (now - makeTime > MONEY_BAG_TIME_LIVE)
-	//{
-	//	health = 0;
-	//}
+	DWORD now = GetTickCount();
+	if (now - makeTime > MONEY_BAG_TIME_LIVE)
+	{
+		health = 0;
+	}
 
 	if (coObjects->size() >= 0)
 	{
@@ -56,12 +56,6 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			{
 				if (dynamic_cast<CSimon*> (coObjects->at(i)))
 				{
-					ani = 3;
-					if (animations[ani]->getLastFrame())
-					{
-						DebugOut(L"\abc");
-						health = 0;
-					}
 				}
 			}
 		}

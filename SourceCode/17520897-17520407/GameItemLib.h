@@ -1,5 +1,6 @@
 #pragma once
 #include "CHit.h"
+#include "CBreakingWall.h"
 #include "WhipUpgrade.h"
 #include "LargeHeart.h"
 #include "SmallHeart.h"

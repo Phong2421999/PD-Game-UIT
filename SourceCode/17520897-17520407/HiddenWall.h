@@ -2,13 +2,13 @@
 #include "CStaticObject.h"
 #include "FrameWork/debug.h"
 
-#define ANI_IDLE 559
+#define ANI_WALL 3000
 
-class CSmallCandle : public CStaticObject
+class CHiddenWall : public CStaticObject
 {
 
 public:
-	CSmallCandle();
+	CHiddenWall();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void RenderCurrentFrame();
 	void SetWidthHeight(float width, float height) {

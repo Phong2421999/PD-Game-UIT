@@ -32,6 +32,7 @@
     <SmallCandle x="1436" y="84" />
     <SmallCandle x="1500" y="54" />
   </SmallCandles>
+
   <ChangeSceneObjects id="-1" width="8" height="14">
     <ChangeScene x="1532" y="168" sceneId="2"
     simonAutoGo="0" simonAutoGoDistance="35"

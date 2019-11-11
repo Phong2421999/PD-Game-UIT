@@ -83,6 +83,12 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				smallCandle->SetWidthHeight(Width, Height);
 				objects.push_back(smallCandle);
 			}
+			else if (id == 100) {
+				CHiddenWall* hiddenWall = new CHiddenWall();
+				hiddenWall->SetPosition(x, y);
+				hiddenWall->SetWidthHeight(Width, Height);
+				objects.push_back(hiddenWall);
+			}
 			else if (id == -1)
 			{
 				int sceneId, simonAutoGo;

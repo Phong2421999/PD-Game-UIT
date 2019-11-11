@@ -330,7 +330,7 @@
   </Texture>
   <!-- Animation HIT_EFFECT -->
   <Texture  textureId ="2" gameObjectId ="25">
-    <Animation aniId="564" frameTime="80" name="HIT_EFFECT">
+    <Animation aniId="564" frameTime="100" name="HIT_EFFECT">
       <sprite id="10161" left="15" top="79" right="23" bottom="89" frameTime="100"/>
       <sprite id="10162" left="34" top="77" right="37" bottom="90" frameTime="100"/>
       <sprite id="10163" left="43" top="79" right="49" bottom="91" frameTime="100"/>
@@ -440,6 +440,13 @@
       <sprite id="60165" left="1" top="0" right="6" bottom="7" frameTime="100"/>
       <sprite id="60166" left="7" top="0" right="12" bottom="7" frameTime="100"/>
       <sprite id="60167" left="13" top="0" right="18" bottom="7" frameTime="100"/>
+    </Animation>
+  </Texture>
+  
+  <!-- Animation HIDDEN_WALL -->
+  <Texture  textureId ="200000" gameObjectId ="-1000">
+    <Animation aniId="3000" frameTime="100" name="HIDDEN_WALL">
+      <sprite id="70165" left="512" top="64" right="544" bottom="96" frameTime="100"/>
     </Animation>
   </Texture>
 </Textures>

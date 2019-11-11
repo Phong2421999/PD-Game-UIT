@@ -3,14 +3,16 @@
   <Grounds id="0" width="100000" height="8">
     <Ground x="0" y="212" />
   </Grounds>
+  <HiddenBricks id="100" width="16" height="30">
+    <HiddenBrick x="256" y="163" />
+    <HiddenBrick x="256" y="195" />
+  </HiddenBricks>
   <ChangeSceneObjects id="-1" width="8" height="14">
     <ChangeScene x="492" y="168" sceneId="3"
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="1" isDoor="1"/>
   </ChangeSceneObjects>
-  <Spawns id="-2" width="8" height="300">
-    <Spawn x="84" y="0" spawnerId="1" enemyId="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="6000"/>
-  </Spawns>
+
   <Detroys id="-99" width="0" height="0">
     <Detroy x="0" y="0" type="-1"/>
     <Detroy x="0" y="0" type="1"/>

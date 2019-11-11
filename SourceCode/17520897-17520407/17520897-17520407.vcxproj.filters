@@ -243,6 +243,12 @@
     <ClCompile Include="CMoneyEffect.cpp">
       <Filter>GameObject\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="HiddenWall.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="CBreakingWall.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -423,6 +429,12 @@
       <Filter>GameObject\Items</Filter>
     </ClInclude>
     <ClInclude Include="CMoneyEffect.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HiddenWall.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CBreakingWall.h">
       <Filter>GameObject\Effect</Filter>
     </ClInclude>
   </ItemGroup>
