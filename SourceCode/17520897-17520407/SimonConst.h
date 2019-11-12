@@ -24,8 +24,6 @@
 #define SIMON_STATE_SIT_ATTACK		800
 #define SIMON_STATE_FREEZE			900
 
-
-
 #define SIMON_ANI_IDLE 0
 #define SIMON_ANI_HURT 1 
 #define SIMON_ANI_DIE 2
