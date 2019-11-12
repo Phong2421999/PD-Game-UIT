@@ -9,7 +9,7 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 	
-	vy += GRAVITY * dt;
+	//vy += GRAVITY * dt;
 
 
 	vector<LPCOLLISIONEVENT> coEvents;

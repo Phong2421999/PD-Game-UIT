@@ -5,9 +5,12 @@
 #define SMALL_HEART_WIDTH 8
 #define SMALL_HEART_HEIGHT 8
 
+#define SMALL_HEART_FLY_DISTANCE 6
+#define SMALL_HEART_GRAVITY 0.0012
+
 #define SMALL_HEART_TIME_LIVE 3000
 
-#define SMALL_HEART_VELOCITY_X 0.02
+#define SMALL_HEART_VELOCITY_X 0.025
 #define SMALL_HEART_ITEM_GRAVITY 0.0001
 
 class SmallHeart :public CItems
@@ -15,8 +18,7 @@ class SmallHeart :public CItems
 private:
 	DWORD makeTime;
 	float flyDistance;
-	bool turnAround;
-	int width, height;
+	int width, height, temptX, temptY;
 public:
 	SmallHeart(float x, float y);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

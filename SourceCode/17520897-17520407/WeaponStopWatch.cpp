@@ -11,8 +11,8 @@ WeaponStopWatch::WeaponStopWatch()
 void WeaponStopWatch::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	DWORD now = GetTickCount();
-	if (now - makeTime > HOLY_WATER_WEAPON_TIME_LIVE)
+	/*if (now - makeTime > HOLY_WATER_WEAPON_TIME_LIVE)
 	{
 		health = 0;
-	}
+	}*/
 }

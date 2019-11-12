@@ -235,51 +235,53 @@
   <!-- Animation HOLY_WATER -->
   <Texture  textureId ="1" gameObjectId ="13">
     <Animation aniId="551" frameTime="100" name="HOLY_WATER">
-      <sprite id="10125" left="136" top="131" right="142" bottom="143" frameTime="100"/>
-      <sprite id="10126" left="131" top="155" right="147" bottom="168" frameTime="100"/>
+      <sprite id="10125" left="98" top="129" right="118" bottom="145" frameTime="160"/>
+      <sprite id="10126" left="129" top="129" right="145" bottom="145" frameTime="160"/>
+      <sprite id="10127" left="98" top="152" right="118" bottom="168" frameTime="160"/>
+      <sprite id="10128" left="129" top="152" right="149" bottom="168" frameTime="160"/>
     </Animation>
   </Texture>
   <!-- Animation HOLY_WATER_POND -->
   <Texture  textureId ="1" gameObjectId ="14">
     <Animation aniId="552" frameTime="100" name="HOLY_WATER_POND">
-      <sprite id="10126" left="131" top="155" right="147" bottom="168" frameTime="100"/>
+      <sprite id="10129" left="131" top="155" right="147" bottom="168" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation CROSS -->
   <Texture  textureId ="1" gameObjectId ="15">
     <Animation aniId="553" frameTime="100" name="CROSS">
-      <sprite id="10127" left="181" top="104" right="197" bottom="121" frameTime="100"/>
+      <sprite id="10130" left="181" top="104" right="197" bottom="121" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation INVINCIBILITY_POTION -->
   <Texture textureId ="1" gameObjectId ="16">
     <Animation aniId="554" frameTime="100" name="INVINCIBILITY_POTION">
-      <sprite id="10128" left="289" top="101" right="304" bottom="119" frameTime="100"/>
+      <sprite id="10131" left="289" top="101" right="304" bottom="119" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation POT_ROAST -->
   <Texture  textureId ="1" gameObjectId ="17">
     <Animation aniId="555" frameTime="100" name="POT_ROAST">
-      <sprite id="10129" left="35" top="157" right="51" bottom="170" frameTime="100"/>
+      <sprite id="10132" left="35" top="157" right="51" bottom="170" frameTime="100"/>
     </Animation>  
   </Texture>
   <!-- Animation OTHER_STUFF_ONE -->
   <Texture  textureId ="1" gameObjectId ="18">
     <Animation aniId="556" frameTime="100" name="OTHER_STUFF_ONE">
       <sprite id="10130" left="179" top="157" right="191" bottom="171" frameTime="100"/>
-      <sprite id="10131" left="178" top="182" right="192" bottom="198" frameTime="100"/>
+      <sprite id="10133" left="178" top="182" right="192" bottom="198" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation OTHER_STUFF_TWO -->
   <Texture  textureId ="1" gameObjectId ="1">
     <Animation aniId="557" frameTime="100" name="OTHER_STUFF_TWO">
-      <sprite id="10132" left="206" top="157" right="220" bottom="171" frameTime="100"/>
+      <sprite id="10134" left="206" top="157" right="220" bottom="171" frameTime="100"/>
     </Animation>
   </Texture>                                    
   <!-- Animation OTHER_STUFF_THREE -->
   <Texture  textureId ="1" gameObjectId ="19">
     <Animation aniId="558" frameTime="100" name="OTHER_STUFF_THREE">
-      <sprite id="10133" left="206" top="184" right="220" bottom="198" frameTime="100"/>
+      <sprite id="10135" left="206" top="184" right="220" bottom="198" frameTime="100"/>
     </Animation>
   </Texture>
 
@@ -288,32 +290,32 @@
   <!-- Animation SMALL_CANDLE -->
   <Texture  textureId ="2" gameObjectId ="20">
     <Animation aniId="559" frameTime="100" name="SMALL_CANDLE">
-      <sprite id="10134" left="17" top="33" right="25" bottom="47" frameTime="100"/>
-      <sprite id="10135" left="31" top="33" right="39" bottom="47" frameTime="100"/>
+      <sprite id="10136" left="17" top="33" right="25" bottom="47" frameTime="100"/>
+      <sprite id="10137" left="31" top="33" right="39" bottom="47" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation LARGE_CANDLE -->
   <Texture  textureId ="2" gameObjectId ="21">
     <Animation aniId="560" frameTime="100" name="LARGE_CANDLE">
-      <sprite id="10136" left="48" top="26" right="64" bottom="56" frameTime="100"/>
-      <sprite id="10137" left="75" top="26" right="91" bottom="56" frameTime="100"/>
+      <sprite id="10138" left="48" top="26" right="64" bottom="56" frameTime="100"/>
+      <sprite id="10139" left="75" top="26" right="91" bottom="56" frameTime="100"/>
     </Animation>
   </Texture>
   <!-- Animation DOORS -->
   <Texture  textureId ="2" gameObjectId ="22">
     <Animation aniId="561" frameTime="200" name="DOORS">
-      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
-      <sprite id="10139" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
-      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
-      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+      <sprite id="10140" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
+      <sprite id="10141" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
+      <sprite id="10142" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+      <sprite id="10143" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
     </Animation>
   </Texture>
   <Texture  textureId ="2" gameObjectId ="22">
     <Animation aniId="5611" frameTime="200" name="DOORS">
-      <sprite id="10149" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
-      <sprite id="10139" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
-      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
-      <sprite id="10138" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
+      <sprite id="10144" left="55" top="121" right="78" bottom="171"  frameTime="200"/>
+      <sprite id="10145" left="36" top="121" right="52" bottom="171"  frameTime="200"/>
+      <sprite id="10146" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
+      <sprite id="10147" left="24" top="121" right="32" bottom="171"  frameTime="200"/>
     </Animation>
   </Texture>
   <!-- Animation BREAKING_WALL -->

@@ -22,7 +22,7 @@ void Danger::RenderCurrentFrame() {
 }
 
 void Danger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-	vy += DANGER_GRAVITY * dt;
+	vy += GRAVITY * dt;
 	CItems::Update(dt, coObjects);
 	DWORD now = GetTickCount();
 	if (now - makeTime > DANGER_TIME_LIVE)

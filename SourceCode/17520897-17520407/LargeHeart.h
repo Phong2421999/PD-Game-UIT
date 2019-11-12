@@ -7,9 +7,6 @@
 
 #define LARGE_HEART_TIME_LIVE 2000
 
-#define LARGE_HEART_VELOCITY_X 0.01
-#define LARGE_HEART_ITEM_GRAVITY 0.0001
-
 class LargeHeart :public CItems
 {
 private:

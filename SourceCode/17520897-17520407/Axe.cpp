@@ -23,6 +23,7 @@ void Axe::RenderCurrentFrame() {
 }
 
 void Axe::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+	vy += GRAVITY * dt;
 	CItems::Update(dt, coObjects);
 
 	DWORD now = GetTickCount();

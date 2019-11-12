@@ -465,46 +465,52 @@ void Scene::Update(DWORD dt)
 
 							int rand = Random(1, 10);
 							animations->Get(ANI_HIT)->reset();
-							if (rand == 1)
+							/*if (rand == 1)
 							{
 								LargeHeart* largeHeart = new LargeHeart(x, y);
 								listItems.push_back(largeHeart);
-							}
-							/*else if ( CSimon::getInstance()->getWeaponLevel() < 3)
+							}*/
+							/*if ( CSimon::getInstance()->getWeaponLevel() < 3)
 							{
 								WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
 								listItems.push_back(whipUpgrade);
-							}*/
-							/*else if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+							}
+							else*/ 
+						/*	if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
 							{
 								Danger* danger = new Danger(x, y);
 								listItems.push_back(danger);
 							}*/
-							/*else if (rand >=2  && rand <= 8)
+						/*	if (rand >=2  && rand <= 8)
 							{
 								Axe* axe = new Axe(x, y);
 								listItems.push_back(axe);
 							}*/
-							/*else if (rand >=2  && rand <= 8)
+							if (rand >=2  && rand <= 8)
 							{
 								HolyWater* holyWater = new HolyWater(x, y);
 								listItems.push_back(holyWater);
-							}*/
+							}
 						/*	else if (rand >= 2 && rand <= 8)
 							{
 								StopWatch* stopWatch = new StopWatch(x, y);
 								listItems.push_back(stopWatch);
 							}*/
-							else if (rand >= 2 && rand <= 8)
+							/*else if (rand >= 2 && rand <= 8)
 							{
 								MoneyBag* moneyBag = new MoneyBag(x, y);
 								listItems.push_back(moneyBag);
+							}*/
+							/*else if (rand >= 2 && rand <= 8)
+							{
+								SmallHeart* smallHeart = new SmallHeart(x, y);
+								listItems.push_back(smallHeart);
 							}
 							else
 							{
 								SmallHeart* smallHeart = new SmallHeart(x, y);
 								listItems.push_back(smallHeart);
-							}
+							}*/
 
 						}
 						if (effects[i]->GetMakeItem() == ENEMY)

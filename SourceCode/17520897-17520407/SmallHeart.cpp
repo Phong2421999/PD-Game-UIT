@@ -7,11 +7,13 @@ SmallHeart::SmallHeart(float x, float y) {
 	this->height = SMALL_HEART_HEIGHT;
 	this->x = x;
 	this->y = y;
+	this->temptX = x;
+	this->temptY = y;
+	vx = SMALL_HEART_VELOCITY_X;
+	vy = 0;
 	type = SMALL_HEART;
 	flyDistance = 0;
-	vx = SMALL_HEART_VELOCITY_X;
 	makeTime = GetTickCount();
-	turnAround = false;
 }
 
 void SmallHeart::Render() {
@@ -24,7 +26,17 @@ void SmallHeart::RenderCurrentFrame() {
 }
 
 void SmallHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+	vy = SMALL_HEART_GRAVITY * dt;
 	CItems::Update(dt, coObjects);
+
+	if (x > temptX + SMALL_HEART_FLY_DISTANCE)
+	{
+		vx = -SMALL_HEART_VELOCITY_X;
+	}
+	if (x < temptX - SMALL_HEART_FLY_DISTANCE)
+	{
+		vx = SMALL_HEART_VELOCITY_X;
+	}
 
 	DWORD now = GetTickCount();
 	if (now - makeTime > SMALL_HEART_TIME_LIVE)

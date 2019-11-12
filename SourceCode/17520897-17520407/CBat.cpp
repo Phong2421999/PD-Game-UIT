@@ -45,41 +45,19 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if(y <= sy - BAT_FLY_DISTANCE_Y)
 		vy = BAT_VELOCITY_Y;
 
+	x += dx;
+	y += dy;
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents);
-
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
+	for (int i = 0; i < coObjects->size(); i++)
 	{
-		y += dy;
-		x += dx;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
-		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-		vx = 0;
-		vy = 0;
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		if (IsTouchSimon(coObjects->at(i)))
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			/*if (dynamic_cast<CSimon *>(e->obj))
+			if (dynamic_cast<CSimon*> (coObjects->at(i)))
 			{
-				e->obj->Damage(1);
-			}*/
+				this->Damage(1);
+			}
 		}
-
 	}
-
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 
@@ -101,6 +79,18 @@ void CBat::RenderCurrentFrame()
 	}
 	else
 		animations[ani]->RenderCurrentFrameFlipX(x, y, BAT_OFFSET_FLIP_X);
+}
+
+bool CBat::IsTouchSimon(LPGAMEOBJECT gameObject) {
+
+	if (checkAABBTouch(gameObject))
+		return true;
+
+	LPCOLLISIONEVENT collitionEvent = this->SweptAABBEx(gameObject);
+	if (collitionEvent->t >= 0 && collitionEvent->t <= 1.0f)
+		return true;
+
+	return false;
 }
 
 void CBat::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

@@ -8,7 +8,6 @@ LargeHeart::LargeHeart(float x, float y) {
 	this->x = x;
 	this->y = y;
 	makeTime = GetTickCount();
-	vx = LARGE_HEART_VELOCITY_X;
 	type = LARGE_HEART;
 }
 
@@ -22,6 +21,8 @@ void LargeHeart::RenderCurrentFame() {
 }
 
 void LargeHeart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+	vy += GRAVITY * dt;
+
 	CItems::Update(dt, coObjects);
 	DWORD now = GetTickCount();
 	if (now - makeTime > LARGE_HEART_TIME_LIVE)

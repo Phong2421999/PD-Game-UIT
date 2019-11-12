@@ -22,6 +22,8 @@ void StopWatch::RenderCurrentFrame() {
 }
 
 void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
+	vy += GRAVITY * dt;
+
 	CItems::Update(dt, coObjects);
 
 	DWORD now = GetTickCount();

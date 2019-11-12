@@ -8,8 +8,6 @@
 
 #define DANGER_TIME_LIVE 2000
 
-#define DANGER_GRAVITY 0.0005
-
 class Danger :public CItems
 {
 private:

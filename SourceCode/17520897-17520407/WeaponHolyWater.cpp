@@ -11,13 +11,13 @@ WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 		vx = -HOLY_WATER_SPEED_X;
 	this->nx = nx;
 	vy = -HOLY_WATER_SPEED_Y;
-	SetTimeLive(HOLY_WATER_WEAPON_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
 	SetWidthHeigth(HOLY_WATER_BBOX_WIDTH, HOLY_WATER_BBOX_HEIGHT);
 	isDeath = false;
 	CSimon::getInstance()->GetPosition(sx, sy);
-	makeTime = GetTickCount();
 	health = 1;
+	isGrounded = false;
+	isFalling = false;
 }
 
 void WeaponHolyWater::SetPositionWithSimon(float x, float y, int nx)
@@ -28,49 +28,46 @@ void WeaponHolyWater::SetPositionWithSimon(float x, float y, int nx)
 	}
 	else
 	{
-		SetPosition(x - OFFSET_HOLY_WATER_X_TO_HAND_LEFT_SIMON, y + OFFSET_HOLY_WATER_Y_TO_HAND_SIMON);
+		SetPosition(x + OFFSET_HOLY_WATER_X_TO_HAND_LEFT_SIMON, y + OFFSET_HOLY_WATER_Y_TO_HAND_SIMON);
 
 	}
 }
 
 void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	if (y < sy - HOLY_WATER_FLY_DISTANCE_Y)
-	{
-		vy += HOLY_WATER_GRAVITY * dt;
-	}
+	DWORD now = GetTickCount();
 
-	//DWORD now = GetTickCount();
-	//if (now - makeTime > HOLY_WATER_WEAPON_TIME_LIVE)
-	//{
-	//	health = 0;
-	//}
+
+	if (nx > 0)
+	{
+		if (x > sx + 20) 
+			vy += HOLY_WATER_GRAVITY * dt;
+	}
+	else
+	{
+		if (x < sx - 7)
+			vy += HOLY_WATER_GRAVITY * dt;
+	}
 
 	dx = vx * dt;
 	dy = vy * dt;
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents);
-
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
+	if (isGrounded)
 	{
-		y += dy;
-		x += dx;
+		if (now - makeTime > HOLY_WATER_POND_TIME_LIVE)
+		{
+			health = 0;
+			animations[ani]->reset();
+		}
 	}
 	else
 	{
-
-		float min_tx, min_ty, nx = 0, ny;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
-		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-		vx = 0;
-		vy = 0;
+		x += dx;
+		y += dy;
+	}
+		
+	if (coObjects->size() >= 0)
+	{
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (isTouchOtherObject(coObjects->at(i)))
@@ -80,21 +77,23 @@ void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					coObjects->at(i)->Damage(1);
 					coObjects->at(i)->SetKillBySimon(true);
-					health = 0;
 				}
 				if (dynamic_cast<CGround*>(coObjects->at(i))) {
-					ani = HOLY_WATER_BURNING_ANI_ID;
-					if (animations[ani]->getLastFrame())
+					if (isGrounded == false)
 					{
-						health = 0;
+						y -= dy;
+						isGrounded = true;
+						width = HOLY_WATER_POND_BBOX_WIDTH;
+						height = HOLY_WATER_POND_BBOX_HEIGHT;
+						y -= HOLY_WATER_BBOX_HEIGHT;
+						makeTime = GetTickCount();
+						ani = HOLY_WATER_BURNING_ANI_ID;
 					}
 				}
 			}
+
 		}
 	}
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
 }
 
 void WeaponHolyWater::Render()
@@ -106,7 +105,10 @@ void WeaponHolyWater::Render()
 	}
 	else
 	{
-		animations[ani]->RenderFlipX(x, y, 8.5f);
+		if (isGrounded)
+			animations[ani]->RenderFlipX(x, y, 10);
+		else
+			animations[ani]->RenderFlipX(x, y, 4);
 		RenderBoundingBox(x, y);
 	}
 
