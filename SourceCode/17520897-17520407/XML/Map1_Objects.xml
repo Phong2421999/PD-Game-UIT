@@ -15,9 +15,6 @@
      simonAutoGo="1" simonAutoGoDistance="35"
      camAutoGo="0" isDoor="0"/>
   </ChangeScenes>
-  <Spawns id="-2" width="8" height="300">
-    <Spawn x="84" y="0" spawnerId="1" enemyId="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="6000"/>
-  </Spawns>
   <Detroys id="-99" width="0" height="0">
     <Detroy x="0" y="0" type="-1"/>
     <Detroy x="0" y="0" type="1"/>

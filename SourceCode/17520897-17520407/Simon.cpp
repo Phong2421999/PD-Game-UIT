@@ -48,15 +48,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			startUntouchableTime = 0;
 		}
 		// Khi rơi gravity thấp hơn để rơi chậm lại
-
-		if (vy > 0)
+		if (isJump)
 		{
-			vy += SIMON_FALLING_GRAVITY * dt;
+			if (vy > 0)
+				vy += SIMON_FALLING_GRAVITY * dt;
+			else
+				vy += SIMON_GRAVITY * dt;
 		}
-		else
-		{
-			vy += SIMON_GRAVITY * dt;
-		}
+		
 
 		// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
 		Attacking(dt);
@@ -69,15 +68,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		coEvents.clear();
 
 		CalcPotentialCollisions(coObjects, coEvents);
-
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
 		{
 			x += dx;
-			if (!isAttack)
-			{
-				y += dy;
-			}	
+			y += dy;
 		}
 		else
 		{
@@ -89,19 +84,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			y += min_ty * dy + ny * 0.4f;
 
 			if (nx != 0) vx = 0;
-			if (ny != 0) vy = 0;
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
+					isFalling = false;
+					isOnStair = false;
 					if (simonWeapon)
 						simonWeapon->SetIsJump(false);
 
 					if (isJump)
 					{
 						ResetAfterJump();
-					}
+					}	
 				}
 				if (dynamic_cast<CEnemies *>(e->obj))
 				{
@@ -328,9 +324,17 @@ void CSimon::Attacking(DWORD dt)
 			{
 				vx = 0;
 			}
-			vy = SIMON_JUMP_ATTACK_SPEED_Y;
+			if (vx > 0)
+			{
+				if (nx > 0)
+					vx = SIMON_WALKING_SPEED/2;
+				else
+					vx = -SIMON_WALKING_SPEED/2;
+
+			}
 			int ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
+			bool nextIsLastFrame = animations[ani]->getNextIsLastFrame();
 			if (isLastFrame)
 			{
 				state = SIMON_STATE_IDLE;
@@ -341,6 +345,8 @@ void CSimon::Attacking(DWORD dt)
 				isAttack = false;
 				isUseSubWeapon = false;
 			}
+			if (nextIsLastFrame == false)
+				vy = 0;
 		}
 	}
 	else

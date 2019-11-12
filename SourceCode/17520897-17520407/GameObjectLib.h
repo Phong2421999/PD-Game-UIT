@@ -5,3 +5,5 @@
 #include "CStaticObject.h"
 #include "Ground.h"
 #include "ChangeSceneObjects.h"
+#include "HiddenObjects.h"
+#include "Wall.h"

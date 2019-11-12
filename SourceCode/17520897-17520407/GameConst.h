@@ -52,7 +52,16 @@ enum TYPE_MAKE_ITEM
 	ENEMY
 };
 
+enum STAIR_TYPE
+{
+	NOSTAIR,
+	UP,
+	DOWN
+};
+
+
 //Chia sau
 
 extern bool isRenderBBox;
 extern int scenceWidth;
+

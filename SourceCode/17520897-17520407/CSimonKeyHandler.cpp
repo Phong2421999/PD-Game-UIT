@@ -36,16 +36,20 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->SetPosition(1500.0f, 32.0f);
 			break;
 		case DIK_F4:
-			simon->SetPosition(600.0f, 32.0f);
+			simon->SetPosition(675.0f, 32.0f);
 			break;
-		
+		case DIK_1:
+			float x, y;
+			simon->GetPosition(x, y);
+			DebugOut(L"\nSimonX: %f, SimonY: %f", x, y);
+			break;
 		}
 	}
 }
 
 void CSimonKeyHandler::OnKeyUp(int KeyCode)
 {
-	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false)
+	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false )
 	{
 		if (KeyCode == DIK_DOWN)
 		{
@@ -58,7 +62,7 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 void CSimonKeyHandler::KeyState(BYTE *states)
 {
 	// disable control key when Mario die
-	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false)
+	if (simon->getAutoGo() == false && game->GetCamAutoGo() == false )
 	{
 
 		if (simon->GetState() == SIMON_STATE_DIE) return;

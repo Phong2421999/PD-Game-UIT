@@ -83,6 +83,13 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				smallCandle->SetWidthHeight(Width, Height);
 				objects.push_back(smallCandle);
 			}
+			else if (id == 3)
+			{
+				CWall* wall = new CWall();
+				wall->SetPosition(x, y);
+				wall->SetWidthHeight(Width, Height);
+				objects.push_back(wall);
+			}
 			else if (id == -1)
 			{
 				int sceneId, simonAutoGo;
@@ -306,6 +313,7 @@ void Scene::Update(DWORD dt)
 			vector<LPGAMEOBJECT> coChangeScence;
 			vector<LPGAMEOBJECT> coSpawn;
 			vector<LPGAMEOBJECT> coDestroy;
+			vector<LPGAMEOBJECT> coHiddenObjects;
 			UpdateBoardGame(dt);
 			UpdateEnemies(dt); // luôn gọi trước khi update các thứ khác
 
@@ -324,6 +332,7 @@ void Scene::Update(DWORD dt)
 				if (dynamic_cast<CGround*> (objects[i]) || (dynamic_cast<CSimon*> (objects[i])))
 				{
 					coItemObjects.push_back(objects[i]);
+					coHiddenObjects.push_back(objects[i]);
 				}
 				if (!dynamic_cast<CGround*> (objects[i])
 					&& !dynamic_cast<CSimon*> (objects[i]))
@@ -342,7 +351,10 @@ void Scene::Update(DWORD dt)
 				}
 				else
 				{
-					if (!dynamic_cast<CItems*>(objects[i]) && !dynamic_cast<CStaticObject*> (objects[i]) && !dynamic_cast<CSpawn*> (objects[i]))
+					if (!dynamic_cast<CItems*>(objects[i]) 
+						&& !dynamic_cast<CStaticObject*> (objects[i])
+						&& !dynamic_cast<CSpawn*> (objects[i])
+						&& !dynamic_cast<HiddenObjects*>(objects[i]))
 					{
 						coObjects.push_back(objects[i]);
 					}
@@ -393,6 +405,10 @@ void Scene::Update(DWORD dt)
 				else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
 				{
 					objects[i]->Update(dt, &coChangeScence);
+				}
+				else if (dynamic_cast<HiddenObjects*>(objects[i]))
+				{
+					objects[i]->Update(dt, &coHiddenObjects);
 				}
 				else {
 					objects[i]->Update(dt, &coObjects);
@@ -582,7 +598,6 @@ void Scene::Render()
 		CMap::GetInstance()->Get(mapId)->Render();
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
-			simon->Render();
 			for (int i = 0; i < objects.size(); i++)
 			{
 				if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
@@ -590,6 +605,7 @@ void Scene::Render()
 					objects[i]->Render();
 				}
 			}
+			simon->Render();
 		}
 		else
 		{

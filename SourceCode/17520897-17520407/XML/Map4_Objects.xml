@@ -3,4 +3,16 @@
   <Grounds id="0" width="100000" height="8">
     <Ground x="0" y="212" />
   </Grounds>
+  <Grounds id="0" width="28" height="2">
+    <Ground x="672" y="180" />
+  </Grounds>
+  <Walls id="3" width="32" height="12">
+    <Wall x="670" y="182" />
+  </Walls>
+  <Grounds id="0" width="44" height="1">
+    <Ground x="722" y="147" />
+  </Grounds>
+  <Walls id="3" width="48" height="12">
+    <Wall x="720" y="148" />
+  </Walls>
 </Objects>

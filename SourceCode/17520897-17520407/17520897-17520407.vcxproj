@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10C77508-3D33-4A9A-9657-58814B9B6F25}</ProjectGuid>
     <RootNamespace>My1752089717520407</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,6 +128,7 @@
     <ClCompile Include="CBoardGame.cpp" />
     <ClCompile Include="CGhost.cpp" />
     <ClCompile Include="ChangeSceneObjects.cpp" />
+    <ClCompile Include="CheckStair.cpp" />
     <ClCompile Include="CHit.cpp" />
     <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="FrameWork\Textures.cpp" />
     <ClCompile Include="GameConst.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HiddenObjects.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WeaponDanger.cpp" />
     <ClCompile Include="Whip.cpp" />
@@ -179,6 +182,7 @@
     <ClInclude Include="CBoardGame.h" />
     <ClInclude Include="CGhost.h" />
     <ClInclude Include="ChangeSceneObjects.h" />
+    <ClInclude Include="CheckStair.h" />
     <ClInclude Include="CHit.h" />
     <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
@@ -204,6 +208,7 @@
     <ClInclude Include="GameObjectLib.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="GameItemLib.h" />
+    <ClInclude Include="HiddenObjects.h" />
     <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="LargeHeart.h" />
     <ClInclude Include="SampleMario\Brick.h" />
@@ -218,6 +223,7 @@
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponDanger.h" />
     <ClInclude Include="Whip.h" />

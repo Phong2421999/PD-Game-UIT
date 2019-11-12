@@ -216,6 +216,15 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckStair.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenObjects.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -367,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="Spawner.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckStair.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="HiddenObjects.h">
+      <Filter>FrameWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
