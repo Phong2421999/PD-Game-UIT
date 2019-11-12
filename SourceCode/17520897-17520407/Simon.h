@@ -11,13 +11,14 @@
 #include "CSpawn.h"
 #include "Ground.h"
 
-class CSimon: public CGameObject
+class CSimon : public CGameObject
 {
 private:
 	bool isJump;
 	bool isSit;
 	bool isAttack;
 	bool isFreeze;
+	bool isOnStair;
 	bool isFalling;
 	bool isJumpAttack;
 
@@ -25,6 +26,8 @@ private:
 	bool isCanAttack;
 	bool isResetSitAfterAttack;
 	bool isUntouchable;
+	bool isCanOnStair;
+
 
 	DWORD startAttackTime;
 	DWORD lastAttackTime;
@@ -52,6 +55,7 @@ private:
 	int score;			//Điểm người chơi
 	int live;			//Số mạng của simon
 
+	STAIR_TYPE stairType;
 	//Tự động di chuyển khi chuyển sence
 	bool isAutoGo;
 	float autoGoDistance;
@@ -65,9 +69,11 @@ public:
 		isJump = false;
 		isSit = false;
 		isAttack = false;
+		isOnStair = false;
 		isFreeze = false;
 		isCanAttack = true;
 		isCanJump = true;
+		isCanOnStair = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
@@ -78,11 +84,12 @@ public:
 		lastAttackSide = 1;
 		isHasSubWeapon = false;
 		typeSubWeapon = SIMON_WEAPON::NONE;
+		stairType = STAIR_TYPE::NOSTAIR;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
 		health = 8;
-		currentScene = 0;
-		score = 0;
+		currentScene = 1;
+		score = 1;
 		live = 3;
 		isAutoGo = false;
 		autoGoDistance = 0;
@@ -90,6 +97,18 @@ public:
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setStairType(STAIR_TYPE type)
+	{
+		this->stairType = type;
+	}
+	void setOnStair(bool b)
+	{
+		this->isOnStair = b;
+	}
+	void setCanOnStair(bool b)
+	{
+		this->isCanOnStair = b;
+	}
 	void setAutoGoDistance(float dis)
 	{
 		this->autoGoDistance = dis;
@@ -136,6 +155,18 @@ public:
 #pragma region //get thuộc tính
 	SIMON_WEAPON getSubWeapon() {
 		return typeSubWeapon;
+	}
+	STAIR_TYPE getStairType()
+	{
+		return stairType;
+	}
+	bool getOnStair()
+	{
+		return isOnStair;
+	}
+	bool getCanOnStair()
+	{
+		return isCanOnStair;
 	}
 	int getState()
 	{
@@ -205,8 +236,8 @@ public:
 	}
 #pragma endregion
 
-	
-	
+
+
 
 	//Xử lí khi chạm vào enemies
 	void StartUntouchable()

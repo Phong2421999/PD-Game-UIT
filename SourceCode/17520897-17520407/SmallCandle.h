@@ -6,7 +6,6 @@
 
 class CSmallCandle : public CStaticObject
 {
-
 public:
 	CSmallCandle();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

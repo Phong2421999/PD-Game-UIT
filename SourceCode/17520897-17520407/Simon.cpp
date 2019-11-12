@@ -50,13 +50,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// Khi rơi gravity thấp hơn để rơi chậm lại
 
 		if (vy > 0)
-		{
 			vy += SIMON_FALLING_GRAVITY * dt;
-		}
 		else
-		{
 			vy += SIMON_GRAVITY * dt;
-		}
+
+
 
 		// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
 		Attacking(dt);
@@ -69,15 +67,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		coEvents.clear();
 
 		CalcPotentialCollisions(coObjects, coEvents);
-
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
 		{
 			x += dx;
-			if (!isAttack)
-			{
-				y += dy;
-			}	
+			y += dy;
 		}
 		else
 		{
@@ -89,12 +83,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			y += min_ty * dy + ny * 0.4f;
 
 			if (nx != 0) vx = 0;
-			if (ny != 0) vy = 0;
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
+					isFalling = false;
+					isOnStair = false;
 					if (simonWeapon)
 						simonWeapon->SetIsJump(false);
 
@@ -355,9 +350,17 @@ void CSimon::Attacking(DWORD dt)
 			{
 				vx = 0;
 			}
-			vy = SIMON_JUMP_ATTACK_SPEED_Y;
+			if (vx > 0)
+			{
+				if (nx > 0)
+					vx = SIMON_WALKING_SPEED / 2;
+				else
+					vx = -SIMON_WALKING_SPEED / 2;
+
+			}
 			int ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
+			bool nextIsLastFrame = animations[ani]->getNextIsLastFrame();
 			if (isLastFrame)
 			{
 				state = SIMON_STATE_IDLE;
@@ -368,6 +371,8 @@ void CSimon::Attacking(DWORD dt)
 				isAttack = false;
 				isUseSubWeapon = false;
 			}
+			if (nextIsLastFrame == false)
+				vy = 0;
 		}
 	}
 	else
@@ -395,38 +400,38 @@ void CSimon::UsingWeapon()
 {
 	switch (typeSubWeapon)
 	{
-		case SIMON_WEAPON::DANGER:
-		{
-			if (heart >= SIMON_HEART_USE_WEAPON::DANGER_HEART)
-				isEnoughHeart = true;
-			else
-				isEnoughHeart = false;
-			break;
-		}
-		case SIMON_WEAPON::AXE:
-		{
-			if (heart >= SIMON_HEART_USE_WEAPON::AXE_HEART)
-				isEnoughHeart = true;
-			else
-				isEnoughHeart = false;
-			break;
-		}
-		case SIMON_WEAPON::HOLY_WATER:
-		{
-			if (heart >= SIMON_HEART_USE_WEAPON::HOLY_WATER_HEART)
-				isEnoughHeart = true;
-			else
-				isEnoughHeart = false;
-			break;
-		}
-		case SIMON_WEAPON::STOP_WATCH:
-		{
-			if (heart >= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART)
-				isEnoughHeart = true;
-			else
-				isEnoughHeart = false;
-			break;
-		}
+	case SIMON_WEAPON::DANGER:
+	{
+		if (heart >= SIMON_HEART_USE_WEAPON::DANGER_HEART)
+			isEnoughHeart = true;
+		else
+			isEnoughHeart = false;
+		break;
+	}
+	case SIMON_WEAPON::AXE:
+	{
+		if (heart >= SIMON_HEART_USE_WEAPON::AXE_HEART)
+			isEnoughHeart = true;
+		else
+			isEnoughHeart = false;
+		break;
+	}
+	case SIMON_WEAPON::HOLY_WATER:
+	{
+		if (heart >= SIMON_HEART_USE_WEAPON::HOLY_WATER_HEART)
+			isEnoughHeart = true;
+		else
+			isEnoughHeart = false;
+		break;
+	}
+	case SIMON_WEAPON::STOP_WATCH:
+	{
+		if (heart >= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART)
+			isEnoughHeart = true;
+		else
+			isEnoughHeart = false;
+		break;
+	}
 	}
 	if (simonWeapon)
 	{
@@ -454,30 +459,30 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 	{
 		switch (typeSubWeapon)
 		{
-			case SIMON_WEAPON::DANGER:
-			{
-				simonWeapon = new WeaponDanger(x, y, nx);
-				heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
-				break;
-			}
-			case SIMON_WEAPON::AXE:
-			{
-				simonWeapon = new WeaponAxe(x, y, nx);
-				heart -= SIMON_HEART_USE_WEAPON::AXE_HEART;
-				break;
-			}
-			case SIMON_WEAPON::HOLY_WATER:
-			{
-				simonWeapon = new WeaponHolyWater(x, y, nx);
-				heart -= SIMON_HEART_USE_WEAPON::HOLY_WATER_HEART;
-				break;
-			}
-			case SIMON_WEAPON::STOP_WATCH:
-			{
-				simonWeapon = new WeaponStopWatch();
-				heart -= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART;
-				break;
-			}
+		case SIMON_WEAPON::DANGER:
+		{
+			simonWeapon = new WeaponDanger(x, y, nx);
+			heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
+			break;
+		}
+		case SIMON_WEAPON::AXE:
+		{
+			simonWeapon = new WeaponAxe(x, y, nx);
+			heart -= SIMON_HEART_USE_WEAPON::AXE_HEART;
+			break;
+		}
+		case SIMON_WEAPON::HOLY_WATER:
+		{
+			simonWeapon = new WeaponHolyWater(x, y, nx);
+			heart -= SIMON_HEART_USE_WEAPON::HOLY_WATER_HEART;
+			break;
+		}
+		case SIMON_WEAPON::STOP_WATCH:
+		{
+			simonWeapon = new WeaponStopWatch();
+			heart -= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART;
+			break;
+		}
 		}
 	}
 }
