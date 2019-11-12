@@ -129,6 +129,19 @@
       <sprite id="10074" left="86" top="118" right="164" bottom="148" frameTime="100"/>
       <sprite id="10075" left="169" top="118" right="247" bottom="148" frameTime="100"/>
     </Animation>
+    
+    <Animation aniId="5000" frameTime="100" name="STAIR_WALKING">
+      <sprite id="50001" left="526" top="24" right="604" bottom="54" frameTime="100"/>
+      <sprite id="50002" left="609" top="24" right="687" bottom="54" frameTime="100"/>
+    </Animation>
+
+
+    <!-- Animation STAIR_ATTACK -->
+    <Animation aniId="5001" frameTime="100" name="STAIR_ATTACK">
+      <sprite id="50003" left="526" top="73" right="604" bottom="103" frameTime="100"/>
+      <sprite id="50004" left="609" top="73" right="687" bottom="103" frameTime="100"/>
+      <sprite id="50004" left="526" top="122" right="604" bottom="152" frameTime="100"/>
+    </Animation>
   </Texture>
   
              <!--Texture Item-->
