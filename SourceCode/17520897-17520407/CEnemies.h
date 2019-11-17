@@ -6,6 +6,9 @@
 #define GHOST_ID 0
 #define PANTHER_ID 1
 #define BAT_ID 2
+#define FISH_ID 3
+
+#define BOSS_BAT_ID 100
 
 class CEnemies : public CGameObject {
 protected:

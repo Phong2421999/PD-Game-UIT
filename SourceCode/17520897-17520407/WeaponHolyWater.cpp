@@ -45,7 +45,7 @@ void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
-		if (x < sx - 7)
+		if (x < sx - 2)
 			vy += HOLY_WATER_GRAVITY * dt;
 	}
 

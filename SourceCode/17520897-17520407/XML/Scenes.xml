@@ -15,9 +15,13 @@
   <Scene sceneId="3" mapId="500000" sceneWidthEachMap="786" sceneGameObjectPath="XML\\Map4_Objects.xml"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="32" stage ="03" name="Stage 3"
          simonAutoGo="0"/>
+  
+  <Scene sceneId="4" mapId="600000" sceneWidthEachMap="335" sceneGameObjectPath="XML\\Map5_Objects.xml"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="32" stage ="03" name="Stage 3 Boss"
+         simonAutoGo="0"/>
 
 
-  <Scene sceneId="-2" mapId="300000" sceneWidthEachMap="512" sceneGameObjectPath="XML\\Map1_Objects.xml"
+  <Scene sceneId="-2" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml"
          isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2"
          simonAutoGo="0"/>
 

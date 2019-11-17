@@ -55,6 +55,8 @@ public:
 	int weaponLevel;
 	
 	bool killBySimon;
+	
+	bool makeWeapon;
 
 	GAME_ITEM type;
 
@@ -87,7 +89,6 @@ public:
 	virtual void SetQuantitySpawnEnemy(int quantity){}
 	virtual int GetQuantitySpawnEnemy() { return 0; }
 	virtual int GetSpawnEnemyType() { return -1; }
-
 	virtual bool getDeath()
 	{
 		return false;

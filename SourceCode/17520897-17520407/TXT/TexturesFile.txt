@@ -1,4 +1,4 @@
-10
+11
 -100 textures\\bbox.png 255 255 255
 0 textures\\TexturesV4.png 34 177 76
 1 textures\\Items.png 128 0 0
@@ -7,5 +7,6 @@
 4 textures\\Font.png 0 0 0
 5 textures\\board.png 0 0 0
 6 textures\\heal.png 0 0 0
+7 textures\\Bosses.png 168 40 88
 100000 Textures\\tileset_map1.png 255 0 255
 200000 Textures\\tileset_map2.png 255 255 255

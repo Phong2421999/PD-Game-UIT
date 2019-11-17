@@ -1,4 +1,4 @@
-#include "CPanther.h"
+﻿#include "CPanther.h"
 
 CPanther::CPanther(float x,float y) {
 	this->AddAnimation(ANI_PANTHER_IDLE);
@@ -9,9 +9,10 @@ CPanther::CPanther(float x,float y) {
 	ani = ANI_ID_PANTHER_IDLE;
 	attackDistance = 9999;
 	isAttack = false;
-	this->x = x;
-	this->y = y;
-	float sx, sy;
+	this->x = 710;
+	this->y = 100;
+	this->yBefore = 100;
+
 	CSimon::getInstance()->GetPosition(sx, sy);
 	float posX = this->x - sx;
 	if (posX < 0)
@@ -25,27 +26,17 @@ CPanther::CPanther(float x,float y) {
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	float sx, sy;
 	CSimon::getInstance()->GetPosition(sx, sy);
 
 	vy += PANTHER_GRAVITY * dt;
-	if (nx > 0)
-		attackDistance = sx - this->x;
-	else
-		attackDistance = this->x - sx;
 	
-	if (attackDistance < 100)
+	if (abs(x - sx) < 100)
 	{
 		isActive = true;
-		if (nx > 0)
-		{
-			vx = PANTHER_VELOCITY_X;
-		}
-		else
-		{
-			vx = -PANTHER_VELOCITY_X;
-		}
+		Run();
 	}
+
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -85,6 +76,12 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+
+void CPanther::Run() {
+	ani = ANI_ID_PANTHER_RUN;
+	vx = PANTHER_VELOCITY_X * nx;
 }
 
 

@@ -4,7 +4,7 @@
   <Texture  textureId ="0" gameObjectId ="0">
     <!-- Animation IDLE -->
     <Animation aniId="500" frameTime="100" name="IDLE">
-      <sprite id="10001" left="4" top="24" right="82" bottom="54" frameTime="100"/>
+      <sprite id="10001" left="5" top="24" right="83" bottom="54" frameTime="100"/>
     </Animation>
     <!-- Animation HURT -->
     <Animation aniId="501" frameTime="100" name="HURT">
@@ -16,7 +16,7 @@
     </Animation>
     <!-- Animation MOVE -->
     <Animation aniId="503" frameTime="125" name="MOVE">
-      <sprite id="10004" left="4" top="24" right="82" bottom="54" frameTime="100"/>
+      <sprite id="10004" left="5" top="24" right="83" bottom="54" frameTime="100"/>
       <sprite id="10005" left="86" top="24" right="164" bottom="54" frameTime="100"/>
     </Animation>
     <!-- Animation MOVE_INVISIBLE -->
@@ -26,7 +26,7 @@
     </Animation>
     <!-- Animation SIT -->
     <Animation aniId="505" frameTime="100" name="SIT">
-      <sprite id="10008" left="169" top="30" right="247" bottom="54" frameTime="100"/>
+      <sprite id="10008" left="171" top="30" right="249" bottom="54" frameTime="100"/>
     </Animation>
     <!-- Animation SIT_INVISIBLE -->
     <Animation aniId="506" frameTime="100" name="SIT_INVISIBLE">
@@ -34,10 +34,10 @@
     </Animation>
     <!-- Animation THROW -->
     <Animation aniId="507" frameTime="100" name="THROW">
-      <sprite id="10010" left="4" top="24" right="82" bottom="54" frameTime="100"/>
-      <sprite id="10011" left="4" top="73" right="82" bottom="103" frameTime="100"/>
-      <sprite id="10012" left="86" top="73" right="164" bottom="103" frameTime="100"/>
-      <sprite id="10013" left="169" top="73" right="247" bottom="103" frameTime="100"/>
+      <sprite id="10010" left="5" top="24" right="83" bottom="54" frameTime="100"/>
+      <sprite id="10011" left="5" top="73" right="83" bottom="103" frameTime="100"/>
+      <sprite id="10012" left="87" top="73" right="165" bottom="103" frameTime="100"/>
+      <sprite id="10013" left="171" top="73" right="249" bottom="103" frameTime="100"/>
     </Animation>
     <!-- Animation THROW_INVISIBLE -->
     <Animation aniId="508" frameTime="100" name="THROW_INVISIBLE">
@@ -124,10 +124,10 @@
     </Animation>
       <!-- Animation SIT_THROW -->
     <Animation aniId="518" frameTime="100" name="SIT_THROW">
-      <sprite id="10008" left="169" top="30" right="247" bottom="54" frameTime="100"/>
-      <sprite id="10073" left="4" top="118" right="82" bottom="148" frameTime="100"/>
-      <sprite id="10074" left="86" top="118" right="164" bottom="148" frameTime="100"/>
-      <sprite id="10075" left="169" top="118" right="247" bottom="148" frameTime="100"/>
+      <sprite id="10008" left="171" top="30" right="249" bottom="54" frameTime="100"/>
+      <sprite id="10073" left="6" top="118" right="84" bottom="148" frameTime="100"/>
+      <sprite id="10074" left="89" top="118" right="167" bottom="148" frameTime="100"/>
+      <sprite id="10075" left="175" top="118" right="253" bottom="148" frameTime="100"/>
     </Animation>
     
     <Animation aniId="5000" frameTime="100" name="STAIR_WALKING">
@@ -376,7 +376,7 @@
     </Animation>
   </Texture>
   <!-- Animation BAT -->
-  <Texture  textureId ="3" gameObjectId ="28">
+  <Texture textureId ="3" gameObjectId ="28">
     <Animation aniId="569" frameTime="100" name="BAT_IDLE">
       <sprite id="10172" left="94" top="46" right="106" bottom="60" frameTime="100"/>
     </Animation>
@@ -386,7 +386,53 @@
       <sprite id="10175" left="169" top="44" right="185" bottom="60" frameTime="100"/>
     </Animation>
   </Texture>
-            <!--Texture Simon Attack -->
+  <!-- Animation UGLY_FISH -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="571" frameTime="100" name="UGLY_FISH_IDLE">
+      <sprite id="10177" left="36" top="51" right="50" bottom="83" frameTime="100"/>
+    </Animation>
+    
+    <Animation aniId="572" frameTime="100" name="UGLY_FISH_MOVING">
+      <sprite id="10178" left="64" top="51" right="80" bottom="83" frameTime="350"/>
+      <sprite id="10177" left="36" top="51" right="50" bottom="83" frameTime="350"/>
+    </Animation>
+    
+    <Animation aniId="573" frameTime="100" name="UGLY_FISH_ATTACK">
+      <sprite id="10179" left="9" top="51" right="25" bottom="83" frameTime="100"/>
+    </Animation>
+  </Texture>
+  <!-- Animation PROJECTILE -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="574" frameTime="100" name="PROJECTILE">
+      <sprite id="10180" left="100" top="224" right="107" bottom="230" frameTime="100"/>
+    </Animation>
+  </Texture>
+
+            <!--Texture Health-->
+  <!-- Animation HEALTH_BAR -->
+  <Texture  textureId ="6" gameObjectId ="-1">
+    <Animation aniId="2000" frameTime="100" name="HEALTH_BAR">
+      <sprite id="60165" left="1" top="0" right="6" bottom="7" frameTime="100"/>
+      <sprite id="60166" left="7" top="0" right="12" bottom="7" frameTime="100"/>
+      <sprite id="60167" left="13" top="0" right="18" bottom="7" frameTime="100"/>
+    </Animation>
+  </Texture>
+  
+          <!--Texture Bosses-->
+  <Texture textureId ="3" gameObjectId ="-1000">
+     Animation BOSS_BAT_IDLE 
+    <Animation aniId="3000" frameTime="100" name="BOSS_BAT_IDLE">
+      <sprite id="3000" left="269" top="17" right="285" bottom="33" frameTime="100"/>
+    </Animation>
+     Animation BOSS_BAT_FLY 
+    <Animation aniId="3001" frameTime="100" name="BOSS_BAT_FLY">
+      <sprite id="3001" left="296" top="15" right="344" bottom="38" frameTime="125"/>
+      <sprite id="3002" left="296" top="42" right="344" bottom="64" frameTime="100"/>
+    </Animation>
+  </Texture>
+  
+  
+  <!--Texture Simon Attack -->
   <Texture  textureId ="10" gameObjectId ="0">
     <Animation aniId="1000" frameTime="100" name="NORMAL_ATTACK_LEFT">
       <sprite id="20001" left="283" top="4" right="343" bottom="34" frameTime="100"/>
@@ -403,7 +449,7 @@
       <sprite id="20008" left="433" top="96" right="511" bottom="126" frameTime="100"/>
       <sprite id="20009" left="433" top="145" right="511" bottom="175" frameTime="100"/>
       <sprite id="20010" left="433" top="189" right="511" bottom="219" frameTime="100"/>
-      
+
       <sprite id="20011" left="350" top="51" right="428" bottom="81" frameTime="100"/>
       <sprite id="20012" left="351" top="96" right="429" bottom="126" frameTime="100"/>
       <sprite id="20013" left="351" top="145" right="429" bottom="175" frameTime="100"/>
@@ -429,7 +475,7 @@
       <sprite id="20028" left="170" top="96" right="248" bottom="126"  frameTime="25" />
       <sprite id="20029" left="170" top="145" right="248" bottom="175" frameTime="25" />
       <sprite id="20030" left="170" top="189" right="248" bottom="219" frameTime="100" />
-      
+
       <sprite id="20032" left="5" top="377" right="51" bottom="407" frameTime="25" />
     </Animation>
     <Animation aniId="1004" frameTime="100" name="IDLE_LEFT">
@@ -448,19 +494,9 @@
     </Animation>
   </Texture>
 
-            <!--Texture Health-->
-  <!-- Animation HEALTH_BAR -->
-  <Texture  textureId ="6" gameObjectId ="-1">
-    <Animation aniId="2000" frameTime="100" name="HEALTH_BAR">
-      <sprite id="60165" left="1" top="0" right="6" bottom="7" frameTime="100"/>
-      <sprite id="60166" left="7" top="0" right="12" bottom="7" frameTime="100"/>
-      <sprite id="60167" left="13" top="0" right="18" bottom="7" frameTime="100"/>
-    </Animation>
-  </Texture>
-  
   <!-- Animation HIDDEN_WALL -->
   <Texture  textureId ="200000" gameObjectId ="-1000">
-    <Animation aniId="3000" frameTime="100" name="HIDDEN_WALL">
+    <Animation aniId="4000" frameTime="100" name="HIDDEN_WALL">
       <sprite id="70165" left="512" top="64" right="544" bottom="96" frameTime="100"/>
     </Animation>
   </Texture>

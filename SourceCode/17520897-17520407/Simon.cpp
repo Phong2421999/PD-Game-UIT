@@ -61,6 +61,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		Jumping();
 		UsingWeapon();
 		ResetAfterSit();
+		if (isUsingStopWatch)
+			UpdateStopWatch();
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -281,6 +283,14 @@ void CSimon::UpgradeWhip()
 	}
 }
 
+void CSimon::UpdateStopWatch() {
+	DWORD now = GetTickCount();
+	if (now - timeUsingStopWatch >= 3000)
+	{
+		isUsingStopWatch = false;
+	}
+}
+
 
 void CSimon::SetState(int state)
 {
@@ -479,7 +489,8 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 		}
 		case SIMON_WEAPON::STOP_WATCH:
 		{
-			simonWeapon = new WeaponStopWatch();
+			isUsingStopWatch = true;
+			timeUsingStopWatch = GetTickCount();
 			heart -= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART;
 			break;
 		}

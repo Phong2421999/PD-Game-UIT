@@ -6,9 +6,12 @@
   <Grounds id="0" width="43" height="1">
     <Ground x="690" y="147" />
   </Grounds>
-  <Walls id="3" width="47" height="13">
+  <Grounds id="0" width="43" height="1">
+    <Ground x="688" y="148" />
+  </Grounds>
+  <!--<Walls id="3" width="47" height="13">
     <Wall x="688" y="148" />
-  </Walls>
+  </Walls>-->
 
   <Grounds id="0" width="124" height="1">
     <Ground x="752" y="116" />

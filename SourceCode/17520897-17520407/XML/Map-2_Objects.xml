@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Objects>
+  <Grounds id="0" width="325" height="8">
+    <Ground x="0" y="132" />
+  </Grounds>
+  <Grounds id="0" width="50" height="8">
+    <Ground x="245" y="80" />
+  </Grounds>
+
+  <ChangeScenes id="-1" width="16" height="30">
+    <ChangeScene x="675" y="168" sceneId="2"
+     simonAutoGo="1" simonAutoGoDistance="35"
+     camAutoGo="0" isDoor="0"/>
+  </ChangeScenes>
+  
+  <Spawns id="-2" width="8" height="300">
+    <Spawn x="84" y="0" spawnerId="0" enemyId="3" quantityEachSpawn ="2" timeEachSpawn="1500" delaySpawnTime="2000"/>
+  </Spawns>
+  <Detroys id="-99" width="0" height="0">
+    <Detroy x="0" y="0" type="-1"/>
+    <Detroy x="0" y="0" type="1"/>
+    <Detroy x="0" y="200" type="-2"/>
+  </Detroys>
+</Objects>

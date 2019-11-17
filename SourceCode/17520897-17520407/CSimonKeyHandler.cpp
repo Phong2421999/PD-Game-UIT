@@ -38,6 +38,9 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		case DIK_F4:
 			simon->SetPosition(675.0f, 32.0f);
 			break;
+		case DIK_F5:
+			simon->SetPosition(250, 32.0f);
+			break;
 		case DIK_1:
 			float x, y;
 			simon->GetPosition(x, y);

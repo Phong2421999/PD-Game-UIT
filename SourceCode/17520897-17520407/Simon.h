@@ -27,12 +27,14 @@ private:
 	bool isResetSitAfterAttack;
 	bool isUntouchable;
 	bool isCanOnStair;
+	bool isUsingStopWatch;
 
 
 	DWORD startAttackTime;
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
+	DWORD timeUsingStopWatch;
 	DWORD startUntouchableTime;
 
 	DWORD timeFreeze;
@@ -74,6 +76,7 @@ public:
 		isCanAttack = true;
 		isCanJump = true;
 		isCanOnStair = false;
+		isUsingStopWatch = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
@@ -137,6 +140,10 @@ public:
 	{
 		this->isHasSubWeapon = b;
 	}
+	void setUsingStopWatch(bool b)
+	{
+		this->isUsingStopWatch = b;
+	}
 	void setFreeze(bool freeze)
 	{
 		this->isFreeze = freeze;
@@ -159,6 +166,10 @@ public:
 	STAIR_TYPE getStairType()
 	{
 		return stairType;
+	}
+	bool getUsingStopWatch()
+	{
+		return isUsingStopWatch;
 	}
 	bool getOnStair()
 	{
@@ -257,6 +268,7 @@ public:
 	void SetState(int state);
 	void AddItem(GAME_ITEM type);
 	void UpgradeWhip();
+	void UpdateStopWatch();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 

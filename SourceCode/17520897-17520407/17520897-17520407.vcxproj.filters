@@ -67,6 +67,9 @@
     <Filter Include="BoardGame">
       <UniqueIdentifier>{169f9e21-e7a8-4734-8479-0c94c9152676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\WeaponEnemies">
+      <UniqueIdentifier>{64fb2bec-3589-4418-955c-8b7798fff0d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -257,6 +260,18 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="CUglyFish.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponProjectile.cpp">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponEnemies.cpp">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossBat.cpp">
+      <Filter>GameObject\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +470,15 @@
     <ClInclude Include="Wall.h">
       <Filter>GameObject\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="CUglyFish.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponProjectile.h">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossBat.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -511,6 +535,9 @@
     <Image Include="Textures\heal.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\Bosses.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">
@@ -543,6 +570,9 @@
     <Text Include="TXT\BoardGame.txt">
       <Filter>TXT</Filter>
     </Text>
+    <Text Include="TXT\Map6.txt">
+      <Filter>TXT</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
@@ -566,5 +596,16 @@
     <Xml Include="XML\Map4_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="XML\Map-2_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Map5_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WeaponEnemies.h">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </None>
   </ItemGroup>
 </Project>

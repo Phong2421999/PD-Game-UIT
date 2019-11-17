@@ -8,5 +8,6 @@
     <Map mapPath="TXT\\Map3.txt" mapId="300000"/>
     <Map mapPath="TXT\\Map4.txt" mapId="400000"/>
     <Map mapPath="TXT\\Map5.txt" mapId="500000"/>
+    <Map mapPath="TXT\\Map6.txt" mapId="600000"/>
   </TileSet>
 </Maps>

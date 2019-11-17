@@ -27,6 +27,8 @@
 #include "tinyxml.h"
 
 #include "Spawner.h"
+#include "WeaponEnemies.h"
+#include "WeaponProjectile.h"
 
 struct Letter
 {
@@ -36,9 +38,10 @@ struct Letter
 
 class Scene {
 public:
-	
+
 	vector<LPGAMEOBJECT> objects;
 	vector<LPITEMS> listItems;
+	vector<WeaponEnemies*> weaponEnemies;
 	vector<LPEFT> effects;
 	vector<Letter> letters;
 
@@ -61,13 +64,17 @@ public:
 
 	bool hasSetRenderOpenDoor;
 
-	
+
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
 	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
+
 	void Update(DWORD dt);
+	void UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void UpdateBoardGame(DWORD dt);
-	void UpdateEnemies(DWORD dt);
+
+	void MakeEnemies(DWORD dt);
+	void MakeWeaponEnemies(DWORD dt);
 	void Render();
 	void StartLoadScene();
 	int Random(int minN, int maxN) {
