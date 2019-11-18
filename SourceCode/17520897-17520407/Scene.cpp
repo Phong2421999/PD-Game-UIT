@@ -416,10 +416,7 @@ void Scene::Update(DWORD dt)
 					coChangeScence.push_back(objects[i]);
 					coSpawn.push_back(objects[i]);
 					coWeaponEnemies.push_back(objects[i]);
-				}
-				if (dynamic_cast<CGround*> (objects[i]))
-				{
-					coEnemies.push_back(objects[i]);
+
 				}
 				if (dynamic_cast<CGround*> (objects[i])
 					|| (dynamic_cast<CSimon*> (objects[i]))
@@ -427,6 +424,7 @@ void Scene::Update(DWORD dt)
 				{
 					coItemObjects.push_back(objects[i]);
 					coHiddenObjects.push_back(objects[i]);
+					coEnemies.push_back(objects[i]);
 				}
 				if (!dynamic_cast<CSimon*> (objects[i])
 					&& !dynamic_cast<ChangeSceneObjects*> (objects[i])
@@ -455,6 +453,7 @@ void Scene::Update(DWORD dt)
 						&& !dynamic_cast<CStaticObject*> (objects[i])
 						&& !dynamic_cast<CSpawn*> (objects[i])
 						&& !dynamic_cast<HiddenObjects*>(objects[i])
+						&& !dynamic_cast<CEnemies *> (objects[i])
 						)
 					{
 						coObjects.push_back(objects[i]);
@@ -603,7 +602,7 @@ void Scene::Update(DWORD dt)
 							}*/
 						/*	StopWatch* stopWatch = new StopWatch(x, y);
 							listItems.push_back(stopWatch);*/
-							/*else if (rand >= 2 && rand <= 8)
+							/*if (rand >= 2 && rand <= 8)
 							{
 								MoneyBag* moneyBag = new MoneyBag(x, y);
 								listItems.push_back(moneyBag);

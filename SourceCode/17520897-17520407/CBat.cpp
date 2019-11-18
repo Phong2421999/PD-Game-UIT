@@ -18,11 +18,11 @@ CBat::CBat(float x, float y)
 	else
 	{
 		nx = -1;
-		this->x = x + SCREEN_WIDTH  - 32;
+		this->x = x + SCREEN_WIDTH - 32;
 		this->y = y;
 	}
 
-	
+
 	startSpawnTime = GetTickCount();
 }
 
@@ -37,12 +37,12 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		vx = BAT_VELOCITY_X;
 	else
 		vx = -BAT_VELOCITY_X;
-	
+
 	float sx, sy;
 	CSimon::getInstance()->GetPosition(sx, sy);
 	if (y >= sy)
 		vy = -BAT_VELOCITY_Y;
-	if(y <= sy - BAT_FLY_DISTANCE_Y)
+	if (y <= sy - BAT_FLY_DISTANCE_Y)
 		vy = BAT_VELOCITY_Y;
 
 	x += dx;
@@ -50,11 +50,14 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
-		if (IsTouchSimon(coObjects->at(i)))
+		if (dynamic_cast<CSimon*> (coObjects->at(i)))
 		{
-			if (dynamic_cast<CSimon*> (coObjects->at(i)))
+			if (IsTouchColision(coObjects->at(i)))
 			{
-				this->Damage(1);
+				CSimon::getInstance()->TouchEnemy(nx);
+				CSimon::getInstance()->Damage(1);
+				this->SetKillBySimon(true);
+				health = 0;
 			}
 		}
 	}
@@ -79,18 +82,6 @@ void CBat::RenderCurrentFrame()
 	}
 	else
 		animations[ani]->RenderCurrentFrameFlipX(x, y, BAT_OFFSET_FLIP_X);
-}
-
-bool CBat::IsTouchSimon(LPGAMEOBJECT gameObject) {
-
-	if (checkAABBTouch(gameObject))
-		return true;
-
-	LPCOLLISIONEVENT collitionEvent = this->SweptAABBEx(gameObject);
-	if (collitionEvent->t >= 0 && collitionEvent->t <= 1.0f)
-		return true;
-
-	return false;
 }
 
 void CBat::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

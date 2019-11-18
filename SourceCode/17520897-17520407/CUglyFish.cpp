@@ -84,7 +84,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (attackQuantity > 2)
 			{
 				attackQuantity = 0;
-				
+
 				if (y <= sy)
 				{
 					if (x - sx >= 0)
@@ -99,7 +99,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					else
 						nx = 1;
 				}
-				
+
 			}
 
 			if (nx > 0)
@@ -108,7 +108,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else
 				vx = -FISH_VELOCITY_X;
-	
+
 		}
 	}
 
@@ -135,10 +135,17 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		y += min_ty * dy + ny * 0.4f;
 		vx = 0;
 		vy = 0;
-
-		for (int i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (IsTouchColision(e->obj))
+			{
+				if (dynamic_cast<CSimon *>(e->obj))
+				{
+					CSimon::getInstance()->TouchEnemy(nx);
+					CSimon::getInstance()->Damage(1);
+				}
+			}
 		}
 	}
 	// clean up collision events
@@ -168,17 +175,6 @@ void CUglyFish::RenderCurrentFrame()
 		animations[ani]->RenderCurrentFrameFlipX(x, y, 8);
 }
 
-bool CUglyFish::IsTouchSimon(LPGAMEOBJECT gameObject) {
-
-	if (checkAABBTouch(gameObject))
-		return true;
-
-	LPCOLLISIONEVENT collitionEvent = this->SweptAABBEx(gameObject);
-	if (collitionEvent->t >= 0 && collitionEvent->t <= 1.0f)
-		return true;
-
-	return false;
-}
 
 void CUglyFish::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
 	if (isJumpUp)

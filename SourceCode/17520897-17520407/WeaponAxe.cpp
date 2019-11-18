@@ -58,7 +58,6 @@ void WeaponAxe::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					coObjects->at(i)->Damage(1);
 					coObjects->at(i)->SetKillBySimon(true);
-					health = 0;
 				}
 				if (dynamic_cast<CGround*>(coObjects->at(i))) {
 					health = 0;

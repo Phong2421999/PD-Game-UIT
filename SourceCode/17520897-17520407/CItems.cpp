@@ -8,7 +8,7 @@ void CItems::Render()
 void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-	
+
 	//vy += GRAVITY * dt;
 
 
@@ -38,12 +38,12 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			for (int i = 0; i < coObjects->size(); i++)
 			{
-				if (IsTouchSimon(coObjects->at(i)))
+				if (IsTouchColision(coObjects->at(i)))
 				{
 					if (dynamic_cast<CSimon*>(coObjects->at(i)))
 					{
 						CSimon::getInstance()->AddItem(type);
-						this->Damage(1);
+						health = 0;
 					}
 				}
 			}
@@ -54,7 +54,7 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-bool CItems::IsTouchSimon(LPGAMEOBJECT gameObject) {
+bool CItems::IsTouchColision(LPGAMEOBJECT gameObject) {
 
 	if (checkAABBTouch(gameObject))
 		return true;

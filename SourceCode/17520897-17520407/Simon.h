@@ -256,6 +256,8 @@ public:
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
+
+	void TouchEnemy(int nx);
 	//Load simon weapon
 
 	//Method của simon
@@ -293,6 +295,7 @@ public:
 
 	//Xử lí khi đang ngồi - Không cho phép di chuyển và nhảy - chỉ được đánh - gọi trong set state
 	void Sitting();
+
 
 	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();

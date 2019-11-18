@@ -252,6 +252,20 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 
+	if (coObjects->size() >= 0)
+	{
+		for (int i = 0; i < coObjects->size(); i++)
+		{
+			if (IsTouchColision(coObjects->at(i)))
+			{
+				if (dynamic_cast<CSimon*> (coObjects->at(i)))
+				{
+					CSimon::getInstance()->Damage(1);
+				}
+			}
+		}
+	}
+
 	yLastFrame = y;// lưu lại y frame hiện tại
 }
 
@@ -277,7 +291,7 @@ void CBossBat::StartCurves()
 	y1 = y;
 
 	x2 = sx;
-	y2 = sy + 8;
+	y2 = sy + 4;
 
 	if (sx < x) // simon bên trái boss
 		xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
@@ -291,7 +305,7 @@ void CBossBat::StartCurves()
 
 	float disNeedToGo = xTarget - xBefore; // quãng đường cần bay
 	float directBossToTarget= x - xTarget; // tính hướng bay của boss
-	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 120)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
+	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 150)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
 	
 	isUsingCurve = true;
 	status = BOSS_FLY_CURVE;

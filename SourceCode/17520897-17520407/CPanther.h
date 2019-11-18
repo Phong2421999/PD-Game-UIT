@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "CEnemies.h"
 #include "Simon.h"
-#include "Ground.h"
+
 #define ANI_PANTHER_IDLE 566
 #define ANI_PANTHER_RUN 567
 #define ANI_PANTHER_JUMP 568

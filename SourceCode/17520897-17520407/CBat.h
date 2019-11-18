@@ -1,6 +1,7 @@
 #pragma once
 #include "CEnemies.h"
 #include "Simon.h"
+
 #define ANI_BAT_IDLE 569
 #define ANI_BAT_FLY 570
 
@@ -29,7 +30,6 @@ public:
 	void Render();
 	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-	bool IsTouchSimon(LPGAMEOBJECT gameObject);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void SetPosition(float x, float y)
 	{

@@ -108,25 +108,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						e->obj->Damage(1);
 						health = health - 1;
 					}*/
-					if (isUntouchable == false)
-					{
-						if (e->nx > 0)
-						{
-							isUntouchable = true;
-							x += PUSH_SIMON_TOUCH_ENEMIES_X;
-							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-							StartUntouchable();
-						}
-						else
-						{
-							isUntouchable = true;
-							x -= PUSH_SIMON_TOUCH_ENEMIES_X;
-							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-							StartUntouchable();
-						}
-					}
+					
 					//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
 				}
 			}
@@ -291,7 +273,6 @@ void CSimon::UpdateStopWatch() {
 	}
 }
 
-
 void CSimon::SetState(int state)
 {
 	CGameObject::SetState(state);
@@ -333,6 +314,28 @@ void CSimon::SetState(int state)
 }
 
 
+//Xử lí khi chạm enemy
+void CSimon::TouchEnemy(int nx) {
+	if (isUntouchable == false)
+	{
+		if (nx > 0)
+		{
+			isUntouchable = true;
+			x += PUSH_SIMON_TOUCH_ENEMIES_X;
+			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+			StartUntouchable();
+		}
+		else
+		{
+			isUntouchable = true;
+			x -= PUSH_SIMON_TOUCH_ENEMIES_X;
+			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+			StartUntouchable();
+		}
+	}
+}
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
 {
