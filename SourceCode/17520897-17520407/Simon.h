@@ -11,6 +11,8 @@
 #include "CSpawn.h"
 #include "Ground.h"
 
+#include "CheckStair.h"
+
 class CSimon : public CGameObject
 {
 private:
@@ -21,19 +23,26 @@ private:
 	bool isOnStair;
 	bool isFalling;
 	bool isJumpAttack;
+	bool isAutoGoToStair;
+	bool isAutoGoOutStair;
 
 	bool isCanJump;
 	bool isCanAttack;
 	bool isResetSitAfterAttack;
 	bool isUntouchable;
 	bool isCanOnStair;
+	bool isCanOutStair;
+	bool isCanSetStair;
 
+	float autoGoToStairDistance;
+	float onStairDistance;
 
 	DWORD startAttackTime;
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
 	DWORD startUntouchableTime;
+	DWORD endWalkOnStairTime;
 
 	DWORD timeFreeze;
 
@@ -61,11 +70,18 @@ private:
 	float autoGoDistance;
 	float simonAutoGoDistance;
 	int enemyId;
+
+	int stairNx;
+	int stairNy;
+
 public:
 
 	static CSimon* getInstance();
 	CSimon()
 	{
+		onStairDistance = 0;
+		isCanOutStair = false;
+		isCanSetStair = false;
 		isJump = false;
 		isSit = false;
 		isAttack = false;
@@ -93,10 +109,35 @@ public:
 		live = 3;
 		isAutoGo = false;
 		autoGoDistance = 0;
-		simonAutoGoDistance = 0;
+		simonAutoGoDistance = 0; 
+		endWalkOnStairTime = GetTickCount();
+		stairNx = 0;
+		stairNy = 0;
+		ny = 0;
+		isAutoGoOutStair = false;
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setCanOutStair(bool b)
+	{
+		this->isCanOutStair = b;
+	}
+	void setCanSetStair(bool b)
+	{
+		this->isCanSetStair = b;
+	}
+	void setAutoGoOutStair(bool b)
+	{
+		this->isAutoGoOutStair = b;
+	}
+	void setStairNx(int nx)
+	{
+		this->stairNx = nx;
+	}
+	void setStairNy(int ny)
+	{
+		this->stairNy = ny;
+	}
 	void setStairType(STAIR_TYPE type)
 	{
 		this->stairType = type;
@@ -104,6 +145,11 @@ public:
 	void setOnStair(bool b)
 	{
 		this->isOnStair = b;
+	}
+	
+	void setAutoGoToStair(bool b)
+	{
+		this->isAutoGoToStair = b;
 	}
 	void setCanOnStair(bool b)
 	{
@@ -153,12 +199,36 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getCanSetStair()
+	{
+		return isCanSetStair;
+	}
+	bool getAuToGoOutStair()
+	{
+		return isAutoGoOutStair;
+	}
 	SIMON_WEAPON getSubWeapon() {
 		return typeSubWeapon;
 	}
 	STAIR_TYPE getStairType()
 	{
 		return stairType;
+	}
+	bool getCanOutStair()
+	{
+		return isCanOutStair;
+	}
+	int getStairNx()
+	{
+		return stairNx;
+	}
+	int getStairNy()
+	{
+		return stairNy;
+	}
+	bool getAutoGoToStair()
+	{
+		return isAutoGoToStair;
 	}
 	bool getOnStair()
 	{
@@ -249,11 +319,13 @@ public:
 
 	//Method của simon
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	void UpdateCheckStair(vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
 	void UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	//Xử lí đóng băng simon khi nhặt WHIP_UPGRADE
 	void UpdateFreeze(DWORD dt);
+
 	void SetState(int state);
 	void AddItem(GAME_ITEM type);
 	void UpgradeWhip();
@@ -266,13 +338,14 @@ public:
 	void WalkingLeft();
 	void WalkingRight();
 	void Attack();
+	void OnStairUp();
+	void OnStairDown();
 	void ChangeSubWeapon(SIMON_WEAPON type);
 
 	//Xử lí khi animtion đang tấn công - không cho đánh liên tục và kết thúc việc đánh - gọi trong update
 	void Attacking(DWORD dt);
 	//Xử lí khi đang nhảy - không cho nhảy liên tục - gọi trong update
 	void Jumping();
-
 	// Update kiểm tra vũ khi
 	void UsingWeapon();
 
@@ -285,7 +358,4 @@ public:
 	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();
 	void ResetAfterJump();
-
-
-
 };

@@ -58,12 +58,12 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 		int id;
 		float x, y, Width, Height;
 		Objects->QueryIntAttribute("id", &id);
-		Objects->QueryFloatAttribute("width", &Width);
-		Objects->QueryFloatAttribute("height", &Height);
 		for (Object = Objects->FirstChildElement(); Object != NULL; Object = Object->NextSiblingElement())
 		{
 			Object->QueryFloatAttribute("x", &x);
 			Object->QueryFloatAttribute("y", &y);
+			Object->QueryFloatAttribute("width", &Width);
+			Object->QueryFloatAttribute("height", &Height);
 			if (id == 0)
 			{
 				CGround* ground = new CGround();
@@ -140,6 +140,19 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				spawn->SetDelaySpawnTime(delaySpawnTime);
 
 				objects.push_back(spawn);
+			}
+			else if (id == -3)
+			{
+				int ny, nx;
+				Object->QueryIntAttribute("ny", &ny);
+				Object->QueryIntAttribute("nx", &nx);
+
+				CheckStair* checkStair = new CheckStair();
+				checkStair->SetPosition(x, y);
+				checkStair->SetWidthHeight(Width, Height);
+				checkStair->ny = ny;
+				checkStair->nx = nx;
+				objects.push_back(checkStair);
 			}
 			else if (id == -99)
 			{
@@ -248,8 +261,6 @@ void Scene::UpdateEnemies(DWORD dt)
 	if (spawner->quantitySpawned < spawner->quantityEachSpawn 
 		&& spawner->canSpawn)
 	{
-		DebugOut(L"\nnow %d", now);
-		DebugOut(L"\nspawner->lastSpawnTime %d", spawner->lastSpawnTime);
 
 		if (now - spawner->lastSpawnTime > spawner->timeEachSpawn)
 		{
@@ -336,12 +347,18 @@ void Scene::Update(DWORD dt)
 			vector<LPGAMEOBJECT> coSpawn;
 			vector<LPGAMEOBJECT> coDestroy;
 			vector<LPGAMEOBJECT> coHiddenObjects;
+			vector<LPGAMEOBJECT> coCheckStairObjects;
+
 			UpdateBoardGame(dt);
 			UpdateEnemies(dt); // luôn gọi trước khi update các thứ khác
 
 			//lấy objects để tính colisions
 			for (int i = 0; i < objects.size(); i++)
 			{
+				if (dynamic_cast<CheckStair*>(objects[i]))
+				{
+					coCheckStairObjects.push_back(objects[i]);
+				}
 				if (dynamic_cast<CSimon*> (objects[i]))
 				{
 					coChangeScence.push_back(objects[i]);
@@ -381,10 +398,10 @@ void Scene::Update(DWORD dt)
 				}
 				else
 				{
-					if (!dynamic_cast<CItems*>(objects[i]) 
+					if ((!dynamic_cast<CItems*>(objects[i]) 
 						&& !dynamic_cast<CStaticObject*> (objects[i])
 						&& !dynamic_cast<CSpawn*> (objects[i])
-						&& !dynamic_cast<HiddenObjects*>(objects[i]))
+						&& !dynamic_cast<HiddenObjects*>(objects[i])))
 					{
 						coObjects.push_back(objects[i]);
 					}
@@ -457,7 +474,7 @@ void Scene::Update(DWORD dt)
 				}
 			}
 
-
+			simon->UpdateCheckStair(&coCheckStairObjects);
 
 			for (int i = 0; i < effects.size(); i++)
 			{

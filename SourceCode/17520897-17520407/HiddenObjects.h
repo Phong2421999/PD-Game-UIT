@@ -11,4 +11,9 @@ public:
 	virtual void Render() = 0;
 	virtual bool isTouchOtherObject(LPGAMEOBJECT obj);
 	virtual void SetWidthHeight(float width, float height);
+	virtual void GetWidthHeight(float &width, float &height)
+	{
+		width = this->width;
+		height = this->height;
+	}
 };

@@ -7,10 +7,14 @@ class CheckStair:public HiddenObjects
 {
 private:
 	STAIR_TYPE type;
+	bool isSetAutoGoStair;
 public:
 	CheckStair()
 	{
 		type = STAIR_TYPE::NOSTAIR;
+		isSetAutoGoStair = false;
+		this->nx = 1;
+		this->ny = 1;
 	}
 	void SetStairType(STAIR_TYPE type)
 	{

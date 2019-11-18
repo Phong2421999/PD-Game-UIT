@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
-  <Grounds id="0" width="976" height="8">
-    <Ground x="-196" y="196" />
+  <Grounds id="0" >
+    <Ground x="-196" y="196" width="976" height="8"/>
   </Grounds>
-  <LargeCandles id="1" width="16" height="30">
-    <LargeCandle x="90" y="168" />
-    <LargeCandle x="220" y="168"/>
-    <LargeCandle x="340" y="168"/>
-    <LargeCandle x="480" y="168"/>
-    <LargeCandle x="600" y="168"/>
+  <LargeCandles id="1" >
+    <LargeCandle x="90" y="168" width="16" height="30"/>
+    <LargeCandle x="220" y="168" width="16" height="30"/>
+    <LargeCandle x="340" y="168" width="16" height="30"/>
+    <LargeCandle x="480" y="168" width="16" height="30"/>
+    <LargeCandle x="600" y="168" width="16" height="30"/>
   </LargeCandles>
-  <ChangeScenes id="-1" width="16" height="30">
+  <ChangeScenes id="-1" >
     <ChangeScene x="675" y="168" sceneId="1"
      simonAutoGo="1" simonAutoGoDistance="35"
-     camAutoGo="0" isDoor="0"/>
+     camAutoGo="0" isDoor="0" width="16" height="30"/>
   </ChangeScenes>
 
-  <Detroys id="-99" width="0" height="0">
-    <Detroy x="0" y="0" type="-1"/>
-    <Detroy x="0" y="0" type="1"/>
+  <Detroys id="-99" >
+    <Detroy x="0" y="0" type="-1" width="0" height="0"/>
+    <Detroy x="0" y="0" type="1" width="0" height="0"/>
   </Detroys>
 </Objects>

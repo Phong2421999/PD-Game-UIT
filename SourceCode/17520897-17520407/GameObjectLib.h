@@ -8,3 +8,4 @@
 #include "ChangeSceneObjects.h"
 #include "HiddenObjects.h"
 #include "Wall.h"
+#include "CheckStair.h"
