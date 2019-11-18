@@ -33,6 +33,7 @@ private:
 	bool isCanOnStair;
 	bool isCanOutStair;
 	bool isCanSetStair;
+	bool isUsingStopWatch;
 
 	float autoGoToStairDistance;
 	float onStairDistance;
@@ -41,6 +42,7 @@ private:
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
+	DWORD timeUsingStopWatch;
 	DWORD startUntouchableTime;
 	DWORD endWalkOnStairTime;
 
@@ -90,6 +92,7 @@ public:
 		isCanAttack = true;
 		isCanJump = true;
 		isCanOnStair = false;
+		isUsingStopWatch = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
@@ -183,6 +186,10 @@ public:
 	{
 		this->isHasSubWeapon = b;
 	}
+	void setUsingStopWatch(bool b)
+	{
+		this->isUsingStopWatch = b;
+	}
 	void setFreeze(bool freeze)
 	{
 		this->isFreeze = freeze;
@@ -229,6 +236,10 @@ public:
 	bool getAutoGoToStair()
 	{
 		return isAutoGoToStair;
+	}
+	bool getUsingStopWatch()
+	{
+		return isUsingStopWatch;
 	}
 	bool getOnStair()
 	{
@@ -315,6 +326,8 @@ public:
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
+
+	void TouchEnemy(int nx);
 	//Load simon weapon
 
 	//Method của simon
@@ -329,6 +342,7 @@ public:
 	void SetState(int state);
 	void AddItem(GAME_ITEM type);
 	void UpgradeWhip();
+	void UpdateStopWatch();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
@@ -354,6 +368,7 @@ public:
 
 	//Xử lí khi đang ngồi - Không cho phép di chuyển và nhảy - chỉ được đánh - gọi trong set state
 	void Sitting();
+
 
 	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();

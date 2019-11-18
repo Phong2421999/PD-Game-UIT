@@ -17,6 +17,7 @@ CGameObject::CGameObject()
 	weaponLevel = 1;
 	killBySimon = false;
 	ny = 0;
+	makeWeapon = false;
 }
 
 

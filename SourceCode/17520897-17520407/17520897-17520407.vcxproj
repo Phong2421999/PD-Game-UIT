@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="CBat.cpp" />
+    <ClCompile Include="CBossBat.cpp" />
     <ClCompile Include="CBreakingWall.cpp" />
     <ClCompile Include="CDestroy.cpp" />
     <ClCompile Include="CEffect.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="CItems.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMoneyEffect.cpp" />
+    <ClCompile Include="WeaponProjectile.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CSpawn.cpp" />
     <ClCompile Include="CStaticObject.cpp" />
@@ -176,10 +178,12 @@
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="CUglyFish.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WeaponAxe.cpp" />
     <ClCompile Include="WeaponDanger.cpp" />
+    <ClCompile Include="WeaponEnemies.cpp" />
     <ClCompile Include="WeaponHolyWater.cpp" />
     <ClCompile Include="WeaponStopWatch.cpp" />
     <ClCompile Include="Whip.cpp" />
@@ -188,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="Axe.h" />
     <ClInclude Include="CBat.h" />
+    <ClInclude Include="CBossBat.h" />
     <ClInclude Include="CBreakingWall.h" />
     <ClInclude Include="CDestroy.h" />
     <ClInclude Include="CEffect.h" />
@@ -201,12 +206,14 @@
     <ClInclude Include="CItems.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMoneyEffect.h" />
+    <ClInclude Include="WeaponProjectile.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CSpawn.h" />
     <ClInclude Include="CStaticObject.h" />
     <ClInclude Include="CPanther.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTiles.h" />
+    <ClInclude Include="CUglyFish.h" />
     <ClInclude Include="Danger.h" />
     <ClInclude Include="FrameWork\CAnimation.h" />
     <ClInclude Include="FrameWork\CAnimationFame.h" />
@@ -258,6 +265,7 @@
     <Image Include="Assess\Simon.png" />
     <Image Include="Textures\bbox.png" />
     <Image Include="Textures\board.png" />
+    <Image Include="Textures\Bosses.png" />
     <Image Include="Textures\Enemies-Castle.png" />
     <Image Include="Textures\enemies.png" />
     <Image Include="Textures\Font.png" />
@@ -282,9 +290,13 @@
     <Text Include="TXT\Map3.txt" />
     <Text Include="TXT\Map4.txt" />
     <Text Include="TXT\Map5.txt" />
+    <Text Include="TXT\Map6.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="XML\Map-2_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map1_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -293,9 +305,17 @@
     </Xml>
     <Xml Include="XML\Map3_Objects.xml" />
     <Xml Include="XML\Map4_Objects.xml" />
-    <Xml Include="XML\Maps.xml" />
+    <Xml Include="XML\Map5_Objects.xml" />
+    <Xml Include="XML\Maps.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Scenes.xml" />
-    <Xml Include="XML\Textures.xml" />
+    <Xml Include="XML\Textures.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WeaponEnemies.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

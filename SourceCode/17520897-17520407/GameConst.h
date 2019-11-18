@@ -47,10 +47,13 @@ enum GAME_ITEM
 	WHITE_MONEY_BAG,
 };
 
+
+
 enum TYPE_DESTROY_ITEM
 {
 	LEFT,
-	RIGHT
+	RIGHT,
+	BOTTOM,
 };
 
 enum TYPE_MAKE_ITEM

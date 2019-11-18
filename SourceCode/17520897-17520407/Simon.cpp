@@ -150,6 +150,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		Jumping();
 		UsingWeapon();
 		ResetAfterSit();
+		if (isUsingStopWatch)
+			UpdateStopWatch();
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
@@ -214,25 +216,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						e->obj->Damage(1);
 						health = health - 1;
 					}*/
-					if (isUntouchable == false)
-					{
-						if (e->nx > 0)
-						{
-							isUntouchable = true;
-							x += PUSH_SIMON_TOUCH_ENEMIES_X;
-							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-							StartUntouchable();
-						}
-						else
-						{
-							isUntouchable = true;
-							x -= PUSH_SIMON_TOUCH_ENEMIES_X;
-							y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-							vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-							StartUntouchable();
-						}
-					}
+					
 					//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
 				}
 			}
@@ -421,6 +405,13 @@ void CSimon::UpgradeWhip()
 	}
 }
 
+void CSimon::UpdateStopWatch() {
+	DWORD now = GetTickCount();
+	if (now - timeUsingStopWatch >= 3000)
+	{
+		isUsingStopWatch = false;
+	}
+}
 
 void CSimon::SetState(int state)
 {
@@ -471,6 +462,28 @@ void CSimon::SetState(int state)
 }
 
 
+//Xử lí khi chạm enemy
+void CSimon::TouchEnemy(int nx) {
+	if (isUntouchable == false)
+	{
+		if (nx > 0)
+		{
+			isUntouchable = true;
+			x += PUSH_SIMON_TOUCH_ENEMIES_X;
+			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+			StartUntouchable();
+		}
+		else
+		{
+			isUntouchable = true;
+			x -= PUSH_SIMON_TOUCH_ENEMIES_X;
+			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+			StartUntouchable();
+		}
+	}
+}
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
 {
@@ -627,7 +640,8 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 		}
 		case SIMON_WEAPON::STOP_WATCH:
 		{
-			simonWeapon = new WeaponStopWatch();
+			isUsingStopWatch = true;
+			timeUsingStopWatch = GetTickCount();
 			heart -= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART;
 			break;
 		}

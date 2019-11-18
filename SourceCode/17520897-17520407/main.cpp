@@ -133,6 +133,7 @@ void LoadResources()
 		for (animation = texture->FirstChildElement(); animation != NULL; animation = animation->NextSiblingElement())
 		{
 			int aniId, frameTime;
+
 			LPANIMATION ani;
 			animation->QueryIntAttribute("frameTime", &frameTime);
 			ani = new CAnimation(frameTime);

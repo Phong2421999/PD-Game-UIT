@@ -3,16 +3,21 @@
 
 void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
-	y = CGame::GetInstance()->GetCamPos_y();
-
 	if (type == LEFT) {
 		x = CGame::GetInstance()->GetCamPos_x() - DESTROY_OFFSET_LEFT;
+		y = CGame::GetInstance()->GetCamPos_y();
+	}
+	else if(type == RIGHT)
+	{
+		x = CGame::GetInstance()->GetCamPos_x() + SCREEN_WIDTH + DESTROY_OFFSET_RIGHT;
+		y = CGame::GetInstance()->GetCamPos_y();
 	}
 	else
 	{
-		x = CGame::GetInstance()->GetCamPos_x() + SCREEN_WIDTH + DESTROY_OFFSET_RIGHT;
+		x = CGame::GetInstance()->GetCamPos_x();
 	}
+
+
 	for (int i = 0; i < coObjects->size(); i++)
 	{
 		if (IsTouchOtherColision(coObjects->at(i)))

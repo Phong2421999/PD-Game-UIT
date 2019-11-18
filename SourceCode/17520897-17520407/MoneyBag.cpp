@@ -52,10 +52,11 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	{
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (IsTouchSimon(coObjects->at(i)))
+			if (IsTouchColision(coObjects->at(i)))
 			{
 				if (dynamic_cast<CSimon*> (coObjects->at(i)))
 				{
+					health = 0;
 				}
 			}
 		}

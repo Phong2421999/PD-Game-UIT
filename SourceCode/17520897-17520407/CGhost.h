@@ -1,5 +1,8 @@
 #pragma once
 #include "CEnemies.h"
+#include "Simon.h"
+#include "Ground.h"
+
 #define ANI_GHOST 565
 #define GHOST_ACTIVE_TIME 500
 #define GHOST_OFFSET_FLIP_X 8
