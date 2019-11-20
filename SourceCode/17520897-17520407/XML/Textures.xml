@@ -152,6 +152,11 @@
       <sprite id="10005" left="86" top="24" right="164" bottom="54" frameTime="100"/>
       <sprite id="50002" left="609" top="24" right="687" bottom="54" frameTime="100"/>
     </Animation>
+    <Animation aniId="5005" frameTime="100" name="STAIR_ATTACK_DOWN>
+      <sprite id="50003" left="609" top="122" right="687" bottom="152" frameTime="100"/>
+      <sprite id="50005" left="526" top="166" right="604" bottom="193" frameTime="100"/>
+      <sprite id="50006" left="609" top="166" right="687" bottom="193" frameTime="100"/>
+    </Animation>
   
   </Texture>
   
@@ -375,15 +380,15 @@
   <!-- Animation WOLF -->
   <Texture  textureId ="3" gameObjectId ="27">
     <Animation aniId="566" frameTime="100" name="WOLF_IDLE">
-      <sprite id="10167" left="68" top="19" right="92" bottom="34" frameTime="100"/>
+      <sprite id="10167" left="61" top="18" right="93" bottom="34" frameTime="100"/>
     </Animation>
     <Animation aniId="567" frameTime="50" name="WOLF_RUN">
-      <sprite id="10168" left="168" top="19" right="200" bottom="32" frameTime="100"/>
-      <sprite id="10169" left="98" top="18" right="126" bottom="34" frameTime="100"/>
-      <sprite id="10170" left="133" top="18" right="163" bottom="34" frameTime="80"/>
+      <sprite id="10168" left="177" top="18" right="209" bottom="34" frameTime="100"/>
+      <sprite id="10169" left="100" top="18" right="132" bottom="34" frameTime="100"/>
+      <sprite id="10170" left="136" top="18" right="168" bottom="34" frameTime="80"/>
     </Animation>
     <Animation aniId="568" frameTime="100" name="WOLF_JUMP">
-      <sprite id="10171" left="168" top="19" right="200" bottom="32"/>
+      <sprite id="10171" left="177" top="18" right="209" bottom="34"/>
     </Animation>
   </Texture>
   <!-- Animation BAT -->

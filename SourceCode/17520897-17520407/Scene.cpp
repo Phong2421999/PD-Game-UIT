@@ -123,8 +123,10 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 			}
 			else if (id == -2)
 			{
-				int enemyId, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime;
+				int enemyId, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime, xEnemy, yEnemy;
 				Object->QueryIntAttribute("enemyId", &enemyId);
+				Object->QueryIntAttribute("xEnemy", &xEnemy);
+				Object->QueryIntAttribute("yEnemy", &yEnemy);
 				Object->QueryIntAttribute("spawnerId", &spawnerId);
 				Object->QueryIntAttribute("quantityEachSpawn", &quantityEachSpawn);
 				Object->QueryIntAttribute("timeEachSpawn", &timeEachSpawn);
@@ -132,6 +134,7 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 
 				CSpawn* spawn = new CSpawn();
 				spawn->SetPosition(x, y);
+				spawn->SetPositionEnemy(xEnemy, yEnemy);
 				spawn->SetWidthHeight(Width, Height);
 				spawn->SetSpawnEnemyType(enemyId);
 				spawn->SetSpawnerId(spawnerId);
@@ -292,7 +295,7 @@ void Scene::MakeEnemies(DWORD dt)
 
 	int lastNx = 1;
 	DWORD now = GetTickCount();
-	if (simon->getUsingStopWatch() == false)
+	if (simon->getUsingStopWatch() == false || simon->getUsingCross() == false)
 	{
 		if (spawner->quantitySpawned == spawner->quantityEachSpawn)
 		{
@@ -325,7 +328,7 @@ void Scene::MakeEnemies(DWORD dt)
 				}
 				else if (spawner->enemyId == PANTHER_ID)
 				{
-					CPanther* panther = new CPanther(sx, sy);
+					CPanther* panther = new CPanther(spawner->xEnemy, spawner->yEnemy);
 					spawner->quantitySpawned += 1;
 					objects.push_back(panther);
 				}
@@ -541,8 +544,23 @@ void Scene::Update(DWORD dt)
 
 				}
 			}
+			else if (simon->getUsingCross())
+			{
+				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
+				for (int i = 0; i < objects.size(); i++)
+				{
+					if (dynamic_cast<CEnemies*>(objects[i])) {
+						objects.erase(objects.begin() + i);
+					}
+					else if (dynamic_cast<CSimon*> (objects[i])) {
+						objects[i]->Update(dt, &coObjects);
+					}
+
+				}
+			}
 			else
 			{
+				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
 				for (int i = 0; i < objects.size(); i++)
 				{
 					if (dynamic_cast<CItems*> (objects[i]))
@@ -573,6 +591,7 @@ void Scene::Update(DWORD dt)
 					}
 				}
 			}
+
 
 			simon->UpdateCheckStair(&coCheckStairObjects);
 
@@ -606,11 +625,16 @@ void Scene::Update(DWORD dt)
 									Danger* danger = new Danger(x, y);
 									listItems.push_back(danger);
 								}*/
-							if (rand >=2  && rand <= 8)
+							if (rand >= 2 && rand <= 8)
+							{
+								Cross* cross = new Cross(x, y);
+								listItems.push_back(cross);
+							}
+							/*if (rand >=2  && rand <= 8)
 							{
 								Axe* axe = new Axe(x, y);
 								listItems.push_back(axe);
-							}
+							}*/
 							/*if (rand >=2  && rand <= 8)
 							{
 								HolyWater* holyWater = new HolyWater(x, y);

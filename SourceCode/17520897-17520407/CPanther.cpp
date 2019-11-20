@@ -1,42 +1,67 @@
 ﻿#include "CPanther.h"
 
-CPanther::CPanther(float x,float y) {
+CPanther::CPanther(float x, float y) {
 	this->AddAnimation(ANI_PANTHER_IDLE);
 	this->AddAnimation(ANI_PANTHER_RUN);
 	this->AddAnimation(ANI_PANTHER_JUMP);
 	width = PANTHER_WIDTH;
 	height = PANTHER_HEIGHT;
 	ani = ANI_ID_PANTHER_IDLE;
-	attackDistance = 9999;
-	isAttack = false;
-	this->x = 710;
-	this->y = 100;
-	this->yBefore = 100;
-
+	this->x = x;
+	this->xBefore = x;
+	this->y = y;
 	CSimon::getInstance()->GetPosition(sx, sy);
-	float posX = this->x - sx;
-	if (posX < 0)
+	if ((this->x - sx) < 0)
 		nx = 1;
 	else
 		nx = -1;
-	isJump = false;
+	isAttacking = false;
+	isJumping = false;
+	xGround = 0;
+	yGround = 0;
+	timeSpawn = GetTickCount();
 }
 
 
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
-	CSimon::getInstance()->GetPosition(sx, sy);
-
-	vy += PANTHER_GRAVITY * dt;
-	
-	if (abs(x - sx) < 100)
+	if (CSimon::getInstance()->getJump() == false)
 	{
+		CSimon::getInstance()->GetPosition(sx, sy);
+	}
+	vy += PANTHER_GRAVITY * dt;
+	if (abs(x - sx) < 92)
+	{
+		isAttacking = true;
 		isActive = true;
-		Run();
 	}
 
+	DWORD now = GetTickCount();
+	if (now - timeSpawn >= 3000)
+	{
+		isActive = true;
+	}
 
+	if (isActive)
+	{
+		float cx = CGame::GetInstance()->GetCamPos_x();
+		if (nx > 0)
+		{
+			if (x < cx)
+			{
+				health = 0;
+			}
+		}
+		else
+		{
+			if (x > cx + SCREEN_WIDTH - 8)
+			{
+				health = 0;
+			}
+		}
+	
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -50,6 +75,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		y += dy;
 		x += dx;
+		CheckJump();
 	}
 	else
 	{
@@ -64,24 +90,120 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CGround *>(e->obj))
 			{
-				isJump = false;
-				if (this->isActive)
+
+				CGround * ground = dynamic_cast<CGround *>(e->obj);
+				ground->GetPosition(xGround, yGround);
+				ground->GetWidthHeight(widthGround, heightGround);
+				isJumping = false;
+
+				if (this->isAttacking)
+				{
 					ani = ANI_ID_PANTHER_RUN;
-				else
-					ani = ANI_ID_PANTHER_IDLE;
+					isRunning = true;
+					if (isJumping)
+					{
+
+						if (y < sy)
+						{
+							if (x > sx)
+							{
+								this->nx = -1;
+							}
+						}
+					}
+
+				}
 			}
 		}
 
 	}
-	
+
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	if (isAttacking)
+	{
+		Run();
+		Jump();
+	}
+
 }
 
 
 void CPanther::Run() {
-	ani = ANI_ID_PANTHER_RUN;
-	vx = PANTHER_VELOCITY_X * nx;
+	if (isRunning)
+	{
+		ani = ANI_ID_PANTHER_RUN;
+		vx = PANTHER_VELOCITY_X * nx;
+	}
+}
+
+void CPanther::Jump()
+{
+	if (isJumping)
+	{
+		isRunning = false;
+		ani = ANI_ID_PANTHER_JUMP;
+		vy = 0.007 *dt;
+		vx = 0.12 * nx;
+	}
+}
+
+void CPanther::CheckJump()
+{
+	if (this->nx > 0)
+	{
+		if (abs(xBefore - x + PANTHER_WIDTH) >= abs(xBefore - xGround + widthGround - 16))
+		{
+			if (y < sy)
+			{
+				isJumping = true;
+				vy -= 0.0001*dt;
+			}
+			else
+			{
+				if (x > sx)
+				{
+					nx = -1;
+				}
+				else
+				{
+					nx = 1;
+				}
+			}
+		}
+		else
+		{
+			isJumping = false;
+			isRunning = true;
+		}
+	}
+	else
+	{
+		if (x + PANTHER_WIDTH < xGround + 2)
+		{
+			if (y < sy)
+			{
+				isJumping = true;
+			}
+			else
+			{
+				if (x > sx)
+				{
+					nx = -1;
+				}
+				else
+				{
+					nx = 1;
+				}
+			}
+		}
+		else
+		{
+			isJumping = false;
+			isRunning = true;
+		}
+	}
 }
 
 

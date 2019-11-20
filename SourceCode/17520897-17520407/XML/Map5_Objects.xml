@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
-  <Grounds id="0" width="400" height="8">
-    <Ground x="0" y="212" />
+  <Grounds id="0">
+    <Ground x="0" y="212"  width="400" height="8"/>
   </Grounds>
-  <Spawns id="-2" width="8" height="300">
-    <Spawn x="20" y="0" spawnerId="0" enemyId="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0"/>
+  <Spawns id="-2" >
+    <Spawn x="20" y="0" spawnerId="0" enemyId="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
   </Spawns>
-  <Detroys id="-99" width="0" height="0">
-    <Detroy x="0" y="0" type="-1"/>
-    <Detroy x="0" y="0" type="1"/>
+  <Detroys id="-99">
+    <Detroy x="0" y="0" type="-1"  width="0" height="0"/>
+    <Detroy x="0" y="0" type="1"  width="0" height="0"/>
   </Detroys>
-  <Grounds id="0" width="28" height="2">
-    <Ground x="672" y="180" />
+  <Grounds id="0">
+    <Ground x="672" y="180"  width="28" height="2"/>
   </Grounds>
-  <Walls id="3" width="32" height="12">
-    <Wall x="670" y="182" />
+  <Walls id="3" >
+    <Wall x="670" y="182"  width="32" height="12"/>
   </Walls>
-  <Grounds id="0" width="44" height="1">
-    <Ground x="722" y="147" />
+  <Grounds id="0" >
+    <Ground x="722" y="147" width="44" height="1"/>
   </Grounds>
-  <Walls id="3" width="48" height="12">
-    <Wall x="720" y="148" />
+  <Walls id="3" >
+    <Wall x="720" y="148" width="48" height="12"/>
   </Walls>
 </Objects>

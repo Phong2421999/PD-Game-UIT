@@ -89,7 +89,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
-		DebugOut(L"\nNy: %d", ny);
 		if (x <= 0)
 			x = 0;
 		DWORD now = GetTickCount();
@@ -152,6 +151,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		ResetAfterSit();
 		if (isUsingStopWatch)
 			UpdateStopWatch();
+		if (isUsingCross)
+			UpdateCross();
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
@@ -353,6 +354,10 @@ void CSimon::AddItem(GAME_ITEM type) {
 	case STOP_WATCH_ITEM:
 		ChangeSubWeapon(SIMON_WEAPON::STOP_WATCH);
 		break;
+	case CROSS_ITEM:
+		isUsingCross = true;
+		timeUsingCross = GetTickCount();
+		break;
 	case RED_MONEY_BAG:
 		score = score + 100;
 		break;
@@ -361,9 +366,6 @@ void CSimon::AddItem(GAME_ITEM type) {
 		break;
 	case WHITE_MONEY_BAG:
 		score = score + 700;
-		break;
-	case CROSS_ITEM:
-		DebugOut(L"\nClear quai\n");
 		break;
 	}
 }
@@ -410,6 +412,16 @@ void CSimon::UpdateStopWatch() {
 	if (now - timeUsingStopWatch >= 3000)
 	{
 		isUsingStopWatch = false;
+	}
+}
+
+void CSimon::UpdateCross()
+{
+	DWORD now = GetTickCount();
+	if (now - timeUsingCross >= 150)
+	{
+		isUsingCross = false;
+		CSpawner::GetInstance()->resetAfterUsingCross();
 	}
 }
 

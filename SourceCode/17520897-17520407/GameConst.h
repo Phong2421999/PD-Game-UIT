@@ -74,4 +74,5 @@ enum STAIR_TYPE
 
 extern bool isRenderBBox;
 extern int scenceWidth;
+extern D3DCOLOR backGroundColor;
 

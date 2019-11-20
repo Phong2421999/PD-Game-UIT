@@ -9,3 +9,4 @@
 #include "HolyWater.h"
 #include "StopWatch.h"
 #include "MoneyBag.h"
+#include "Cross.h"

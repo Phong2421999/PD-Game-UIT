@@ -11,6 +11,7 @@ public:
 	DWORD lastSpawnTime;
 
 	int enemyId;
+	int xEnemy, yEnemy;
 	int delaySpawnTime;
 	int timeEachSpawn;
 	int spawnerId;
@@ -24,6 +25,8 @@ public:
 		quantitySpawned = 0;
 		quantityEachSpawn = 0;
 		enemyId = -1;
+		xEnemy = 0;
+		yEnemy = 0;
 		delaySpawnTime = 0;
 		timeEachSpawn = 0;
 		spawnerId = -1;
@@ -31,11 +34,20 @@ public:
 	static CSpawner * GetInstance();
 	void reset()
 	{
-		lastSpawnTime = 0;
+		lastSpawnTime = GetTickCount();
 		canSpawn = true;
+		xEnemy = 0;
+		yEnemy = 0;
 		quantityEnemyDied = 0;
 		quantitySpawned = 0;
 		quantityEachSpawn = 0;
+	}
+	void resetAfterUsingCross()
+	{
+		lastSpawnTime = GetTickCount();
+		canSpawn = true;
+		quantityEnemyDied = 0;
+		quantitySpawned = 0;
 	}
 
 };

@@ -33,7 +33,9 @@ private:
 	bool isCanOnStair;
 	bool isCanOutStair;
 	bool isCanSetStair;
+
 	bool isUsingStopWatch;
+	bool isUsingCross;
 
 	float autoGoToStairDistance;
 	float onStairDistance;
@@ -42,7 +44,10 @@ private:
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
+	
 	DWORD timeUsingStopWatch;
+	DWORD timeUsingCross;
+
 	DWORD startUntouchableTime;
 	DWORD endWalkOnStairTime;
 
@@ -93,6 +98,7 @@ public:
 		isCanJump = true;
 		isCanOnStair = false;
 		isUsingStopWatch = false;
+		isUsingCross = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
@@ -237,6 +243,10 @@ public:
 	{
 		return isAutoGoToStair;
 	}
+	bool getUsingCross()
+	{
+		return isUsingCross;
+	}
 	bool getUsingStopWatch()
 	{
 		return isUsingStopWatch;
@@ -343,6 +353,7 @@ public:
 	void AddItem(GAME_ITEM type);
 	void UpgradeWhip();
 	void UpdateStopWatch();
+	void UpdateCross();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
