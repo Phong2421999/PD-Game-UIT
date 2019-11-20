@@ -5,14 +5,18 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
-		&& simon->getAutoGoToStair() == false)
+		&& simon->getAutoGoToStair() == false
+		&& simon->getAuToGoOutStair() == false)
 	{
 		switch (KeyCode)
 		{
 		case DIK_SPACE:
-			if (simon->getCanJump()) // Sau 1 khoảng thời gian mới có thể nhảy
+			if (simon->getOnStair() == false)
 			{
-				simon->SetState(SIMON_STATE_JUMP);
+				if (simon->getCanJump()) // Sau 1 khoảng thời gian mới có thể nhảy
+				{
+					simon->SetState(SIMON_STATE_JUMP);
+				}
 			}
 			break;
 		case DIK_ESCAPE: // reset
@@ -26,22 +30,38 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 				simon->SetState(SIMON_STATE_ATTACK);
 			break;
 		case DIK_DOWN:
-			simon->SetState(SIMON_STATE_SIT);
+			if (simon->getCanOnStair()
+				&& simon->getStairActiveNy() < 0
+				&& simon->getCanSetStair())
+			{
+				simon->setOnStair(true);
+			}
+			else if (simon->getOnStair() == false
+				&& simon->getAuToGoOutStair() == false
+				&& simon->getAutoGoToStair() == false)
+				simon->SetState(SIMON_STATE_SIT);
 			break;
 		case DIK_F1:
 			isRenderBBox = !isRenderBBox;
 			break;
 		case DIK_F2:
-			simon->setUntouchable();
+			int stairNx, stairNy;
+			stairNx = simon->getStairNx();
+			stairNy = simon->getStairNy();
+			DebugOut(L"\nStairNx: %d, StairNy: %d", stairNx, stairNy);
+			DebugOut(L"\nsimonNx: %d, simonNy: %d", simon->nx, simon->ny);
 			break;
 		case DIK_F3:
 			simon->SetPosition(1500.0f, 32.0f);
+			simon->SetState(SIMON_STATE_IDLE);
 			break;
 		case DIK_F4:
 			simon->SetPosition(675.0f, 32.0f);
+			simon->SetState(SIMON_STATE_IDLE);
 			break;
 		case DIK_F5:
 			simon->SetPosition(960.0f, 32.0f);
+			simon->SetState(SIMON_STATE_IDLE);
 			break;
 		case DIK_1:
 			float x, y;
@@ -56,11 +76,13 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 {
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
-		&& simon->getAutoGoToStair() == false)
+		&& simon->getAutoGoToStair() == false
+		&& simon->getAuToGoOutStair() == false)
 	{
 		if (KeyCode == DIK_DOWN)
 		{
-			simon->setResetSitAffterAttack(true);
+			if (simon->getSit())
+				simon->setResetSitAffterAttack(true);
 		}
 		DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 	}
@@ -71,7 +93,8 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 	// disable control key when Mario die
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
-		&& simon->getAutoGoToStair() == false)
+		&& simon->getAutoGoToStair() == false
+		&& simon->getAuToGoOutStair() == false)
 	{
 		if (simon->GetState() == SIMON_STATE_DIE) return;
 		if (game->IsKeyDown(DIK_RIGHT))
@@ -82,29 +105,64 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 			}
 			else
 			{
-				if (simon->getOnStair())
+				if (simon->getOnStair()
+					&& simon->getAuToGoOutStair() == false
+					&& simon->getAutoGoToStair() == false)
 				{
-					if (simon->nx > 0)
+					if (simon->getCanOutStair()
+						&& simon->ny > 0)
 					{
-						if (simon->ny > 0)
-							simon->SetState(SIMON_STATE_ON_STAIR_UP);
-						else
-							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
+						simon->y -= SIMON_PULL_UP_OUT_STAIR;
+						simon->setAutoGoOutStair(true);
+						simon->setAutoGoDistance(SIMON_AUTO_GO_STAIR_DISTANCE);
+
 					}
 					else
 					{
-						if (simon->ny > 0)
-							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
-						else
+						if (simon->getStairNx() == simon->getStairNy())
 							simon->SetState(SIMON_STATE_ON_STAIR_UP);
-					}
+						else
+							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
 
+					}
 				}
 				else
 					simon->SetState(SIMON_STATE_WALKING_RIGHT);
 
 			}
 		}
+		else if (game->IsKeyDown(DIK_LEFT))
+			if (simon->getJump())
+			{
+				return;
+			}
+			else
+			{
+				if (simon->getOnStair()
+					&& simon->getAuToGoOutStair() == false
+					&& simon->getAutoGoToStair() == false)
+				{
+
+					if (simon->getCanOutStair()
+						&& simon->ny > 0)
+					{
+						simon->y -= 9.0f;
+						simon->setAutoGoOutStair(true);
+						simon->setAutoGoDistance(12.0f);
+
+					}
+					else
+					{
+						if (simon->getStairNx() == simon->getStairNy())
+							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
+						else
+							simon->SetState(SIMON_STATE_ON_STAIR_UP);
+					}
+				}
+				else
+					simon->SetState(SIMON_STATE_WALKING_LEFT);
+
+			}
 		else if (game->IsKeyDown(DIK_UP))
 		{
 			if (game->IsKeyDown(DIK_F) && simon->getAttack() == false)
@@ -118,96 +176,57 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 			}
 			else
 			{
+				if (simon->getCanOnStair())
+				{
+					if (simon->getStairActiveNy() > 0
+						&& simon->getCanSetStair())
+					{
+						simon->setOnStair(true);
+					}
+				}
 				if (simon->getOnStair()
 					&& simon->getAuToGoOutStair() == false
 					&& simon->getAutoGoToStair() == false)
 				{
-					if (simon->getCanOutStair())
+					if (simon->getCanOutStair()
+						&& simon->ny > 0)
 					{
-						if (simon->ny > 0)
-						{
-							simon->y -= 9.0f;
-							simon->setOnStair(false);
-							simon->setAutoGoOutStair(true);
-							simon->setAutoGoDistance(8.0f);
-						}
+						simon->y -= SIMON_PULL_UP_OUT_STAIR;
+						simon->setAutoGoOutStair(true);
+						simon->setAutoGoDistance(SIMON_AUTO_GO_STAIR_DISTANCE);
+
 					}
 					else
 					{
 						simon->SetState(SIMON_STATE_ON_STAIR_UP);
 					}
 				}
-				//
-				if (simon->getCanOnStair())
-				{
-					if (simon->getStairNy() > 0)
-					{
-						simon->setOnStair(true);
-					}
-				}
-
+				else if (simon->getJump() == false
+					&& simon->getSit() == false
+					&& simon->getAttack() == false)
+					simon->SetState(SIMON_STATE_IDLE);
 
 			}
 		}
-		else if (game->IsKeyDown(DIK_LEFT))
-			if (simon->getJump())
-			{
-				return;
-			}
-			else
-			{
-				if (simon->getOnStair())
-				{
-					if (simon->nx < 0)
-					{
-						if (simon->ny > 0)
-							simon->SetState(SIMON_STATE_ON_STAIR_UP);
-						else
-							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
-					}
-					else
-					{
-						if (simon->ny > 0)
-							simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
-						else
-							simon->SetState(SIMON_STATE_ON_STAIR_UP);
-					}
-				}
-				else
-					simon->SetState(SIMON_STATE_WALKING_LEFT);
 
-			}
 		else if (game->IsKeyDown(DIK_DOWN))
 		{
-			if (simon->getOnStair()
+			if (simon->getCanOnStair()
+				&& simon->getStairActiveNy() < 0
+				&& simon->getCanSetStair())
+			{
+				simon->setOnStair(true);
+			}
+			else if (simon->getOnStair()
 				&& simon->getAuToGoOutStair() == false
 				&& simon->getAutoGoToStair() == false)
 			{
-				if (simon->getCanOutStair())
-				{
-					if (simon->ny < 0)
-					{
-						simon->y -= 9.0f;
-						simon->setOnStair(false);
-						simon->setAutoGoOutStair(true);
-						simon->setAutoGoDistance(8.0f);
-					}
-				}
-				else
-				{
-					simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
-				}
-			}
-			//
-			if (simon->getCanOnStair())
-			{
-				if (simon->getStairNy() < 0)
-				{
-					simon->setOnStair(true);
-				}
+				simon->SetState(SIMON_STATE_ON_STAIR_DOWN);
 			}
 			else
+			{
 				simon->SetState(SIMON_STATE_SIT);
+			}
 		}
 
 		else if (simon->GetState() != SIMON_STATE_SIT

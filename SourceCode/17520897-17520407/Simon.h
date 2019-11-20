@@ -75,6 +75,7 @@ private:
 
 	int stairNx;
 	int stairNy;
+	int stairActiveNy;
 
 public:
 
@@ -107,7 +108,7 @@ public:
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
 		health = 8;
-		currentScene = 1;
+		currentScene = 0;
 		score = 1;
 		live = 3;
 		isAutoGo = false;
@@ -116,6 +117,7 @@ public:
 		endWalkOnStairTime = GetTickCount();
 		stairNx = 0;
 		stairNy = 0;
+		stairActiveNy = 0;
 		ny = 0;
 		isAutoGoOutStair = false;
 	}
@@ -124,6 +126,10 @@ public:
 	void setCanOutStair(bool b)
 	{
 		this->isCanOutStair = b;
+	}
+	void setStairActiveNy(float y)
+	{
+		this->stairActiveNy = y;
 	}
 	void setCanSetStair(bool b)
 	{
@@ -206,6 +212,10 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	int getStairActiveNy()
+	{
+		return stairActiveNy;
+	}
 	bool getCanSetStair()
 	{
 		return isCanSetStair;

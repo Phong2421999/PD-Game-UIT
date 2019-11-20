@@ -21,9 +21,5 @@ public:
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void SetMakeTime(DWORD time) {};
 	bool IsTouchColision(LPGAMEOBJECT gameObjet);
-	~CItems()
-	{
-		DebugOut(L"\nXoa item");
-	}
 };
 typedef CItems * LPITEMS;

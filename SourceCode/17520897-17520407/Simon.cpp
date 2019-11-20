@@ -42,7 +42,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		else
 		{
 			vx = -SIMON_AUTO_WALKING_SPEED;
-			state = SIMON_STATE_WALKING_RIGHT;
+			state = SIMON_STATE_WALKING_LEFT;
 
 		}
 		this->x += vx * dt;
@@ -63,25 +63,29 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			vx = SIMON_AUTO_WALKING_SPEED;
 			state = SIMON_STATE_WALKING_RIGHT;
-
 		}
 		else
 		{
 			vx = -SIMON_AUTO_WALKING_SPEED;
-			state = SIMON_STATE_WALKING_RIGHT;
+			state = SIMON_STATE_WALKING_LEFT;
 		}
 		this->x += vx * dt;
 		vy = 0;
 		simonAutoGoDistance += abs(vx * dt);
+		isCanOutStair = false;
+		isOnStair = false;
+		isCanOnStair = false;
 		if (simonAutoGoDistance > autoGoDistance)
 		{
 			isAutoGoOutStair = false;
 			simonAutoGoDistance = 0;
-			isOnStair = false;
 			autoGoDistance = 0;
 			onStairDistance = 0;
 			isCanOutStair = false;
+			isCanSetStair = true;
+			ny = 0;
 		}
+
 	}
 	else if (CGame::GetInstance()->GetCamAutoGo())
 	{
@@ -89,7 +93,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
-		DebugOut(L"\nNy: %d", ny);
 		if (x <= 0)
 			x = 0;
 		DWORD now = GetTickCount();
@@ -98,7 +101,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			isUntouchable = false;
 			startUntouchableTime = 0;
 		}
-		// Khi rơi gravity thấp hơn để rơi chậm lại
+		Attacking(dt);
 		if (isOnStair == false)
 		{
 			if (vy > 0)
@@ -106,47 +109,47 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else
 				vy += SIMON_GRAVITY * dt;
 		}
-		else
+		else if (isOnStair && isAttack == false)
 		{
-			vx = 0.045;
-			vy = 0.0425;
-			if (isOnStair)
+
+			if (nx > 0)
+				vx = SIMON_ON_STAIR_SPEED_X;
+			else
+				vx = -SIMON_ON_STAIR_SPEED_X;
+			if (ny > 0)
+				vy = -SIMON_ON_STAIR_SPEED_Y;
+			else
+				vy = SIMON_ON_STAIR_SPEED_X;
+			if (onStairDistance < SIMON_ON_STAIR_DISTANCE)
 			{
-				if (onStairDistance < 8.0f)
+				isCanAttack = false;
+				x += vx * dt;
+				y += vy * dt;
+				onStairDistance += abs(vx * dt);
+				if (onStairDistance > 8.0f)
 				{
 					if (nx > 0)
-						x += vx * dt;
+						x -= onStairDistance - 8.0f;
 					else
-						x -= vx * dt;
-					y -= vy * dt;
-					onStairDistance += vx * dt;
-					if (onStairDistance > 8.0f)
-					{
-						if (nx > 0)
-							x -= onStairDistance - 8.0f;
-						else
-							x += onStairDistance - 8.0f;
-
-					}
-					if(ny > 0)
-						state = SIMON_STATE_ON_STAIR_UP;
-					else
-						state = SIMON_STATE_ON_STAIR_DOWN;
-
-					endWalkOnStairTime = GetTickCount();
+						x += onStairDistance - 8.0f;
 				}
+				if (ny > 0)
+					state = SIMON_STATE_ON_STAIR_UP;
 				else
-				{
-					if (ny > 0)
-						state = SIMON_STATE_ON_STAIR_IDLE_UP;
-					else
-						state = SIMON_STATE_ON_STAIR_IDLE_DOWN;
-					
-				}
+					state = SIMON_STATE_ON_STAIR_DOWN;
+				endWalkOnStairTime = GetTickCount();
+
+			}
+			else
+			{
+				if (ny > 0)
+					state = SIMON_STATE_ON_STAIR_IDLE_UP;
+				else
+					state = SIMON_STATE_ON_STAIR_IDLE_DOWN;
+
 			}
 		}
 		// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
-		Attacking(dt);
 		Jumping();
 		UsingWeapon();
 		ResetAfterSit();
@@ -155,7 +158,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
-
 		CalcPotentialCollisions(coObjects, coEvents);
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
@@ -193,17 +195,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						ResetAfterJump();
 					}
 					isFalling = false;
-					/*if (isOnStair)
-					{
-						if (nx > 0)
-							x += 4.0f;
-						else
-							x -= 4.0f;
-						y -= 6.0f;
-						onStairDistance = 0;
-						state = SIMON_STATE_IDLE;
-						isOnStair = false;
-					}*/
 					isCanSetStair = true;
 					isCanOnStair = false;
 					isCanOutStair = false;
@@ -216,7 +207,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						e->obj->Damage(1);
 						health = health - 1;
 					}*/
-					
+
 					//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
 				}
 			}
@@ -238,11 +229,19 @@ void CSimon::UpdateCheckStair(vector<LPGAMEOBJECT> * coCheckStair)
 				isCanOnStair = true;
 				float width, height;
 				checkStair->GetWidthHeight(width, height);
-				if (isOnStair 
-					&& this->ny != checkStair->ny 
+				if (isOnStair
+					&& this->ny != checkStair->ny
 					&& this->ny != 0
-					&& this->y + SIMON_BBOX_HEIGHT - 8 <= checkStair->y + height)
-					isCanOutStair = true;
+					)
+				{
+					if (this->ny > 0 && this->y + SIMON_BBOX_HEIGHT - height - 2 <= checkStair->y + height) // -2 để đẩy 1 ít ko để bị chạm với ground
+						isCanOutStair = true;
+					if (this->ny < 0 && this->y + SIMON_BBOX_HEIGHT - height + 2 >= checkStair->y) // +2 để đẩy 1 ít ko để bị chạm với ground
+					{
+						isAutoGoOutStair = true;
+						autoGoDistance = SIMON_AUTO_GO_STAIR_DISTANCE;
+					}
+				}
 			}
 		}
 	}
@@ -304,7 +303,14 @@ void CSimon::Render()
 			ani = SIMON_ANI_WALKING;
 			break;
 		case SIMON_STATE_ATTACK:
-			ani = SIMON_ANI_ATTACK;
+			if (isOnStair)
+				if (ny > 0)
+					ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+				else
+					ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
+
+			else
+				ani = SIMON_ANI_ATTACK;
 			break;
 		case SIMON_STATE_ON_STAIR_DOWN:
 			ani = SIMON_ANI_ON_STAIR_DOWN;
@@ -314,8 +320,10 @@ void CSimon::Render()
 			break;
 		case SIMON_STATE_ON_STAIR_IDLE_UP:
 			ani = SIMON_ANI_ON_STAIR_IDLE_UP;
+			break;
 		case SIMON_STATE_ON_STAIR_IDLE_DOWN:
 			ani = SIMON_ANI_ON_STAIR_IDLE_DOWN;
+			break;
 		}
 	}
 
@@ -505,6 +513,25 @@ void CSimon::Attacking(DWORD dt)
 				isUseSubWeapon = false;
 			}
 		}
+		else if (isOnStair)
+		{
+			vx = 0;
+			vy = 0;
+			int ani = 0;
+			if (ny > 0)
+				ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+			else
+				ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
+			bool isLastFrame = animations[ani]->getLastFrame();
+			if (isLastFrame)
+			{
+				lastAttackTime = GetTickCount();
+				timeMakeWeapon = GetTickCount();
+				animations[ani]->reset();
+				isAttack = false;
+				isUseSubWeapon = false;
+			}
+		}
 		else
 		{
 			if (isJump == false)
@@ -681,20 +708,25 @@ void CSimon::OnStairUp()
 		state = SIMON_STATE_ATTACK;
 		return;
 	}
-	if (isAutoGoToStair == false)
+	if (isAutoGoToStair == false
+		&& isOnStair
+		&& isAutoGoOutStair == false)
 	{
 		DWORD now = GetTickCount();
-
-		if (now - endWalkOnStairTime > 150
-			&& onStairDistance >= 8.0f
-			&& isAutoGoToStair == false)
+		if (now - endWalkOnStairTime > SIMON_TIME_EACH_STAIR_STEP
+			&& onStairDistance >= SIMON_ON_STAIR_DISTANCE)
 		{
-			onStairDistance = 0;
-			this->ny = 1;
-			if (stairNx > 0)
-				nx = 1;
+			if (stairNx == stairNy)
+			{
+				this->ny = 1;
+				this->nx = 1;
+			}
 			else
-				nx = -1;
+			{
+				this->ny = 1;
+				this->nx = -1;
+			}
+			onStairDistance = 0;
 		}
 
 	}
@@ -703,6 +735,7 @@ void CSimon::OnStairUp()
 
 void CSimon::OnStairDown()
 {
+
 	if (isSit)
 	{
 		state = SIMON_STATE_SIT;
@@ -713,20 +746,28 @@ void CSimon::OnStairDown()
 		state = SIMON_STATE_ATTACK;
 		return;
 	}
-	if (isAutoGoToStair == false)
+	if (isAutoGoToStair == false
+		&& isOnStair
+		&& isAutoGoOutStair == false)
 	{
 		DWORD now = GetTickCount();
-
-		if (now - endWalkOnStairTime > 150
-			&& onStairDistance >= 8.0f
-			&& isAutoGoToStair == false)
+		if (now - endWalkOnStairTime > SIMON_TIME_EACH_STAIR_STEP
+			&& onStairDistance >= SIMON_ON_STAIR_DISTANCE)
 		{
-			onStairDistance = 0;
-			this->ny = -1;
-			if (stairNx > 0)
-				nx = -1;
+			if (stairNx == stairNy)
+			{
+				this->ny = -1;
+				this->nx = -1;
+			}
 			else
-				nx = 1;
+			{
+				this->ny = -1;
+				this->nx = 1;
+			}
+
+			onStairDistance = 0;
+
+
 		}
 
 	}

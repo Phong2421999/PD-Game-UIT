@@ -146,12 +146,10 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				int ny, nx;
 				Object->QueryIntAttribute("ny", &ny);
 				Object->QueryIntAttribute("nx", &nx);
-
 				CheckStair* checkStair = new CheckStair();
 				checkStair->SetPosition(x, y);
 				checkStair->SetWidthHeight(Width, Height);
-				checkStair->ny = ny;
-				checkStair->nx = nx;
+				checkStair->SetNxNy(nx, ny);
 				objects.push_back(checkStair);
 			}
 			else if (id == -99)

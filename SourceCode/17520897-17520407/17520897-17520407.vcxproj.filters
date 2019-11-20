@@ -538,6 +538,9 @@
     <Image Include="Textures\Bosses.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\TexturesV4.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">

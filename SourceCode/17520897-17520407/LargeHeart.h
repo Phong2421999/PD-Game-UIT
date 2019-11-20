@@ -27,8 +27,4 @@ public:
 	{
 		this->makeTime = time;
 	}
-	~LargeHeart()
-	{
-		DebugOut(L"\nXoa tim lon");
-	}
 };

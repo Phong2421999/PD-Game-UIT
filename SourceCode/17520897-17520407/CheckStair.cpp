@@ -17,7 +17,7 @@ void CheckStair::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			float sx, sy;
 			simon->GetPosition(sx, sy);
 			simon->setStairType(type);
-			simon->setStairNy(this->ny);
+			simon->setStairActiveNy(this->ny);
 			float checkPosition = 0;
 			if (this->nx > 0)
 			{
@@ -27,32 +27,34 @@ void CheckStair::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			{
 				checkPosition = sx + 16 - x;
 			}
-			if (checkPosition >= 0
+			if (checkPosition > 0
 				&& simon->getOnStair()
-				&& isSetAutoGoStair == false
 				&& simon->getAutoGoToStair() == false
 				&& simon->getCanSetStair())
 			{
 				simon->setAutoGoToStair(true);
 				isSetAutoGoStair = true;
+				simon->setStairNx(this->nx);
+				simon->setStairNy(this->ny);
 				simon->nx = this->nx;
 				simon->ny = this->ny;
-				// cho x simon đến giữa stair => -8 đưa animation simon ra giữa stair để flip hoặc đi
-				if (this->nx > 0)
-					simon->setAutoGoDistance(checkPosition + width / 2 - 8 - 2); //-2 vì nx>0 dịch ra 2 pixel để đứng chuẩn stair
-				else
-					simon->setAutoGoDistance(checkPosition + width / 2 - 8 + 2); //+2 vì nx<0 dịch ra 2 pixel để đứng chuẩn stair
-				simon->setStairNx(this->nx);
+
+				simon->setAutoGoDistance(abs(checkPosition - 2));
+
 				simon->setCanSetStair(false);
+
 			}
-			else if (checkPosition < 0
+			else if (checkPosition <= 0
 				&& simon->getOnStair()
 				&& isSetAutoGoStair == false
 				&& simon->getAutoGoToStair() == false
 				&& simon->getCanSetStair())
 			{
 				simon->setAutoGoToStair(true);
-				simon->setAutoGoDistance(width / 2); // cho đi ra quá nữa cầu thang câu if trên sẽ lo tiếp
+				simon->setAutoGoDistance(abs(checkPosition + width / 1.2));
+				simon->setStairNx(this->nx);
+				simon->setStairNy(this->ny);
+				simon->ny = this->ny;
 				if (this->nx > 0)
 				{
 					if (simon->nx > 0)

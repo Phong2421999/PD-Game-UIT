@@ -13,8 +13,11 @@ public:
 	{
 		type = STAIR_TYPE::NOSTAIR;
 		isSetAutoGoStair = false;
-		this->nx = 1;
-		this->ny = 1;
+	}
+	void SetNxNy(int nx, int ny)
+	{
+		this->nx = nx;
+		this->ny = ny;
 	}
 	void SetStairType(STAIR_TYPE type)
 	{
