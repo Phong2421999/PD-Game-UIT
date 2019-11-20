@@ -421,6 +421,10 @@ void Scene::Update(DWORD dt)
 			MakeEnemies(dt); // luôn gọi trước khi update các thứ khác
 			MakeWeaponEnemies(dt);
 
+			vector<LPGAMEOBJECT> gridObjects;
+
+			Grid::GetInstance()->checkGrid(objects, gridObjects);
+
 			//lấy objects để tính colisions
 			for (int i = 0; i < objects.size(); i++)
 			{
@@ -435,13 +439,16 @@ void Scene::Update(DWORD dt)
 					coWeaponEnemies.push_back(objects[i]);
 
 				}
+				if (dynamic_cast<CGround*> (objects[i]))
+				{
+					coEnemies.push_back(objects[i]);
+				}
 				if (dynamic_cast<CGround*> (objects[i])
 					|| (dynamic_cast<CSimon*> (objects[i]))
 					)
 				{
 					coItemObjects.push_back(objects[i]);
 					coHiddenObjects.push_back(objects[i]);
-					coEnemies.push_back(objects[i]);
 				}
 				if (!dynamic_cast<CSimon*> (objects[i])
 					&& !dynamic_cast<ChangeSceneObjects*> (objects[i])

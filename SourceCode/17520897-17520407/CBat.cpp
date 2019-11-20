@@ -48,18 +48,12 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	x += dx;
 	y += dy;
 
-	for (int i = 0; i < coObjects->size(); i++)
+	CSimon* simon = CSimon::getInstance();
+	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
-		if (dynamic_cast<CSimon*> (coObjects->at(i)))
-		{
-			if (IsTouchColision(coObjects->at(i)))
-			{
-				CSimon::getInstance()->TouchEnemy(nx);
-				CSimon::getInstance()->Damage(1);
-				this->SetKillBySimon(true);
-				health = 0;
-			}
-		}
+		CSimon::getInstance()->TouchEnemy(this->nx);
+		CSimon::getInstance()->Damage(1);
+		this->health = 0;
 	}
 }
 

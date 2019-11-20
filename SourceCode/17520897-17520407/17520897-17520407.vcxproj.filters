@@ -276,6 +276,9 @@
     <ClCompile Include="Cross.cpp">
       <Filter>GameObject\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -484,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="Cross.h">
       <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

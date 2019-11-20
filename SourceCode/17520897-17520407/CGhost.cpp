@@ -8,7 +8,7 @@ CGhost::CGhost(float x, float y) {
 	if (random == 1)
 	{
 		nx = 1;
-		this->x = x;
+		this->x = x - GHOST_OFFSET_X;
 		this->y = y - GHOST_OFFSET_Y;
 	}
 	else
@@ -67,23 +67,15 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
 		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
-		vx = 0;
-		vy = 0;
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (IsTouchColision(e->obj))
-			{
-				if (dynamic_cast<CSimon *>(e->obj))
-				{
-					CSimon::getInstance()->TouchEnemy(nx);
-					CSimon::getInstance()->Damage(1);
-				}
-			}
-		}
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	CSimon* simon = CSimon::getInstance();
+	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
+	{
+		CSimon::getInstance()->TouchEnemy(this->nx);
+		CSimon::getInstance()->Damage(1);
+	}
 }
 
 void CGhost::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

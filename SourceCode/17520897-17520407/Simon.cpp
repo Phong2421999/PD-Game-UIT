@@ -101,11 +101,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			isUntouchable = false;
 			startUntouchableTime = 0;
 		}
-		Attacking(dt);
 		if (isOnStair == false)
 		{
 			if (vy > 0)
+			{
 				vy += SIMON_FALLING_GRAVITY * dt;
+			}
 			else
 				vy += SIMON_GRAVITY * dt;
 		}
@@ -150,6 +151,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 		// Kiểm tra để hạn chế việc nhảy và đánh liên tục;
+		Attacking(dt);
 		Jumping();
 		UsingWeapon();
 		ResetAfterSit();
@@ -200,17 +202,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					isCanSetStair = true;
 					isCanOnStair = false;
 					isCanOutStair = false;
-				}
-				if (dynamic_cast<CEnemies *>(e->obj))
-				{
-					/*if (dynamic_cast<CBat *> (e->obj))
-					{
-						e->obj->SetKillBySimon(true);
-						e->obj->Damage(1);
-						health = health - 1;
-					}*/
-
-					//CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);	
+					vy = 0;
 				}
 			}
 		}
@@ -485,25 +477,34 @@ void CSimon::SetState(int state)
 
 //Xử lí khi chạm enemy
 void CSimon::TouchEnemy(int nx) {
-	if (isUntouchable == false)
+	if (isOnStair == false)
 	{
-		if (nx > 0)
+		if (isUntouchable == false)
 		{
-			isUntouchable = true;
-			x += PUSH_SIMON_TOUCH_ENEMIES_X;
-			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-			StartUntouchable();
-		}
-		else
-		{
-			isUntouchable = true;
-			x -= PUSH_SIMON_TOUCH_ENEMIES_X;
-			y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
-			vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-			StartUntouchable();
+			if (nx > 0)
+			{
+				isUntouchable = true;
+				x += PUSH_SIMON_TOUCH_ENEMIES_X;
+				y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+				vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+				StartUntouchable();
+			}
+			else
+			{
+				isUntouchable = true;
+				x -= PUSH_SIMON_TOUCH_ENEMIES_X;
+				y -= PUSH_SIMON_TOUCH_ENEMIES_Y;
+				vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+				StartUntouchable();
+			}
 		}
 	}
+	else
+	{
+		isUntouchable = true;
+		StartUntouchable();
+	}
+	
 }
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)

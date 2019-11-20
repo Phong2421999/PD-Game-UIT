@@ -20,6 +20,7 @@ CPanther::CPanther(float x, float y) {
 	xGround = 0;
 	yGround = 0;
 	timeSpawn = GetTickCount();
+	isActive = true;
 }
 
 
@@ -34,16 +35,15 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (abs(x - sx) < 92)
 	{
 		isAttacking = true;
-		isActive = true;
 	}
 
 	DWORD now = GetTickCount();
-	if (now - timeSpawn >= 3000)
-	{
-		isActive = true;
-	}
+	//if (now - timeSpawn >= 2000)
+	//{
+	//	isActive = true;
+	//}
 
-	if (isActive)
+	/*if (isActive)
 	{
 		float cx = CGame::GetInstance()->GetCamPos_x();
 		if (nx > 0)
@@ -61,7 +61,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	
-	}
+	}*/
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -125,6 +125,12 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		Run();
 		Jump();
+		CSimon* simon = CSimon::getInstance();
+		if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
+		{
+			CSimon::getInstance()->TouchEnemy(this->nx);
+			CSimon::getInstance()->Damage(1);
+		}
 	}
 
 }

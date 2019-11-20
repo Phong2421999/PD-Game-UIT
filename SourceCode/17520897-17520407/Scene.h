@@ -30,6 +30,8 @@
 #include "WeaponEnemies.h"
 #include "WeaponProjectile.h"
 
+#include "Grid.h"
+
 struct Letter
 {
 	float x, y;
