@@ -10,6 +10,7 @@ class CSpawn: public CGameObject
 private:
 	int width, height;
 	int enemyId;
+	int xEnemy, yEnemy;
 	int quantityEachSpawn;
 	int timeEachSpawn;
 	int spawnerId;
@@ -22,6 +23,11 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	bool IsTouchSimon(LPGAMEOBJECT gameObjet);
+	void SetPositionEnemy(float x, float y)
+	{
+		this->xEnemy = x;
+		this->yEnemy = y;
+	}
 
 	void SetDelaySpawnTime(int delaySpawnTime)
 	{

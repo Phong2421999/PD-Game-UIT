@@ -273,6 +273,9 @@
     <ClCompile Include="CBossBat.cpp">
       <Filter>GameObject\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Cross.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -478,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="CBossBat.h">
       <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Cross.h">
+      <Filter>GameObject\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

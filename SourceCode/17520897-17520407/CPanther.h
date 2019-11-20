@@ -10,12 +10,12 @@
 #define ANI_ID_PANTHER_RUN 1
 #define ANI_ID_PANTHER_JUMP 2
 
-#define PANTHER_OFFSET_FLIP_X 12
+#define PANTHER_OFFSET_FLIP_X 16
 
-#define PANTHER_WIDTH 30
+#define PANTHER_WIDTH 32
 #define PANTHER_HEIGHT 16
-#define PANTHER_GRAVITY 0.0002
-#define PANTHER_VELOCITY_X 0.1
+#define PANTHER_GRAVITY 0.004
+#define PANTHER_VELOCITY_X 0.18
 
 
 
@@ -24,19 +24,30 @@ private:
 	int width, height;
 	int ani;
 
-	bool isAttack;
-	bool isJump;
-	
+	bool isAttacking;
+	bool isJumping;
+	bool isRunning;
+
+	float xBefore;
 	float yBefore;
 
-	float attackDistance; // tính khoảng cách để tấn công
+	float xGround;
+	float yGround;
+
+	int widthGround;
+	int heightGround;
+
+	DWORD timeSpawn;
+
 	float sx, sy; // lấy vị trí simon
 public:
 	CPanther(float x, float y);
 	void Render();
 	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	void CheckJump();
 	void Run();
+	void Jump();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void SetPosition(float x, float y)
 	{

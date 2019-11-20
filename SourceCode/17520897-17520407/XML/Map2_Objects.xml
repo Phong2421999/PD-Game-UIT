@@ -37,17 +37,24 @@
     <Wall x="688" y="148"  width="47" height="13"/>
     <Wall x="750" y="117" width="160" height="13"/>
     <Wall x="927" y="148"  width="100" height="13"/>
-
   </Walls>
   <ChangeSceneObjects id="-1">
     <ChangeScene x="1532" y="168" sceneId="2"
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="1" isDoor="1" width="8" height="14"/>
   </ChangeSceneObjects>
-  <!--<Spawns id="-2" >
-    <Spawn x="84" y="0" spawnerId="0" enemyId="2" quantityEachSpawn ="1" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
-    <Spawn x="550" y="0" spawnerId="1" enemyId="1" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-  </Spawns>-->
+  <Spawns id="-2" >
+    <Spawn x="84" y="0" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
+    
+    <Spawn x="478" y="0" spawnerId="1" enemyId="1" xEnemy="700" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="690" y="0" spawnerId="2" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="772" y="0" spawnerId="3" enemyId="1" xEnemy="944" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    
+    <Spawn x="890" y="0" spawnerId="4" enemyId="1" xEnemy="690" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1044" y="0" spawnerId="5" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1180" y="0" spawnerId="6" enemyId="1" xEnemy="924" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    
+  </Spawns>
   <CheckStairs id="-3">
     <CheckStair x="614" y="208" width="16" height="4" ny="1" nx="1"/>
     <CheckStair x="675" y="144" width="16" height="4" ny="-1" nx="-1"/>
