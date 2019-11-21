@@ -161,7 +161,7 @@ void LoadResources()
 
 
 
-	//Load tất cả scene - không đặt instance được vì trong scene có gọi singleton - Quản lý scene duy nhất ở đây
+	//Load tất cả scene
 	scenes = Scenes::GetInstance();
 	
 	TiXmlDocument scenesXML("XML/Scenes.xml");
@@ -181,7 +181,7 @@ void LoadResources()
 
 	for (sceneXMLElem = rootScenes->FirstChildElement(); sceneXMLElem != NULL; sceneXMLElem = sceneXMLElem->NextSiblingElement())
 	{
-		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene, stage;
+		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene, stage, resetSceneId;
 		float simonStartX, simonStartY;
 		string sceneGameObjectPath;
 		sceneXMLElem->QueryIntAttribute("sceneId", &sceneId);
@@ -190,6 +190,7 @@ void LoadResources()
 		sceneXMLElem->QueryIntAttribute("isLoadBlackScene", &isLoadBlackScene);
 		sceneXMLElem->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
 		sceneXMLElem->QueryIntAttribute("stage", &stage);
+		sceneXMLElem->QueryIntAttribute("resetSceneId", &resetSceneId);
 		sceneXMLElem->QueryFloatAttribute("simonStartX", &simonStartX);
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
@@ -197,6 +198,7 @@ void LoadResources()
 		scene->LoadSceneResource(mapId, sceneGameObjectPath.c_str());
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
+		scenes->AddSceneData(sceneId, resetSceneId, mapId,sceneGameObjectPath.c_str());
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
 			scene->StartLoadScene();
@@ -206,20 +208,32 @@ void LoadResources()
 
 void Update(DWORD dt)
 {
-	sceneId = simon->getCurrentScene();
-	if (simon->getAutoGo() || game->GetCamAutoGo())
+	if (simon->GetDeath())
 	{
-		sceneId = lastSceneId;
+		if (simon->getLive() > 0)
+		{
+			sceneId = simon->getCurrentScene();
+			scenes->ResetScene(sceneId);
+			scenes->Get(sceneId)->Reset();
+		}
 	}
 	else
 	{
-		if (lastSceneId != sceneId)
+		sceneId = simon->getCurrentScene();
+		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
-			scenes->Get(sceneId)->StartLoadScene();
-			lastSceneId = sceneId;
+			sceneId = lastSceneId;
 		}
+		else
+		{
+			if (lastSceneId != sceneId)
+			{
+				scenes->Get(sceneId)->StartLoadScene();
+				lastSceneId = sceneId;
+			}
+		}
+		scenes->Get(sceneId)->Update(dt);
 	}
-	scenes->Get(sceneId)->Update(dt);
 }
 
 void Render()
@@ -235,7 +249,10 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		scenes->Get(sceneId)->Render();
+		if (simon->getLive() > 0)
+		{
+			scenes->Get(sceneId)->Render();
+		}
 
 		spriteHandler->End();
 		d3ddv->EndScene();

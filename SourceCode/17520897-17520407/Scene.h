@@ -74,6 +74,8 @@ public:
 	void Update(DWORD dt);
 	void UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void UpdateBoardGame(DWORD dt);
+	void Reset();
+	bool isInGrid(LPGAMEOBJECT obj);
 
 	void MakeEnemies(DWORD dt);
 	void MakeWeaponEnemies(DWORD dt);

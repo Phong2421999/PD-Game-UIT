@@ -19,17 +19,9 @@ void Grid::checkGrid(vector<CGameObject*>objects, vector<CGameObject*>&returnObj
 	{
 		float x, y;
 		objects[i]->GetPosition(x, y);
-		if (objects[i]->GetHealth() > 0)
+		if ( x <= -150)
 		{
-			if (x >= leftCheck && x <= rightCheck || x <= -150)
-			{
-				returnObject.push_back(objects[i]);
-			}
+			returnObject.push_back(objects[i]);
 		}
-		else
-		{
-			objects.erase(objects.begin() + i);
-		}
-		
 	}
 }

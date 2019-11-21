@@ -293,6 +293,7 @@
     <Image Include="Textures\WhipTexture.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Scenes.txt" />
     <Text Include="Textures\Map1.txt" />
     <Text Include="Textures\Map1_Objects.txt" />
     <Text Include="Textures\TexturesFile.txt" />

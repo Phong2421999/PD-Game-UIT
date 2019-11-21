@@ -12,6 +12,7 @@
     </Animation>
     <!-- Animation DIE -->
     <Animation aniId="502" frameTime="100" name="DIE">
+      <sprite id="10001" left="5" top="24" right="83" bottom="54" frameTime="100"/>
       <sprite id="10003" left="443" top="24" right="521" bottom="54" frameTime="100"/>
     </Animation>
     <!-- Animation MOVE -->

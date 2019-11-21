@@ -25,6 +25,9 @@ private:
 	bool isJumpAttack;
 	bool isAutoGoToStair;
 	bool isAutoGoOutStair;
+	bool isHurt;
+	bool isFightingBoss;
+	bool isDeath;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -41,9 +44,12 @@ private:
 	float onStairDistance;
 
 	DWORD startAttackTime;
+	DWORD startHurtTime;
+	DWORD startDeathTime;
 	DWORD lastAttackTime;
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
+
 	
 	DWORD timeUsingStopWatch;
 	DWORD timeUsingCross;
@@ -87,6 +93,8 @@ public:
 	static CSimon* getInstance();
 	CSimon()
 	{
+		isDeath = false;
+		isFightingBoss = false;
 		onStairDistance = 0;
 		isCanOutStair = false;
 		isCanSetStair = false;
@@ -126,6 +134,7 @@ public:
 		stairActiveNy = 0;
 		ny = 0;
 		isAutoGoOutStair = false;
+		isHurt = false;
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
@@ -218,6 +227,14 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getDeath()
+	{
+		return isDeath;
+	}
+	bool getHurt()
+	{
+		return isHurt;
+	}
 	int getStairActiveNy()
 	{
 		return stairActiveNy;
@@ -339,14 +356,13 @@ public:
 
 
 
-
 	//Xử lí khi chạm vào enemies
 	void StartUntouchable()
 	{
 		isUntouchable = true;
 		startUntouchableTime = GetTickCount();
 	}
-
+	void Reset();
 	void TouchEnemy(int nx);
 	//Load simon weapon
 

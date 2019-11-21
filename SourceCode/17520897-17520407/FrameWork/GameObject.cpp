@@ -160,5 +160,4 @@ bool CGameObject::checkAABBTouch(LPGAMEOBJECT gameObject) // kiá»ƒm tra bbox cá»
 
 CGameObject::~CGameObject()
 {
-	
 }

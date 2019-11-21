@@ -6,7 +6,8 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
 		&& simon->getAutoGoToStair() == false
-		&& simon->getAuToGoOutStair() == false)
+		&& simon->getAuToGoOutStair() == false
+		&& simon->getHurt() == false)
 	{
 		switch (KeyCode)
 		{
@@ -68,6 +69,9 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->GetPosition(x, y);
 			DebugOut(L"\nSimonX: %f, SimonY: %f", x, y);
 			break;
+		case DIK_2:
+			simon->SetHealth(1);
+			break;
 		}
 	}
 }
@@ -77,7 +81,8 @@ void CSimonKeyHandler::OnKeyUp(int KeyCode)
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
 		&& simon->getAutoGoToStair() == false
-		&& simon->getAuToGoOutStair() == false)
+		&& simon->getAuToGoOutStair() == false
+		&& simon->getHurt() == false)
 	{
 		if (KeyCode == DIK_DOWN)
 		{
@@ -94,7 +99,8 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
 		&& simon->getAutoGoToStair() == false
-		&& simon->getAuToGoOutStair() == false)
+		&& simon->getAuToGoOutStair() == false
+		&& simon->getHurt() == false)
 	{
 		if (simon->GetState() == SIMON_STATE_DIE) return;
 		if (game->IsKeyDown(DIK_RIGHT))

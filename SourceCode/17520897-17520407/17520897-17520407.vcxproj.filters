@@ -588,6 +588,9 @@
     <Text Include="TXT\Map6.txt">
       <Filter>TXT</Filter>
     </Text>
+    <Text Include="Scenes.txt">
+      <Filter>TXT</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">

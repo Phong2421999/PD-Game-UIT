@@ -355,12 +355,26 @@ void Scene::MakeEnemies(DWORD dt)
 
 }
 
+bool Scene::isInGrid(LPGAMEOBJECT obj)
+{
+	float x, y;
+	float cx = CGame::GetInstance()->GetCamPos_x();
+	obj->GetPosition(x, y);
+	if (x > cx - 48 && x < cx + SCREEN_WIDTH + 48 || x < -150)
+	{
+		return true;
+	}
+	return false;
+}
+
+
 void Scene::Update(DWORD dt)
 {
 	CGame*game = CGame::GetInstance();
 	CSimon*simon = CSimon::getInstance();
 	CAnimations *animations = CAnimations::GetInstance();
-
+	float cx;
+	cx = CGame::GetInstance()->GetCamPos_x();
 	this->deltaTime = dt;
 	if (isLoadBlackScene)
 	{
@@ -393,10 +407,14 @@ void Scene::Update(DWORD dt)
 		{
 			for (int i = 0; i < objects.size(); i++)
 			{
-				if (dynamic_cast<ChangeSceneObjects*>(objects[i]))
+				if (isInGrid(objects[i]))
 				{
-					objects[i]->Update(dt);
+					if (dynamic_cast<ChangeSceneObjects*>(objects[i]))
+					{
+						objects[i]->Update(dt);
+					}
 				}
+
 			}
 			CSimon::getInstance()->Update(dt);
 		}
@@ -421,104 +439,105 @@ void Scene::Update(DWORD dt)
 			MakeEnemies(dt); // luôn gọi trước khi update các thứ khác
 			MakeWeaponEnemies(dt);
 
-			vector<LPGAMEOBJECT> gridObjects;
-
-			Grid::GetInstance()->checkGrid(objects, gridObjects);
-
 			//lấy objects để tính colisions
 			for (int i = 0; i < objects.size(); i++)
 			{
-				if (dynamic_cast<CheckStair*>(objects[i]))
+				if (isInGrid(objects[i]))
 				{
-					coCheckStairObjects.push_back(objects[i]);
-				}
-				if (dynamic_cast<CSimon*> (objects[i]))
-				{
-					coChangeScence.push_back(objects[i]);
-					coSpawn.push_back(objects[i]);
-					coWeaponEnemies.push_back(objects[i]);
+					if (dynamic_cast<CheckStair*>(objects[i]))
+					{
+						coCheckStairObjects.push_back(objects[i]);
+					}
+					if (dynamic_cast<CSimon*> (objects[i]))
+					{
+						coChangeScence.push_back(objects[i]);
+						coSpawn.push_back(objects[i]);
+						coWeaponEnemies.push_back(objects[i]);
 
-				}
-				if (dynamic_cast<CGround*> (objects[i]))
-				{
-					coEnemies.push_back(objects[i]);
-				}
-				if (dynamic_cast<CGround*> (objects[i])
-					|| (dynamic_cast<CSimon*> (objects[i]))
-					)
-				{
-					coItemObjects.push_back(objects[i]);
-					coHiddenObjects.push_back(objects[i]);
-				}
-				if (!dynamic_cast<CSimon*> (objects[i])
-					&& !dynamic_cast<ChangeSceneObjects*> (objects[i])
-					&& !dynamic_cast<CItems*> (objects[i])
-					&& !dynamic_cast<CSpawn*>(objects[i])
-					)
-				{
-					coWeaponObjects.push_back(objects[i]);
-				}
-				if (dynamic_cast<CEnemies*> (objects[i])
-					|| dynamic_cast<CSpawn*>(objects[i])
-					)
-				{
-					coDestroy.push_back(objects[i]);
-				}
-				if (simon->getUntouchable())
-				{
+					}
 					if (dynamic_cast<CGround*> (objects[i]))
 					{
-						coObjects.push_back(objects[i]);
+						coEnemies.push_back(objects[i]);
 					}
-				}
-				else
-				{
-					if (!dynamic_cast<CItems*>(objects[i])
-						&& !dynamic_cast<CStaticObject*> (objects[i])
-						&& !dynamic_cast<CSpawn*> (objects[i])
-						&& !dynamic_cast<HiddenObjects*>(objects[i])
-						&& !dynamic_cast<CEnemies *> (objects[i])
+					if (dynamic_cast<CGround*> (objects[i])
+						|| (dynamic_cast<CSimon*> (objects[i]))
 						)
 					{
-						coObjects.push_back(objects[i]);
+						coItemObjects.push_back(objects[i]);
+						coHiddenObjects.push_back(objects[i]);
 					}
-				}
-
-				if (objects[i]->GetHealth() <= 0)
-				{
-					if (objects[i]->GetKillBySimon())
+					if (!dynamic_cast<CSimon*> (objects[i])
+						&& !dynamic_cast<ChangeSceneObjects*> (objects[i])
+						&& !dynamic_cast<CItems*> (objects[i])
+						&& !dynamic_cast<CSpawn*>(objects[i])
+						)
 					{
-						float x, y;
-						CEffect * hit = new CHit();
-						if (objects[i]->GetKillBySimon())
+						coWeaponObjects.push_back(objects[i]);
+					}
+					if (dynamic_cast<CEnemies*> (objects[i])
+						|| dynamic_cast<CSpawn*>(objects[i])
+						)
+					{
+						coDestroy.push_back(objects[i]);
+					}
+					if (simon->getUntouchable())
+					{
+						if (dynamic_cast<CGround*> (objects[i]))
 						{
-							hit->SetKillBySimon(true);
+							coObjects.push_back(objects[i]);
 						}
-						if (dynamic_cast<CStaticObject*>(objects[i]))
-							hit->SetMakeItem(STATIC_OBJECT);
-						if (dynamic_cast<CEnemies*> (objects[i]))
-						{
-							hit->SetMakeItem(ENEMY);
-							CSpawner::GetInstance()->quantityEnemyDied++;
-						}
-						objects[i]->GetPosition(x, y);
-						hit->SetPosition(x, y);
-						effects.push_back(hit);
-						objects.erase(objects.begin() + i);
 					}
 					else
 					{
-						if (dynamic_cast<CEnemies*> (objects[i]))
+						if (!dynamic_cast<CItems*>(objects[i])
+							&& !dynamic_cast<CStaticObject*> (objects[i])
+							&& !dynamic_cast<CSpawn*> (objects[i])
+							&& !dynamic_cast<HiddenObjects*>(objects[i])
+							&& !dynamic_cast<CEnemies *> (objects[i])
+							)
 						{
-							CSpawner::GetInstance()->quantityEnemyDied++;
+							coObjects.push_back(objects[i]);
 						}
-						objects.erase(objects.begin() + i);
 					}
 
+					if (objects[i]->GetHealth() <= 0)
+					{
+						if (dynamic_cast<CSimon*>(objects[i]) == false)
+						{
+							if (objects[i]->GetKillBySimon())
+							{
+								float x, y;
+								CEffect * hit = new CHit();
+								if (objects[i]->GetKillBySimon())
+								{
+									hit->SetKillBySimon(true);
+								}
+								if (dynamic_cast<CStaticObject*>(objects[i]))
+									hit->SetMakeItem(STATIC_OBJECT);
+								if (dynamic_cast<CEnemies*> (objects[i]))
+								{
+									hit->SetMakeItem(ENEMY);
+									CSpawner::GetInstance()->quantityEnemyDied++;
+								}
+								objects[i]->GetPosition(x, y);
+								hit->SetPosition(x, y);
+								effects.push_back(hit);
+								objects.erase(objects.begin() + i);
+							}
+							else
+							{
+								if (dynamic_cast<CEnemies*> (objects[i]))
+								{
+									CSpawner::GetInstance()->quantityEnemyDied++;
+								}
+								objects.erase(objects.begin() + i);
+							}
+						}
+						else
+							objects[i]->SetState(SIMON_STATE_DIE);
+					}
 				}
 			}
-
-
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 			UpdateWeaponEnemies(dt, &coWeaponEnemies);
 
@@ -527,40 +546,47 @@ void Scene::Update(DWORD dt)
 			{
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (dynamic_cast<CItems*> (objects[i]))
+					if (isInGrid(objects[i]))
 					{
-						objects[i]->Update(dt, &coItemObjects);
-					}
-					else if (dynamic_cast<CDestroy*> (objects[i]))
-					{
-						objects[i]->Update(dt, &coDestroy);
-					}
-					else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
-					{
-						objects[i]->Update(dt, &coChangeScence);
-					}
-					else if (dynamic_cast<HiddenObjects*>(objects[i]))
-					{
-						objects[i]->Update(dt, &coHiddenObjects);
-					}
-					else if (dynamic_cast<CSimon*> (objects[i])) {
-						objects[i]->Update(dt, &coObjects);
-					}
 
+						if (dynamic_cast<CItems*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coItemObjects);
+						}
+						else if (dynamic_cast<CDestroy*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coDestroy);
+						}
+						else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coChangeScence);
+						}
+						else if (dynamic_cast<HiddenObjects*>(objects[i]))
+						{
+							objects[i]->Update(dt, &coHiddenObjects);
+						}
+						else if (dynamic_cast<CSimon*> (objects[i])) {
+							objects[i]->Update(dt, &coObjects);
+						}
+
+					}
 				}
+
 			}
 			else if (simon->getUsingCross())
 			{
 				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (dynamic_cast<CEnemies*>(objects[i])) {
-						objects.erase(objects.begin() + i);
+					if (isInGrid(objects[i]))
+					{
+						if (dynamic_cast<CEnemies*>(objects[i])) {
+							objects.erase(objects.begin() + i);
+						}
+						else if (dynamic_cast<CSimon*> (objects[i])) {
+							objects[i]->Update(dt, &coObjects);
+						}
 					}
-					else if (dynamic_cast<CSimon*> (objects[i])) {
-						objects[i]->Update(dt, &coObjects);
-					}
-
 				}
 			}
 			else
@@ -568,31 +594,34 @@ void Scene::Update(DWORD dt)
 				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (dynamic_cast<CItems*> (objects[i]))
+					if (isInGrid(objects[i]))
 					{
-						objects[i]->Update(dt, &coItemObjects);
-					}
-					else if (dynamic_cast<CEnemies*>(objects[i])) {
-						objects[i]->Update(dt, &coEnemies);
-					}
-					else if (dynamic_cast<CSpawn*> (objects[i]))
-					{
-						objects[i]->Update(dt, &coSpawn);
-					}
-					else if (dynamic_cast<CDestroy*> (objects[i]))
-					{
-						objects[i]->Update(dt, &coDestroy);
-					}
-					else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
-					{
-						objects[i]->Update(dt, &coChangeScence);
-					}
-					else if (dynamic_cast<HiddenObjects*>(objects[i]))
-					{
-						objects[i]->Update(dt, &coHiddenObjects);
-					}
-					else {
-						objects[i]->Update(dt, &coObjects);
+						if (dynamic_cast<CItems*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coItemObjects);
+						}
+						else if (dynamic_cast<CEnemies*>(objects[i])) {
+							objects[i]->Update(dt, &coEnemies);
+						}
+						else if (dynamic_cast<CSpawn*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coSpawn);
+						}
+						else if (dynamic_cast<CDestroy*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coDestroy);
+						}
+						else if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
+						{
+							objects[i]->Update(dt, &coChangeScence);
+						}
+						else if (dynamic_cast<HiddenObjects*>(objects[i]))
+						{
+							objects[i]->Update(dt, &coHiddenObjects);
+						}
+						else {
+							objects[i]->Update(dt, &coObjects);
+						}
 					}
 				}
 			}
@@ -603,94 +632,101 @@ void Scene::Update(DWORD dt)
 
 			for (int i = 0; i < effects.size(); i++)
 			{
-				if (effects[i]->GetLastFrame())
+				if (isInGrid(effects[i]))
 				{
-					float x, y;
-					effects[i]->GetPosition(x, y);
-					if (effects[i]->GetKillBySimon())
+					if (effects[i]->GetLastFrame())
 					{
-						if (effects[i]->GetMakeItem() == STATIC_OBJECT)
+						float x, y;
+						effects[i]->GetPosition(x, y);
+						if (effects[i]->GetKillBySimon())
 						{
+							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
+							{
 
-							int rand = Random(1, 10);
-							animations->Get(ANI_HIT)->reset();
-							/*if (rand == 1)
-							{
-								LargeHeart* largeHeart = new LargeHeart(x, y);
-								listItems.push_back(largeHeart);
-							}*/
-							/*if ( CSimon::getInstance()->getWeaponLevel() < 3)
-							{
-								WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
-								listItems.push_back(whipUpgrade);
-							}
-							else*/
-							/*	if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+								int rand = Random(1, 10);
+								animations->Get(ANI_HIT)->reset();
+								/*if (rand == 1)
 								{
-									Danger* danger = new Danger(x, y);
-									listItems.push_back(danger);
+									LargeHeart* largeHeart = new LargeHeart(x, y);
+									listItems.push_back(largeHeart);
 								}*/
-							if (rand >= 2 && rand <= 8)
-							{
-								Cross* cross = new Cross(x, y);
-								listItems.push_back(cross);
-							}
-							/*if (rand >=2  && rand <= 8)
-							{
-								Axe* axe = new Axe(x, y);
-								listItems.push_back(axe);
-							}*/
-							/*if (rand >=2  && rand <= 8)
-							{
-								HolyWater* holyWater = new HolyWater(x, y);
-								listItems.push_back(holyWater);
-							}*/
-						/*	StopWatch* stopWatch = new StopWatch(x, y);
-							listItems.push_back(stopWatch);*/
-							/*if (rand >= 2 && rand <= 8)
-							{
-								MoneyBag* moneyBag = new MoneyBag(x, y);
-								listItems.push_back(moneyBag);
-							}*/
-							/*else if (rand >= 2 && rand <= 8)
-							{
-								SmallHeart* smallHeart = new SmallHeart(x, y);
-								listItems.push_back(smallHeart);
-							}
-							else
-							{
-								SmallHeart* smallHeart = new SmallHeart(x, y);
-								listItems.push_back(smallHeart);
-							}*/
+								/*if ( CSimon::getInstance()->getWeaponLevel() < 3)
+								{
+									WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
+									listItems.push_back(whipUpgrade);
+								}
+								else*/
+								/*	if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+									{
+										Danger* danger = new Danger(x, y);
+										listItems.push_back(danger);
+									}*/
+								if (rand >= 2 && rand <= 8)
+								{
+									Cross* cross = new Cross(x, y);
+									listItems.push_back(cross);
+								}
+								/*if (rand >=2  && rand <= 8)
+								{
+									Axe* axe = new Axe(x, y);
+									listItems.push_back(axe);
+								}*/
+								/*if (rand >=2  && rand <= 8)
+								{
+									HolyWater* holyWater = new HolyWater(x, y);
+									listItems.push_back(holyWater);
+								}*/
+								/*	StopWatch* stopWatch = new StopWatch(x, y);
+									listItems.push_back(stopWatch);*/
+									/*if (rand >= 2 && rand <= 8)
+									{
+										MoneyBag* moneyBag = new MoneyBag(x, y);
+										listItems.push_back(moneyBag);
+									}*/
+									/*else if (rand >= 2 && rand <= 8)
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}
+									else
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}*/
 
-						}
-						if (effects[i]->GetMakeItem() == ENEMY)
-						{
-							int rand = Random(1, 100);
-							animations->Get(ANI_HIT)->reset();
-							if (rand == 1)
-							{
-								LargeHeart* largeHeart = new LargeHeart(x, y);
-								listItems.push_back(largeHeart);
 							}
-							if (rand == 99)
+							if (effects[i]->GetMakeItem() == ENEMY)
 							{
-								SmallHeart* smallHeart = new SmallHeart(x, y);
-								listItems.push_back(smallHeart);
+								int rand = Random(1, 100);
+								animations->Get(ANI_HIT)->reset();
+								if (rand == 1)
+								{
+									LargeHeart* largeHeart = new LargeHeart(x, y);
+									listItems.push_back(largeHeart);
+								}
+								if (rand == 99)
+								{
+									SmallHeart* smallHeart = new SmallHeart(x, y);
+									listItems.push_back(smallHeart);
+								}
 							}
 						}
+						animations->Get(ANI_HIT)->reset();
+						effects.erase(effects.begin() + i);
 					}
-					animations->Get(ANI_HIT)->reset();
-					effects.erase(effects.begin() + i);
 				}
 			}
 
 			for (int i = 0; i < listItems.size(); i++)
 			{
-				if (listItems[i]->GetHealth() > 0)
-					listItems[i]->Update(dt, &coItemObjects);
-				else
-					listItems.erase(listItems.begin() + i);
+				if (isInGrid(listItems[i]))
+				{
+					if (listItems[i]->GetHealth() > 0)
+						listItems[i]->Update(dt, &coItemObjects);
+					else
+						listItems.erase(listItems.begin() + i);
+				}
+
 			}
 		}
 		else
@@ -832,44 +868,87 @@ void Scene::Render()
 			{
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (dynamic_cast<CSimon*> (objects[i]) == false)
+					if (isInGrid(objects[i]))
 					{
-						objects[i]->RenderCurrentFrame();
+						if (dynamic_cast<CSimon*> (objects[i]) == false)
+						{
+							objects[i]->RenderCurrentFrame();
+						}
+						else
+							objects[i]->Render();
 					}
-					else
-						objects[i]->Render();
+
 				}
 				for (int i = 0; i < effects.size(); i++)
-					effects[i]->RenderCurrentFrame();
+				{
+					if (isInGrid(objects[i]))
+					{
+						effects[i]->RenderCurrentFrame();
+					}
+				}
+
 				for (int i = 0; i < listItems.size(); i++)
-					listItems[i]->RenderCurrentFrame();
+				{
+					if (isInGrid(objects[i]))
+					{
+						listItems[i]->RenderCurrentFrame();
+					}
+
+				}
 			}
 			else if (simon->getUsingStopWatch())
 			{
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (dynamic_cast<CEnemies*>(objects[i]))
-						objects[i]->RenderCurrentFrame();
-					else
-						objects[i]->Render();
+					if (isInGrid(objects[i]))
+					{
+						if (dynamic_cast<CEnemies*>(objects[i]))
+							objects[i]->RenderCurrentFrame();
+						else
+							objects[i]->Render();
+					}
 				}
 				for (int i = 0; i < effects.size(); i++)
-					effects[i]->Render();
+				{
+					if (isInGrid(objects[i]))
+					{
+						effects[i]->Render();
+					}
+				}
 				for (int i = 0; i < listItems.size(); i++)
-					listItems[i]->Render();
+					if (isInGrid(objects[i]))
+					{
+						listItems[i]->Render();
+					}
 				for (int i = 0; i < weaponEnemies.size(); i++)
-					weaponEnemies[i]->RenderCurrentFrame();
+					if (isInGrid(objects[i]))
+					{
+						weaponEnemies[i]->RenderCurrentFrame();
+					}
 			}
 			else
 			{
 				for (int i = 0; i < objects.size(); i++)
-					objects[i]->Render();
+				{
+					if (isInGrid(objects[i]))
+						objects[i]->Render();
+				}
 				for (int i = 0; i < effects.size(); i++)
-					effects[i]->Render();
+				{
+					if (isInGrid(objects[i]))
+						effects[i]->Render();
+				}
 				for (int i = 0; i < listItems.size(); i++)
-					listItems[i]->Render();
+				{
+					if (isInGrid(objects[i]))
+						listItems[i]->Render();
+				}
 				for (int i = 0; i < weaponEnemies.size(); i++)
-					weaponEnemies[i]->Render();
+				{
+					if (isInGrid(objects[i]))
+						weaponEnemies[i]->Render();
+
+				}
 			}
 		}
 
@@ -879,9 +958,16 @@ void Scene::Render()
 
 void Scene::StartLoadScene()
 {
+	CSimon::getInstance()->SetPosition(simonStartX, simonStartY);
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
-	CSimon::getInstance()->SetPosition(simonStartX, simonStartY);
+	isLoadBlackScene = true;
 	lastTimeEachStage = GetTickCount();
+}
+
+void Scene::Reset()
+{
+	CSimon::getInstance()->Reset();
+	CBoardGame::GetInstance()->setLimitTime(300);
 }

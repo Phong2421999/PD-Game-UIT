@@ -13,7 +13,7 @@
   <ChangeScenes id="-1" >
     <ChangeScene x="675" y="168" sceneId="1"
      simonAutoGo="1" simonAutoGoDistance="35"
-     camAutoGo="0" isDoor="0" width="16" height="30"/>
+     camAutoGo="0" isDoor="0" width="100" height="30"/>
   </ChangeScenes>
 
   <Detroys id="-99" >
