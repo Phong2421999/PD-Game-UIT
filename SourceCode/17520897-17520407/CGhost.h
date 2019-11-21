@@ -16,6 +16,10 @@
 #define GHOST_OFFSET_X 16
 #define GHOST_OFFSET_Y 8
 
+#define GHOST_SPAWN_POSITION_Y 128
+#define GHOST_SPAWN_GRAVITY 100
+
+
 class CGhost : public CEnemies {
 private:
 	int width, height;

@@ -72,6 +72,9 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		case DIK_2:
 			simon->SetHealth(1);
 			break;
+		case DIK_3:
+			simon->SetHealth(9999999);
+			break;
 		}
 	}
 }

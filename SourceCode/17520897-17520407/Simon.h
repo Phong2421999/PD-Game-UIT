@@ -28,6 +28,7 @@ private:
 	bool isHurt;
 	bool isFightingBoss;
 	bool isDeath;
+	bool isOnGround;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -93,6 +94,7 @@ public:
 	static CSimon* getInstance();
 	CSimon()
 	{
+		isOnGround = true;
 		isDeath = false;
 		isFightingBoss = false;
 		onStairDistance = 0;

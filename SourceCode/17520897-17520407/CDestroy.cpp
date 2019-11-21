@@ -22,11 +22,13 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (IsTouchOtherColision(coObjects->at(i)))
 		{
-			if (dynamic_cast<CEnemies*>(coObjects->at(i)))
+			CEnemies* enemy = dynamic_cast<CEnemies*>(coObjects->at(i));
+			if (dynamic_cast<CEnemies*>(enemy))
 			{
-				CEnemies* enemy = dynamic_cast<CEnemies*>(coObjects->at(i));
-				if(enemy->GetActive())
+				if (enemy->GetActive())
+				{
 					coObjects->at(i)->Damage(1);
+				}
 			}
 		}
 	}

@@ -89,6 +89,8 @@
 
 #define SIMON_MAX_LIVE 3
 
+#define SIMON_OFFSET_TO_BBOX_X 16
+
 
 enum SIMON_WEAPON {
 	NONE,

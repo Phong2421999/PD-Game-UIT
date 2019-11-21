@@ -8,7 +8,10 @@ void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (dynamic_cast<CSimon*> (coObjects->at(i)))
 			{
-				if (CSimon::getInstance()->getState() == SIMON_STATE_IDLE || CSimon::getInstance()->getState() == SIMON_STATE_WALKING_LEFT || CSimon::getInstance()->getState() == SIMON_STATE_WALKING_RIGHT)
+				if (CSimon::getInstance()->getState() == SIMON_STATE_IDLE 
+					|| CSimon::getInstance()->getState() == SIMON_STATE_WALKING_LEFT 
+					|| CSimon::getInstance()->getState() == SIMON_STATE_WALKING_RIGHT
+					|| CSimon::getInstance()->getState() == SIMON_STATE_SIT)
 				{
 					if (this->checkAABBTouch(coObjects->at(i)))
 					{

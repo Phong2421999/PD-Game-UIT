@@ -9,14 +9,15 @@ CGhost::CGhost(float x, float y) {
 	{
 		nx = 1;
 		this->x = x - GHOST_OFFSET_X;
-		this->y = y - GHOST_OFFSET_Y;
+		this->y = GHOST_SPAWN_POSITION_Y;
 	}
 	else
 	{
 		nx = -1;
 		this->x = x + SCREEN_WIDTH - GHOST_OFFSET_X;
-		this->y = y - GHOST_OFFSET_Y;
+		this->y = GHOST_SPAWN_POSITION_Y;
 	}
+	vy = GHOST_SPAWN_GRAVITY;
 	startSpawnTime = GetTickCount();
 }
 
@@ -42,7 +43,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	DWORD now = GetTickCount();
 	if (now - startSpawnTime >= GHOST_ACTIVE_TIME)
 		isActive = true;
-	vy += GHOST_GRAVITY * dt;
+	
 	if (nx > 0)
 		vx = GHOST_VELOCITY_X;
 	else
@@ -57,8 +58,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		y += dy;
 		x += dx;
+		y += dy;
 	}
 	else
 	{
@@ -67,6 +68,14 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
 		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
+		for (int i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CGround*>(e->obj))
+			{
+				vy += GHOST_GRAVITY * dt;
+			}
+		}
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

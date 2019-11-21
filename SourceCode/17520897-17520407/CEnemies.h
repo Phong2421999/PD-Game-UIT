@@ -36,6 +36,9 @@ public:
 	{
 		return this->isActive;
 	}
+	~CEnemies()
+	{
+	}
 };
 
 typedef CEnemies* LPENEMIES;

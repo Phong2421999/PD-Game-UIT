@@ -360,7 +360,7 @@ bool Scene::isInGrid(LPGAMEOBJECT obj)
 	float x, y;
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	obj->GetPosition(x, y);
-	if (x > cx - 48 && x < cx + SCREEN_WIDTH + 48 || x < -150)
+	if (x > cx - 64 && x < cx + SCREEN_WIDTH + 64 || x < -150)
 	{
 		return true;
 	}
@@ -522,7 +522,6 @@ void Scene::Update(DWORD dt)
 								objects[i]->GetPosition(x, y);
 								hit->SetPosition(x, y);
 								effects.push_back(hit);
-								objects.erase(objects.begin() + i);
 							}
 							else
 							{
@@ -530,8 +529,8 @@ void Scene::Update(DWORD dt)
 								{
 									CSpawner::GetInstance()->quantityEnemyDied++;
 								}
-								objects.erase(objects.begin() + i);
 							}
+							objects.erase(objects.begin() + i);
 						}
 						else
 							objects[i]->SetState(SIMON_STATE_DIE);
@@ -645,54 +644,56 @@ void Scene::Update(DWORD dt)
 
 								int rand = Random(1, 10);
 								animations->Get(ANI_HIT)->reset();
-								/*if (rand == 1)
+								if (rand == 1)
 								{
 									LargeHeart* largeHeart = new LargeHeart(x, y);
 									listItems.push_back(largeHeart);
-								}*/
-								/*if ( CSimon::getInstance()->getWeaponLevel() < 3)
+								}
+								else if (CSimon::getInstance()->getWeaponLevel() < 3)
 								{
 									WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
 									listItems.push_back(whipUpgrade);
 								}
-								else*/
-								/*	if ( CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
-									{
-										Danger* danger = new Danger(x, y);
-										listItems.push_back(danger);
-									}*/
-								if (rand >= 2 && rand <= 8)
+								else if (rand == 7)
+								{
+									Danger* danger = new Danger(x, y);
+									listItems.push_back(danger);
+								}
+								else if (rand == 2)
 								{
 									Cross* cross = new Cross(x, y);
 									listItems.push_back(cross);
 								}
-								/*if (rand >=2  && rand <= 8)
+								else if (rand == 3)
 								{
 									Axe* axe = new Axe(x, y);
 									listItems.push_back(axe);
-								}*/
-								/*if (rand >=2  && rand <= 8)
+								}
+								else if (rand == 4)
 								{
 									HolyWater* holyWater = new HolyWater(x, y);
 									listItems.push_back(holyWater);
+								}
+								else if (rand == 5)
+								{
+									StopWatch* stopWatch = new StopWatch(x, y);
+									listItems.push_back(stopWatch);
+								}
+								else if (rand == 6)
+								{
+									MoneyBag* moneyBag = new MoneyBag(x, y);
+									listItems.push_back(moneyBag);
+								}
+								/*else if (rand == 7)
+								{
+									SmallHeart* smallHeart = new SmallHeart(x, y);
+									listItems.push_back(smallHeart);
 								}*/
-								/*	StopWatch* stopWatch = new StopWatch(x, y);
-									listItems.push_back(stopWatch);*/
-									/*if (rand >= 2 && rand <= 8)
-									{
-										MoneyBag* moneyBag = new MoneyBag(x, y);
-										listItems.push_back(moneyBag);
-									}*/
-									/*else if (rand >= 2 && rand <= 8)
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}
-									else
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}*/
+								else
+								{
+									SmallHeart* smallHeart = new SmallHeart(x, y);
+									listItems.push_back(smallHeart);
+								}
 
 							}
 							if (effects[i]->GetMakeItem() == ENEMY)
