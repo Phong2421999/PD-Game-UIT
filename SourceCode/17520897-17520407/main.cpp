@@ -87,7 +87,7 @@ void LoadResources()
 	for (tileSet = rootMap->FirstChildElement(); tileSet != NULL; tileSet = tileSet->NextSiblingElement())
 	{
 		int mapId, texMapId, R, B, G;
-		string tileSetPath,mapPath;
+		string tileSetPath, mapPath;
 		tileSetPath = tileSet->Attribute("tileSetPath");
 		tileSet->QueryIntAttribute("R", &R);
 		tileSet->QueryIntAttribute("G", &G);
@@ -160,10 +160,8 @@ void LoadResources()
 	}
 
 
-
-	//Load tất cả scene
 	scenes = Scenes::GetInstance();
-	
+
 	TiXmlDocument scenesXML("XML/Scenes.xml");
 	if (!scenesXML.LoadFile())
 	{

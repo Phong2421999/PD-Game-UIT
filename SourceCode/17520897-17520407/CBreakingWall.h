@@ -6,7 +6,6 @@
 class CBreakingWall :public CEffect {
 
 public:
-	CBreakingWall();
+	CBreakingWall(float x, float y);
 	void Render();
-
 };

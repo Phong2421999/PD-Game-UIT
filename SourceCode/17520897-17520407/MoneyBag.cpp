@@ -48,20 +48,6 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		health = 0;
 	}
 
-	if (coObjects->size() >= 0)
-	{
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (IsTouchColision(coObjects->at(i)))
-			{
-				if (dynamic_cast<CSimon*> (coObjects->at(i)))
-				{
-					health = 0;
-				}
-			}
-		}
-	}
-
 }
 
 void MoneyBag::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

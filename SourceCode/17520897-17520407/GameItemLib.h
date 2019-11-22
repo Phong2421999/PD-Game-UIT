@@ -1,5 +1,6 @@
 #pragma once
 #include "CHit.h"
+#include "CSplash.h"
 #include "CBreakingWall.h"
 #include "WhipUpgrade.h"
 #include "LargeHeart.h"
@@ -10,3 +11,5 @@
 #include "StopWatch.h"
 #include "MoneyBag.h"
 #include "Cross.h"
+#include "PotRoast.h"
+#include "InvicibilityPotion.h"

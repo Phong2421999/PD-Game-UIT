@@ -8,7 +8,7 @@ CMoneyEffect::CMoneyEffect(float x, float y, GAME_ITEM moneyType)
 	this->AddAnimation(ANI_WHITE_BAG_EFFECT);
 
 	this->x = x + 10;
-	this->y = y;
+	this->y = y - 10	;
 
 	switch (moneyType)
 	{
@@ -22,6 +22,9 @@ CMoneyEffect::CMoneyEffect(float x, float y, GAME_ITEM moneyType)
 		ani = ANI_WHITE_BAG_EFFECT_ID;
 		break;
 	}
+}
+bool CMoneyEffect::GetLastFrame() {
+	return animations[ani]->getLastFrame();
 }
 
 void CMoneyEffect::Render() {

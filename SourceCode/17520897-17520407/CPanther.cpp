@@ -36,33 +36,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		isAttacking = true;
 	}
-
-	DWORD now = GetTickCount();
-	//if (now - timeSpawn >= 2000)
-	//{
-	//	isActive = true;
-	//}
-
-	/*if (isActive)
-	{
-		float cx = CGame::GetInstance()->GetCamPos_x();
-		if (nx > 0)
-		{
-			if (x < cx)
-			{
-				health = 0;
-			}
-		}
-		else
-		{
-			if (x > cx + SCREEN_WIDTH - 8)
-			{
-				health = 0;
-			}
-		}
-
-	}*/
-
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 

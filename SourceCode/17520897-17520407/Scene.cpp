@@ -335,7 +335,7 @@ void Scene::MakeEnemies(DWORD dt)
 			{
 				if (spawner->enemyId == GHOST_ID)
 				{
-					CGhost* ghost = new CGhost(cx, sy);
+					CGhost* ghost = new CGhost(cx, cy);
 					spawner->quantitySpawned += 1;
 					objects.push_back(ghost);
 
@@ -354,7 +354,28 @@ void Scene::MakeEnemies(DWORD dt)
 				}
 				else if (spawner->enemyId == FISH_ID)
 				{
+					float x, y;
 					CUglyFish* fish = new CUglyFish(cx, cy);
+					fish->GetPosition(x, y);
+					for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
+					{
+						if (i == 0)
+						{
+							y = SPLASH_Y_SIDE;
+						}
+						else if (i == 1)
+						{
+							y = SPLASH_Y_CENTER;
+							x = x + SPLASH_OFFSET_LEFT;
+						}
+						else
+						{
+							y = SPLASH_Y_SIDE;
+							x = x + SPLASH_OFFSET_RIGHT;
+						}
+						CEffect * splash = new CSplash(x, y);
+						effects.push_back(splash);
+					}
 					spawner->quantitySpawned += 1;
 					objects.push_back(fish);
 				}
@@ -376,9 +397,23 @@ bool Scene::isInGrid(LPGAMEOBJECT obj)
 	float x, y;
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	obj->GetPosition(x, y);
-	if (x > cx - 64 && x < cx + SCREEN_WIDTH + 64 || x < -150)
+	if (cx + SCREEN_WIDTH == SCENCE_WITDH)
 	{
-		return true;
+		if (x > cx - 86 && x < SCENCE_WITDH + 128 || x < -150)
+		{
+			if (dynamic_cast<CEnemies*>(obj))
+			{
+				DebugOut(L"\nX: %f,  SCENCE_WITDH + 128: %f", x, SCENCE_WITDH + 128);
+			}
+			return true;
+		}
+	}
+	else
+	{
+		if (x > cx - 86 && x < cx + SCREEN_WIDTH + 86 || x < -150)
+		{
+			return true;
+		}
 	}
 	return false;
 }
@@ -536,6 +571,30 @@ void Scene::Update(DWORD dt)
 						}
 						else
 						{
+							if (dynamic_cast<CUglyFish*>(objects[i]))
+							{
+								float x, y;
+								objects[i]->GetPosition(x, y);
+								for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
+								{
+									if (i == 0)
+									{
+										y = SPLASH_Y_SIDE;
+									}
+									else if (i == 1)
+									{
+										y = SPLASH_Y_CENTER;
+										x = x + SPLASH_OFFSET_LEFT;
+									}
+									else
+									{
+										y = SPLASH_Y_SIDE;
+										x = x + SPLASH_OFFSET_RIGHT;
+									}
+									CEffect * splash = new CSplash(x, y);
+									effects.push_back(splash);
+								}
+							}
 							if (dynamic_cast<CEnemies*> (objects[i]))
 							{
 								CSpawner::GetInstance()->quantityEnemyDied++;
@@ -603,6 +662,10 @@ void Scene::Update(DWORD dt)
 				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
 				for (int i = 0; i < objects.size(); i++)
 				{
+					if (dynamic_cast<CEnemies*>(objects[i])) {
+						float x, y;
+						objects[i]->GetPosition(x, y);
+					}
 					if (isInGrid(objects[i]))
 					{
 						if (dynamic_cast<CItems*> (objects[i]))
@@ -610,6 +673,7 @@ void Scene::Update(DWORD dt)
 							objects[i]->Update(dt, &coItemObjects);
 						}
 						else if (dynamic_cast<CEnemies*>(objects[i])) {
+							
 							objects[i]->Update(dt, &coEnemies);
 						}
 						else if (dynamic_cast<CSpawn*> (objects[i]))
@@ -638,6 +702,29 @@ void Scene::Update(DWORD dt)
 
 			simon->UpdateCheckStair(&coCheckStairObjects);
 
+			for (int i = 0; i < listItems.size(); i++)
+			{
+				if (listItems[i]->GetHealth() > 0)
+				{
+					listItems[i]->Update(dt, &coItemObjects);
+				}
+				else
+				{
+					if (dynamic_cast<MoneyBag*>(listItems[i]))
+					{
+						float x, y;
+						listItems[i]->GetPosition(x, y);
+						CEffect * moneyEffect = new CMoneyEffect(x, y, listItems[i]->GetGameItem());
+						effects.push_back(moneyEffect);
+						listItems.erase(listItems.begin() + i);
+					}
+					else
+					{
+						listItems.erase(listItems.begin() + i);
+					}
+				}
+			}
+
 			for (int i = 0; i < effects.size(); i++)
 			{
 				if (isInGrid(effects[i]))
@@ -650,59 +737,90 @@ void Scene::Update(DWORD dt)
 						{
 							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
 							{
-
-								int rand = Random(1, 10);
+								int rand = Random(0, 20);
 								animations->Get(ANI_HIT)->reset();
-								if (rand == 1)
-								{
-									LargeHeart* largeHeart = new LargeHeart(x, y);
-									listItems.push_back(largeHeart);
-								}
-								else if (CSimon::getInstance()->getWeaponLevel() < 3)
-								{
-									WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
-									listItems.push_back(whipUpgrade);
-								}
-								else if (rand == 7)
-								{
-									Danger* danger = new Danger(x, y);
-									listItems.push_back(danger);
-								}
-								else if (rand == 2)
-								{
-									Cross* cross = new Cross(x, y);
-									listItems.push_back(cross);
-								}
-								else if (rand == 3)
-								{
-									Axe* axe = new Axe(x, y);
-									listItems.push_back(axe);
-								}
-								else if (rand == 4)
-								{
-									HolyWater* holyWater = new HolyWater(x, y);
-									listItems.push_back(holyWater);
-								}
-								else if (rand == 5)
-								{
-									StopWatch* stopWatch = new StopWatch(x, y);
-									listItems.push_back(stopWatch);
-								}
-								else if (rand == 6)
-								{
-									MoneyBag* moneyBag = new MoneyBag(x, y);
-									listItems.push_back(moneyBag);
-								}
-								/*else if (rand == 7)
-								{
-									SmallHeart* smallHeart = new SmallHeart(x, y);
-									listItems.push_back(smallHeart);
-								}*/
-								else
-								{
-									SmallHeart* smallHeart = new SmallHeart(x, y);
-									listItems.push_back(smallHeart);
-								}
+								InviPotion * inviPotion = new InviPotion(x, y);
+								listItems.push_back(inviPotion);
+								/*		PotRoast* potRoast = new PotRoast(x, y);
+										listItems.push_back(potRoast);*/
+										/*if (CSimon::getInstance()->getWeaponLevel() < 3)
+										{
+											WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
+											listItems.push_back(whipUpgrade);
+										}
+										else if (rand >= 0 && rand < 2)
+										{
+											LargeHeart* largeHeart = new LargeHeart(x, y);
+											listItems.push_back(largeHeart);
+										}
+										else if (rand >= 2 && rand < 8)
+										{
+											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+											{
+												Danger* danger = new Danger(x, y);
+												listItems.push_back(danger);
+											}
+											else
+											{
+												SmallHeart* smallHeart = new SmallHeart(x, y);
+												listItems.push_back(smallHeart);
+											}
+										}
+										else if (rand == 8)
+										{
+											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::AXE &&
+												CSimon::getInstance()->getCurrentScene() == 3)
+											{
+												Axe* axe = new Axe(x, y);
+												listItems.push_back(axe);
+											}
+											else
+											{
+												SmallHeart* smallHeart = new SmallHeart(x, y);
+												listItems.push_back(smallHeart);
+											}
+										}
+										else if (rand == 9)
+										{
+											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::HOLY_WATER)
+											{
+												HolyWater* holyWater = new HolyWater(x, y);
+												listItems.push_back(holyWater);
+											}
+											else
+											{
+												SmallHeart* smallHeart = new SmallHeart(x, y);
+												listItems.push_back(smallHeart);
+											}
+										}
+										else if (rand >= 10 && rand <= 15)
+										{
+											MoneyBag* moneyBag = new MoneyBag(x, y);
+											listItems.push_back(moneyBag);
+										}
+										else if (rand == 16)
+										{
+											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::STOP_WATCH)
+											{
+												StopWatch* stopWatch = new StopWatch(x, y);
+												listItems.push_back(stopWatch);
+											}
+											else
+											{
+												SmallHeart* smallHeart = new SmallHeart(x, y);
+												listItems.push_back(smallHeart);
+											}
+										}
+										else if (rand == 17)
+										{
+											Cross* cross = new Cross(x, y);
+											listItems.push_back(cross);
+										}
+										else
+										{
+											SmallHeart* smallHeart = new SmallHeart(x, y);
+											listItems.push_back(smallHeart);
+										}*/
 
 							}
 							if (effects[i]->GetMakeItem() == ENEMY)
@@ -714,30 +832,33 @@ void Scene::Update(DWORD dt)
 									LargeHeart* largeHeart = new LargeHeart(x, y);
 									listItems.push_back(largeHeart);
 								}
+								if (rand >= 2 && rand <= 10)
+								{
+									MoneyBag* moneyBag = new MoneyBag(x, y);
+									listItems.push_back(moneyBag);
+								}
 								if (rand == 99)
 								{
 									SmallHeart* smallHeart = new SmallHeart(x, y);
 									listItems.push_back(smallHeart);
 								}
 							}
+							animations->Get(ANI_HIT)->reset();
 						}
+						animations->Get(ANI_RED_BAG_EFFECT)->reset();
+						animations->Get(ANI_PURPLE_BAG_EFFECT)->reset();
+						animations->Get(ANI_WHITE_BAG_EFFECT)->reset();
+						animations->Get(ANI_SPLASH)->reset();
 						animations->Get(ANI_HIT)->reset();
 						effects.erase(effects.begin() + i);
+					}
+					else
+					{
+						effects[i]->Update(dt, NULL);
 					}
 				}
 			}
 
-			for (int i = 0; i < listItems.size(); i++)
-			{
-				if (isInGrid(listItems[i]))
-				{
-					if (listItems[i]->GetHealth() > 0)
-						listItems[i]->Update(dt, &coItemObjects);
-					else
-						listItems.erase(listItems.begin() + i);
-				}
-
-			}
 		}
 		else
 		{
@@ -773,7 +894,6 @@ void Scene::Update(DWORD dt)
 		{
 			game->SetCamPos(cx, 0.0f);
 		}
-
 	}
 	else
 	{
@@ -781,7 +901,6 @@ void Scene::Update(DWORD dt)
 	}
 
 }
-
 void Scene::Render()
 {
 	CGame *game = CGame::GetInstance();

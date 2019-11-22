@@ -34,6 +34,10 @@ public:
 		this->makeTime = time;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	void GetPosition(float &x, float &y) {
+		x = this->x;
+		y = this->y;
+	}
 	void SetWidthHeight(int width, int height) {
 		this->width = width;
 		this->height = height;

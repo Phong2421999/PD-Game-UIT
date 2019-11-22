@@ -279,8 +279,20 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="CText.cpp">
+      <Filter>BoardGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CSplash.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PotRoast.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="InvicibilityPotion.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
     <ClCompile Include="CheckGround.cpp">
-      <Filter>GameObject\Misc</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -494,8 +506,20 @@
     <ClInclude Include="Grid.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="CText.h">
+      <Filter>BoardGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CSplash.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PotRoast.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="InvicibilityPotion.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
     <ClInclude Include="CheckGround.h">
-      <Filter>GameObject\Misc</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

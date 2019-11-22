@@ -122,7 +122,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (isJump)
 						vy = PUSH_SIMON_TOUCH_ENEMIES_VY * 2;
 					else
-						vy = PUSH_SIMON_TOUCH_ENEMIES_VY;
+					vy = PUSH_SIMON_TOUCH_ENEMIES_VY;
 				}
 				x += vx * dt;
 				y += vy * dt;
@@ -183,10 +183,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		Jumping();
 		UsingWeapon();
 		ResetAfterSit();
-		if (isUsingStopWatch)
-			UpdateStopWatch();
-		if (isUsingCross)
-			UpdateCross();
+		UpdateStopWatch();
+		UpdateCross();
+		UpdateInvisible();
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
@@ -222,9 +221,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (simonWeapon)
 						simonWeapon->SetIsJump(false);
 
-					if (isJump)
-						ResetAfterJump();
-					this->ny = 0;
 					if (isHurt)
 					{
 						if (health > 0)
@@ -242,6 +238,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						}
 
 					}
+					if (isJump)
+						ResetAfterJump();
+					this->ny = 0;
 					isFalling = false;
 					isCanSetStair = true;
 					isCanOnStair = false;
@@ -312,71 +311,140 @@ void CSimon::Render()
 	{
 		ani = SIMON_ANI_FREEZE;
 	}
-	else if (isSit)
-	{
-		if (isAttack)
-			ani = SIMON_ANI_SIT_ATTACK;
-		else
-			ani = SIMON_ANI_SIT;
-	}
-	else if (isJump)
-	{
-		if (isAttack)
-			ani = SIMON_ANI_ATTACK;
-		else if (isHurt)
-			ani = SIMON_ANI_HURT;
-		else
-			ani = SIMON_ANI_SIT;
-	}
 	else if (isHurt)
 	{
 		ani = SIMON_ANI_HURT;
 	}
+	else if (isSit)
+	{
+		if (isInvisible)
+		{
+			if (isAttack)
+				ani = SIMON_ANI_SIT_ATTACK__INVISIBLE;
+			else
+				ani = SIMON_ANI_SIT__INVISIBLE;
+		}
+		else
+		{
+			if (isAttack)
+				ani = SIMON_ANI_SIT_ATTACK;
+			else
+				ani = SIMON_ANI_SIT;
+		}
+
+	}
+	else if (isJump)
+	{
+		if (isInvisible)
+		{
+			if (isAttack)
+				ani = SIMON_ANI_SIT_ATTACK__INVISIBLE;
+			else
+				ani = SIMON_ANI_SIT__INVISIBLE;
+		}
+		else
+		{
+			if (isAttack)
+				ani = SIMON_ANI_ATTACK;
+			else
+				ani = SIMON_ANI_SIT;
+		}
+	}
 	else
 	{
-		switch (state)
+		if (isInvisible)
 		{
-		case SIMON_STATE_DIE:
-			ani = SIMON_ANI_DIE;
-			break;
-		case SIMON_STATE_IDLE:
-			ani = SIMON_ANI_IDLE;
-			break;
-		case SIMON_STATE_WALKING_LEFT:
-			ani = SIMON_ANI_WALKING;
-			break;
-		case SIMON_STATE_WALKING_RIGHT:
-			ani = SIMON_ANI_WALKING;
-			break;
-		case SIMON_STATE_ATTACK:
-			if (isOnStair)
-				if (ny > 0)
-					ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+			switch (state)
+			{
+			case SIMON_STATE_DIE:
+				ani = SIMON_ANI_DIE;
+				break;
+			case SIMON_STATE_IDLE:
+				ani = SIMON_ANI_IDLE__INVISIBLE;
+				break;
+			case SIMON_STATE_WALKING_LEFT:
+				ani = SIMON_ANI_WALKING__INVISIBLE;
+				break;
+			case SIMON_STATE_WALKING_RIGHT:
+				ani = SIMON_ANI_WALKING__INVISIBLE;
+				break;
+			case SIMON_STATE_ATTACK:
+				if (isOnStair)
+				{
+					if (ny > 0)
+						ani = SIMON_ANI_ON_STAIR__UP_ATTACK__INVISIBLE;
+					else
+						ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK__INVISIBLE;
+				}
 				else
-					ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
-
-			else
-				ani = SIMON_ANI_ATTACK;
-			break;
-		case SIMON_STATE_ON_STAIR_DOWN:
-			ani = SIMON_ANI_ON_STAIR_DOWN;
-			break;
-		case SIMON_STATE_ON_STAIR_UP:
-			ani = SIMON_ANI_ON_STAIR_UP;
-			break;
-		case SIMON_STATE_ON_STAIR_IDLE_UP:
-			ani = SIMON_ANI_ON_STAIR_IDLE_UP;
-			break;
-		case SIMON_STATE_ON_STAIR_IDLE_DOWN:
-			ani = SIMON_ANI_ON_STAIR_IDLE_DOWN;
-			break;
+				{
+					ani = SIMON_ANI_ATTACK__INVISIBLE;
+				}
+				break;
+			case SIMON_STATE_ON_STAIR_DOWN:
+				ani = SIMON_ANI_ON_STAIR_DOWN__INVISIBLE;
+				break;
+			case SIMON_STATE_ON_STAIR_UP:
+				ani = SIMON_ANI_ON_STAIR_UP__INVISIBLE;
+				break;
+			case SIMON_STATE_ON_STAIR_IDLE_UP:
+				ani = SIMON_ANI_ON_STAIR_IDLE_UP__INVISIBLE;
+				break;
+			case SIMON_STATE_ON_STAIR_IDLE_DOWN:
+				ani = SIMON_ANI_ON_STAIR_IDLE_DOWN__INVISIBLE;
+				break;
+			}
+		}
+		else
+		{
+			switch (state)
+			{
+			case SIMON_STATE_DIE:
+				ani = SIMON_ANI_DIE;
+				break;
+			case SIMON_STATE_IDLE:
+				ani = SIMON_ANI_IDLE;
+				break;
+			case SIMON_STATE_WALKING_LEFT:
+				ani = SIMON_ANI_WALKING;
+				break;
+			case SIMON_STATE_WALKING_RIGHT:
+				ani = SIMON_ANI_WALKING;
+				break;
+			case SIMON_STATE_ATTACK:
+				if (isOnStair)
+				{
+					if (ny > 0)
+						ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+					else
+						ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
+				}
+				else
+				{
+					ani = SIMON_ANI_ATTACK;
+				}
+				break;
+			case SIMON_STATE_ON_STAIR_DOWN:
+				ani = SIMON_ANI_ON_STAIR_DOWN;
+				break;
+			case SIMON_STATE_ON_STAIR_UP:
+				ani = SIMON_ANI_ON_STAIR_UP;
+				break;
+			case SIMON_STATE_ON_STAIR_IDLE_UP:
+				ani = SIMON_ANI_ON_STAIR_IDLE_UP;
+				break;
+			case SIMON_STATE_ON_STAIR_IDLE_DOWN:
+				ani = SIMON_ANI_ON_STAIR_IDLE_DOWN;
+				break;
+			}
 		}
 	}
 
 	int alpha = 255;
 	if (isUntouchable
 		&& isHurt == false
-		&& isDeath == false) alpha = 128;
+		&& isDeath == false
+		&& isInvisible == false) alpha = 128;
 	if (nx > 0)
 		animations[ani]->Render(x, y, alpha);
 	else
@@ -422,6 +490,13 @@ void CSimon::AddItem(GAME_ITEM type) {
 	case WHITE_MONEY_BAG:
 		score = score + 700;
 		break;
+	case POT_ROAST:
+		health = SIMON_MAX_HEALTH;
+		break;
+	case INVI_POTION:
+		isInvisible = true;
+		timeUsingInvisible = GetTickCount();
+		break;
 	}
 }
 
@@ -463,20 +538,40 @@ void CSimon::UpgradeWhip()
 }
 
 void CSimon::UpdateStopWatch() {
-	DWORD now = GetTickCount();
-	if (now - timeUsingStopWatch >= 3000)
+	if (isUsingStopWatch)
 	{
-		isUsingStopWatch = false;
+		DWORD now = GetTickCount();
+		if (now - timeUsingStopWatch >= 3000)
+		{
+			isUsingStopWatch = false;
+		}
 	}
 }
 
 void CSimon::UpdateCross()
 {
-	DWORD now = GetTickCount();
-	if (now - timeUsingCross >= 150)
+	if (isUsingCross)
 	{
-		isUsingCross = false;
-		CSpawner::GetInstance()->resetAfterUsingCross();
+		DWORD now = GetTickCount();
+		if (now - timeUsingCross >= 150)
+		{
+			isUsingCross = false;
+			CSpawner::GetInstance()->resetAfterUsingCross();
+		}
+	}
+}
+
+void CSimon::UpdateInvisible()
+{
+	if (isInvisible)
+	{
+		isUntouchable = true;
+		DWORD now = GetTickCount();
+		if (now - timeUsingInvisible >= 3000)
+		{
+			isUntouchable = false;
+			isInvisible = false;
+		}
 	}
 }
 
@@ -670,11 +765,16 @@ void CSimon::Attacking(DWORD dt)
 
 void CSimon::Jumping()
 {
-	DWORD now = GetTickCount();
-	if (now - lastJumpTime >= SIMON_RESET_JUMP_TIME)
+	if (isHurt == false)
 	{
-		isCanJump = true;
+
+		DWORD now = GetTickCount();
+		if (now - lastJumpTime >= SIMON_RESET_JUMP_TIME)
+		{
+			isCanJump = true;
+		}
 	}
+
 }
 
 void CSimon::UsingWeapon()

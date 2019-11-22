@@ -13,18 +13,27 @@ CUglyFish::CUglyFish(float x, float y)
 	CSimon::getInstance()->GetPosition(sx, sy);
 
 	int random = rand() % 2;
-	if (random == 1)
+	if (sx + SCREEN_WIDTH / 2 > SCENCE_WITDH)
 	{
 		nx = 1;
-		this->x = sx - 32;
+		this->x = sx - FISH_OFFSET_SPAWN_LEFT;
 	}
 	else
 	{
-		nx = -1;
-		this->x = sx + 96;
+		if (random == 1)
+		{
+			nx = 1;
+			this->x = sx - FISH_OFFSET_SPAWN_LEFT;
+		}
+		else
+		{
+			nx = -1;
+			this->x = sx + FISH_OFFSET_SPAWN_RIGHT;
+		}
+
 	}
+	
 	this->y = y + SCREEN_HEIGHT;
-	startSpawnTime = GetTickCount();
 	lastAttackTime = GetTickCount();
 	isJumpUp = true;
 	isCanAttack = false;
@@ -39,12 +48,10 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CSimon::getInstance()->GetPosition(sx, sy);
 
 	CGameObject::Update(dt);
-	if (now - startSpawnTime >= FISH_TIME_ACTIVE)
-		isActive = true;
-
 	if (y < 100 && isJumpUp)
 	{
 		isJumpUp = false;
+		isActive = true;
 	}
 
 	if (nx > 0)
@@ -84,23 +91,36 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (attackQuantity > 2)
 			{
 				attackQuantity = 0;
-
-				if (y <= sy)
+				if (abs(x - sx) > 80)
 				{
-					if (x - sx >= 0)
-						nx = -1;
-					else
+					if (x < sx)
 						nx = 1;
-				}
-				else
-				{
-					if (nx > 0)
-						nx = -1;
 					else
-						nx = 1;
+						nx = -1;
 				}
-
 			}
+			else
+			{
+				if (abs(x - sx) > 80)
+				{
+					if (x < sx)
+						nx = 1;
+					else
+						nx = -1;
+				}
+			}
+
+			/*if (y <= sy)
+			{*/
+			
+			/*}
+			else
+			{
+				if (nx > 0)
+					nx = -1;
+				else
+					nx = 1;
+			}*/
 
 			if (nx > 0)
 			{
@@ -133,6 +153,21 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
 		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
+		vy = 0;
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CGround *>(e->obj))
+			{
+				CGround * ground = dynamic_cast<CGround *>(e->obj);
+				ground->GetPosition(xGround, yGround);
+				if (y > yGround)
+				{
+					vy += 0.00003 * dt;
+				}
+			}
+		}
+
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

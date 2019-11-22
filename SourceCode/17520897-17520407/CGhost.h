@@ -4,6 +4,8 @@
 #include "Ground.h"
 
 #define ANI_GHOST 565
+#define ANI_GHOST_ID 0
+
 #define GHOST_ACTIVE_TIME 500
 #define GHOST_OFFSET_FLIP_X 8
 
@@ -22,6 +24,7 @@
 
 class CGhost : public CEnemies {
 private:
+	float sx, sy;
 	int width, height;
 	DWORD startSpawnTime;
 public:

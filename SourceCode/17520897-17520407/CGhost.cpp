@@ -14,7 +14,7 @@ CGhost::CGhost(float x, float y) {
 	else
 	{
 		nx = -1;
-		this->x = x + SCREEN_WIDTH - GHOST_OFFSET_X;
+		this->x = x + SCREEN_WIDTH;
 		this->y = GHOST_SPAWN_POSITION_Y;
 	}
 	vy = GHOST_SPAWN_GRAVITY;
@@ -23,18 +23,18 @@ CGhost::CGhost(float x, float y) {
 
 void CGhost::Render() {
 	if (nx < 0)
-		animations[0]->Render(x, y);
+		animations[ANI_GHOST_ID]->Render(x, y);
 	else
-		animations[0]->RenderFlipX(x, y, GHOST_OFFSET_FLIP_X);
+		animations[ANI_GHOST_ID]->RenderFlipX(x, y, GHOST_OFFSET_FLIP_X);
 	RenderBoundingBox(x, y);
 }
 
 void CGhost::RenderCurrentFrame()
 {
 	if (nx < 0)
-		animations[0]->RenderCurrentFrame(x, y);
+		animations[ANI_GHOST_ID]->RenderCurrentFrame(x, y);
 	else
-		animations[0]->RenderCurrentFrameFlipX(x, y, GHOST_OFFSET_FLIP_X);
+		animations[ANI_GHOST_ID]->RenderCurrentFrameFlipX(x, y, GHOST_OFFSET_FLIP_X);
 }
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

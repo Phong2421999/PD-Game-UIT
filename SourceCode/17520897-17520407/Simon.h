@@ -40,6 +40,7 @@ private:
 
 	bool isUsingStopWatch;
 	bool isUsingCross;
+	bool isInvisible;
 
 	float autoGoToStairDistance;
 	float onStairDistance;
@@ -55,6 +56,7 @@ private:
 	
 	DWORD timeUsingStopWatch;
 	DWORD timeUsingCross;
+	DWORD timeUsingInvisible;
 
 	DWORD startUntouchableTime;
 	DWORD endWalkOnStairTime;
@@ -112,6 +114,7 @@ public:
 		isCanOnStair = false;
 		isUsingStopWatch = false;
 		isUsingCross = false;
+		isInvisible = false;
 		lastAttackTime = -1;
 		lastAttackSide = 1;
 		isUseSubWeapon = false;
@@ -124,11 +127,11 @@ public:
 		typeSubWeapon = SIMON_WEAPON::NONE;
 		stairType = STAIR_TYPE::NOSTAIR;
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
-		heart = 5;
-		health = 8;
-		currentScene = 4;
-		score = 1;
-		live = 3;
+		heart = SIMON_DEFAULT_HEART;
+		health = SIMON_MAX_HEALTH;
+		live = SIMON_LIVE;
+		currentScene = 1;
+		score = 0;
 		isAutoGo = false;
 		autoGoDistance = 0;
 		simonAutoGoDistance = 0; 
@@ -408,6 +411,7 @@ public:
 	void UpgradeWhip();
 	void UpdateStopWatch();
 	void UpdateCross();
+	void UpdateInvisible();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 

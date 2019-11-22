@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
+  <Walls id="3">
+    <Wall x="0" y="117" width="128" height="13"/>
+    <Wall x="128" y="147"  width="47" height="13"/>
+    <Wall x="256" y="132"  width="97" height="13"/>
+    <Wall x="352" y="148"  width="47" height="13"/>
+    <Wall x="416" y="116"  width="94" height="13"/>
+    <Wall x="256" y="146"  width="20" height="32"/>
+    <Wall x="302" y="146"  width="20" height="64"/>
+  </Walls>
   <Grounds id="0">
-    <Ground x="-2000" y="212" width="10000" height="8" />
+    <Ground x="0" y="212" width="100000" height="8" />
+    <Ground x="2" y="116" width="124" height="1"/>
+    <Ground x="130" y="146" width="43" height="1"/>
+    <Ground x="258" y="131"  width="93" height="1"/>
+    <Ground x="354" y="147" width="43" height="1"/>
+    <Ground x="412" y="115"  width="90" height="1"/>
   </Grounds>
-  <HiddenWalls id="-4">
-    <HiddenWall x="256" y="195" width="16" height="8" type="0"/>
-    <HiddenWall x="256" y="163" width="16" height="40" type="1"/>
-  </HiddenWalls>
+  <SmallCandles id="2" >
+    <SmallCandle x="30" y="182" width="8" height="14" />
+    <SmallCandle x="92" y="84" width="8" height="14"/>
+    <SmallCandle x="154" y="68" width="8" height="14"/>
+    <SmallCandle x="218" y="148" width="8" height="14"/>
+    <SmallCandle x="302" y="68" width="8" height="14"/>
+    <SmallCandle x="346" y="182" width="8" height="14"/>
+    <SmallCandle x="412" y="54" width="8" height="14"/>
+    <SmallCandle x="474" y="84" width="8" height="14"/>
+  </SmallCandles>
+
   <ChangeSceneObjects id="-1">
     <ChangeScene x="48" y="220" sceneId="-2"
     simonAutoGo="0" simonAutoGoDistance="35"

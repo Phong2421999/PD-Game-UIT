@@ -17,6 +17,8 @@
 #define PROEJECTILE_TIME_LIVE 2000
 
 #define FISH_OFFSET_FLIP_X 8
+#define FISH_OFFSET_SPAWN_LEFT 64
+#define FISH_OFFSET_SPAWN_RIGHT 96
 
 #define FISH_VELOCITY_X 0.04
 #define FISH_VELOCITY_Y 0.5
@@ -33,7 +35,9 @@ private:
 	float sx, sy, attackDistance;
 	bool isJumpUp, isCanAttack;
 
-	DWORD startSpawnTime, lastAttackTime, resetAttackTime;
+	float xGround, yGround;
+
+	DWORD lastAttackTime, resetAttackTime;
 public:
 	CUglyFish(float x, float y);
 	void Render();

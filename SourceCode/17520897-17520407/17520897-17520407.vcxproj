@@ -146,7 +146,11 @@
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMoneyEffect.cpp" />
     <ClCompile Include="Cross.cpp" />
+    <ClCompile Include="CSplash.cpp" />
+    <ClCompile Include="CText.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="InvicibilityPotion.cpp" />
+    <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="WeaponProjectile.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CSpawn.cpp" />
@@ -218,7 +222,11 @@
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMoneyEffect.h" />
     <ClInclude Include="Cross.h" />
+    <ClInclude Include="CSplash.h" />
+    <ClInclude Include="CText.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="InvicibilityPotion.h" />
+    <ClInclude Include="PotRoast.h" />
     <ClInclude Include="WeaponProjectile.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CSpawn.h" />
@@ -318,15 +326,21 @@
     <Xml Include="XML\Map2_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="XML\Map3_Objects.xml" />
-    <Xml Include="XML\Map4_Objects.xml" />
+    <Xml Include="XML\Map3_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="XML\Map4_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map5_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="XML\Maps.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="XML\Scenes.xml" />
+    <Xml Include="XML\Scenes.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Textures.xml">
       <SubType>Designer</SubType>
     </Xml>
