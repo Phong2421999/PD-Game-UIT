@@ -279,6 +279,18 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="CText.cpp">
+      <Filter>BoardGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CSplash.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PotRoast.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="InvicibilityPotion.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -490,6 +502,18 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CText.h">
+      <Filter>BoardGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CSplash.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PotRoast.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="InvicibilityPotion.h">
+      <Filter>GameObject\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

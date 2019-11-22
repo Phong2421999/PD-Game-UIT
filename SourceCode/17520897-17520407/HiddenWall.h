@@ -2,7 +2,7 @@
 #include "CStaticObject.h"
 #include "FrameWork/debug.h"
 
-#define ANI_WALL 3000
+#define ANI_WALL 4000
 
 class CHiddenWall : public CStaticObject
 {

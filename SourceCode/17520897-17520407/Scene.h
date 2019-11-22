@@ -29,7 +29,6 @@
 #include "Spawner.h"
 #include "WeaponEnemies.h"
 #include "WeaponProjectile.h"
-
 #include "Grid.h"
 
 struct Letter

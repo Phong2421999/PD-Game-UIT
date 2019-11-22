@@ -85,8 +85,6 @@ CGame *CGame::GetInstance()
 	return __instance;
 }
 
-
-
 int CGame::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;

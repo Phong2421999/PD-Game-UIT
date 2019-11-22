@@ -7,12 +7,12 @@
          isLoadBlackScene="0" timeLoadBlackScene="400" simonStartX="32" simonStartY="180" stage ="01" name="Stage 1"/>
 
 
-  <Scene sceneId="2" mapId="400000" sceneWidthEachMap="512" sceneGameObjectPath="XML\\Map3_Objects.xml"
+  <Scene sceneId="2" mapId="400000" sceneWidthEachMap="526" sceneGameObjectPath="XML\\Map3_Objects.xml"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="0" simonStartY="180" stage ="02" name="Stage 2"
          simonAutoGo="0"/>
 
 
-  <Scene sceneId="3" mapId="500000" sceneWidthEachMap="786" sceneGameObjectPath="XML\\Map4_Objects.xml"
+  <Scene sceneId="3" mapId="500000" sceneWidthEachMap="782" sceneGameObjectPath="XML\\Map4_Objects.xml"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="32" stage ="03" name="Stage 3"
          simonAutoGo="0"/>
   

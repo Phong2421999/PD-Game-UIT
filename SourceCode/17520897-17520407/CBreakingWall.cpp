@@ -1,9 +1,11 @@
 #pragma once
 #include "CBreakingWall.h"
 
-CBreakingWall::CBreakingWall()
+CBreakingWall::CBreakingWall(float x, float y)
 {
 	this->AddAnimation(ANI_BREAKING_WALL);
+	this->x = x;
+	this->y = y;
 }
 
 void CBreakingWall::Render() {
