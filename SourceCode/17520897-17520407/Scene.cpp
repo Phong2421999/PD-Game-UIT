@@ -680,11 +680,11 @@ void Scene::Update(DWORD dt)
 						{
 							int rand = Random(0, 20);
 							animations->Get(ANI_HIT)->reset();
-							InviPotion * inviPotion = new InviPotion(x, y);
+						/*	InviPotion * inviPotion = new InviPotion(x, y);
 							listItems.push_back(inviPotion);
-					/*		PotRoast* potRoast = new PotRoast(x, y);
+							PotRoast* potRoast = new PotRoast(x, y);
 							listItems.push_back(potRoast);*/
-							/*if (CSimon::getInstance()->getWeaponLevel() < 3)
+							if (CSimon::getInstance()->getWeaponLevel() < 3)
 							{
 								WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
 								listItems.push_back(whipUpgrade);
@@ -761,7 +761,7 @@ void Scene::Update(DWORD dt)
 							{
 								SmallHeart* smallHeart = new SmallHeart(x, y);
 								listItems.push_back(smallHeart);
-							}*/
+							}
 
 						}
 						if (effects[i]->GetMakeItem() == ENEMY)
