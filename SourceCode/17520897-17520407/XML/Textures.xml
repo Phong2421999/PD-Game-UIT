@@ -26,7 +26,7 @@
     </Animation>
     <!-- Animation SIT -->
     <Animation aniId="505" frameTime="100" name="SIT">
-      <sprite id="10008" left="171" top="30" right="249" bottom="54" frameTime="100"/>
+      <sprite id="10008" left="169" top="31" right="249" bottom="55" frameTime="100"/>
     </Animation>
     <!-- Animation SIT_INVISIBLE -->
     <Animation aniId="506" frameTime="100" name="SIT_INVISIBLE">
@@ -124,10 +124,10 @@
     </Animation>
     <!-- Animation SIT_THROW -->
     <Animation aniId="518" frameTime="100" name="SIT_THROW">
-      <sprite id="10008" left="171" top="30" right="249" bottom="54" frameTime="100"/>
-      <sprite id="10073" left="6" top="118" right="84" bottom="148" frameTime="100"/>
-      <sprite id="10074" left="89" top="118" right="167" bottom="148" frameTime="100"/>
-      <sprite id="10075" left="175" top="118" right="253" bottom="148" frameTime="100"/>
+      <sprite id="10008" left="169" top="31" right="249" bottom="55" frameTime="100"/>
+      <sprite id="10073" left="5" top="118" right="84" bottom="148" frameTime="100"/>
+      <sprite id="10074" left="88" top="118" right="167" bottom="148" frameTime="100"/>
+      <sprite id="10075" left="174" top="118" right="253" bottom="148" frameTime="100"/>
     </Animation>
     
     <Animation aniId="5000" frameTime="100" name="STAIR_UP">
@@ -344,7 +344,7 @@
   <!-- Animation OTHER_STUFF_ONE -->
   <Texture  textureId ="1" gameObjectId ="18">
     <Animation aniId="556" frameTime="100" name="OTHER_STUFF_ONE">
-      <sprite id="10130" left="179" top="157" right="191" bottom="171" frameTime="100"/>
+      <sprite id="10130" left="178" top="156" right="192" bottom="172" frameTime="100"/>
       <sprite id="10133" left="178" top="182" right="192" bottom="198" frameTime="100"/>
     </Animation>
   </Texture>

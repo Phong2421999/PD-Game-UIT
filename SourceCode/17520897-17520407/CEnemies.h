@@ -14,9 +14,11 @@
 class CEnemies : public CGameObject {
 protected:
 	bool isActive;
+	bool isBoss;
 public:
 	CEnemies()
 	{
+		isBoss = false;
 		isActive = false;
 	}
 	virtual void Render() = 0;
@@ -31,6 +33,10 @@ public:
 	virtual void SetActive(bool b)
 	{
 		this->isActive = b;
+	}
+	virtual bool GetIsBoss()
+	{
+		return this->isBoss;
 	}
 	virtual bool GetActive()
 	{

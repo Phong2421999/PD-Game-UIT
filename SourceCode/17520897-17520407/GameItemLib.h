@@ -13,3 +13,5 @@
 #include "Cross.h"
 #include "PotRoast.h"
 #include "InvicibilityPotion.h"
+#include "DoubleShot.h"
+#include "MagicCrystal.h"

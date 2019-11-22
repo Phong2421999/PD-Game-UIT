@@ -294,6 +294,12 @@
     <ClCompile Include="CheckGround.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DoubleShot.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicCrystal.cpp">
+      <Filter>GameObject\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -520,6 +526,12 @@
     </ClInclude>
     <ClInclude Include="CheckGround.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleShot.h">
+      <Filter>GameObject\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCrystal.h">
+      <Filter>GameObject\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

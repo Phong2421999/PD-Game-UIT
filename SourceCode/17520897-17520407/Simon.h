@@ -32,6 +32,7 @@ private:
 
 	bool isCanJump;
 	bool isCanAttack;
+	bool isCanAttackSubWeapon;
 	bool isResetSitAfterAttack;
 	bool isUntouchable;
 	bool isCanOnStair;
@@ -40,6 +41,7 @@ private:
 
 	bool isUsingStopWatch;
 	bool isUsingCross;
+	bool isUsingDoubleShot;
 	bool isInvisible;
 
 	float autoGoToStairDistance;
@@ -110,9 +112,11 @@ public:
 		isOnStair = false;
 		isFreeze = false;
 		isCanAttack = true;
+		isCanAttackSubWeapon = true;
 		isCanJump = true;
 		isCanOnStair = false;
 		isUsingStopWatch = false;
+		isUsingDoubleShot = false;
 		isUsingCross = false;
 		isInvisible = false;
 		lastAttackTime = -1;
@@ -250,6 +254,10 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getUsingDoubleShot()
+	{
+		return isUsingDoubleShot;
+	}
 	bool getOnGround()
 	{
 		return isOnGround;

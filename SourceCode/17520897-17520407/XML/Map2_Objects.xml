@@ -35,7 +35,6 @@
   </SmallCandles>
   <Walls id="3">
     <Wall x="688" y="148"  width="47" height="13"/>
-    <Wall x="688" y="180"  width="47" height="13"/>
     <Wall x="750" y="117" width="160" height="13"/>
     <Wall x="927" y="148"  width="100" height="13"/>
     <Wall x="1392" y="116"  width="142" height="13"/>

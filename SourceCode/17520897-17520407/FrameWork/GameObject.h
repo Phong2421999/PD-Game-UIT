@@ -54,9 +54,9 @@ public:
 	int health;
 
 	int weaponLevel;
-	
+
 	bool killBySimon;
-	
+
 	bool makeWeapon;
 
 	GAME_ITEM type;
@@ -76,20 +76,22 @@ public:
 	bool GetKillBySimon() { return killBySimon; }
 	int getDirection() { return nx; }
 	int GetState() { return this->state; }
-	virtual void RenderCurrentFrame(){
+	virtual void RenderCurrentFrame() {
 	}
 	virtual GAME_ITEM GetGameItem() { return type; }
 	virtual bool GetCanSpawn() { return false; }
+	virtual bool GetIsBoss() { return false; }
+	virtual void SetIsBoss(bool b) {}
 	virtual bool GetSpawn() { return false; }
-	virtual void SetSimonHasTouch(bool b){}
-	virtual bool GetSimonHasTouch(){ return false; }
+	virtual void SetSimonHasTouch(bool b) {}
+	virtual bool GetSimonHasTouch() { return false; }
 	virtual void SetCanSpwan(bool b) {}
-	virtual void SetSpawn(bool b){}
-	virtual void SetSpawnEnemyType(int type){}
-	virtual void SetQuantitySpawnEnemy(int quantity){}
+	virtual void SetSpawn(bool b) {}
+	virtual void SetSpawnEnemyType(int type) {}
+	virtual void SetQuantitySpawnEnemy(int quantity) {}
 	virtual int GetQuantitySpawnEnemy() { return 0; }
 	virtual int GetSpawnEnemyType() { return -1; }
-	virtual void SetMakeTime(DWORD time){}
+	virtual void SetMakeTime(DWORD time) {}
 	void RenderBoundingBox(float x, float y);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);

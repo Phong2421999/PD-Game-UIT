@@ -497,6 +497,9 @@ void CSimon::AddItem(GAME_ITEM type) {
 		isInvisible = true;
 		timeUsingInvisible = GetTickCount();
 		break;
+	case DOUBLE_SHOT:
+		isUsingDoubleShot = true;
+		break;
 	}
 }
 
@@ -753,6 +756,10 @@ void CSimon::Attacking(DWORD dt)
 	}
 	else
 	{
+		if (isUsingDoubleShot)
+		{
+			isCanAttack = true;
+		}
 		DWORD now = GetTickCount();
 		if (now - lastAttackTime >= SIMON_RESET_ATTACK_TIME)
 		{
