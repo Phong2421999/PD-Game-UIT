@@ -30,6 +30,7 @@ private:
 	bool isDeath;
 	bool isOnGround;
 	bool isLock;
+	bool isTouchWall;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -135,7 +136,7 @@ public:
 		heart = SIMON_DEFAULT_HEART;
 		health = SIMON_MAX_HEALTH;
 		live = SIMON_LIVE;
-		currentScene = 2;
+		currentScene = 3;
 		score = 0;
 		isAutoGo = false;
 		autoGoDistance = 0;
@@ -148,9 +149,14 @@ public:
 		isAutoGoOutStair = false;
 		isHurt = false;
 		isLock = false;
+		isTouchWall = false;
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setTouchWall(bool b)
+	{
+		this->isTouchWall = b;
+	}
 	void setLock(bool b)
 	{
 		this->isLock = b;
@@ -264,6 +270,10 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getTouchWall()
+	{
+		return isTouchWall;
+	}
 	bool getLock()
 	{
 		return isLock;

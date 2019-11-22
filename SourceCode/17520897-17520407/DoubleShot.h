@@ -13,7 +13,8 @@
 class DoubleShot :public CItems
 {
 private:
-	int width, height, ani;
+	float width, height;
+    int ani;
 	DWORD makeTime;
 public:
 	DoubleShot(float x, float y);
@@ -21,5 +22,5 @@ public:
 	void Render();
 	void RenderCurrentFrame();
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-
+	void GetWidthHeight(float &width, float &height) { width = this->width; height = this->height; }
 };

@@ -4,17 +4,23 @@
     <Wall x="0" y="117" width="112" height="13"/>
     <Wall x="129" y="149"  width="174" height="13"/>
     <Wall x="720" y="149"  width="48" height="13"/>
+    <!--<Wall x="672" y="181"  width="8" height="12"/>-->
     <Wall x="672" y="181"  width="15" height="12"/>
-    <Wall x="688" y="181"  width="15" height="12"/>
+    <Wall x="691" y="181"  width="14" height="12"/>
   </Walls>
   <Grounds id="0">
-    <Ground x="0" y="212" width="100000" height="8" />
+    <Ground x="-2000" y="212" width="10000" height="8" />
     <Ground x="0" y="115" width="111" height="1" />
     <Ground x="130" y="147" width="173" height="1" />
     <Ground x="721" y="147"  width="47" height="1"/>
+    <!--<Ground x="674" y="180"  width="6" height="1"/>-->
     <Ground x="674" y="180"  width="12" height="1"/>
-    <Ground x="686" y="180"  width="12" height="1"/>
+    <Ground x="692" y="180"  width="10" height="1"/>
   </Grounds>
+
+  <HiddenWalls id="-4">
+    <HiddenWall x="688" y="179" width="16" height="16" type ="2" itemId="2"/>
+  </HiddenWalls>
   
   <SmallCandles id="2" >
     <SmallCandle x="30" y="148" width="8" height="14" />

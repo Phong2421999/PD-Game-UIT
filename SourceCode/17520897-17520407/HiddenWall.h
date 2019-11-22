@@ -4,8 +4,10 @@
 #include "Ground.h"
 #include "Wall.h"
 
-#define ANI_WALL 4000
-#define ANI_GROUND 3000
+#define ANI_WALL_BREAK 4000
+#define ANI_WALL 4001
+#define ANI_GROUND 4002
+
 
 
 class CHiddenWall : public HiddenObjects

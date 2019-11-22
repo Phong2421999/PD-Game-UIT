@@ -9,6 +9,7 @@
     <Wall x="256" y="144"  width="32" height="30"/>
     <Wall x="256" y="165"  width="32" height="30"/>
     <Wall x="302" y="146"  width="20" height="64"/>
+    <Wall x="273" y="180"  width="20" height="32"/>
   </Walls>
   <Grounds id="0">
     <Ground x="-2000" y="212" width="10000" height="8" />
@@ -37,8 +38,8 @@
     <CheckStair x="44" y="208" width="16" height="4" ny="-1" nx="1"/>
   </CheckStairs>
   <HiddenWalls id="-4">
-    <HiddenWall x="256" y="195" width="16" height="2" type ="0" itemId="1"/>
-    <HiddenWall x="256" y="163" width="16" height="48" type ="0" itemId="0"/>
+    <HiddenWall x="256" y="195" width="16" height="16" type ="1" itemId="1"/>
+    <HiddenWall x="256" y="179" width="16" height="12" type ="0" itemId="0"/>
   </HiddenWalls>
   <LockSimons id="-5">
     <LockSimon x="258" y="165" width="16" height="48"/>

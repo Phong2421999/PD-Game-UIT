@@ -34,24 +34,17 @@ void CItems::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		y += min_ty * dy + ny * 0.4f;
 		vx = 0;
 		vy = 0;
-		if (coObjects->size() >= 0)
-		{
-			for (int i = 0; i < coObjects->size(); i++)
-			{
-				if (IsTouchColision(coObjects->at(i)))
-				{
-					if (dynamic_cast<CSimon*>(coObjects->at(i)))
-					{
-						CSimon::getInstance()->AddItem(type);
-						health = 0;
-					}
-				}
-			}
-		}
-
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	CSimon* simon = CSimon::getInstance();
+	if (IsTouchColision(simon))
+	{
+		simon->AddItem(type);
+		health = 0;
+	}
+
 }
 
 bool CItems::IsTouchColision(LPGAMEOBJECT gameObject) {

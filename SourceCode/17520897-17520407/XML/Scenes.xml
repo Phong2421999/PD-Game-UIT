@@ -12,7 +12,7 @@
          simonAutoGo="0"/>
 
 
-  <Scene sceneId="3" mapId="500000" sceneWidthEachMap="786" sceneGameObjectPath="XML\\Map4_Objects.xml"
+  <Scene sceneId="3" mapId="500000" sceneWidthEachMap="782" sceneGameObjectPath="XML\\Map4_Objects.xml"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="32" stage ="03" name="Stage 3" resetSceneId ="3"
          simonAutoGo="0"/>
   

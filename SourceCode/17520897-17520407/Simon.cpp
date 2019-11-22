@@ -107,16 +107,24 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (isHurt)
 			{
-				if (nx > 0)
+				if (isTouchWall == false)
 				{
-					vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
 					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+					if (nx > 0)
+					{
+						vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
+					}
+					else
+					{
+						vx = +PUSH_SIMON_TOUCH_ENEMIES_VX;
+					}
 				}
 				else
 				{
-					vx = +PUSH_SIMON_TOUCH_ENEMIES_VX;
 					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+					vx = 0;
 				}
+				
 				if (now - startHurtTime > 250)
 				{
 					if (isJump)
@@ -218,11 +226,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
+					isTouchWall = false;
 					if (simonWeapon)
 						simonWeapon->SetIsJump(false);
 
 					if (isHurt)
 					{
+
 						if (health > 0)
 						{
 							state = SIMON_STATE_IDLE;

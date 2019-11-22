@@ -18,6 +18,7 @@ void CWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (simon->getOnStair() == false)
 		{
+			simon->setTouchWall(true);
 			simon->GetPosition(simonX, simonY);
 			if (simon->getOnGround())
 			{
@@ -31,44 +32,11 @@ void CWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (simon->nx < 0)
 						simon->vx = 0.0005;
 				}
-
-				/*if (simon->nx > 0)
-				{
-					if (simon->x + 16 >= x)
-						simon->vx = 0.0005;
-					else
-						simon->vx = -0.005;
-				}
-				else
-				{
-					if (simon->x + 16 <= x)
-						simon->vx = -0.0005;
-					else
-						simon->vx = 0.005;
-				}*/
 			}
 			else
 			{
 				simon->vx = 0;
 			}
-			/*if (nx != simonNx)
-			{
-				if (this->y > simon->y)
-				{
-					if (simonNx > 0)
-					{
-						simon->vx = -0.002;
-					}
-					else
-					{
-						simon->vx = 0.002;
-					}
-				}
-				else
-					simon->vx = 0;
-			}
-			else
-				nx = -simonNx;*/
 		}
 
 
