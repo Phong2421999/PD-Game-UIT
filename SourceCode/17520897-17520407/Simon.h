@@ -29,6 +29,7 @@ private:
 	bool isFightingBoss;
 	bool isDeath;
 	bool isOnGround;
+	bool isLock;
 
 	bool isCanJump;
 	bool isCanAttack;
@@ -130,7 +131,7 @@ public:
 		heart = SIMON_DEFAULT_HEART;
 		health = SIMON_MAX_HEALTH;
 		live = SIMON_LIVE;
-		currentScene = 1;
+		currentScene = 2;
 		score = 0;
 		isAutoGo = false;
 		autoGoDistance = 0;
@@ -142,9 +143,18 @@ public:
 		ny = 0;
 		isAutoGoOutStair = false;
 		isHurt = false;
+		isLock = false;
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setLock(bool b)
+	{
+		this->isLock = b;
+	}
+	void setCanJump(bool b)
+	{
+		this->isCanJump = b;
+	}
 	void setStartDeathTime(DWORD startDeathTime)
 	{
 		this->startDeathTime = startDeathTime;
@@ -250,6 +260,10 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getLock()
+	{
+		return isLock;
+	}
 	bool getOnGround()
 	{
 		return isOnGround;

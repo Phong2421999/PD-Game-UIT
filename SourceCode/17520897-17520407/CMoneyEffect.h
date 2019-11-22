@@ -15,4 +15,5 @@ public:
 	CMoneyEffect(float x, float y,GAME_ITEM moneyType);
 	void Render();
 	bool GetLastFrame();
+	void reset();
 };

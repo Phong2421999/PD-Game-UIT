@@ -23,4 +23,5 @@ public:
 	CSplash(float x, float y);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>*coObjects);
+	void reset();
 };

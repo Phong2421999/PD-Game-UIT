@@ -150,6 +150,7 @@
     <ClCompile Include="CText.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InvicibilityPotion.cpp" />
+    <ClCompile Include="LockSimon.cpp" />
     <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="WeaponProjectile.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="CText.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="InvicibilityPotion.h" />
+    <ClInclude Include="LockSimon.h" />
     <ClInclude Include="PotRoast.h" />
     <ClInclude Include="WeaponProjectile.h" />
     <ClInclude Include="CSimonKeyHandler.h" />

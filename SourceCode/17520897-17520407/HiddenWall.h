@@ -13,9 +13,10 @@ class CHiddenWall : public HiddenObjects
 private:
 	int ani;
 	int type;
+	int itemId;
 	bool touchWhip;
 public:
-	CHiddenWall(float x, float y, int type);
+	CHiddenWall(float x, float y, int type, int itemId);
 	void setTouchWhip(bool b)
 	{
 		this->touchWhip = b;
@@ -23,6 +24,10 @@ public:
 	bool getTouchWhip()
 	{
 		return touchWhip;
+	}
+	int getItemId()
+	{
+		return itemId;
 	}
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);

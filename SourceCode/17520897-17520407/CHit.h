@@ -7,6 +7,10 @@ class CHit:public CEffect {
 
 public:
 	CHit();
+	void Reset()
+	{
+		animations[ANI_HIT_ID]->reset();
+	}
 	void Render();
 
 };

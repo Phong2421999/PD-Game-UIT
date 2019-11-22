@@ -122,7 +122,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (isJump)
 						vy = PUSH_SIMON_TOUCH_ENEMIES_VY * 2;
 					else
-					vy = PUSH_SIMON_TOUCH_ENEMIES_VY;
+						vy = PUSH_SIMON_TOUCH_ENEMIES_VY;
 				}
 				x += vx * dt;
 				y += vy * dt;
@@ -566,6 +566,10 @@ void CSimon::UpdateInvisible()
 	if (isInvisible)
 	{
 		isUntouchable = true;
+	}
+	if (isInvisible
+		&& isAttack == false)
+	{
 		DWORD now = GetTickCount();
 		if (now - timeUsingInvisible >= 3000)
 		{
@@ -659,7 +663,11 @@ void CSimon::Attacking(DWORD dt)
 		{
 			vx = 0;
 			vy = 0;
-			int ani = SIMON_ANI_SIT_ATTACK;
+			int ani;
+			if (isInvisible)
+				ani = SIMON_ANI_ATTACK__INVISIBLE;
+			else
+				ani = SIMON_ANI_SIT_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
 			if (isHurt)
 			{
@@ -685,10 +693,20 @@ void CSimon::Attacking(DWORD dt)
 			vx = 0;
 			vy = 0;
 			int ani = 0;
-			if (ny > 0)
-				ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+			if (isInvisible)
+			{
+				if (ny > 0)
+					ani = SIMON_ANI_ON_STAIR__UP_ATTACK__INVISIBLE;
+				else
+					ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK__INVISIBLE;
+			}
 			else
-				ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
+			{
+				if (ny > 0)
+					ani = SIMON_ANI_ON_STAIR__UP_ATTACK;
+				else
+					ani = SIMON_ANI_ON_STAIR__DOWN_ATTACK;
+			}
 			bool isLastFrame = animations[ani]->getLastFrame();
 			if (isHurt)
 			{
@@ -724,7 +742,11 @@ void CSimon::Attacking(DWORD dt)
 					vx = -SIMON_WALKING_SPEED / 2;
 
 			}
-			int ani = SIMON_ANI_ATTACK;
+			int ani;
+			if (isInvisible)
+				ani = SIMON_ANI_ATTACK__INVISIBLE;
+			else
+				ani = SIMON_ANI_ATTACK;
 			bool isLastFrame = animations[ani]->getLastFrame();
 			bool nextIsLastFrame = animations[ani]->getNextIsLastFrame();
 			if (isHurt)
@@ -1107,6 +1129,11 @@ void CSimon::ResetAfterSit()
 void CSimon::Reset()
 {
 	isDeath = false;
+	isJump = false;
+	isSit = false;
+	isAttack = false;
+	isHurt = false;
+	isUntouchable = false;
 	health = 8;
 	heart = 5;
 	ChangeSubWeapon(NONE);

@@ -90,6 +90,7 @@ public:
 	virtual int GetQuantitySpawnEnemy() { return 0; }
 	virtual int GetSpawnEnemyType() { return -1; }
 	virtual void SetMakeTime(DWORD time){}
+	virtual void GetWidthHeight(float &width, float &height) { width = 0; height = 0; }
 	void RenderBoundingBox(float x, float y);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);

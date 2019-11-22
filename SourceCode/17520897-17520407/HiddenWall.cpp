@@ -1,11 +1,12 @@
 #pragma once
 #include "HiddenWall.h"
 
-CHiddenWall::CHiddenWall(float x, float y, int type) {
+CHiddenWall::CHiddenWall(float x, float y, int type,int itemId) {
 	this->AddAnimation(ANI_WALL);
 	this->AddAnimation(ANI_GROUND);
 	this->SetPosition(x, y);
 	this->type = type;
+	this->itemId = itemId;
 	touchWhip = false;
 	if (type == 0)
 		ani = 0;
@@ -15,6 +16,10 @@ CHiddenWall::CHiddenWall(float x, float y, int type) {
 
 
 void CHiddenWall::Render() {
+	if (type == 0)
+		ani = 0;
+	else
+		ani = 1;
 	animations[ani]->Render(x, y);
 	RenderBoundingBox(x, y);
 }
@@ -27,7 +32,8 @@ void CHiddenWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (this->checkAABBTouch(coObjects->at(i)))
 		{
-			if (dynamic_cast<CGround*>(coObjects->at(i)))
+			if (dynamic_cast<CGround*>(coObjects->at(i))
+				|| dynamic_cast<CWall*>(coObjects->at(i)))
 			{
 				coObjects->at(i)->SetHealth(this->health);
 			}

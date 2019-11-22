@@ -294,6 +294,9 @@
     <ClCompile Include="CheckGround.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LockSimon.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -520,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="CheckGround.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LockSimon.h">
+      <Filter>GameObject\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

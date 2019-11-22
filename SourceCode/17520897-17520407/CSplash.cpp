@@ -37,3 +37,7 @@ void CSplash::Update(DWORD dt, vector<LPGAMEOBJECT>*coObjects) {
 void CSplash::Render() {
 	animations[ANI_SPLASH_ID]->Render(x, y);
 }
+
+void CSplash::reset() {
+	animations[0]->reset();
+}

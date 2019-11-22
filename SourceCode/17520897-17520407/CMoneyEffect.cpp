@@ -30,3 +30,8 @@ bool CMoneyEffect::GetLastFrame() {
 void CMoneyEffect::Render() {
 	animations[ani]->Render(x, y);
 }
+
+void CMoneyEffect::reset()
+{
+	animations[ani]->reset();
+}

@@ -14,7 +14,8 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		case DIK_SPACE:
 			if (simon->getOnStair() == false)
 			{
-				if (simon->getCanJump()) // Sau 1 khoảng thời gian mới có thể nhảy
+				if (simon->getCanJump()
+					&& simon->getLock() == false) // Sau 1 khoảng thời gian mới có thể nhảy
 				{
 					simon->SetState(SIMON_STATE_JUMP);
 				}

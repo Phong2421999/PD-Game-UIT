@@ -81,6 +81,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						&& isTouchHiddenWall == false)
 					{
 						coObjects->at(i)->Damage(1);
+						coObjects->at(i)->SetKillBySimon(true);
 						isTouchHiddenWall = true;
 					}
 				}

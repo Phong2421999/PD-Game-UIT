@@ -397,7 +397,8 @@
   <!-- Animation BREAKING_WALL -->
   <Texture  textureId ="2" gameObjectId ="23">
     <Animation aniId="562" frameTime="100" name="BREAKING_WALL">
-      <sprite id="10159" left="138" top="80" right="145" bottom="88" frameTime="100"/>
+      <sprite id="10159" left="138" top="80" right="145" bottom="88" frameTime="500"/>
+      <sprite id="10159" left="138" top="80" right="145" bottom="88" frameTime="500"/>
     </Animation>
   </Texture>
   <!-- Animation SPLASH_EFFECT -->

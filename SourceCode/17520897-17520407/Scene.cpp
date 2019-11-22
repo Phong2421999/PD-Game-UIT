@@ -165,11 +165,19 @@ void Scene::LoadSceneResource()
 			}
 			else if (id == -4)
 			{
-				int type;
+				int type,itemId;
 				Object->QueryIntAttribute("type", &type);
-				CHiddenWall* hiddenWall = new CHiddenWall(x, y, type);
+				Object->QueryIntAttribute("itemId", &itemId);
+				CHiddenWall* hiddenWall = new CHiddenWall(x, y, type, itemId);
 				hiddenWall->SetWidthHeight(Width, Height);
 				objects.push_back(hiddenWall);
+			}
+			else if (id == -5)
+			{
+				LockSimon* lockSimon = new LockSimon();
+				lockSimon->SetWidthHeight(Width, Height);
+				lockSimon->SetPosition(x, y);
+				objects.push_back(lockSimon);
 			}
 			else if (id == -99)
 			{
@@ -202,6 +210,11 @@ void Scene::UpdateBoardGame(DWORD dt) {
 	CBoardGame * boardGame = CBoardGame::GetInstance();
 	CSimon *simon = CSimon::getInstance();
 	DWORD now = GetTickCount();
+	if (boardGame->getLimitTime() <= 0)
+	{
+		simon->TouchEnemy(-simon->nx);
+		simon->SetHealth(0);
+	}
 	if (now - lastTimeEachStage >= 1000)
 	{
 		lastTimeEachStage = GetTickCount();
@@ -395,26 +408,15 @@ void Scene::MakeEnemies(DWORD dt)
 bool Scene::isInGrid(LPGAMEOBJECT obj)
 {
 	float x, y;
+	float width, height;
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	obj->GetPosition(x, y);
-	if (cx + SCREEN_WIDTH == SCENCE_WITDH)
+	obj->GetWidthHeight(width, height);
+	if (x + width > cx - 86 && x < cx + SCREEN_WIDTH + 86 || x < -150)
 	{
-		if (x > cx - 86 && x < SCENCE_WITDH + 128 || x < -150)
-		{
-			if (dynamic_cast<CEnemies*>(obj))
-			{
-				DebugOut(L"\nX: %f,  SCENCE_WITDH + 128: %f", x, SCENCE_WITDH + 128);
-			}
-			return true;
-		}
+		return true;
 	}
-	else
-	{
-		if (x > cx - 86 && x < cx + SCREEN_WIDTH + 86 || x < -150)
-		{
-			return true;
-		}
-	}
+
 	return false;
 }
 
@@ -511,7 +513,8 @@ void Scene::Update(DWORD dt)
 						coEnemies.push_back(objects[i]);
 					}
 					if (dynamic_cast<CGround*> (objects[i])
-						|| (dynamic_cast<CSimon*> (objects[i]))
+						|| (dynamic_cast<CSimon*> (objects[i])
+							|| (dynamic_cast<CWall*>(objects[i])))
 						)
 					{
 						coItemObjects.push_back(objects[i]);
@@ -550,7 +553,24 @@ void Scene::Update(DWORD dt)
 				{
 					if (dynamic_cast<CSimon*>(objects[i]) == false)
 					{
-						if (objects[i]->GetKillBySimon())
+						if (dynamic_cast<CHiddenWall*>(objects[i]))
+						{
+							CHiddenWall* hiddenWall = dynamic_cast<CHiddenWall*>(objects[i]);
+							float x, y;
+							objects[i]->GetPosition(x, y);
+							for (int i = 0; i < QUANTITY_EFFECT_WALL; i++)
+							{
+								CEffect * breakingWall = new CBreakingWall(x, y);
+								effects.push_back(breakingWall);
+							}
+							if (hiddenWall->getItemId() == 1)
+							{
+								CItems* potRoast = new PotRoast(x, y);
+								listItems.push_back(potRoast);
+							}
+							
+						}
+						else if (objects[i]->GetKillBySimon())
 						{
 							float x, y;
 							CEffect * hit = new CHit();
@@ -569,42 +589,44 @@ void Scene::Update(DWORD dt)
 							hit->SetPosition(x, y);
 							effects.push_back(hit);
 						}
-						else
+						else if (dynamic_cast<CUglyFish*>(objects[i]))
 						{
-							if (dynamic_cast<CUglyFish*>(objects[i]))
+
+							float x, y;
+							objects[i]->GetPosition(x, y);
+							for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
 							{
-								float x, y;
-								objects[i]->GetPosition(x, y);
-								for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
+								if (i == 0)
 								{
-									if (i == 0)
-									{
-										y = SPLASH_Y_SIDE;
-									}
-									else if (i == 1)
-									{
-										y = SPLASH_Y_CENTER;
-										x = x + SPLASH_OFFSET_LEFT;
-									}
-									else
-									{
-										y = SPLASH_Y_SIDE;
-										x = x + SPLASH_OFFSET_RIGHT;
-									}
-									CEffect * splash = new CSplash(x, y);
-									effects.push_back(splash);
+									y = SPLASH_Y_SIDE;
 								}
+								else if (i == 1)
+								{
+									y = SPLASH_Y_CENTER;
+									x = x + SPLASH_OFFSET_LEFT;
+								}
+								else
+								{
+									y = SPLASH_Y_SIDE;
+									x = x + SPLASH_OFFSET_RIGHT;
+								}
+								CEffect * splash = new CSplash(x, y);
+								effects.push_back(splash);
 							}
-							if (dynamic_cast<CEnemies*> (objects[i]))
-							{
-								CSpawner::GetInstance()->quantityEnemyDied++;
-							}
+						}
+
+						if (dynamic_cast<CEnemies*> (objects[i]))
+						{
+							CSpawner::GetInstance()->quantityEnemyDied++;
 						}
 						objects.erase(objects.begin() + i);
 					}
 					else
 						objects[i]->SetState(SIMON_STATE_DIE);
+
 				}
+
+
 			}
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 			UpdateWeaponEnemies(dt, &coWeaponEnemies);
@@ -629,14 +651,13 @@ void Scene::Update(DWORD dt)
 						{
 							objects[i]->Update(dt, &coChangeScence);
 						}
+						else if (dynamic_cast<CSimon*> (objects[i])) {
+							objects[i]->Update(dt, &coObjects);
+						}
 						else if (dynamic_cast<HiddenObjects*>(objects[i]))
 						{
 							objects[i]->Update(dt, &coHiddenObjects);
 						}
-						else if (dynamic_cast<CSimon*> (objects[i])) {
-							objects[i]->Update(dt, &coObjects);
-						}
-
 					}
 				}
 
@@ -673,7 +694,7 @@ void Scene::Update(DWORD dt)
 							objects[i]->Update(dt, &coItemObjects);
 						}
 						else if (dynamic_cast<CEnemies*>(objects[i])) {
-							
+
 							objects[i]->Update(dt, &coEnemies);
 						}
 						else if (dynamic_cast<CSpawn*> (objects[i]))
@@ -688,12 +709,12 @@ void Scene::Update(DWORD dt)
 						{
 							objects[i]->Update(dt, &coChangeScence);
 						}
+						else if (dynamic_cast<CSimon*> (objects[i])) {
+							objects[i]->Update(dt, &coObjects);
+						}
 						else if (dynamic_cast<HiddenObjects*>(objects[i]))
 						{
 							objects[i]->Update(dt, &coHiddenObjects);
-						}
-						else {
-							objects[i]->Update(dt, &coObjects);
 						}
 					}
 				}
@@ -738,7 +759,6 @@ void Scene::Update(DWORD dt)
 							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
 							{
 								int rand = Random(0, 20);
-								animations->Get(ANI_HIT)->reset();
 								InviPotion * inviPotion = new InviPotion(x, y);
 								listItems.push_back(inviPotion);
 								/*		PotRoast* potRoast = new PotRoast(x, y);
@@ -826,7 +846,6 @@ void Scene::Update(DWORD dt)
 							if (effects[i]->GetMakeItem() == ENEMY)
 							{
 								int rand = Random(1, 100);
-								animations->Get(ANI_HIT)->reset();
 								if (rand == 1)
 								{
 									LargeHeart* largeHeart = new LargeHeart(x, y);
@@ -843,13 +862,8 @@ void Scene::Update(DWORD dt)
 									listItems.push_back(smallHeart);
 								}
 							}
-							animations->Get(ANI_HIT)->reset();
 						}
-						animations->Get(ANI_RED_BAG_EFFECT)->reset();
-						animations->Get(ANI_PURPLE_BAG_EFFECT)->reset();
-						animations->Get(ANI_WHITE_BAG_EFFECT)->reset();
-						animations->Get(ANI_SPLASH)->reset();
-						animations->Get(ANI_HIT)->reset();
+						effects[i]->reset();
 						effects.erase(effects.begin() + i);
 					}
 					else
