@@ -395,6 +395,7 @@ void Scene::MakeEnemies(DWORD dt)
 				else if (spawner->enemyId == BOSS_BAT_ID)
 				{
 					CBossBat* bossBat = new CBossBat();
+					bossBat->SetIsBoss(true);
 					spawner->quantitySpawned += 1;
 					objects.push_back(bossBat);
 				}
@@ -572,22 +573,46 @@ void Scene::Update(DWORD dt)
 						}
 						else if (objects[i]->GetKillBySimon())
 						{
-							float x, y;
-							CEffect * hit = new CHit();
-							if (objects[i]->GetKillBySimon())
+							if (objects[i]->GetIsBoss() == false)
 							{
-								hit->SetKillBySimon(true);
+								float x, y;
+								CEffect * hit = new CHit();
+								if (objects[i]->GetKillBySimon())
+								{
+									hit->SetKillBySimon(true);
+								}
+								if (dynamic_cast<CStaticObject*>(objects[i]))
+									hit->SetMakeItem(STATIC_OBJECT);
+
+								if (dynamic_cast<CEnemies*> (objects[i]))
+								{
+									hit->SetMakeItem(ENEMY);
+									CSpawner::GetInstance()->quantityEnemyDied++;
+								}
+								objects[i]->GetPosition(x, y);
+								hit->SetPosition(x, y);
+								effects.push_back(hit);
 							}
-							if (dynamic_cast<CStaticObject*>(objects[i]))
-								hit->SetMakeItem(STATIC_OBJECT);
-							if (dynamic_cast<CEnemies*> (objects[i]))
+							else
 							{
-								hit->SetMakeItem(ENEMY);
-								CSpawner::GetInstance()->quantityEnemyDied++;
+								if (dynamic_cast<CBossBat *>(objects[i]))
+								{
+									float x, y;
+									objects[i]->GetPosition(x, y);
+
+									for (int i = 0; i < 3; i++)
+									{
+										for (int j = 0; j < 2; j++)
+										{
+											CEffect * hit = new CHit();
+											hit->SetPosition(x + 16 * i, y + 16 * j);
+											hit->SetKillBySimon(true);
+											hit->SetMakeItem(ENEMY);
+											effects.push_back(hit);
+										}
+									}
+								}
 							}
-							objects[i]->GetPosition(x, y);
-							hit->SetPosition(x, y);
-							effects.push_back(hit);
 						}
 						else if (dynamic_cast<CUglyFish*>(objects[i]))
 						{
@@ -758,90 +783,93 @@ void Scene::Update(DWORD dt)
 						{
 							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
 							{
-								int rand = Random(0, 20);
-								InviPotion * inviPotion = new InviPotion(x, y);
-								listItems.push_back(inviPotion);
-								/*		PotRoast* potRoast = new PotRoast(x, y);
-										listItems.push_back(potRoast);*/
-										/*if (CSimon::getInstance()->getWeaponLevel() < 3)
-										{
-											WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
-											listItems.push_back(whipUpgrade);
-										}
-										else if (rand >= 0 && rand < 2)
-										{
-											LargeHeart* largeHeart = new LargeHeart(x, y);
-											listItems.push_back(largeHeart);
-										}
-										else if (rand >= 2 && rand < 8)
-										{
-											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
-											{
-												Danger* danger = new Danger(x, y);
-												listItems.push_back(danger);
-											}
-											else
-											{
-												SmallHeart* smallHeart = new SmallHeart(x, y);
-												listItems.push_back(smallHeart);
-											}
-										}
-										else if (rand == 8)
-										{
-											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::AXE &&
-												CSimon::getInstance()->getCurrentScene() == 3)
-											{
-												Axe* axe = new Axe(x, y);
-												listItems.push_back(axe);
-											}
-											else
-											{
-												SmallHeart* smallHeart = new SmallHeart(x, y);
-												listItems.push_back(smallHeart);
-											}
-										}
-										else if (rand == 9)
-										{
-											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::HOLY_WATER)
-											{
-												HolyWater* holyWater = new HolyWater(x, y);
-												listItems.push_back(holyWater);
-											}
-											else
-											{
-												SmallHeart* smallHeart = new SmallHeart(x, y);
-												listItems.push_back(smallHeart);
-											}
-										}
-										else if (rand >= 10 && rand <= 15)
-										{
-											MoneyBag* moneyBag = new MoneyBag(x, y);
-											listItems.push_back(moneyBag);
-										}
-										else if (rand == 16)
-										{
-											if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::STOP_WATCH)
-											{
-												StopWatch* stopWatch = new StopWatch(x, y);
-												listItems.push_back(stopWatch);
-											}
-											else
-											{
-												SmallHeart* smallHeart = new SmallHeart(x, y);
-												listItems.push_back(smallHeart);
-											}
-										}
-										else if (rand == 17)
-										{
-											Cross* cross = new Cross(x, y);
-											listItems.push_back(cross);
-										}
-										else
-										{
-											SmallHeart* smallHeart = new SmallHeart(x, y);
-											listItems.push_back(smallHeart);
-										}*/
-
+								int rand = Random(0, 30);
+								animations->Get(ANI_HIT)->reset();
+								DoubleShot * doubleShot = new DoubleShot(x, y);
+								listItems.push_back(doubleShot);
+								/*if (CSimon::getInstance()->getWeaponLevel() < 3)
+								{
+									WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
+									listItems.push_back(whipUpgrade);
+								}
+								else if (rand >= 0 && rand < 2)
+								{
+									LargeHeart* largeHeart = new LargeHeart(x, y);
+									listItems.push_back(largeHeart);
+								}
+								else if (rand >= 2 && rand < 8)
+								{
+									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
+									{
+										Danger* danger = new Danger(x, y);
+										listItems.push_back(danger);
+									}
+									else
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}
+								}
+								else if (rand == 8)
+								{
+									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::AXE &&
+										CSimon::getInstance()->getCurrentScene() == 3)
+									{
+										Axe* axe = new Axe(x, y);
+										listItems.push_back(axe);
+									}
+									else
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}
+								}
+								else if (rand == 9)
+								{
+									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::HOLY_WATER)
+									{
+										HolyWater* holyWater = new HolyWater(x, y);
+										listItems.push_back(holyWater);
+									}
+									else
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}
+								}
+								else if (rand >= 10 && rand <= 15)
+								{
+									MoneyBag* moneyBag = new MoneyBag(x, y);
+									listItems.push_back(moneyBag);
+								}
+								else if (rand == 16)
+								{
+									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::STOP_WATCH)
+									{
+										StopWatch* stopWatch = new StopWatch(x, y);
+										listItems.push_back(stopWatch);
+									}
+									else
+									{
+										SmallHeart* smallHeart = new SmallHeart(x, y);
+										listItems.push_back(smallHeart);
+									}
+								}
+								else if (rand == 17)
+								{
+									Cross* cross = new Cross(x, y);
+									listItems.push_back(cross);
+								}
+								else if (rand == 28)
+								{
+									InviPotion * inviPotion = new InviPotion(x, y);
+									listItems.push_back(inviPotion);
+								}
+								else
+								{
+									SmallHeart* smallHeart = new SmallHeart(x, y);
+									listItems.push_back(smallHeart);
+								}*/
 							}
 							if (effects[i]->GetMakeItem() == ENEMY)
 							{
@@ -927,6 +955,17 @@ void Scene::Render()
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
+		if (simon->getUsingDoubleShot())
+		{
+			if (simon->x < SCREEN_WIDTH / 2)
+			{
+				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X - 1), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
+			}
+			else
+			{
+				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
+			}
+		}
 		sprites->Get(BLACK_BOARD_ID)->Draw(camX, camY);
 
 		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
@@ -968,6 +1007,7 @@ void Scene::Render()
 
 			if (simon->x < SCREEN_WIDTH / 2)
 			{
+
 				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX - 1), floor(camY + drawPosY));
 			}
 			else

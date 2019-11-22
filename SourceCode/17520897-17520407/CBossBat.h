@@ -85,7 +85,11 @@ public:
 	void StartCurves();
 	void StartStaight();
 	void StartAttack();
-	
+	void SetIsBoss(bool b)
+	{
+		isBoss = b;
+	}
+
 	void SetPosition(float x, float y)
 	{
 		this->x = x;
