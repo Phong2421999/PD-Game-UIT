@@ -3,9 +3,6 @@
   <Grounds id="0" width="325" height="8">
     <Ground x="0" y="132" />
   </Grounds>
-  <Grounds id="0" width="50" height="8">
-    <Ground x="245" y="80" />
-  </Grounds>
 
   <ChangeScenes id="-1" width="16" height="30">
     <ChangeScene x="675" y="168" sceneId="2"

@@ -139,6 +139,7 @@
     <ClCompile Include="CBoardGame.cpp" />
     <ClCompile Include="CGhost.cpp" />
     <ClCompile Include="ChangeSceneObjects.cpp" />
+    <ClCompile Include="CheckGround.cpp" />
     <ClCompile Include="CheckStair.cpp" />
     <ClCompile Include="CHit.cpp" />
     <ClCompile Include="CItems.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="CBoardGame.h" />
     <ClInclude Include="CGhost.h" />
     <ClInclude Include="ChangeSceneObjects.h" />
+    <ClInclude Include="CheckGround.h" />
     <ClInclude Include="CheckStair.h" />
     <ClInclude Include="CHit.h" />
     <ClInclude Include="CItems.h" />

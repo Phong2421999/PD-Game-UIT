@@ -89,10 +89,6 @@ public:
 	virtual void SetQuantitySpawnEnemy(int quantity){}
 	virtual int GetQuantitySpawnEnemy() { return 0; }
 	virtual int GetSpawnEnemyType() { return -1; }
-	virtual bool getDeath()
-	{
-		return false;
-	}
 	virtual void SetMakeTime(DWORD time){}
 	void RenderBoundingBox(float x, float y);
 
@@ -114,10 +110,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-	virtual bool GetDeath()
-	{
-		return false;
-	}
 	virtual void Damage(int damage) {
 		health -= damage;
 	}

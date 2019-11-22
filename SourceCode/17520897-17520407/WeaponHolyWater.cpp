@@ -13,7 +13,6 @@ WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 	vy = -HOLY_WATER_SPEED_Y;
 	SetPositionWithSimon(x, y, nx);
 	SetWidthHeigth(HOLY_WATER_BBOX_WIDTH, HOLY_WATER_BBOX_HEIGHT);
-	isDeath = false;
 	CSimon::getInstance()->GetPosition(sx, sy);
 	health = 1;
 	isGrounded = false;

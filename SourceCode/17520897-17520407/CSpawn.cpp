@@ -13,7 +13,7 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				CSpawner *spawner = CSpawner::GetInstance();
 				if (spawner->spawnerId != this->spawnerId)
 				{
-					spawner->reset();
+					spawner->Reset();
 				}
 				spawner->xEnemy = this->xEnemy;
 				spawner->yEnemy = this->yEnemy;

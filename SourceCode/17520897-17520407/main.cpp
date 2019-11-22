@@ -194,11 +194,11 @@ void LoadResources()
 		sceneXMLElem->QueryFloatAttribute("simonStartX", &simonStartX);
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
-		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene);
-		scene->LoadSceneResource(mapId, sceneGameObjectPath.c_str());
+		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId);
+		scene->LoadSceneResource();
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
-		scenes->AddSceneData(sceneId, resetSceneId, mapId,sceneGameObjectPath.c_str());
+		scenes->AddSceneData(sceneId, resetSceneId);
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
 			scene->StartLoadScene();
@@ -208,14 +208,23 @@ void LoadResources()
 
 void Update(DWORD dt)
 {
-	if (simon->GetDeath())
+	if (simon->getDeath())
 	{
 		if (simon->getLive() > 0)
 		{
-			sceneId = simon->getCurrentScene();
-			scenes->ResetScene(sceneId);
-			scenes->Get(sceneId)->Reset();
+			DWORD now = GetTickCount();
+			if (now - simon->getDeathTime() > 1000)
+			{
+				sceneId = simon->getCurrentScene();
+				scenes->ResetScene(sceneId);
+			}
+			else
+			{
+				scenes->Get(sceneId)->Update(dt);
+			}
 		}
+		else
+			DebugOut(L"\nScene Choi Lai");
 	}
 	else
 	{
@@ -228,6 +237,8 @@ void Update(DWORD dt)
 		{
 			if (lastSceneId != sceneId)
 			{
+				scenes->Get(lastSceneId)->Clear();
+				scenes->Get(sceneId)->Clear();
 				scenes->Get(sceneId)->StartLoadScene();
 				lastSceneId = sceneId;
 			}
@@ -250,10 +261,9 @@ void Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		if (simon->getLive() > 0)
-		{
 			scenes->Get(sceneId)->Render();
-		}
-
+		else
+			DebugOut(L"\nRender Scene choi lai");
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}

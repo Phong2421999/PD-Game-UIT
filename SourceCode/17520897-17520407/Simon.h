@@ -51,6 +51,7 @@ private:
 	DWORD lastJumpTime;
 	DWORD timeMakeWeapon;
 
+
 	
 	DWORD timeUsingStopWatch;
 	DWORD timeUsingCross;
@@ -89,6 +90,7 @@ private:
 	int stairNy;
 	int stairActiveNy;
 
+
 public:
 
 	static CSimon* getInstance();
@@ -124,7 +126,7 @@ public:
 		weaponLevel = SIMON_WEAPON_LEVEL_1;
 		heart = 5;
 		health = 8;
-		currentScene = 0;
+		currentScene = 4;
 		score = 1;
 		live = 3;
 		isAutoGo = false;
@@ -140,6 +142,22 @@ public:
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setStartDeathTime(DWORD startDeathTime)
+	{
+		this->startDeathTime = startDeathTime;
+	}
+	void setLive(int live)
+	{
+		this->live = live;
+	}
+	void setHurt(bool b)
+	{
+		this->isHurt = b;
+	}
+	void setDeath(bool b)
+	{
+		this->isDeath = b;
+	}
 	void setCanOutStair(bool b)
 	{
 		this->isCanOutStair = b;
@@ -229,6 +247,14 @@ public:
 #pragma endregion
 
 #pragma region //get thuộc tính
+	bool getOnGround()
+	{
+		return isOnGround;
+	}
+	DWORD getDeathTime()
+	{
+		return startDeathTime;
+	}
 	bool getDeath()
 	{
 		return isDeath;

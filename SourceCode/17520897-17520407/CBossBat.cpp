@@ -44,95 +44,114 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	switch (status)
 	{
-		case BOSS_FLY_START_1:
+	case BOSS_FLY_START_1:
+	{
+		if (y >= yTarget)
 		{
-			if (y >= yTarget)
-			{
-				status = BOSS_FLY_START_2; // qua trạng thái bay khởi động 2
+			status = BOSS_FLY_START_2; // qua trạng thái bay khởi động 2
 
-				vy = 0; // khi đi tới được yTarget thì ngưng bay xuống 
+			vy = 0; // khi đi tới được yTarget thì ngưng bay xuống 
 
-				/*	--
-					-------- Tính toán vị trí tiếp theo để bay
-				*/
-				xBefore = x; // lưu lại ví trí đã di chuyển
-				yBefore = y;
-
-				xTarget = 240;
-				yTarget = 161;
-
-				float dTarget = xTarget - xBefore; // Quãng đường từ vị trí hiện tại tới target
-				vx = (dTarget / (1000.0f)); // Vận tốc cần để đi đến target trong 1.0s
-
-				vy = 0.12f; // tạo độ cong
-			}
-			break;
-		}
-		case BOSS_FLY_START_2:
-		{
-			if (isWaiting == false)
-			{
-				// tạo độ cong
-				vy -= 0.0001f * dt;
-
-
-				if (vy < 0)
-					vy = 0;
-
-				if (x >= xTarget)
-				{
-					// di chuyển xong đến ví trí 2
-					// cho ngừng bay
-					vx = 0;
-					vy = 0;
-
-
-					isWaiting = true; // bật trạng thái chờ
-					//TimeWaited = 0; // reset lại time đã chờ
-					TimeWaited = GetTickCount();
-				}
-			}
-			else
-			{
-				//TimeWaited += dt; // lấy thời gian của game
-				if (now - TimeWaited >= 1000) // đợi theo thời gian của game
-				{
-
-					DebugOut(L"\n Waited Done!");
-					isWaiting = false; // ngừng chờ
-
-					StartCurves(); // bay cong 
-				}
-			}
-			break;
-		}
-		case BOSS_FLY_CURVE:
-		{
 			/*	--
-				-------- Kiểm tra nếu đi đến target thì ngừng bay
-				-------- abs(x - xBefore) : quãng đường của boss đã đi được
-				-------- abs(xTarget - xBefore) : quãng đường đi đến target
+				-------- Tính toán vị trí tiếp theo để bay
 			*/
-			float ya = Curve(y1, y2);
+			xBefore = x; // lưu lại ví trí đã di chuyển
+			yBefore = y;
 
-			float yb = Curve(y2, y3);
+			xTarget = 240;
+			yTarget = 161;
 
-			float yc = Curve(ya, yb);
+			float dTarget = xTarget - xBefore; // Quãng đường từ vị trí hiện tại tới target
+			vx = (dTarget / (1000.0f)); // Vận tốc cần để đi đến target trong 1.0s
 
-			vy = (yc - yLastFrame/*Khoảng cách y của frame trước và y dự tính đi*/) / 100; // curve mỗi 100ms
-			if (abs(x - xBefore) >= abs(xTarget - xBefore))
+			vy = 0.12f; // tạo độ cong
+		}
+		break;
+	}
+	case BOSS_FLY_START_2:
+	{
+		if (isWaiting == false)
+		{
+			// tạo độ cong
+			vy -= 0.0001f * dt;
+
+
+			if (vy < 0)
+				vy = 0;
+
+			if (x >= xTarget)
 			{
+				// di chuyển xong đến ví trí 2
+				// cho ngừng bay
 				vx = 0;
 				vy = 0;
-				isUsingCurve = false;
 
-				StartStaight(); // Bắt đầu đi thẳng
-				break;
+
+				isWaiting = true; // bật trạng thái chờ
+				//TimeWaited = 0; // reset lại time đã chờ
+				TimeWaited = GetTickCount();
 			}
+		}
+		else
+		{
+			//TimeWaited += dt; // lấy thời gian của game
+			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
+			{
 
+				DebugOut(L"\n Waited Done!");
+				isWaiting = false; // ngừng chờ
+
+				StartCurves(); // bay cong 
+			}
+		}
+		break;
+	}
+	case BOSS_FLY_CURVE:
+	{
+		/*	--
+			-------- Kiểm tra nếu đi đến target thì ngừng bay
+			-------- abs(x - xBefore) : quãng đường của boss đã đi được
+			-------- abs(xTarget - xBefore) : quãng đường đi đến target
+		*/
+		float ya = Curve(y1, y2);
+
+		float yb = Curve(y2, y3);
+
+		float yc = Curve(ya, yb);
+
+		vy = (yc - yLastFrame/*Khoảng cách y của frame trước và y dự tính đi*/) / 100; // curve mỗi 100ms
+		if (abs(x - xBefore) >= abs(xTarget - xBefore))
+		{
+			vx = 0;
+			vy = 0;
+			isUsingCurve = false;
+
+			StartStaight(); // Bắt đầu đi thẳng
 			break;
 		}
-		case BOSS_FLY_STRAIGHT_1:
+
+		break;
+	}
+	case BOSS_FLY_STRAIGHT_1:
+	{
+		/*	--
+			-------- Kiểm tra nếu đi đến target thì ngừng bay
+			-------- abs(x - xBefore) : quãng đường của boss đã đi được
+			-------- abs(xTarget - xBefore) : quãng đường đi đến target
+		*/
+		if (abs(x - xBefore) >= abs(xTarget - xBefore) ||
+			abs(y - yBefore) >= abs(yTarget - yBefore))
+		{
+			vx = vy = 0;
+
+			StartStaight();
+
+		}
+		break;
+	}
+	case BOSS_FLY_STRAIGHT_2:
+	{
+		if (isWaiting == false) //Không trong trạng thái chờ
 		{
 			/*	--
 				-------- Kiểm tra nếu đi đến target thì ngừng bay
@@ -144,94 +163,16 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				vx = vy = 0;
 
-				StartStaight();
-
+				isWaiting = true; // bật trạng thái chờ
+				TimeWaited = GetTickCount(); // reset lại time đã chờ
 			}
-			break;
 		}
-		case BOSS_FLY_STRAIGHT_2:
+		else
 		{
-			if (isWaiting == false) //Không trong trạng thái chờ
+			//TimeWaited += dt; // lấy thời gian chờ
+			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
 			{
-				/*	--
-					-------- Kiểm tra nếu đi đến target thì ngừng bay
-					-------- abs(x - xBefore) : quãng đường của boss đã đi được
-					-------- abs(xTarget - xBefore) : quãng đường đi đến target
-				*/
-				if (abs(x - xBefore) >= abs(xTarget - xBefore) ||
-					abs(y - yBefore) >= abs(yTarget - yBefore))
-				{
-					vx = vy = 0;
-
-					isWaiting = true; // bật trạng thái chờ
-					TimeWaited = GetTickCount(); // reset lại time đã chờ
-				}
-			}
-			else
-			{
-				//TimeWaited += dt; // lấy thời gian chờ
-				if (now - TimeWaited >= 1000) // đợi theo thời gian của game
-				{
-					isWaiting = false;
-					int random = rand() % 3;
-					switch (random)
-					{
-					case 0: //	33 %
-						isBossAttack = false;
-						StartAttack();
-						break;
-
-					default: // 66%
-						StartCurves();
-
-						break;
-					}
-				}
-				else
-				{
-					//ProcessSmart();
-				}
-			}
-
-
-			break;
-		}
-		case BOSS_ATTACK:
-		{
-			if (isBossAttack)
-			{
-				this->makeWeapon = false;
-				StartStaight();
-			}
-
-			
-			break;
-		}
-	}
-
-
-	if (x < cx
-		|| cx + SCREEN_WIDTH < x + BOSS_BAT_WIDTH //Width cua bosss
-		|| y > SCREEN_HEIGHT
-		) // ra khỏi cam thì xử lí hướng tiếp theo
-	{
-		switch (status)
-		{
-			case BOSS_FLY_CURVE:
-			{
-				isUsingCurve = false;
-				StartStaight();
-				break;
-			}
-
-			case BOSS_FLY_STRAIGHT_1:
-			{
-				StartStaight();
-				break;
-			}
-
-			case BOSS_FLY_STRAIGHT_2:
-			{
+				isWaiting = false;
 				int random = rand() % 3;
 				switch (random)
 				{
@@ -245,9 +186,68 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					break;
 				}
+			}
+			else
+			{
+				//ProcessSmart();
+			}
+		}
+
+
+		break;
+	}
+	case BOSS_ATTACK:
+	{
+		if (isBossAttack)
+		{
+			this->makeWeapon = false;
+			StartStaight();
+		}
+
+
+		break;
+	}
+	}
+
+
+	if (x < cx
+		|| cx + SCREEN_WIDTH < x + BOSS_BAT_WIDTH //Width cua bosss
+		|| y > SCREEN_HEIGHT
+		) // ra khỏi cam thì xử lí hướng tiếp theo
+	{
+		switch (status)
+		{
+		case BOSS_FLY_CURVE:
+		{
+			isUsingCurve = false;
+			StartStaight();
+			break;
+		}
+
+		case BOSS_FLY_STRAIGHT_1:
+		{
+			StartStaight();
+			break;
+		}
+
+		case BOSS_FLY_STRAIGHT_2:
+		{
+			int random = rand() % 3;
+			switch (random)
+			{
+			case 0: //	33 %
+				isBossAttack = false;
+				StartAttack();
+				break;
+
+			default: // 66%
+				StartCurves();
 
 				break;
 			}
+
+			break;
+		}
 		}
 	}
 
@@ -258,9 +258,12 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (IsTouchColision(coObjects->at(i)))
 			{
-				if (dynamic_cast<CSimon*> (coObjects->at(i)))
+				if (CSimon::getInstance()->getDeath() == false)
 				{
-					CSimon::getInstance()->Damage(1);
+					if (dynamic_cast<CSimon*> (coObjects->at(i)))
+					{
+						CSimon::getInstance()->Damage(1);
+					}
 				}
 			}
 		}
@@ -304,9 +307,9 @@ void CBossBat::StartCurves()
 	y3 = yTarget;
 
 	float disNeedToGo = xTarget - xBefore; // quãng đường cần bay
-	float directBossToTarget= x - xTarget; // tính hướng bay của boss
+	float directBossToTarget = x - xTarget; // tính hướng bay của boss
 	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 150)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
-	
+
 	isUsingCurve = true;
 	status = BOSS_FLY_CURVE;
 }
@@ -337,7 +340,7 @@ void CBossBat::StartStaight()
 	/*	--
 	-------- Tính vx, vy di chuyển đến target trong 1 giây
 	*/
-	vx = (xTarget - xBefore) / (1000); 
+	vx = (xTarget - xBefore) / (1000);
 	vy = (yTarget - yBefore) / (1000);
 }
 
@@ -348,7 +351,7 @@ void CBossBat::StartAttack()
 		vx = vy = 0;
 		status = BOSS_ATTACK;
 		isBossAttack = true;
-		if(y > SCREEN_HEIGHT / 3)
+		if (y > SCREEN_HEIGHT / 3)
 			this->makeWeapon = true;
 		if (sx - x > 0)
 			nx = 1;
@@ -364,12 +367,12 @@ float CBossBat::Curve(float y1, float y2)
 	-------- Phần trăm quãng đường đã đi được của boss tương ứng như t của Bézier curve
 	*/
 	float percHasGone = abs((x - xBefore) / (xTarget - xBefore));
-	
+
 
 	/*	--
 	-------- Phần trăm quãng đường đi được chỉ trong khoảng 0 < percHasGone < 1 (0% -> 100%)
 	*/
-	if (percHasGone < 1) 
+	if (percHasGone < 1)
 	{
 		percHasGone = percHasGone - (percHasGone / 100);
 

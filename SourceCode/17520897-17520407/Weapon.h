@@ -4,6 +4,7 @@
 #include "FrameWork/debug.h"
 #include "CStaticObject.h"
 
+
 #define OFFSET_Y_TO_HAND_SIMON 8
 #define OFFSET_X_TO_HAND_LEFT_SIMON 25
 #define OFFSET_X_TO_HAND_RIGHT_SIMON 31

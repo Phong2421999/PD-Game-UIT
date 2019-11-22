@@ -43,7 +43,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	DWORD now = GetTickCount();
 	if (now - startSpawnTime >= GHOST_ACTIVE_TIME)
 		isActive = true;
-	
+
 	if (nx > 0)
 		vx = GHOST_VELOCITY_X;
 	else
@@ -82,13 +82,16 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CSimon* simon = CSimon::getInstance();
 	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
-		CSimon::getInstance()->TouchEnemy(this->nx);
-		CSimon::getInstance()->Damage(1);
+		if (CSimon::getInstance()->getDeath() == false)
+		{
+			CSimon::getInstance()->TouchEnemy(this->nx);
+			CSimon::getInstance()->Damage(1);
+		}
 	}
 }
 
 void CGhost::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
-	left = x;
+	left = x + 2;
 	top = y;
 	right = x + width;
 	bottom = y + height;

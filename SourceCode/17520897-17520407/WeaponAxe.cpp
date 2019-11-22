@@ -12,7 +12,6 @@ WeaponAxe::WeaponAxe(float x, float y, int nx)
 	SetTimeLive(AXE_WEAPON_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
 	SetWidthHeigth(AXE_BBOX_WIDTH, AXE_BBOX_HEIGHT);
-	isDeath = false;
 	CSimon::getInstance()->GetPosition(sx, sy);
 	makeTime = GetTickCount();
 	health = 1;

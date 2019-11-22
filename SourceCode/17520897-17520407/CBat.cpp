@@ -51,9 +51,13 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CSimon* simon = CSimon::getInstance();
 	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
-		CSimon::getInstance()->TouchEnemy(this->nx);
-		CSimon::getInstance()->Damage(1);
-		this->health = 0;
+		if (CSimon::getInstance()->getDeath() == false)
+		{
+			CSimon::getInstance()->TouchEnemy(this->nx);
+			CSimon::getInstance()->Damage(1);
+			this->health = 0;
+		}
+
 	}
 }
 

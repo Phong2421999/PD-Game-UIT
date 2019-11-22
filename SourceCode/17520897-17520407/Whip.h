@@ -1,5 +1,6 @@
 #pragma once
 #include "Weapon.h"
+#include "HiddenWall.h"
 
 #define WHIP_SPEED_X 0
 #define WHIP_SPEED_Y 0
@@ -37,15 +38,9 @@ class Whip : public Weapon {
 private:
 	int curLevel;
 	int simonX, simonY;
+	bool isTouchHiddenWall;
 public :
 	Whip(float x, float y, int nx, int level);
-	Whip()
-	{
-		SetTimeLive(WHIP_TIME_LIVE);
-		this->AddAnimation(WHIP_ANI_LEVEL_1);
-		this->AddAnimation(WHIP_ANI_LEVEL_2);
-		this->AddAnimation(WHIP_ANI_LEVEL_3);
-	}
 	void SetLevel(int level) {
 		this->curLevel = level;
 	}

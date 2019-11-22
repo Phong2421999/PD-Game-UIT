@@ -107,6 +107,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (isHurt)
 			{
+				if (nx > 0)
+				{
+					vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
+					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+				}
+				else
+				{
+					vx = +PUSH_SIMON_TOUCH_ENEMIES_VX;
+					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+				}
 				if (now - startHurtTime > 250)
 				{
 					if (isJump)
@@ -209,18 +219,29 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
-
-					this->ny = 0;
-					if (isHurt)
-					{
-						state = SIMON_STATE_IDLE;
-						isHurt = false;
-					}
 					if (simonWeapon)
 						simonWeapon->SetIsJump(false);
 
 					if (isJump)
 						ResetAfterJump();
+					this->ny = 0;
+					if (isHurt)
+					{
+						if (health > 0)
+						{
+							state = SIMON_STATE_IDLE;
+							isHurt = false;
+						}
+						else
+						{
+							isHurt = false;
+							isDeath = true;
+							live--;
+							startDeathTime = GetTickCount();
+							state = SIMON_STATE_DIE;
+						}
+
+					}
 					isFalling = false;
 					isCanSetStair = true;
 					isCanOnStair = false;
@@ -232,6 +253,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
+
 }
 
 
@@ -352,7 +374,9 @@ void CSimon::Render()
 	}
 
 	int alpha = 255;
-	if (isUntouchable && isHurt == false) alpha = 128;
+	if (isUntouchable
+		&& isHurt == false
+		&& isDeath == false) alpha = 128;
 	if (nx > 0)
 		animations[ani]->Render(x, y, alpha);
 	else
@@ -472,7 +496,6 @@ void CSimon::SetState(int state)
 		{
 		case SIMON_STATE_DIE:
 			vx = 0;
-			startDeathTime = GetTickCount();
 			break;
 		case SIMON_STATE_WALKING_RIGHT:
 			WalkingRight();
@@ -511,34 +534,26 @@ void CSimon::SetState(int state)
 
 //Xử lí khi chạm enemy
 void CSimon::TouchEnemy(int nx) {
-	if (isOnStair == false)
+	if (isDeath == false)
 	{
-		if (isUntouchable == false)
+		if (isOnStair == false)
 		{
-			if (nx > 0)
+			if (isUntouchable == false)
 			{
-				vx = PUSH_SIMON_TOUCH_ENEMIES_VX;
-				vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+				this->nx = -nx;
+				isHurt = true;
+				isUntouchable = true;
+				StartUntouchable();
+				startHurtTime = GetTickCount();
+				isSit = false;
 			}
-			else
-			{
-				vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
-				vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-			}
-			this->nx = -nx;
-			isHurt = true;
+		}
+		else
+		{
 			isUntouchable = true;
 			StartUntouchable();
-			startHurtTime = GetTickCount();
-			isSit = false;
 		}
 	}
-	else
-	{
-		isUntouchable = true;
-		StartUntouchable();
-	}
-
 }
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
@@ -995,6 +1010,8 @@ void CSimon::Reset()
 	health = 8;
 	heart = 5;
 	ChangeSubWeapon(NONE);
+	SetState(SIMON_STATE_IDLE);
+	nx = 1;
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

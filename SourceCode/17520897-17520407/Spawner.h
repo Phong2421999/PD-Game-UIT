@@ -32,7 +32,7 @@ public:
 		spawnerId = -1;
 	}
 	static CSpawner * GetInstance();
-	void reset()
+	void Reset()
 	{
 		lastSpawnTime = GetTickCount();
 		canSpawn = true;
@@ -48,6 +48,17 @@ public:
 		canSpawn = true;
 		quantityEnemyDied = 0;
 		quantitySpawned = 0;
+	}
+	void resetAfterResetScene()
+	{
+		lastSpawnTime = GetTickCount();
+		canSpawn = true;
+		xEnemy = 0;
+		yEnemy = 0;
+		quantityEnemyDied = 0;
+		quantitySpawned = 0;
+		quantityEachSpawn = 0;
+		enemyId = -999;
 	}
 
 };

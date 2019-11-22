@@ -7,7 +7,7 @@
 #define GHOST_ACTIVE_TIME 500
 #define GHOST_OFFSET_FLIP_X 8
 
-#define GHOST_WIDTH 16
+#define GHOST_WIDTH 12
 #define GHOST_HEIGHT 32
 
 #define GHOST_GRAVITY 0.005

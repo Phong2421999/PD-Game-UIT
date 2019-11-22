@@ -11,7 +11,6 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	SetTimeLive(DANGER_WEAPON_TIME_LIVE);
 	SetPositionWithSimon(x, y, nx);
 	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
-	isDeath = false;
 	makeTime = GetTickCount();
 	health = 1;
 }

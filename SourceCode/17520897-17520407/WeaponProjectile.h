@@ -19,7 +19,6 @@
 class WeaponProjectile :public WeaponEnemies {
 
 private:
-	bool isDeath;
 	DWORD makeTime;
 public:
 	WeaponProjectile(float x, float y, int nx);
@@ -28,8 +27,5 @@ public:
 	void SetPositionWithFish(float x, float y, int nx);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	bool getDeath()
-	{
-		return isDeath;
-	}
+	
 };

@@ -1,24 +1,32 @@
 ﻿#include "Scene.h"
 
-Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene)
+Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId)
 {
 	this->sceneWidthEachMap = sceneWidthEachMap;
 	this->timeLoadBlackScene = timeLoadBlackScene;
 	this->stage = stage;
+	this->objectsPath = sceneGameObjects;
+	this->mapId = mapId;
 	if (loadBlackScene == 1)
+	{
 		isLoadBlackScene = true;
+
+	}
 	else
+	{
 		isLoadBlackScene = false;
+
+	}
 	isCanLoadScene = false;
 	simonStartX = 0;
 	simonStartY = 0;
 	hasSetRenderOpenDoor = false;
 
+
 }
 
-void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
+void Scene::LoadSceneResource()
 {
-	this->mapId = mapId;
 	CMap::GetInstance()->Get(mapId)->LoadTile();
 	CBoardGame::GetInstance()->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
 
@@ -42,10 +50,10 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 		letters.push_back(l);
 	}
 
-	TiXmlDocument mapObjects(senceGameObjects);
+	TiXmlDocument mapObjects(this->objectsPath.c_str());
 	if (!mapObjects.LoadFile())
 	{
-		DebugOut(L"Can't read XML file: %s", senceGameObjects);
+		DebugOut(L"Can't read XML file: %s", this->objectsPath.c_str());
 		MessageBox(NULL, L"Can't Read XML File", L"Error", MB_OK);
 		return;
 	}
@@ -155,6 +163,14 @@ void Scene::LoadSceneResource(int mapId, LPCSTR senceGameObjects)
 				checkStair->SetNxNy(nx, ny);
 				objects.push_back(checkStair);
 			}
+			else if (id == -4)
+			{
+				int type;
+				Object->QueryIntAttribute("type", &type);
+				CHiddenWall* hiddenWall = new CHiddenWall(x, y, type);
+				hiddenWall->SetWidthHeight(Width, Height);
+				objects.push_back(hiddenWall);
+			}
 			else if (id == -99)
 			{
 				CDestroy* detroy = new CDestroy();
@@ -194,7 +210,7 @@ void Scene::UpdateBoardGame(DWORD dt) {
 	}
 	for (int i = 0; i < letters.size(); i++)
 	{
-		int n;
+		int n = 0;
 		int temp;
 		if (i < 6) {
 			temp = simon->getScore();
@@ -480,7 +496,7 @@ void Scene::Update(DWORD dt)
 					{
 						coDestroy.push_back(objects[i]);
 					}
-					if (simon->getUntouchable())
+					/*if (simon->getUntouchable())
 					{
 						if (dynamic_cast<CGround*> (objects[i]))
 						{
@@ -488,53 +504,47 @@ void Scene::Update(DWORD dt)
 						}
 					}
 					else
+					{*/
+					if (dynamic_cast<CGround*>(objects[i]))
 					{
-						if (!dynamic_cast<CItems*>(objects[i])
-							&& !dynamic_cast<CStaticObject*> (objects[i])
-							&& !dynamic_cast<CSpawn*> (objects[i])
-							&& !dynamic_cast<HiddenObjects*>(objects[i])
-							&& !dynamic_cast<CEnemies *> (objects[i])
-							)
-						{
-							coObjects.push_back(objects[i]);
-						}
+						coObjects.push_back(objects[i]);
 					}
-
-					if (objects[i]->GetHealth() <= 0)
+					//}
+				}
+				if (objects[i]->GetHealth() <= 0)
+				{
+					if (dynamic_cast<CSimon*>(objects[i]) == false)
 					{
-						if (dynamic_cast<CSimon*>(objects[i]) == false)
+						if (objects[i]->GetKillBySimon())
 						{
+							float x, y;
+							CEffect * hit = new CHit();
 							if (objects[i]->GetKillBySimon())
 							{
-								float x, y;
-								CEffect * hit = new CHit();
-								if (objects[i]->GetKillBySimon())
-								{
-									hit->SetKillBySimon(true);
-								}
-								if (dynamic_cast<CStaticObject*>(objects[i]))
-									hit->SetMakeItem(STATIC_OBJECT);
-								if (dynamic_cast<CEnemies*> (objects[i]))
-								{
-									hit->SetMakeItem(ENEMY);
-									CSpawner::GetInstance()->quantityEnemyDied++;
-								}
-								objects[i]->GetPosition(x, y);
-								hit->SetPosition(x, y);
-								effects.push_back(hit);
+								hit->SetKillBySimon(true);
 							}
-							else
+							if (dynamic_cast<CStaticObject*>(objects[i]))
+								hit->SetMakeItem(STATIC_OBJECT);
+							if (dynamic_cast<CEnemies*> (objects[i]))
 							{
-								if (dynamic_cast<CEnemies*> (objects[i]))
-								{
-									CSpawner::GetInstance()->quantityEnemyDied++;
-								}
+								hit->SetMakeItem(ENEMY);
+								CSpawner::GetInstance()->quantityEnemyDied++;
 							}
-							objects.erase(objects.begin() + i);
+							objects[i]->GetPosition(x, y);
+							hit->SetPosition(x, y);
+							effects.push_back(hit);
 						}
 						else
-							objects[i]->SetState(SIMON_STATE_DIE);
+						{
+							if (dynamic_cast<CEnemies*> (objects[i]))
+							{
+								CSpawner::GetInstance()->quantityEnemyDied++;
+							}
+						}
+						objects.erase(objects.begin() + i);
 					}
+					else
+						objects[i]->SetState(SIMON_STATE_DIE);
 				}
 			}
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
@@ -627,7 +637,6 @@ void Scene::Update(DWORD dt)
 
 
 			simon->UpdateCheckStair(&coCheckStairObjects);
-
 
 			for (int i = 0; i < effects.size(); i++)
 			{
@@ -963,12 +972,28 @@ void Scene::StartLoadScene()
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
-	isLoadBlackScene = true;
 	lastTimeEachStage = GetTickCount();
 }
 
 void Scene::Reset()
 {
+	objects.clear();
+	listItems.clear();
+	effects.clear();
+	letters.clear();
+	LoadSceneResource();
 	CSimon::getInstance()->Reset();
 	CBoardGame::GetInstance()->setLimitTime(300);
+	CSpawner::GetInstance()->resetAfterResetScene();
+
+}
+
+void Scene::Clear()
+{
+	objects.clear();
+	listItems.clear();
+	effects.clear();
+	letters.clear();
+	LoadSceneResource();
+	CSpawner::GetInstance()->resetAfterResetScene();
 }

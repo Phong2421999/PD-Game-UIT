@@ -60,7 +60,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				health = 0;
 			}
 		}
-	
+
 	}*/
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -128,8 +128,11 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CSimon* simon = CSimon::getInstance();
 		if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 		{
-			CSimon::getInstance()->TouchEnemy(this->nx);
-			CSimon::getInstance()->Damage(1);
+			if (CSimon::getInstance()->getDeath() == false)
+			{
+				CSimon::getInstance()->TouchEnemy(this->nx);
+				CSimon::getInstance()->Damage(1);
+			}
 		}
 	}
 

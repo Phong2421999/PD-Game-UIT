@@ -4,11 +4,11 @@
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="163" stage ="01" name="Di vao lau dai" resetSceneId ="0"/>
 
   <Scene sceneId="1" mapId="200000" sceneWidthEachMap="1552" sceneGameObjectPath="XML\\Map2_Objects.xml"
-         isLoadBlackScene="0" timeLoadBlackScene="400" simonStartX="32" simonStartY="180" stage ="01" name="Stage 1" resetSceneId ="1"/>
+         isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="32" simonStartY="180" stage ="01" name="Stage 1" resetSceneId ="1"/>
 
 
   <Scene sceneId="2" mapId="400000" sceneWidthEachMap="512" sceneGameObjectPath="XML\\Map3_Objects.xml"
-         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="0" simonStartY="180" stage ="02" name="Stage 2" resetSceneId ="2"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="64" simonStartY="180" stage ="02" name="Stage 2" resetSceneId ="2"
          simonAutoGo="0"/>
 
 

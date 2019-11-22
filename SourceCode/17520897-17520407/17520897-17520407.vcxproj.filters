@@ -279,6 +279,9 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="CheckGround.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckGround.h">
+      <Filter>GameObject\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

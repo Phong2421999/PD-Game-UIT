@@ -23,7 +23,6 @@ class WeaponAxe : public Weapon {
 
 private:
 	float sx, sy;
-	bool isDeath;
 	DWORD makeTime;
 public:
 	WeaponAxe(float x, float y, int nx);
@@ -41,8 +40,5 @@ public:
 	{
 		animations[AXE_ANI_ID]->reset();
 	}
-	bool getDeath()
-	{
-		return isDeath;
-	}
+	
 };

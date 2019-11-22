@@ -18,7 +18,6 @@
 class WeaponDanger : public Weapon {
 
 private:
-	bool isDeath;
 	DWORD makeTime;
 public:
 	WeaponDanger(float x, float y, int nx);
@@ -40,8 +39,5 @@ public:
 	{
 		animations[DANGER_ANI_ID]->reset();
 	}
-	bool getDeath()
-	{
-		return isDeath;
-	}
+	
 };

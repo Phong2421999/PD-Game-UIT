@@ -66,15 +66,18 @@ public:
 
 	bool hasSetRenderOpenDoor;
 
+	string objectsPath;
+
 
 public:
-	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene);
-	void LoadSceneResource(int mapId, LPCSTR senceGameObjects);
+	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId);
+	void LoadSceneResource();
 
 	void Update(DWORD dt);
 	void UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void UpdateBoardGame(DWORD dt);
 	void Reset();
+	void Clear();
 	bool isInGrid(LPGAMEOBJECT obj);
 
 	void MakeEnemies(DWORD dt);
@@ -88,13 +91,6 @@ public:
 	{
 		this->simonStartX = x;
 		this->simonStartY = y;
-	}
-	void clear()
-	{
-		objects.clear();
-		listItems.clear();
-		effects.clear();
-		letters.clear();
 	}
 };
 

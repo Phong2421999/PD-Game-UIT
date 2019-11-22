@@ -30,7 +30,7 @@ class WeaponHolyWater : public Weapon {
 private:
 	int ani;
 	float sx, sy;
-	bool isDeath, isFalling;
+	bool  isFalling;
 	DWORD makeTime;
 	bool isGrounded;
 public:
@@ -49,8 +49,5 @@ public:
 	{
 		animations[ani]->reset();
 	}
-	bool getDeath()
-	{
-		return isDeath;
-	}
+	
 };
