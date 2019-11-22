@@ -8,7 +8,7 @@
     <Wall x="688" y="181"  width="15" height="12"/>
   </Walls>
   <Grounds id="0">
-    <Ground x="0" y="212" width="100000" height="8" />
+    <Ground x="-200" y="212" width="100000" height="8" />
     <Ground x="0" y="115" width="111" height="1" />
     <Ground x="130" y="147" width="173" height="1" />
     <Ground x="721" y="147"  width="47" height="1"/>
@@ -36,10 +36,9 @@
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="1" isDoor="1" width="8" height="14"/>
   </ChangeSceneObjects>
-  <!--<Spawns id="-2" >
-    <Spawn x="84" y="0" spawnerId="0" enemyId="2" quantityEachSpawn ="1" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
-    <Spawn x="550" y="0" spawnerId="1" enemyId="1" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-  </Spawns>-->
+  <Spawns id="-2" >
+    <Spawn x="84" y="0" spawnerId="0" enemyId="0" quantityEachSpawn ="6" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
+  </Spawns>
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>
     <Detroy x="0" y="0" type="1" width="0" height="0"/>

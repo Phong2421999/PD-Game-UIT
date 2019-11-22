@@ -15,9 +15,11 @@ private:
 	int timeEachSpawn;
 	int spawnerId;
 	int delaySpawnTime;
+	bool canRespawn;
 public:
 	CSpawn() {
 		spawnerId = -1;
+		canRespawn = true;
 	}
 	void Render();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
@@ -27,6 +29,15 @@ public:
 	{
 		this->xEnemy = x;
 		this->yEnemy = y;
+	}
+
+	void SetRespawn(int canRespawn)
+	{
+		canRespawn == 1 ? this->canRespawn = true : this->canRespawn = false;
+	}
+	bool GetRespawn()
+	{
+		return canRespawn;
 	}
 
 	void SetDelaySpawnTime(int delaySpawnTime)

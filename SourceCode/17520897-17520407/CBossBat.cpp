@@ -169,7 +169,6 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else
 		{
-			//TimeWaited += dt; // lấy thời gian chờ
 			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
 			{
 				isWaiting = false;
@@ -187,10 +186,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					break;
 				}
 			}
-			else
-			{
-				//ProcessSmart();
-			}
+			
 		}
 
 
@@ -251,24 +247,15 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-
-	if (coObjects->size() >= 0)
+	CSimon* simon = CSimon::getInstance();
+	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
+		if (simon->getDeath() == false)
 		{
-			if (IsTouchColision(coObjects->at(i)))
-			{
-				if (CSimon::getInstance()->getDeath() == false)
-				{
-					if (dynamic_cast<CSimon*> (coObjects->at(i)))
-					{
-						CSimon::getInstance()->Damage(1);
-					}
-				}
-			}
+			simon->TouchEnemy(-simon->nx);
+			simon->Damage(1);
 		}
 	}
-
 	yLastFrame = y;// lưu lại y frame hiện tại
 }
 

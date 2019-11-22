@@ -131,7 +131,7 @@ void Scene::LoadSceneResource()
 			}
 			else if (id == -2)
 			{
-				int enemyId, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime, xEnemy, yEnemy;
+				int enemyId, canRespawn, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime, xEnemy, yEnemy;
 				Object->QueryIntAttribute("enemyId", &enemyId);
 				Object->QueryIntAttribute("xEnemy", &xEnemy);
 				Object->QueryIntAttribute("yEnemy", &yEnemy);
@@ -139,9 +139,11 @@ void Scene::LoadSceneResource()
 				Object->QueryIntAttribute("quantityEachSpawn", &quantityEachSpawn);
 				Object->QueryIntAttribute("timeEachSpawn", &timeEachSpawn);
 				Object->QueryIntAttribute("delaySpawnTime", &delaySpawnTime);
+				Object->QueryIntAttribute("canRespawn", &canRespawn);
 
 				CSpawn* spawn = new CSpawn();
 				spawn->SetPosition(x, y);
+				spawn->SetRespawn(canRespawn);
 				spawn->SetPositionEnemy(xEnemy, yEnemy);
 				spawn->SetWidthHeight(Width, Height);
 				spawn->SetSpawnEnemyType(enemyId);
@@ -334,7 +336,7 @@ void Scene::MakeEnemies(DWORD dt)
 			{
 				spawner->quantitySpawned = 0;
 				spawner->quantityEnemyDied = 0;
-				if (spawner->enemyId != PANTHER_ID && spawner->enemyId != 100)
+				if (spawner->canRespawn)
 				{
 					spawner->canSpawn = true;
 				}
@@ -981,6 +983,19 @@ void Scene::Render()
 			}
 		}
 
+		for (int i = 0; i < ENEMY_MAX_HEALTH; i++) {
+			float posX, posY;
+			boardGame->GetPositionEnemyHealthBar(posX, posY);
+			sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+
+			if (ENEMY_MAX_HEALTH - BOSS_HEALTH * 2 > 0)
+			{
+				for (int j = BOSS_HEALTH * 2; j < ENEMY_MAX_HEALTH; j++) {
+					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+				}
+			}
+		}
+
 		if (weaponSpriteId != -1)
 		{
 			float posX, posY, drawPosX, drawPosY;
@@ -1033,7 +1048,9 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
+		
 		CMap::GetInstance()->Get(mapId)->Render();
+
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
 			for (int i = 0; i < objects.size(); i++)

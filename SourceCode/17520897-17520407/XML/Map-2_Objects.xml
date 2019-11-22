@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
   <Grounds id="0">
-    <Ground x="0" y="132" width="224" height="8" />
-    <Ground x="256" y="132" width="32" height="8" />
-    <Ground x="320" y="132" width="160" height="8" />
+    <Ground x="100" y="100" width="28" height="1" />
+    <Ground x="4" y="132" width="220" height="1" />
+    <Ground x="254" y="132" width="28" height="1" />
+    <Ground x="324" y="132" width="154" height="1" />
+    <Ground x="484" y="180" width="28" height="1" />
   </Grounds>
-
+  <Walls id="3">
+    <Wall x="96" y="101"  width="32" height="13"/>
+    <Wall x="0" y="133"  width="224" height="13"/>
+    <Wall x="256" y="133"  width="32" height="13"/>
+    <Wall x="320" y="133"  width="160" height="13"/>
+    <Wall x="480" y="181" width="32" height="13" />
+    <Wall x="504" y="0" width="8" height="200" />
+  </Walls>
   <ChangeScenes id="-1" width="16" height="30">
     <ChangeScene x="675" y="168" sceneId="2"
      simonAutoGo="1" simonAutoGoDistance="35"
@@ -22,7 +31,7 @@
     <SmallCandle x="484" y="66" width="8" height="14"/>
   </SmallCandles>
   <Spawns id="-2">
-    <Spawn x="84" y="0" spawnerId="0" enemyId="3" xEnemy="0" yEnemy="0" quantityEachSpawn ="2" timeEachSpawn="1000" delaySpawnTime="4000" width="8" height="300"/>
+    <Spawn x="84" y="0" name="FISH" canRespawn="1" spawnerId="0" enemyId="3" xEnemy="0" yEnemy="0" quantityEachSpawn ="2" timeEachSpawn="1000" delaySpawnTime="4000" width="8" height="300"/>
   </Spawns>
   <Detroys id="-99">
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>

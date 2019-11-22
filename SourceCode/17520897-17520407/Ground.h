@@ -7,17 +7,17 @@
 class CGround : public CGameObject
 {
 private:
-	int width, height;
+	float width, height;
 public:
 	
 	virtual void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void GetWidthHeight(int &width, int &height)
+	void GetWidthHeight(float &width, float &height)
 	{
 		width = this->width;
 		height = this->height;
 	}
-	void SetWidthHeigth(int width, int heigth) {
+	void SetWidthHeigth(float width, float heigth) {
 		this->width = width;
 		this->height = heigth;
 	}

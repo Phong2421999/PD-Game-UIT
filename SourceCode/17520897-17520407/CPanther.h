@@ -34,8 +34,8 @@ private:
 	float xGround;
 	float yGround;
 
-	int widthGround;
-	int heightGround;
+	float widthGround;
+	float heightGround;
 
 	DWORD timeSpawn;
 

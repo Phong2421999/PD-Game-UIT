@@ -11,9 +11,9 @@
 #define BAT_ACTIVE_TIME 2000
 
 #define BAT_OFFSET_FLIP_X 8
-#define BAT_FLY_DISTANCE_Y 8
+#define BAT_FLY_DISTANCE_Y 16
 
-#define BAT_VELOCITY_X 0.03
+#define BAT_VELOCITY_X 0.06
 #define BAT_VELOCITY_Y 0.03
 
 #define BAT_WIDTH 16

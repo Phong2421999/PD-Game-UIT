@@ -16,11 +16,13 @@ public:
 	int timeEachSpawn;
 	int spawnerId;
 	int quantityEachSpawn;
+	bool canRespawn;
 public:
 	CSpawner()
 	{
 		lastSpawnTime = 0;
 		canSpawn = true;
+		canRespawn = true;
 		quantityEnemyDied = 0;
 		quantitySpawned = 0;
 		quantityEachSpawn = 0;
@@ -35,6 +37,7 @@ public:
 	void Reset()
 	{
 		lastSpawnTime = GetTickCount();
+		canRespawn = true;
 		canSpawn = true;
 		xEnemy = 0;
 		yEnemy = 0;
@@ -53,6 +56,7 @@ public:
 	{
 		lastSpawnTime = GetTickCount();
 		canSpawn = true;
+		canRespawn = true;
 		xEnemy = 0;
 		yEnemy = 0;
 		quantityEnemyDied = 0;

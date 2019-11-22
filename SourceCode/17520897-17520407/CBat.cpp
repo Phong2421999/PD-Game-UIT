@@ -11,8 +11,7 @@ CBat::CBat(float x, float y)
 	if (random == 1)
 	{
 		nx = 1;
-		this->x = x + 16;
-		DebugOut(L"\n x %f", x);
+		this->x = x;
 		this->y = y;
 	}
 	else
@@ -40,9 +39,9 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	float sx, sy;
 	CSimon::getInstance()->GetPosition(sx, sy);
-	if (y >= sy)
+	if (y >= sy + BAT_FLY_DISTANCE_Y)
 		vy = -BAT_VELOCITY_Y;
-	if (y <= sy - BAT_FLY_DISTANCE_Y)
+	if (y <= sy)
 		vy = BAT_VELOCITY_Y;
 
 	x += dx;

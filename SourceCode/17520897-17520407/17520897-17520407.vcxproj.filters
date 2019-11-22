@@ -279,9 +279,6 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="CText.cpp">
-      <Filter>BoardGame</Filter>
-    </ClCompile>
     <ClCompile Include="CSplash.cpp">
       <Filter>GameObject\Effect</Filter>
     </ClCompile>
@@ -514,9 +511,6 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="CText.h">
-      <Filter>BoardGame</Filter>
     </ClInclude>
     <ClInclude Include="CSplash.h">
       <Filter>GameObject\Effect</Filter>
