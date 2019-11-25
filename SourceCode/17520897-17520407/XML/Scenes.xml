@@ -22,7 +22,7 @@
 
 
   <Scene sceneId="-2" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml"
-         isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="2"
+         isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="34" simonStartY="34" stage ="02" name="Tang ham 2" resetSceneId ="2"
          simonAutoGo="0"/>
 
   <Scene sceneId="-99" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml"

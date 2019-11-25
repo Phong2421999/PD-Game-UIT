@@ -33,12 +33,22 @@
     <ChangeScene x="48" y="220" sceneId="-2"
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="0" isDoor="0" width="32" height="4"/>
+    
+     <ChangeScene x="364" y="220" sceneId="-2"
+    simonAutoGo="0" simonAutoGoDistance="35"
+    camAutoGo="0" isDoor="0" width="32" height="4"/>
+    
     <ChangeScene x="504" y="65" sceneId="3"
     simonAutoGo="0" simonAutoGoDistance="64"
     camAutoGo="1" isDoor="1" width="8" height="50"/>
   </ChangeSceneObjects>
   <CheckStairs id="-3">
-    <CheckStair x="44" y="208" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="46" y="208" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="172" y="144" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="232" y="208" width="16" height="4" ny="1" nx="-1"/>
+    <CheckStair x="396" y="144" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="364" y="208" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="456" y="208" width="16" height="4" ny="1" nx="-1"/>
   </CheckStairs>
   <HiddenWalls id="-4">
     <HiddenWall x="256" y="195" width="16" height="2" type ="0" itemId="1"/>
@@ -47,9 +57,9 @@
   <LockSimons id="-5">
     <LockSimon x="258" y="165" width="16" height="48"/>
   </LockSimons>
-  <Spawns id="-2" >
+  <!--<Spawns id="-2" >
     <Spawn x="48" y="0"  name="BAT" canRespawn="1" spawnerId="0" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn ="1" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
-  </Spawns>
+  </Spawns>-->
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>
     <Detroy x="0" y="0" type="1" width="0" height="0"/>

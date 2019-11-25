@@ -21,6 +21,7 @@ CBossBat::CBossBat()
 	isWaiting = false;
 	isBossActive = false;
 
+	isActive = true;
 	startSpawnTime = GetTickCount();
 }
 
@@ -284,18 +285,18 @@ void CBossBat::StartCurves()
 	y2 = sy + 4;
 
 	if (sx < x) // simon bên trái boss
-		xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
+		xTarget = 20;
 	else // simon bên phải boss
 		xTarget = rand() % (int)sx + ((int)sx - (SCREEN_WIDTH / 5));
 
-	yTarget = sy - RandomNumber(8, 32);
+	yTarget = sy + RandomNumber(8, 32);
 
 	x3 = xTarget;
 	y3 = yTarget;
 
 	float disNeedToGo = xTarget - xBefore; // quãng đường cần bay
 	float directBossToTarget = x - xTarget; // tính hướng bay của boss
-	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 150)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
+	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 150)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 150px
 
 	isUsingCurve = true;
 	status = BOSS_FLY_CURVE;
@@ -321,7 +322,7 @@ void CBossBat::StartStaight()
 	xBefore = x;
 	yBefore = y;
 
-	xTarget = RandomNumber(BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT, BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT);
+	xTarget = RandomNumber(20,200);
 	yTarget = RandomNumber(50, 200);
 
 	/*	--

@@ -135,7 +135,7 @@ public:
 		heart = SIMON_DEFAULT_HEART;
 		health = SIMON_MAX_HEALTH;
 		live = SIMON_LIVE;
-		currentScene = 2;
+		currentScene = 4;
 		score = 0;
 		isAutoGo = false;
 		autoGoDistance = 0;
