@@ -31,9 +31,9 @@
     <SmallCandle x="732" y="150" width="8" height="14"/>
   </SmallCandles>
   <CheckStairs id="-3">
-    <CheckStair x="108" y="114" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="106" y="114" width="18" height="4" ny="-1" nx="1"/>
     <CheckStair x="138" y="144" width="16" height="4" ny="1" nx="-1"/>
-    <CheckStair x="300" y="146" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="298" y="146" width="18" height="4" ny="-1" nx="1"/>
     <CheckStair x="360" y="208" width="16" height="4" ny="1" nx="-1"/>
     <CheckStair x="678" y="176" width="16" height="4" ny="1" nx="1"/>
     <CheckStair x="708" y="146" width="16" height="4" ny="-1" nx="-1"/>

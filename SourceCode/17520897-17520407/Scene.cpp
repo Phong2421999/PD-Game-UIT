@@ -929,7 +929,10 @@ void Scene::Update(DWORD dt)
 			for (int i = 0; i < objects.size(); i++)
 			{
 				if (objects[i]->GetHealth() <= 0)
+				{
+					DebugOut(L"\n GetHealth");
 					objects.erase(objects.begin() + i);
+				}
 			}
 			for (int i = 0; i < listItems.size(); i++)
 			{

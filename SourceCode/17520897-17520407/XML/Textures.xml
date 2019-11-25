@@ -144,20 +144,20 @@
     </Animation>
     
     <Animation aniId="5002" frameTime="100" name="STAIR_IDLE_DOWN">
-      <sprite id="50007" left="611" top="24" right="687" bottom="54" frameTime="100"/>
+      <sprite id="50007" left="609" top="24" right="687" bottom="54" frameTime="100"/>
     </Animation>
     <Animation aniId="5003" frameTime="100" name="STAIR_IDLE_UP">
       <sprite id="50001" left="526" top="24" right="604" bottom="54" frameTime="100"/>
     </Animation>
     <Animation aniId="5004" frameTime="100" name="STAIR_DOWN">
       <sprite id="10005" left="86" top="24" right="164" bottom="54" frameTime="200"/>
-      <sprite id="50007" left="611" top="24" right="687" bottom="54" frameTime="25"/>
+      <sprite id="50007" left="609" top="24" right="687" bottom="54" frameTime="25"/>
     </Animation>
     <Animation aniId="5005" frameTime="100" name="STAIR_ATTACK_DOWN">
-      <sprite id="50007" left="611" top="24" right="687" bottom="54" frameTime="100"/>
+      <sprite id="50007" left="609" top="24" right="687" bottom="54" frameTime="100"/>
       <sprite id="50008" left="609" top="122" right="687" bottom="152" frameTime="100"/>
-      <sprite id="50009" left="526" top="166" right="604" bottom="193" frameTime="100"/>
-      <sprite id="50010" left="609" top="166" right="687" bottom="193" frameTime="100"/>
+      <sprite id="50009" left="526" top="166" right="604" bottom="196" frameTime="100"/>
+      <sprite id="50010" left="609" top="166" right="687" bottom="196" frameTime="100"/>
     </Animation>
     
       <!-- Animation SIT_THROW_INVISIBLE -->

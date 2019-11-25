@@ -75,7 +75,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			yTarget = 161;
 
 			float dTarget = xTarget - xBefore; // Quãng đường từ vị trí hiện tại tới target
-			vx = (dTarget / (2000.0f)); // Vận tốc cần để đi đến target trong 1.0s
+			vx = (dTarget / (1000.0f)); // Vận tốc cần để đi đến target trong 1.0s
 
 			vy = 0.12f; // tạo độ cong
 		}
@@ -101,14 +101,13 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 				isWaiting = true; // bật trạng thái chờ
-				//TimeWaited = 0; // reset lại time đã chờ
 				TimeWaited = GetTickCount();
 			}
 		}
 		else
 		{
 			//TimeWaited += dt; // lấy thời gian của game
-			if (now - TimeWaited >= 2000) // đợi theo thời gian của game
+			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
 			{
 
 				DebugOut(L"\n Waited Done!");
@@ -182,7 +181,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else
 		{
-			if (now - TimeWaited >= 2000) // đợi theo thời gian của game
+			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
 			{
 				isWaiting = false;
 				int random = rand() % 3;
@@ -295,11 +294,13 @@ void CBossBat::StartCurves()
 	y2 = sy + 4;
 
 	if (sx < x) // simon bên trái boss
-		xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
+		//xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
+		xTarget = 400;
 	else // simon bên phải boss
-		xTarget = rand() % (int)sx + ((int)sx - (SCREEN_WIDTH / 5));
+		//xTarget = rand() % (int)sx + ((int)sx - (SCREEN_WIDTH / 5));
+		xTarget = 700;
 
-	yTarget = sy - RandomNumber(8, 32);
+	yTarget = sy + RandomNumber(8, 16);
 
 	x3 = xTarget;
 	y3 = yTarget;
@@ -333,7 +334,7 @@ void CBossBat::StartStaight()
 	yBefore = y;
 
 	xTarget = RandomNumber(BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT, BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT);
-	yTarget = RandomNumber(50, 200);
+	yTarget = RandomNumber(100, 200);
 
 	/*	--
 	-------- Tính vx, vy di chuyển đến target trong 1 giây
