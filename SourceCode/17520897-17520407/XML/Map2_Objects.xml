@@ -8,30 +8,30 @@
     <Ground x="1396" y="116" width="138" height="1" />
   </Grounds>
   <SmallCandles id="2" >
-    <SmallCandle x="30" y="182" width="8" height="14" />
-    <SmallCandle x="92" y="148" width="8" height="14"/>
-    <SmallCandle x="158" y="182" width="8" height="14"/>
-    <SmallCandle x="220" y="148" width="8" height="14"/>
-    <SmallCandle x="286" y="182"  width="8" height="14"/>
-    <SmallCandle x="348" y="148" width="8" height="14"/>
-    <SmallCandle x="414" y="182"  width="8" height="14"/>
-    <SmallCandle x="476" y="148" width="8" height="14"/>
-    <SmallCandle x="542" y="182"  width="8" height="14"/>
-    <SmallCandle x="604" y="148" width="8" height="14"/>
-    <SmallCandle x="668" y="82" width="8" height="14"/>
-    <SmallCandle x="734" y="182" width="8" height="14" />
-    <SmallCandle x="796" y="50" width="8" height="14"/>
-    <SmallCandle x="860" y="82" width="8" height="14"/>
-    <SmallCandle x="926" y="182" width="8" height="14"/>
-    <SmallCandle x="988" y="82" width="8" height="14"/>
-    <SmallCandle x="1054" y="182" width="8" height="14"/>
-    <SmallCandle x="1118" y="182" width="8" height="14"/>
-    <SmallCandle x="1184" y="182" width="8" height="14"/>
-    <SmallCandle x="1244" y="182" width="8" height="14"/>
-    <SmallCandle x="1308" y="182" width="8" height="14"/>
-    <SmallCandle x="1362" y="152" width="8" height="14"/>
-    <SmallCandle x="1436" y="84" width="8" height="14"/>
-    <SmallCandle x="1500" y="54" width="8" height="14"/>
+    <SmallCandle x="30" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="92" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="158" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="220" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="286" y="182"  width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="348" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="414" y="182"  width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="476" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="542" y="182"  width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="604" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="668" y="82" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="734" y="182" width="8" height="14" itemId="-1" nameItem="RAND"/>
+    <SmallCandle x="796" y="50" width="8" height="14" itemId="3" nameItem="WATER"/>
+    <SmallCandle x="860" y="82" width="8" height="14" itemId ="0" name="LARGE_HEART"/>
+    <SmallCandle x="926" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="988" y="82" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1054" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1118" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1184" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1244" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1308" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1362" y="152" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1436" y="84" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="1500" y="54" width="8" height="14" itemId ="4" nameItem="CROSS"/>
   </SmallCandles>
   <Walls id="3">
     <Wall x="688" y="148"  width="47" height="13"/>
@@ -49,20 +49,30 @@
     simonStartPosX="32" simonStartPosY="85"
     isLoadBlackScene="0" timeLoadBlackScene="0"/>
   </ChangeSceneObjects>
-  <!--<Spawns id="-2" >
+  <Spawns id="-2" >
     <Spawn x="84" y="0"  name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
 
-    <Spawn x="430" y="0"  name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+    <Spawn x="523" y="0"  name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
 
-    <Spawn x="527" y="0" name="PANTHER" canRespawn="0" spawnerId="1" enemyId="1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="690" y="0" name="PANTHER" canRespawn="0" spawnerId="2" enemyId="1" xEnemy="864" yEnemy="70" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="772" y="0" name="PANTHER" canRespawn="0" spawnerId="3" enemyId="1" xEnemy="944" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="550" y="0" name="PANTHER" canRespawn="0" spawnerId="1" enemyId="1" xEnemy="700" yEnemy="128" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+
+    <Spawn x="660" y="0" name="Nothing to respawnPanther" canRespawn="0" spawnerId="-1" enemyId="-1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="712" y="0" name="PANTHER" canRespawn="0" spawnerId="2" enemyId="1" xEnemy="864" yEnemy="96" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+
+    <Spawn x="762" y="0" name="Nothing to respawnPanther" canRespawn="0" spawnerId="2" enemyId="-1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="792" y="0" name="PANTHER" canRespawn="0" spawnerId="3" enemyId="1" xEnemy="944" yEnemy="128" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+
+
+    <Spawn x="1016" y="0" name="PANTHER" canRespawn="0" spawnerId="5" enemyId="1" xEnemy="864" yEnemy="96" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1056" y="0" name="Nothing to respawnPanther" canRespawn="0" spawnerId="6" enemyId="-1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+
+
+    <Spawn x="1100" y="0" name="PANTHER" canRespawn="0" spawnerId="6" enemyId="1" xEnemy="944" yEnemy="128" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1132" y="0" name="Nothing to respawnPanther" canRespawn="0" spawnerId="0" enemyId="-1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
     
-    <Spawn x="1044" y="0" name="PANTHER" canRespawn="0" spawnerId="5" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="1184" y="0" name="PANTHER" canRespawn="0" spawnerId="6" enemyId="1" xEnemy="924" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
     <Spawn x="1300" y="0" name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
 
-  </Spawns>-->
+  </Spawns>
   <CheckStairs id="-3">
     <CheckStair x="614" y="208" width="14" height="4" ny="1" nx="1"/>
     <CheckStair x="675" y="144" width="14" height="4" ny="-1" nx="-1"/>

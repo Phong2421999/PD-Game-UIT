@@ -80,15 +80,21 @@ void Scene::LoadSceneResource()
 				objects.push_back(ground);
 			}
 			else if (id == 1) {
+				int itemId;
+				Object->QueryIntAttribute("itemId", &itemId);
 				CLargeCandle* largeCandle = new CLargeCandle();
 				largeCandle->SetPosition(x, y);
 				largeCandle->SetWidthHeight(Width, Height);
+				largeCandle->SetItemId(itemId);
 				objects.push_back(largeCandle);
 			}
 			else if (id == 2) {
+				int itemId;
+				Object->QueryIntAttribute("itemId", &itemId);
 				CSmallCandle* smallCandle = new CSmallCandle();
 				smallCandle->SetPosition(x, y);
 				smallCandle->SetWidthHeight(Width, Height);
+				smallCandle->SetItemId(itemId);
 				objects.push_back(smallCandle);
 			}
 			else if (id == 3)
@@ -426,7 +432,7 @@ bool Scene::isInGrid(LPGAMEOBJECT obj)
 	obj->GetPosition(x, y);
 	obj->GetWidthHeight(width, height);
 
-	if (((x > cx - 86) || (x + width > cx - 86)) && x < cx + SCREEN_WIDTH + 86 || x < -150)
+	if (( (x + width > cx - 86)) && x < cx + SCREEN_WIDTH + 86 || x < -150)
 	{
 		return true;
 	}
@@ -590,7 +596,7 @@ void Scene::Update(DWORD dt)
 							}
 
 						}
-						if (objects[i]->GetKillBySimon())
+						else if (objects[i]->GetKillBySimon())
 						{
 							if (objects[i]->GetIsBoss() == false)
 							{
@@ -601,13 +607,17 @@ void Scene::Update(DWORD dt)
 									hit->SetKillBySimon(true);
 								}
 								if (dynamic_cast<CStaticObject*>(objects[i]))
+								{
+									CStaticObject* staticObjects = dynamic_cast<CStaticObject*>(objects[i]);
+									int itemId = staticObjects->GetItemId();
+									hit->SetItemId(itemId);
 									hit->SetMakeItem(STATIC_OBJECT);
+								}
 
 								if (dynamic_cast<CEnemies*> (objects[i]))
 								{
 									hit->SetMakeItem(ENEMY);
 									CSpawner::GetInstance()->quantityEnemyDied++;
-									CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 								}
 								objects[i]->GetPosition(x, y);
 								hit->SetPosition(x, y);
@@ -659,12 +669,10 @@ void Scene::Update(DWORD dt)
 								effects.push_back(splash);
 							}
 							CSpawner::GetInstance()->quantityEnemyDied++;
-							CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 						}
 						else if (dynamic_cast<CEnemies*> (objects[i]))
 						{
 							CSpawner::GetInstance()->quantityEnemyDied++;
-							CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 						}
 						objects.erase(objects.begin() + i);
 					}
@@ -770,29 +778,33 @@ void Scene::Update(DWORD dt)
 
 			simon->UpdateCheckStair(&coCheckStairObjects);
 
+
+
 			for (int i = 0; i < listItems.size(); i++)
 			{
-				if (listItems[i]->GetHealth() > 0)
+				if (isInGrid(listItems[i]))
 				{
-					listItems[i]->Update(dt, &coItemObjects);
-				}
-				else
-				{
-					if (dynamic_cast<MoneyBag*>(listItems[i]))
+					if (listItems[i]->GetHealth() > 0)
 					{
-						float x, y;
-						listItems[i]->GetPosition(x, y);
-						CEffect * moneyEffect = new CMoneyEffect(x, y, listItems[i]->GetGameItem());
-						effects.push_back(moneyEffect);
-						listItems.erase(listItems.begin() + i);
+						listItems[i]->Update(dt, &coItemObjects);
 					}
 					else
 					{
-						listItems.erase(listItems.begin() + i);
+						if (dynamic_cast<MoneyBag*>(listItems[i]))
+						{
+							float x, y;
+							listItems[i]->GetPosition(x, y);
+							CEffect * moneyEffect = new CMoneyEffect(x, y, listItems[i]->GetGameItem());
+							effects.push_back(moneyEffect);
+							listItems.erase(listItems.begin() + i);
+						}
+						else
+						{
+							listItems.erase(listItems.begin() + i);
+						}
 					}
 				}
 			}
-
 			for (int i = 0; i < effects.size(); i++)
 			{
 				if (isInGrid(effects[i]))
@@ -802,96 +814,44 @@ void Scene::Update(DWORD dt)
 
 						float x, y;
 						effects[i]->GetPosition(x, y);
-						SmallHeart* smallHeart = new SmallHeart(x, y);
-						listItems.push_back(smallHeart);
 						if (effects[i]->GetKillBySimon())
 						{
 							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
 							{
-								int rand = Random(0, 30);
-								/*if (CSimon::getInstance()->getWeaponLevel() < 3)
+								CItems* item;
+								if (CSimon::getInstance()->getWeaponLevel() < SIMON_WEAPON_LEVEL_2
+									&& CSimon::getInstance()->getCurrentScene() > 0)
 								{
-									WhipUpgrade* whipUpgrade = new WhipUpgrade(x, y);
-									listItems.push_back(whipUpgrade);
-								}
-								else if (rand >= 0 && rand < 2)
-								{
-									LargeHeart* largeHeart = new LargeHeart(x, y);
-									listItems.push_back(largeHeart);
-								}
-								else if (rand >= 2 && rand < 8)
-								{
-									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::DANGER)
-									{
-										Danger* danger = new Danger(x, y);
-										listItems.push_back(danger);
-									}
-									else
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}
-								}
-								else if (rand == 8)
-								{
-									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::AXE &&
-										CSimon::getInstance()->getCurrentScene() == 3)
-									{
-										Axe* axe = new Axe(x, y);
-										listItems.push_back(axe);
-									}
-									else
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}
-								}
-								else if (rand == 9)
-								{
-									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::HOLY_WATER)
-									{
-										HolyWater* holyWater = new HolyWater(x, y);
-										listItems.push_back(holyWater);
-									}
-									else
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}
-								}
-								else if (rand >= 10 && rand <= 15)
-								{
-									MoneyBag* moneyBag = new MoneyBag(x, y);
-									listItems.push_back(moneyBag);
-								}
-								else if (rand == 16)
-								{
-									if (CSimon::getInstance()->getSubWeapon() != SIMON_WEAPON::STOP_WATCH)
-									{
-										StopWatch* stopWatch = new StopWatch(x, y);
-										listItems.push_back(stopWatch);
-									}
-									else
-									{
-										SmallHeart* smallHeart = new SmallHeart(x, y);
-										listItems.push_back(smallHeart);
-									}
-								}
-								else if (rand == 17)
-								{
-									Cross* cross = new Cross(x, y);
-									listItems.push_back(cross);
-								}
-								else if (rand == 28)
-								{
-									InviPotion * inviPotion = new InviPotion(x, y);
-									listItems.push_back(inviPotion);
+									item = new WhipUpgrade(x, y);
 								}
 								else
 								{
-									SmallHeart* smallHeart = new SmallHeart(x, y);
-									listItems.push_back(smallHeart);
-								}*/
+									int itemId = effects[i]->GetItemId();
+									if (itemId == -1)
+									{
+										int rand = Random(1, 100);
+										if (rand <= 66)
+										{
+											item = new SmallHeart(x, y);
+										}
+										else
+										{
+											item = new MoneyBag(x, y);
+										}
+									}
+									if (itemId == 0)
+										item = new LargeHeart(x, y);
+									if (itemId == 1)
+										item = new WhipUpgrade(x, y);
+									if (itemId == 2)
+										item = new Danger(x, y);
+									if (itemId == 3)
+										item = new HolyWater(x, y);
+									if (itemId == 4)
+										item = new Cross(x, y);
+								}
+								listItems.push_back(item);
+
 							}
 							if (effects[i]->GetMakeItem() == ENEMY)
 							{
@@ -928,15 +888,22 @@ void Scene::Update(DWORD dt)
 		{
 			for (int i = 0; i < objects.size(); i++)
 			{
-				if (objects[i]->GetHealth() <= 0)
-					objects.erase(objects.begin() + i);
+				if (isInGrid(objects[i]))
+				{
+					if (objects[i]->GetHealth() <= 0)
+						objects.erase(objects.begin() + i);
+				}
+
 			}
 			for (int i = 0; i < listItems.size(); i++)
 			{
-				if (listItems[i]->GetHealth() <= 0)
-					listItems.erase(listItems.begin() + i);
-				else
-					listItems[i]->SetMakeTime(GetTickCount());
+				if (isInGrid(listItems[i]))
+				{
+					if (listItems[i]->GetHealth() <= 0)
+						listItems.erase(listItems.begin() + i);
+					else
+						listItems[i]->SetMakeTime(GetTickCount());
+				}
 			}
 			simon->UpdateFreeze(dt);
 		}
@@ -965,6 +932,7 @@ void Scene::Update(DWORD dt)
 	}
 
 }
+
 void Scene::Render()
 {
 	CGame *game = CGame::GetInstance();

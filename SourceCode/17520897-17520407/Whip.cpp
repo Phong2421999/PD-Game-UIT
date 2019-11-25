@@ -72,13 +72,19 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (isTouchOtherObject(coObjects->at(i)))
 				{
-					if ((dynamic_cast<CEnemies*>(coObjects->at(i))
-						|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
+					if ((dynamic_cast<CEnemies*>(coObjects->at(i)))
 						&& isTouchEnemy == false)
+					{
+						CEnemies* enemies = dynamic_cast<CEnemies*>(coObjects->at(i));
+						if (enemies->GetIsBoss())
+							isTouchEnemy = true;
+						coObjects->at(i)->Damage(1);
+						coObjects->at(i)->SetKillBySimon(true);
+					}
+					if (dynamic_cast<CStaticObject*>(coObjects->at(i)))
 					{
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);
-						isTouchEnemy = true;
 					}
 					if (dynamic_cast<CHiddenWall*>(coObjects->at(i))
 						&& isTouchHiddenWall == false)

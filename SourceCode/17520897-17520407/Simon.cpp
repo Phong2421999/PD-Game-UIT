@@ -316,7 +316,7 @@ void CSimon::UpdateCheckStair(vector<LPGAMEOBJECT> * coCheckStair)
 
 void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects)
 {
-	if (simonWeapon)
+	if (simonWeapon != NULL)
 	{
 		if (dynamic_cast<Whip*>(simonWeapon))
 		{
@@ -471,8 +471,7 @@ void CSimon::Render()
 	int alpha = 255;
 	if (isUntouchable
 		&& isHurt == false
-		&& isDeath == false
-		&& isInvisible == false) alpha = 128;
+		&& isDeath == false) alpha = 128;
 	if (nx > 0)
 		animations[ani]->Render(x, y, alpha);
 	else
@@ -871,7 +870,7 @@ void CSimon::UsingWeapon()
 		break;
 	}
 	}
-	if (simonWeapon)
+	if (simonWeapon != NULL)
 	{
 		if (dynamic_cast<Whip*>(simonWeapon))
 		{

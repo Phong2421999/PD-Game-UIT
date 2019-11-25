@@ -28,6 +28,7 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (enemy->GetActive())
 				{
+					DebugOut(L"\n Touch Enemy");
 					coObjects->at(i)->health = -1;
 				}
 			}

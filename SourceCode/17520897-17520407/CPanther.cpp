@@ -21,6 +21,7 @@ CPanther::CPanther(float x, float y) {
 	yGround = 0;
 	timeSpawn = GetTickCount();
 	isActive = true;
+	vy = 999;
 }
 
 
