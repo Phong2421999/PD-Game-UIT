@@ -38,6 +38,8 @@ CAnimations * animations;
 int sceneId;
 int lastSceneId;
 
+float simonPosX, simonPosY;
+
 CSimonKeyHandler * keyHandler;
 
 Scenes* scenes;
@@ -199,6 +201,7 @@ void LoadResources()
 		scenes->AddSceneData(sceneId, resetSceneId);
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
+			Scenes::GetInstance()->SetSimonStartPos(simonStartX, simonStartY);
 			scene->StartLoadScene();
 		}
 	}

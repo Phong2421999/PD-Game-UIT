@@ -7,7 +7,7 @@ CBossBat::CBossBat()
 	this->width = BOSS_BAT_WIDTH;
 	this->height = BOSS_BAT_HEIGHT;
 
-	this->x = 200;
+	this->x = 645;
 	this->y = 50;
 
 	yLastFrame = y;
@@ -20,6 +20,9 @@ CBossBat::CBossBat()
 	isUsingCurve = false;
 	isWaiting = false;
 	isBossActive = false;
+	isActive = true;
+
+	health = 16;
 
 	startSpawnTime = GetTickCount();
 }
@@ -28,20 +31,30 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	DWORD now = GetTickCount();
-	if (now - startSpawnTime >= BOSS_BAT_ACTIVE_TIME && isBossActive == false)
-	{
-		isBossActive = true;
-		Start(); // boss chuyển trạng thái
-	}
+	//if (now - startSpawnTime >= BOSS_BAT_ACTIVE_TIME && isBossActive == false)
+	//{
+	//	isBossActive = true;
+	//	Start(); // boss chuyển trạng thái
+	//}
 	CSimon::getInstance()->GetPosition(sx, sy);
-
+	if (sx >= SCENCE_WITDH - SCREEN_WIDTH/2 && isBossActive ==false)
+	{
+		Start(); // boss chuyển trạng thái
+		isBossActive = true;
+		lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
+	}
+	if (isBossActive)
+	{
+		bossHealth = this->health;
+		CSpawner::GetInstance()->canRespawn = false;
+		CSpawner::GetInstance()->canSpawn = false;
+	}
 	float cx, cy;
 	cx = CGame::GetInstance()->GetCamPos_x();
 	cy = CGame::GetInstance()->GetCamPos_y();
 
 	x += dx;
 	y += dy;
-
 	switch (status)
 	{
 	case BOSS_FLY_START_1:
@@ -58,11 +71,11 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			xBefore = x; // lưu lại ví trí đã di chuyển
 			yBefore = y;
 
-			xTarget = 240;
+			xTarget = x + 40;
 			yTarget = 161;
 
 			float dTarget = xTarget - xBefore; // Quãng đường từ vị trí hiện tại tới target
-			vx = (dTarget / (1000.0f)); // Vận tốc cần để đi đến target trong 1.0s
+			vx = (dTarget / (2000.0f)); // Vận tốc cần để đi đến target trong 1.0s
 
 			vy = 0.12f; // tạo độ cong
 		}
@@ -95,7 +108,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		else
 		{
 			//TimeWaited += dt; // lấy thời gian của game
-			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
+			if (now - TimeWaited >= 2000) // đợi theo thời gian của game
 			{
 
 				DebugOut(L"\n Waited Done!");
@@ -169,8 +182,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else
 		{
-			//TimeWaited += dt; // lấy thời gian chờ
-			if (now - TimeWaited >= 1000) // đợi theo thời gian của game
+			if (now - TimeWaited >= 2000) // đợi theo thời gian của game
 			{
 				isWaiting = false;
 				int random = rand() % 3;
@@ -183,14 +195,10 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 				default: // 66%
 					StartCurves();
-
 					break;
 				}
 			}
-			else
-			{
-				//ProcessSmart();
-			}
+			
 		}
 
 
@@ -242,7 +250,6 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			default: // 66%
 				StartCurves();
-
 				break;
 			}
 
@@ -251,24 +258,15 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-
-	if (coObjects->size() >= 0)
+	CSimon* simon = CSimon::getInstance();
+	if (this->checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
+		if (simon->getDeath() == false)
 		{
-			if (IsTouchColision(coObjects->at(i)))
-			{
-				if (CSimon::getInstance()->getDeath() == false)
-				{
-					if (dynamic_cast<CSimon*> (coObjects->at(i)))
-					{
-						CSimon::getInstance()->Damage(1);
-					}
-				}
-			}
+			simon->TouchEnemy(-simon->nx);
+			simon->Damage(1);
 		}
 	}
-
 	yLastFrame = y;// lưu lại y frame hiện tại
 }
 
@@ -308,7 +306,7 @@ void CBossBat::StartCurves()
 
 	float disNeedToGo = xTarget - xBefore; // quãng đường cần bay
 	float directBossToTarget = x - xTarget; // tính hướng bay của boss
-	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 150)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
+	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 120)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
 
 	isUsingCurve = true;
 	status = BOSS_FLY_CURVE;

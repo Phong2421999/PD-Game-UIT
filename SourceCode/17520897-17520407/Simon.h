@@ -153,6 +153,10 @@ public:
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setOnStairDistance(float dis)
+	{
+		this->onStairDistance = dis;
+	}
 	void setTouchWall(bool b)
 	{
 		this->isTouchWall = b;

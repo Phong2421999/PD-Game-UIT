@@ -19,6 +19,10 @@ private:
 	int aniId;
 
 	CSimon* simon;
+
+	float simonStartPosX, simonStartPosY;
+	bool isLoadBlackScene;
+	DWORD timeLoadBlackScene;
 public:
 	ChangeSceneObjects()
 	{
@@ -31,6 +35,23 @@ public:
 		camAutoGo = false;
 		isCanRender = true;
 		aniId = 0;
+		simonStartPosX = 0;
+		simonStartPosY = 0;
+		isLoadBlackScene = false;
+		timeLoadBlackScene = 0;
+	}
+	void SetLoadBlackScene(bool b)
+	{
+		this->isLoadBlackScene = b;
+	}
+	void SetTimeLoadBlackScene(DWORD time)
+	{
+		this->timeLoadBlackScene = time;
+	}
+	void SetSimonStartPos(float x, float y)
+	{
+		simonStartPosX = x;
+		simonStartPosY = y;
 	}
 	void SetWidthHeight(float width, float height)
 	{
@@ -63,6 +84,19 @@ public:
 		top = y;
 		right = x + width;
 		bottom = y + height;
+	}
+	bool GetLoadBlackScene()
+	{
+		return isLoadBlackScene;
+	}
+	DWORD GetTimeLoadBlackScene()
+	{
+		return timeLoadBlackScene;
+	}
+	void GetSimonStartPos(float &x, float &y)
+	{
+		x = this->simonStartPosX;
+		y = this->simonStartPosY;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render();

@@ -9,8 +9,7 @@ void CheckStair::GetBoundingBox(float &left, float &top, float &right, float &bo
 }
 
 void CheckStair::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
-	for (int i = 0; i < coObjects->size(); i++)
-	{
+	
 		CSimon* simon = CSimon::getInstance();
 		if (this->isTouchOtherObject(simon))
 		{
@@ -71,7 +70,7 @@ void CheckStair::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		{
 			isSetAutoGoStair = false;
 		}
-	}
+
 }
 
 void CheckStair::Render()

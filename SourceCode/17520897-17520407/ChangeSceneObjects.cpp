@@ -1,4 +1,5 @@
 #include "ChangeSceneObjects.h"
+#include "Scenes.h"
 
 void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -14,6 +15,10 @@ void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (this->checkAABBTouch(coObjects->at(i)))
 					{
+						Scenes *scenes = Scenes::GetInstance();
+						scenes->SetSimonStartPos(simonStartPosX, simonStartPosY);
+						scenes->SetLoadBlackScene(isLoadBlackScene);
+						scenes->SetTimeLoadBlackScene(timeLoadBlackScene);
 						simon->setSceneId(this->sceneId);
 						if (camAutoGo)
 						{

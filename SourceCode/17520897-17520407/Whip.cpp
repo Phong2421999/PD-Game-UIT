@@ -13,6 +13,7 @@ Whip::Whip(float x, float y, int nx, int level)
 	this->AddAnimation(WHIP_ANI_LEVEL_2);
 	this->AddAnimation(WHIP_ANI_LEVEL_3);
 	isTouchHiddenWall = false;
+	isTouchEnemy = false;
 }
 
 void Whip::Render()
@@ -71,11 +72,13 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (isTouchOtherObject(coObjects->at(i)))
 				{
-					if (dynamic_cast<CEnemies*>(coObjects->at(i))
+					if ((dynamic_cast<CEnemies*>(coObjects->at(i))
 						|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
+						&& isTouchEnemy == false)
 					{
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);
+						isTouchEnemy = true;
 					}
 					if (dynamic_cast<CHiddenWall*>(coObjects->at(i))
 						&& isTouchHiddenWall == false)

@@ -39,6 +39,7 @@ private:
 	int curLevel;
 	int simonX, simonY;
 	bool isTouchHiddenWall;
+	bool isTouchEnemy;
 public :
 	Whip(float x, float y, int nx, int level);
 	void SetLevel(int level) {

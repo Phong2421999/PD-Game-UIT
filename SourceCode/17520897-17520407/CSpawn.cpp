@@ -15,6 +15,7 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					spawner->Reset();
 				}
+				spawner->canRespawn = this->canRespawn;
 				spawner->xEnemy = this->xEnemy;
 				spawner->yEnemy = this->yEnemy;
 				spawner->enemyId = this->enemyId;

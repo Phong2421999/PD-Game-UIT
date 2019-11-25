@@ -24,6 +24,7 @@ class WeaponAxe : public Weapon {
 private:
 	float sx, sy;
 	DWORD makeTime;
+	bool isTouchEnemy;
 public:
 	WeaponAxe(float x, float y, int nx);
 	void Render();

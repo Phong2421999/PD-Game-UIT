@@ -15,6 +15,7 @@ WeaponAxe::WeaponAxe(float x, float y, int nx)
 	CSimon::getInstance()->GetPosition(sx, sy);
 	makeTime = GetTickCount();
 	health = 1;
+	isTouchEnemy = false;
 }
 
 void WeaponAxe::SetPositionWithSimon(float x, float y, int nx)
@@ -52,11 +53,13 @@ void WeaponAxe::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (isTouchOtherObject(coObjects->at(i)))
 			{
-				if (dynamic_cast<CEnemies*>(coObjects->at(i))
+				if ((dynamic_cast<CEnemies*>(coObjects->at(i))
 					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
+					&& isTouchEnemy == false)
 				{
 					coObjects->at(i)->Damage(1);
 					coObjects->at(i)->SetKillBySimon(true);
+					isTouchEnemy = true;
 				}
 				if (dynamic_cast<CGround*>(coObjects->at(i))) {
 					health = 0;

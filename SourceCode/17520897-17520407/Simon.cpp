@@ -95,8 +95,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
-		if (x <= 0 - SIMON_OFFSET_TO_BBOX_X)
-			x = 0 - SIMON_OFFSET_TO_BBOX_X;
+		if (x <= LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X)
+			x = LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X;
 		DWORD now = GetTickCount();
 		if (now - startUntouchableTime >= SIMON_UNTOUCHABLE_TIME)
 		{
@@ -107,25 +107,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (isHurt)
 			{
-				if (isTouchWall == false)
+				if (now - startHurtTime < 250)
 				{
-					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-					if (nx > 0)
+
+					if (isTouchWall == false)
 					{
-						vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
+						vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+						if (nx > 0)
+						{
+							vx = -PUSH_SIMON_TOUCH_ENEMIES_VX;
+						}
+						else
+						{
+							vx = +PUSH_SIMON_TOUCH_ENEMIES_VX;
+						}
 					}
-					else
+					else if (isJump == false)
 					{
-						vx = +PUSH_SIMON_TOUCH_ENEMIES_VX;
+						vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
+						vx = 0;
 					}
 				}
 				else
-				{
-					vy = -PUSH_SIMON_TOUCH_ENEMIES_VY;
-					vx = 0;
-				}
-				
-				if (now - startHurtTime > 250)
 				{
 					if (isJump)
 						vy = PUSH_SIMON_TOUCH_ENEMIES_VY * 2;
@@ -137,12 +140,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else
 			{
-				if (vy > 0)
+				if (isLock)
 				{
-					vy += SIMON_FALLING_GRAVITY * dt;
+					vy = 0;
+					if (health <= 0)
+					{
+						isDeath = true;
+						live--;
+						isLock = false;
+						startDeathTime = GetTickCount();
+						state = SIMON_STATE_DIE;
+					}
 				}
 				else
-					vy += SIMON_GRAVITY * dt;
+				{
+					if (vy > 0)
+					{
+						vy += SIMON_FALLING_GRAVITY * dt;
+					}
+					else
+						vy += SIMON_GRAVITY * dt;
+				}
+
 			}
 
 		}
@@ -219,7 +238,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 				y += min_ty * dy + ny * 0.4f;
 			}
-
 			if (nx != 0) vx = 0;
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
@@ -232,7 +250,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					if (isHurt)
 					{
-
 						if (health > 0)
 						{
 							state = SIMON_STATE_IDLE;
@@ -255,6 +272,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					isCanSetStair = true;
 					isCanOnStair = false;
 					isCanOutStair = false;
+					isOnGround = true;
 					vy = 0;
 
 				}
@@ -648,7 +666,7 @@ void CSimon::SetState(int state)
 void CSimon::TouchEnemy(int nx) {
 	if (isDeath == false)
 	{
-		if (isOnStair == false)
+		if (isOnStair == false && isLock == false)
 		{
 			if (isUntouchable == false)
 			{
@@ -1156,6 +1174,9 @@ void CSimon::Reset()
 	ChangeSubWeapon(NONE);
 	SetState(SIMON_STATE_IDLE);
 	nx = 1;
+	onStairDistance = 0;
+	isCanOutStair = false;
+	isCanOnStair = false;
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

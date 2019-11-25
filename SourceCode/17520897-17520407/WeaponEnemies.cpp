@@ -1,19 +1,12 @@
 ﻿#include "WeaponEnemies.h"
 void WeaponEnemies::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	if (coObjects->size() >= 0)
+	CSimon* simon = CSimon::getInstance();
+	if (isTouchOtherObject(simon))
 	{
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (isTouchOtherObject(coObjects->at(i)))
-			{
-				if (dynamic_cast<CSimon*>(coObjects->at(i)))
-				{
-					coObjects->at(i)->Damage(1);
-					health = 0;
-				}
-			}
-		}
+		simon->Damage(1);
+		simon->TouchEnemy(this->nx);
+		health = 0;
 	}
 }
 

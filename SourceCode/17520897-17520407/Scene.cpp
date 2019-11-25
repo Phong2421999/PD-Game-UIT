@@ -1,5 +1,5 @@
 ﻿#include "Scene.h"
-
+#include "Scenes.h"
 Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId)
 {
 	this->sceneWidthEachMap = sceneWidthEachMap;
@@ -101,22 +101,32 @@ void Scene::LoadSceneResource()
 			else if (id == -1)
 			{
 				int sceneId, simonAutoGo;
-				int isDoor, camAutoGo;
+				int isDoor, camAutoGo, isLoadBlackScene, timeLoadBlackScene;
 				float simonAutoGoDistance;
+				float simonStartPosX, simonStartPosY;
 				Object->QueryIntAttribute("sceneId", &sceneId);
 				Object->QueryIntAttribute("simonAutoGo", &simonAutoGo);
 				Object->QueryFloatAttribute("simonAutoGoDistance", &simonAutoGoDistance);
+				Object->QueryFloatAttribute("simonStartPosX", &simonStartPosX);
+				Object->QueryFloatAttribute("simonStartPosY", &simonStartPosY);
 				Object->QueryIntAttribute("camAutoGo", &camAutoGo);
 				Object->QueryIntAttribute("isDoor", &isDoor);
-
+				Object->QueryIntAttribute("isLoadBlackScene", &isLoadBlackScene);
+				Object->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
 				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
 				changeScene->SetPosition(x, y);
 				changeScene->SetWidthHeight(Width, Height);
 				changeScene->SetSceneId(sceneId);
 				changeScene->SetAutoGoDistance(simonAutoGoDistance);
+				changeScene->SetSimonStartPos(simonStartPosX, simonStartPosY);
+				changeScene->SetTimeLoadBlackScene(timeLoadBlackScene);
 				if (camAutoGo == 1)
 				{
 					changeScene->SetCamAutoGo(true);
+				}
+				if (isLoadBlackScene == 1)
+				{
+					changeScene->SetLoadBlackScene(true);
 				}
 				if (isDoor)
 				{
@@ -131,7 +141,7 @@ void Scene::LoadSceneResource()
 			}
 			else if (id == -2)
 			{
-				int enemyId, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime, xEnemy, yEnemy;
+				int enemyId, canRespawn, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime, xEnemy, yEnemy;
 				Object->QueryIntAttribute("enemyId", &enemyId);
 				Object->QueryIntAttribute("xEnemy", &xEnemy);
 				Object->QueryIntAttribute("yEnemy", &yEnemy);
@@ -139,9 +149,11 @@ void Scene::LoadSceneResource()
 				Object->QueryIntAttribute("quantityEachSpawn", &quantityEachSpawn);
 				Object->QueryIntAttribute("timeEachSpawn", &timeEachSpawn);
 				Object->QueryIntAttribute("delaySpawnTime", &delaySpawnTime);
+				Object->QueryIntAttribute("canRespawn", &canRespawn);
 
 				CSpawn* spawn = new CSpawn();
 				spawn->SetPosition(x, y);
+				spawn->SetRespawn(canRespawn);
 				spawn->SetPositionEnemy(xEnemy, yEnemy);
 				spawn->SetWidthHeight(Width, Height);
 				spawn->SetSpawnEnemyType(enemyId);
@@ -328,16 +340,14 @@ void Scene::MakeEnemies(DWORD dt)
 		{
 			spawner->canSpawn = false;
 		}
-		if (spawner->quantityEnemyDied == spawner->quantityEachSpawn)
+		if (spawner->quantityEnemyDied == spawner->quantityEachSpawn
+			&& spawner->canRespawn)
 		{
 			if (now - spawner->lastSpawnTime > spawner->delaySpawnTime)
 			{
 				spawner->quantitySpawned = 0;
 				spawner->quantityEnemyDied = 0;
-				if (spawner->enemyId != PANTHER_ID && spawner->enemyId != 100)
-				{
-					spawner->canSpawn = true;
-				}
+				spawner->canSpawn = true;
 			}
 		}
 
@@ -597,6 +607,7 @@ void Scene::Update(DWORD dt)
 								{
 									hit->SetMakeItem(ENEMY);
 									CSpawner::GetInstance()->quantityEnemyDied++;
+									CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 								}
 								objects[i]->GetPosition(x, y);
 								hit->SetPosition(x, y);
@@ -648,10 +659,12 @@ void Scene::Update(DWORD dt)
 								effects.push_back(splash);
 							}
 							CSpawner::GetInstance()->quantityEnemyDied++;
+							CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 						}
 						else if (dynamic_cast<CEnemies*> (objects[i]))
 						{
 							CSpawner::GetInstance()->quantityEnemyDied++;
+							CSpawner::GetInstance()->lastSpawnTime = GetTickCount();
 						}
 						objects.erase(objects.begin() + i);
 					}
@@ -755,7 +768,7 @@ void Scene::Update(DWORD dt)
 			}
 
 
-			//simon->UpdateCheckStair(&coCheckStairObjects);
+			simon->UpdateCheckStair(&coCheckStairObjects);
 
 			for (int i = 0; i < listItems.size(); i++)
 			{
@@ -933,9 +946,9 @@ void Scene::Update(DWORD dt)
 
 		cx -= SCREEN_WIDTH / 2 - 32;
 		cy -= SCREEN_HEIGHT / 2;
-		if (cx <= 0)
+		if (cx <= LOCK_CAMERA_X)
 		{
-			game->SetCamPos(0.0f, 0.0f /*cy*/);
+			game->SetCamPos(LOCK_CAMERA_X, 0.0f /*cy*/);
 		}
 		else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
 		{
@@ -985,6 +998,19 @@ void Scene::Render()
 			if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
 			{
 				for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
+					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+				}
+			}
+		}
+
+		for (int i = 0; i < ENEMY_MAX_HEALTH; i++) {
+			float posX, posY;
+			boardGame->GetPositionEnemyHealthBar(posX, posY);
+			sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+
+			if (ENEMY_MAX_HEALTH - BOSS_HEALTH > 0)
+			{
+				for (int j = BOSS_HEALTH; j < ENEMY_MAX_HEALTH; j++) {
 					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
 				}
 			}
@@ -1042,7 +1068,9 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
+
 		CMap::GetInstance()->Get(mapId)->Render();
+
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
 			for (int i = 0; i < objects.size(); i++)
@@ -1153,11 +1181,21 @@ void Scene::Render()
 
 void Scene::StartLoadScene()
 {
-	CSimon::getInstance()->SetPosition(simonStartX, simonStartY);
+	float x, y;
+	Scenes* scenes = Scenes::GetInstance();
+	scenes->GetSimonStartPos(x, y);
+	CSimon* simon = CSimon::getInstance();
+	simon->SetPosition(x, y);
+	simon->setOnStairDistance(99);
+	simon->setCanOutStair(false);
+	simon->setCanOnStair(false);
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
 	isCanLoadScene = false;
 	lastTimeEachStage = GetTickCount();
+	isLoadBlackScene = scenes->GetLoadBlackScene();
+	timeLoadBlackScene = scenes->GetTimeLoadBlackScene();
+	lockCameraX = 0.0f;
 }
 
 void Scene::Reset()
@@ -1167,10 +1205,19 @@ void Scene::Reset()
 	effects.clear();
 	letters.clear();
 	LoadSceneResource();
-	CSimon::getInstance()->Reset();
+	bossHealth = 16;
+	scenceWidth = this->sceneWidthEachMap;
+	this->timeStartLoadScene = GetTickCount();
+	isCanLoadScene = false;
+	lastTimeEachStage = GetTickCount();
+	CSimon* simon = CSimon::getInstance();
+	simon->SetPosition(simonStartX, simonStartY);
+	simon->Reset();
+	isLoadBlackScene = true;
+	timeLoadBlackScene = 400;
 	CBoardGame::GetInstance()->setLimitTime(300);
 	CSpawner::GetInstance()->resetAfterResetScene();
-
+	lockCameraX = 0.0f;
 }
 
 void Scene::Clear()

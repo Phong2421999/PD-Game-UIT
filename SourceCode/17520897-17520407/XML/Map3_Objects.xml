@@ -9,7 +9,9 @@
     <Wall x="256" y="144"  width="32" height="30"/>
     <Wall x="256" y="165"  width="32" height="30"/>
     <Wall x="302" y="146"  width="20" height="64"/>
-    <Wall x="273" y="180"  width="20" height="32"/>
+    <Wall x="480" y="52"  width="32" height="14"/>
+    <Wall x="502" y="132"  width="8" height="96"/>
+    <Wall x="273" y="181"  width="16" height="32"/>
   </Walls>
   <Grounds id="0">
     <Ground x="-2000" y="212" width="10000" height="8" />
@@ -17,7 +19,7 @@
     <Ground x="130" y="146" width="43" height="1"/>
     <Ground x="258" y="131"  width="93" height="1"/>
     <Ground x="354" y="147" width="43" height="1"/>
-    <Ground x="412" y="115"  width="90" height="1"/>
+    <Ground x="416" y="115"  width="84" height="1"/>
   </Grounds>
   <SmallCandles id="2" >
     <SmallCandle x="30" y="182" width="8" height="14" />
@@ -30,20 +32,47 @@
     <SmallCandle x="474" y="84" width="8" height="14"/>
   </SmallCandles>
   <ChangeSceneObjects id="-1">
-    <ChangeScene x="48" y="220" sceneId="-2"
+    <ChangeScene x="48" y="224" sceneId="-2"
     simonAutoGo="0" simonAutoGoDistance="35"
-    camAutoGo="0" isDoor="0" width="32" height="4"/>
+    camAutoGo="0" isDoor="0" width="32" height="4"
+      simonStartPosX="52" simonStartPosY="46"
+       isLoadBlackScene="1" timeLoadBlackScene="400"/>
+    
+    <ChangeScene x="362" y="224" sceneId="-2"
+    simonAutoGo="0" simonAutoGoDistance="35"
+    camAutoGo="0" isDoor="0" width="32" height="4"
+    simonStartPosX="379" simonStartPosY="52"
+    isLoadBlackScene="1" timeLoadBlackScene="400"/>
+    
+    <ChangeScene x="504" y="65" sceneId="3"
+    simonAutoGo="0" simonAutoGoDistance="64"
+    camAutoGo="1" isDoor="1" width="8" height="50"
+    simonStartPosX="28" simonStartPosY="84"
+    isLoadBlackScene="0" timeLoadBlackScene="0"/>
+    
   </ChangeSceneObjects>
   <CheckStairs id="-3">
-    <CheckStair x="44" y="208" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="44" y="210" width="16" height="4" ny="-1" nx="1"/>
+    
+    <CheckStair x="175" y="145" width="14" height="4" ny="-1" nx="1"/>
+    <CheckStair x="232" y="209" width="14" height="4" ny="1" nx="-1"/>
+
+    <CheckStair x="397" y="145.5" width="14" height="4" ny="-1" nx="1"/>
+    <CheckStair x="456" y="209" width="14" height="4" ny="1" nx="-1"/>
+
+    <CheckStair x="364" y="209" width="16" height="4" ny="-1" nx="1"/>
   </CheckStairs>
   <HiddenWalls id="-4">
     <HiddenWall x="256" y="195" width="16" height="16" type ="1" itemId="1"/>
     <HiddenWall x="256" y="179" width="16" height="12" type ="0" itemId="0"/>
   </HiddenWalls>
   <LockSimons id="-5">
-    <LockSimon x="258" y="165" width="16" height="48"/>
+    <LockSimon x="257" y="165" width="16" height="30"/>
   </LockSimons>
+  <Spawns id="-2" >
+    <Spawn x="48" y="0"  name="BAT" canRespawn="1" 
+           spawnerId="0" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn ="1" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+  </Spawns>
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>
     <Detroy x="0" y="0" type="1" width="0" height="0"/>

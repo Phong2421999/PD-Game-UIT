@@ -26,10 +26,14 @@
 //debug define
 #define IS_RENDER_BBOX isRenderBBox
 
+#define BOSS_HEALTH bossHealth
+
 //chieu rong cua scence
 #define SCENCE_WITDH scenceWidth
 
 #define DELETE_POINTER(pointer) if (pointer){delete pointer; pointer=NULL;}
+
+#define LOCK_CAMERA_X lockCameraX
 
 //GameItem
 enum GAME_ITEM
@@ -78,4 +82,5 @@ enum STAIR_TYPE
 extern bool isRenderBBox;
 extern int scenceWidth;
 extern D3DCOLOR backGroundColor;
-
+extern int bossHealth;
+extern float lockCameraX;

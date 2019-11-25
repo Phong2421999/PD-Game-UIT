@@ -65,6 +65,10 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->SetPosition(960.0f, 32.0f);
 			simon->SetState(SIMON_STATE_IDLE);
 			break;
+		case DIK_F6:
+			simon->SetPosition(SCENCE_WITDH - 128, 32.0f);
+			simon->SetState(SIMON_STATE_IDLE);
+			break;
 		case DIK_1:
 			float x, y;
 			simon->GetPosition(x, y);
@@ -186,14 +190,16 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 			}
 			else
 			{
-				if (simon->getCanOnStair())
+				if (simon->getCanOnStair()
+					&& simon->getOnGround()
+					&& simon->getStairActiveNy() > 0
+					&& simon->getCanSetStair())
 				{
-					if (simon->getStairActiveNy() > 0
-						&& simon->getCanSetStair())
-					{
-						simon->setOnStair(true);
-					}
+
+					simon->setOnStair(true);
+
 				}
+
 				if (simon->getOnStair()
 					&& simon->getAuToGoOutStair() == false
 					&& simon->getAutoGoToStair() == false)
@@ -223,7 +229,8 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 		{
 			if (simon->getCanOnStair()
 				&& simon->getStairActiveNy() < 0
-				&& simon->getCanSetStair())
+				&& simon->getCanSetStair()
+				&& simon->getOnGround())
 			{
 				simon->setOnStair(true);
 			}

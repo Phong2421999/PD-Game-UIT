@@ -13,7 +13,9 @@
   <ChangeScenes id="-1" >
     <ChangeScene x="675" y="168" sceneId="1"
      simonAutoGo="1" simonAutoGoDistance="35"
-     camAutoGo="0" isDoor="0" width="100" height="30"/>
+     camAutoGo="0" isDoor="0" width="100" height="30" 
+     simonStartPosX="32" simonStartPosY="180"
+     isLoadBlackScene="1" timeLoadBlackScene="400"/>
   </ChangeScenes>
 
   <Detroys id="-99" >

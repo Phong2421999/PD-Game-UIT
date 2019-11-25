@@ -8,6 +8,7 @@
 #define ANI_ID_BOSS_BAT_FLY 1
 
 #define BOSS_BAT_ACTIVE_TIME 2000
+#define BOSS_BAT_ACTIVE_DISTANCE 84
 
 #define BOSS_BAT_FLY_DISTANCE_Y 8
 
@@ -17,8 +18,8 @@
 #define BOSS_BAT_WIDTH 48
 #define BOSS_BAT_HEIGHT 22
 
-#define BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT 20
-#define BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT 300
+#define BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT 382
+#define BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT 762
 
 #define BOSS_FLY_START_1 1
 #define BOSS_FLY_START_2 2
@@ -26,6 +27,8 @@
 #define BOSS_FLY_STRAIGHT_1 4 // xử lí di chuyển thẳng lần 1
 #define BOSS_FLY_STRAIGHT_2 5 // xử lí di chuyển thẳng lần 2
 #define BOSS_ATTACK 6 // xử lí di chuyển của boss khi tấn công
+
+#define LOCK_CAM_POSITION_X 654
 
 
 class CBossBat :public CEnemies

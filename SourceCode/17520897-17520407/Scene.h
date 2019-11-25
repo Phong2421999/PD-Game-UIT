@@ -27,6 +27,7 @@
 #include "tinyxml.h"
 
 #include "Spawner.h"
+
 #include "WeaponEnemies.h"
 #include "WeaponProjectile.h"
 #include "LockSimon.h"
@@ -52,8 +53,8 @@ public:
 
 	DWORD timeStartLoadScene;
 	DWORD lastTimeEachStage;
-	DWORD timeLoadBlackScene;
 	DWORD timeSpawn;
+	DWORD timeLoadBlackScene;
 	bool isLoadBlackScene;
 	bool isCanLoadScene;
 

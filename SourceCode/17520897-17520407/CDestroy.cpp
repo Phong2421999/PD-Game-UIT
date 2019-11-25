@@ -1,5 +1,6 @@
 #include "CDestroy.h"
-
+#include "Weapon.h"
+#include "WeaponEnemies.h"
 
 void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -7,7 +8,7 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x = CGame::GetInstance()->GetCamPos_x() - DESTROY_OFFSET_LEFT;
 		y = CGame::GetInstance()->GetCamPos_y();
 	}
-	else if(type == RIGHT)
+	else if (type == RIGHT)
 	{
 		x = CGame::GetInstance()->GetCamPos_x() + SCREEN_WIDTH + DESTROY_OFFSET_RIGHT;
 		y = CGame::GetInstance()->GetCamPos_y();
@@ -27,10 +28,26 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (enemy->GetActive())
 				{
-					coObjects->at(i)->Damage(1);
+					coObjects->at(i)->health = -1;
 				}
 			}
+			if (dynamic_cast<Weapon*>(coObjects->at(i))
+				|| dynamic_cast<WeaponEnemies*>((coObjects)->at(i)))
+			{
+				coObjects->at(i)->health = -1;
+			}
 		}
+	}
+
+	CSimon* simon = CSimon::getInstance();
+	if (IsTouchOtherColision(simon) && simon->getDeath() == false)
+	{
+		int live = simon->getLive() - 1;
+		simon->setLive(live);
+		simon->health = 0;
+		simon->setDeath(true);
+		simon->setStartDeathTime(GetTickCount());
+		state = SIMON_STATE_DIE;
 	}
 }
 bool CDestroy::IsTouchOtherColision(LPGAMEOBJECT gameObject) {

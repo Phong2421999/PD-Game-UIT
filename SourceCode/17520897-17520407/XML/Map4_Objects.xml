@@ -4,23 +4,17 @@
     <Wall x="0" y="117" width="112" height="13"/>
     <Wall x="129" y="149"  width="174" height="13"/>
     <Wall x="720" y="149"  width="48" height="13"/>
-    <!--<Wall x="672" y="181"  width="8" height="12"/>-->
     <Wall x="672" y="181"  width="15" height="12"/>
-    <Wall x="691" y="181"  width="14" height="12"/>
+    <Wall x="688" y="181"  width="15" height="12"/>
   </Walls>
   <Grounds id="0">
-    <Ground x="-2000" y="212" width="10000" height="8" />
+    <Ground x="-200" y="212" width="100000" height="8" />
     <Ground x="0" y="115" width="111" height="1" />
     <Ground x="130" y="147" width="173" height="1" />
     <Ground x="721" y="147"  width="47" height="1"/>
-    <!--<Ground x="674" y="180"  width="6" height="1"/>-->
     <Ground x="674" y="180"  width="12" height="1"/>
-    <Ground x="692" y="180"  width="10" height="1"/>
+    <Ground x="686" y="180"  width="12" height="1"/>
   </Grounds>
-
-  <HiddenWalls id="-4">
-    <HiddenWall x="688" y="179" width="16" height="16" type ="2" itemId="2"/>
-  </HiddenWalls>
   
   <SmallCandles id="2" >
     <SmallCandle x="30" y="148" width="8" height="14" />
@@ -36,16 +30,26 @@
     <SmallCandle x="666" y="150" width="8" height="14"/>
     <SmallCandle x="732" y="150" width="8" height="14"/>
   </SmallCandles>
+  <CheckStairs id="-3">
+    <CheckStair x="108" y="114" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="138" y="144" width="16" height="4" ny="1" nx="-1"/>
+    <CheckStair x="300" y="146" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="360" y="208" width="16" height="4" ny="1" nx="-1"/>
+    <CheckStair x="678" y="176" width="16" height="4" ny="1" nx="1"/>
+    <CheckStair x="708" y="146" width="16" height="4" ny="-1" nx="-1"/>
+  </CheckStairs>
 
   <ChangeSceneObjects id="-1">
     <ChangeScene x="1532" y="168" sceneId="2"
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="1" isDoor="1" width="8" height="14"/>
   </ChangeSceneObjects>
-  <!--<Spawns id="-2" >
-    <Spawn x="84" y="0" spawnerId="0" enemyId="2" quantityEachSpawn ="1" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
-    <Spawn x="550" y="0" spawnerId="1" enemyId="1" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-  </Spawns>-->
+  <Spawns id="-2" >
+    <Spawn x="84" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn ="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
+    <Spawn x="484" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn ="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300"/>
+    <Spawn x="512" y="0" spawnerId="1" enemyId="100" quantityEachSpawn ="1" 
+           timeEachSpawn="0" delaySpawnTime="0" width="8" height="300" canRespawn="0" name="BOSSBAT"/>
+  </Spawns>
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>
     <Detroy x="0" y="0" type="1" width="0" height="0"/>

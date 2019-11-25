@@ -147,7 +147,6 @@
     <ClCompile Include="CMoneyEffect.cpp" />
     <ClCompile Include="Cross.cpp" />
     <ClCompile Include="CSplash.cpp" />
-    <ClCompile Include="CText.cpp" />
     <ClCompile Include="DoubleShot.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InvicibilityPotion.cpp" />
@@ -226,7 +225,6 @@
     <ClInclude Include="CMoneyEffect.h" />
     <ClInclude Include="Cross.h" />
     <ClInclude Include="CSplash.h" />
-    <ClInclude Include="CText.h" />
     <ClInclude Include="DoubleShot.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="InvicibilityPotion.h" />

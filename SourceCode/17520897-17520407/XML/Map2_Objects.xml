@@ -3,9 +3,9 @@
   <Grounds id="0">
     <Ground x="-2000" y="212" width="10000" height="8" />
     <Ground x="690" y="147" width="43" height="1"/>
-    <Ground x="752" y="116" width="156" height="1" />
-    <Ground x="929" y="147" width="96" height="1" />
-    <Ground x="1396" y="115" width="138" height="1" />
+    <Ground x="754" y="116" width="154" height="1" />
+    <Ground x="931" y="147" width="94" height="1" />
+    <Ground x="1396" y="116" width="138" height="1" />
   </Grounds>
   <SmallCandles id="2" >
     <SmallCandle x="30" y="182" width="8" height="14" />
@@ -34,37 +34,44 @@
     <SmallCandle x="1500" y="54" width="8" height="14"/>
   </SmallCandles>
   <Walls id="3">
-    <Wall x="180" y="190"  width="47" height="13"/>
     <Wall x="688" y="148"  width="47" height="13"/>
     <Wall x="750" y="117" width="160" height="13"/>
-    <Wall x="927" y="148"  width="100" height="13"/>
-    <Wall x="1392" y="116"  width="142" height="13"/>
+    <Wall x="927" y="148"  width="96" height="13"/>
+    <Wall x="1392" y="117"  width="142" height="13"/>
+    <Wall x="1528" y="40"  width="4" height="20"/>
+    <Wall x="1528" y="60"  width="4" height="20"/>
+    <Wall x="1528" y="136"  width="4" height="84"/>
   </Walls>
   <ChangeSceneObjects id="-1">
-    <ChangeScene x="1532" y="168" sceneId="2"
-    simonAutoGo="0" simonAutoGoDistance="35"
-    camAutoGo="1" isDoor="1" width="8" height="14"/>
+    <ChangeScene x="1530" y="65" sceneId="2"
+    simonAutoGo="0" simonAutoGoDistance="68"
+    camAutoGo="1" isDoor="1" width="8" height="50"
+    simonStartPosX="32" simonStartPosY="85"
+    isLoadBlackScene="0" timeLoadBlackScene="0"/>
   </ChangeSceneObjects>
-  <Spawns id="-2" >
-    <Spawn x="84" y="0" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
-    
-    
-    <Spawn x="528" y="0" spawnerId="1" enemyId="1" xEnemy="700" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="690" y="0" spawnerId="2" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="772" y="0" spawnerId="3" enemyId="1" xEnemy="944" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    
-    <Spawn x="1044" y="0" spawnerId="5" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="1110" y="0" spawnerId="6" enemyId="1" xEnemy="924" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
-    <Spawn x="1300" y="0" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+  <!--<Spawns id="-2" >
+    <Spawn x="84" y="0"  name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
 
-  </Spawns>
+    <Spawn x="430" y="0"  name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+
+    <Spawn x="527" y="0" name="PANTHER" canRespawn="0" spawnerId="1" enemyId="1" xEnemy="700" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="690" y="0" name="PANTHER" canRespawn="0" spawnerId="2" enemyId="1" xEnemy="864" yEnemy="70" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="772" y="0" name="PANTHER" canRespawn="0" spawnerId="3" enemyId="1" xEnemy="944" yEnemy="100" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    
+    <Spawn x="1044" y="0" name="PANTHER" canRespawn="0" spawnerId="5" enemyId="1" xEnemy="864" yEnemy="50" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1184" y="0" name="PANTHER" canRespawn="0" spawnerId="6" enemyId="1" xEnemy="924" yEnemy="80" quantityEachSpawn ="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300"/>
+    <Spawn x="1300" y="0" name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn ="3" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+
+  </Spawns>-->
   <CheckStairs id="-3">
-    <CheckStair x="614" y="208" width="16" height="4" ny="1" nx="1"/>
-    <CheckStair x="675" y="144" width="16" height="4" ny="-1" nx="-1"/>
-    <!--<CheckStair x="715" y="144" width="14" height="4" ny="1" nx="1"/>
-    <CheckStair x="746" y="113" width="14" height="4" ny="-1" nx="-1"/>-->
-    <CheckStair x="937" y="143" width="16" height="4" ny="1" nx="-1"/>
-    <CheckStair x="908" y="112" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="614" y="208" width="14" height="4" ny="1" nx="1"/>
+    <CheckStair x="675" y="144" width="14" height="4" ny="-1" nx="-1"/>
+    <CheckStair x="711" y="144" width="14" height="4" ny="1" nx="1"/>
+    <CheckStair x="740" y="113" width="14" height="4" ny="-1" nx="-1"/>
+    <CheckStair x="937" y="143" width="14" height="4" ny="1" nx="-1"/>
+    <CheckStair x="908" y="112" width="14" height="4" ny="-1" nx="1"/>
+    <CheckStair x="1286" y="208" width="14" height="4" ny="1" nx="1"/>
+    <CheckStair x="1380" y="112" width="14" height="4" ny="-1" nx="-1"/>
   </CheckStairs>
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>

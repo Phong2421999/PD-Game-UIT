@@ -4,7 +4,8 @@
 void LockSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CSimon* simon = CSimon::getInstance();
-	if (this->checkAABBTouch(simon))
+	if (this->checkAABBTouch(simon)
+		&& simon->getDeath() == false)
 	{
 		float vx, vy;
 		simon->GetSpeed(vx, vy);

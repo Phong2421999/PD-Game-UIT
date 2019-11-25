@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Objects>
   <Grounds id="0">
-    <Ground x="0" y="132" width="224" height="8" />
-    <Ground x="256" y="132" width="32" height="8" />
-    <Ground x="320" y="132" width="160" height="8" />
+    <Ground x="100" y="100" width="26" height="1" />
+    <Ground x="4" y="132" width="220" height="1" />
+    <Ground x="254" y="132" width="28" height="1" />
+    <Ground x="324" y="132" width="134" height="1" />
+    <Ground x="462" y="132" width="12" height="1" />
+    <Ground x="452" y="197" width="26" height="1"/>
+    <Ground x="484" y="164" width="28" height="1" />
   </Grounds>
-
-  <ChangeScenes id="-1" width="16" height="30">
-    <ChangeScene x="675" y="168" sceneId="2"
-     simonAutoGo="1" simonAutoGoDistance="35"
-     camAutoGo="0" isDoor="0"/>
+  <Walls id="3">
+    <Wall x="96" y="101"  width="32" height="13"/>
+    <Wall x="0" y="133"  width="224" height="13"/>
+    <Wall x="256" y="133"  width="32" height="13"/>
+    <Wall x="320" y="133"  width="140" height="13"/>
+    <Wall x="460" y="133"  width="16" height="13"/>
+    <Wall x="448" y="198" width="32" height="13"/>
+    <Wall x="480" y="165" width="32" height="13" />
+    <Wall x="504" y="0" width="8" height="200" />
+  </Walls>
+  <HiddenWalls id="-4">
+    <HiddenWall x="464" y="131" width="16" height="16" type ="2" itemId="0"/>
+  </HiddenWalls>
+  <CheckStairs id="-3">
+    <CheckStair x="89" y="96" width="16" height="4" ny="1" nx="-1"/>
+    <CheckStair x="442" y="129" width="16" height="4" ny="1" nx="-1"/>
+  </CheckStairs>
+  <ChangeScenes id="-1">
+    <ChangeScene x="44" y="36" sceneId="2"
+     simonAutoGo="0" simonAutoGoDistance="35"
+     camAutoGo="0" isDoor="0"
+     simonStartPosX="34" simonStartPosY="190"
+     width="12" height="4"
+     isLoadBlackScene="1" timeLoadBlackScene="400"/>
+    
+    <ChangeScene x="363" y="36" sceneId="2"
+     simonAutoGo="0" simonAutoGoDistance="35"
+     camAutoGo="0" isDoor="0"
+     simonStartPosX="352" simonStartPosY="190"
+     width="12" height="4"
+     isLoadBlackScene="1" timeLoadBlackScene="400"/>
   </ChangeScenes>-->
   <SmallCandles id="2" >
     <SmallCandle x="30" y="66" width="8" height="14"/>
@@ -22,7 +52,7 @@
     <SmallCandle x="484" y="66" width="8" height="14"/>
   </SmallCandles>
   <Spawns id="-2">
-    <Spawn x="84" y="0" spawnerId="0" enemyId="3" xEnemy="0" yEnemy="0" quantityEachSpawn ="2" timeEachSpawn="1000" delaySpawnTime="4000" width="8" height="300"/>
+    <Spawn x="84" y="0" name="FISH" canRespawn="1" spawnerId="0" enemyId="3" xEnemy="0" yEnemy="0" quantityEachSpawn ="2" timeEachSpawn="1000" delaySpawnTime="4000" width="8" height="300"/>
   </Spawns>
   <Detroys id="-99">
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>
