@@ -13,13 +13,13 @@
 #define GHOST_HEIGHT 32
 
 #define GHOST_GRAVITY 0.005
-#define GHOST_VELOCITY_X 0.06
+#define GHOST_VELOCITY_X 0.07
 
 #define GHOST_OFFSET_X 16
 #define GHOST_OFFSET_Y 8
 
 #define GHOST_SPAWN_POSITION_Y 128
-#define GHOST_SPAWN_GRAVITY 100
+#define GHOST_SPAWN_GRAVITY 999
 
 
 class CGhost : public CEnemies {

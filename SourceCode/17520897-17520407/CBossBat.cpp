@@ -210,8 +210,6 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			this->makeWeapon = false;
 			StartStaight();
 		}
-
-
 		break;
 	}
 	}
@@ -291,23 +289,23 @@ void CBossBat::StartCurves()
 	y1 = y;
 
 	x2 = sx;
-	y2 = sy + 4;
+	y2 = sy + 8;
 
 	if (sx < x) // simon bên trái boss
 		//xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
-		xTarget = 400;
+		xTarget = BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT;
 	else // simon bên phải boss
 		//xTarget = rand() % (int)sx + ((int)sx - (SCREEN_WIDTH / 5));
-		xTarget = 700;
+		xTarget = BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT;
 
-	yTarget = sy + RandomNumber(8, 16);
+	yTarget = sy - RandomNumber(8, 16);
 
 	x3 = xTarget;
 	y3 = yTarget;
 
 	float disNeedToGo = xTarget - xBefore; // quãng đường cần bay
 	float directBossToTarget = x - xTarget; // tính hướng bay của boss
-	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 120)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
+	vx = (directBossToTarget / (abs(disNeedToGo) *1000.0f / 100)) * -1; // vận tốc cần đi đên target // quy ước: cứ 1 giây đi 120px
 
 	isUsingCurve = true;
 	status = BOSS_FLY_CURVE;

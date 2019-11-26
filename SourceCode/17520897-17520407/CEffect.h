@@ -7,10 +7,12 @@ class CEffect : public CGameObject {
 private:
 	TYPE_MAKE_ITEM type;
 	bool killBySimon;
+	int itemId;
 public:
 	CEffect() {
 		type = STATIC_OBJECT;
 		killBySimon = false;
+		itemId = 0;
 	}
 	virtual void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
@@ -29,6 +31,14 @@ public:
 	void SetMakeItem(TYPE_MAKE_ITEM type)
 	{
 		this->type = type;
+	}
+	void SetItemId(int itemId)
+	{
+		this->itemId = itemId;
+	}
+	int GetItemId()
+	{
+		return this->itemId;
 	}
 	TYPE_MAKE_ITEM GetMakeItem() {
 		return type;

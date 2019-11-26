@@ -22,20 +22,20 @@
     <Ground x="416" y="115"  width="84" height="1"/>
   </Grounds>
   <SmallCandles id="2" >
-    <SmallCandle x="30" y="182" width="8" height="14" />
-    <SmallCandle x="92" y="84" width="8" height="14"/>
-    <SmallCandle x="154" y="68" width="8" height="14"/>
-    <SmallCandle x="218" y="148" width="8" height="14"/>
-    <SmallCandle x="302" y="68" width="8" height="14"/>
-    <SmallCandle x="346" y="182" width="8" height="14"/>
-    <SmallCandle x="412" y="54" width="8" height="14"/>
-    <SmallCandle x="474" y="84" width="8" height="14"/>
+    <SmallCandle x="30" y="182" width="8" height="14" itemId ="-1" name="RAND" />
+    <SmallCandle x="92" y="84" width="8" height="14" itemId="0" nameItem="LARGE_HEART"/>
+    <SmallCandle x="154" y="68" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="218" y="148" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="302" y="68" width="8" height="14" itemId="0" nameItem="LARGE_HEART"/>
+    <SmallCandle x="346" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="412" y="54" width="8" height="14" itemId="4" nameItem="CROSS"/>
+    <SmallCandle x="474" y="84" width="8" height="14" itemId ="-1" name="RAND"/>
   </SmallCandles>
   <ChangeSceneObjects id="-1">
     <ChangeScene x="48" y="224" sceneId="-2"
     simonAutoGo="0" simonAutoGoDistance="35"
     camAutoGo="0" isDoor="0" width="32" height="4"
-      simonStartPosX="52" simonStartPosY="46"
+      simonStartPosX="50" simonStartPosY="46"
        isLoadBlackScene="1" timeLoadBlackScene="400"/>
     
     <ChangeScene x="362" y="224" sceneId="-2"
@@ -52,7 +52,7 @@
     
   </ChangeSceneObjects>
   <CheckStairs id="-3">
-    <CheckStair x="44" y="210" width="16" height="4" ny="-1" nx="1"/>
+    <CheckStair x="40" y="210" width="14" height="4" ny="-1" nx="1"/>
     
     <CheckStair x="175" y="145" width="14" height="4" ny="-1" nx="1"/>
     <CheckStair x="232" y="209" width="14" height="4" ny="1" nx="-1"/>
@@ -71,7 +71,9 @@
   </LockSimons>
   <Spawns id="-2" >
     <Spawn x="48" y="0"  name="BAT" canRespawn="1" 
-           spawnerId="0" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn ="1" timeEachSpawn="1000" delaySpawnTime="2000" width="8" height="300"/>
+           spawnerId="0" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn ="1" timeEachSpawn="1000" delaySpawnTime="3000" width="8" height="300"/>
+    <Spawn x="370" y="0"  name="BAT" canRespawn="1"
+       spawnerId="1" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn ="1" timeEachSpawn="1000" delaySpawnTime="3000" width="8" height="300"/>
   </Spawns>
   <Detroys id="-99" >
     <Detroy x="0" y="0" type="-1" width="0" height="0"/>

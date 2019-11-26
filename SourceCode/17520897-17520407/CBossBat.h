@@ -103,4 +103,9 @@ public:
 		x = this->x;
 		y = this->y;
 	}
+
+	bool GetIsBoss()
+	{
+		return true;
+	}
 };

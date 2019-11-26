@@ -17,18 +17,18 @@
   </Grounds>
   
   <SmallCandles id="2" >
-    <SmallCandle x="30" y="148" width="8" height="14" />
-    <SmallCandle x="92" y="84" width="8" height="14"/>
-    <SmallCandle x="156" y="118" width="8" height="14"/>
-    <SmallCandle x="218" y="86" width="8" height="14"/>
-    <SmallCandle x="284" y="182" width="8" height="14"/>
-    <SmallCandle x="348" y="150" width="8" height="14"/>
-    <SmallCandle x="412" y="182" width="8" height="14"/>
-    <SmallCandle x="474" y="182" width="8" height="14"/>
-    <SmallCandle x="538" y="150" width="8" height="14"/>
-    <SmallCandle x="602" y="182" width="8" height="14"/>
-    <SmallCandle x="666" y="150" width="8" height="14"/>
-    <SmallCandle x="732" y="150" width="8" height="14"/>
+    <SmallCandle x="30" y="148" width="8" height="14" itemId ="0" name="LARGE_HEART" />
+    <SmallCandle x="92" y="84" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="156" y="118" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="218" y="86" width="8" height="14"  itemId ="5" name="INVISIBLE"/>
+    <SmallCandle x="284" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="348" y="150" width="8" height="14" itemId ="6" name="AXE"/>
+    <SmallCandle x="412" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="474" y="182" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="538" y="150" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="602" y="182" width="8" height="14" itemId ="0" name="LARGE_HEART"/>
+    <SmallCandle x="666" y="150" width="8" height="14" itemId ="-1" name="RAND"/>
+    <SmallCandle x="732" y="150" width="8" height="14" itemId ="-1" name="RAND"/>
   </SmallCandles>
   <CheckStairs id="-3">
     <CheckStair x="106" y="114" width="18" height="4" ny="-1" nx="1"/>
