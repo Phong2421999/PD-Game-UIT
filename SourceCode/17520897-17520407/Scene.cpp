@@ -952,7 +952,7 @@ void Scene::Render()
 		{
 			if (simon->x < SCREEN_WIDTH / 2)
 			{
-				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X - 1), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
+				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
 			}
 			else
 			{
@@ -964,12 +964,12 @@ void Scene::Render()
 		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
 			float posX, posY;
 			boardGame->GetPositionSimonHealthBar(posX, posY);
-			sprites->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+			sprites->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
 
 			if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
 			{
 				for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
-					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
 				}
 			}
 		}
@@ -977,12 +977,12 @@ void Scene::Render()
 		for (int i = 0; i < ENEMY_MAX_HEALTH; i++) {
 			float posX, posY;
 			boardGame->GetPositionEnemyHealthBar(posX, posY);
-			sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX - 1) + i * CELL_MARGIN, floor(camY + posY));
+			sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
 
 			if (ENEMY_MAX_HEALTH - BOSS_HEALTH > 0)
 			{
 				for (int j = BOSS_HEALTH; j < ENEMY_MAX_HEALTH; j++) {
-					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX - 1) + j * CELL_MARGIN, floor(camY + posY));
+					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
 				}
 			}
 		}
@@ -1014,7 +1014,7 @@ void Scene::Render()
 			if (simon->x < SCREEN_WIDTH / 2)
 			{
 
-				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX - 1), floor(camY + drawPosY));
+				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
 			}
 			else
 			{
