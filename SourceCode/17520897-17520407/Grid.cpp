@@ -8,20 +8,27 @@ Grid * Grid::GetInstance() {
 	return __instance;
 }
 
-void Grid::checkGrid(vector<CGameObject*>objects, vector<CGameObject*>&returnObject)
+
+
+void Grid::add(LPGAMEOBJECT obj, int grid)
 {
-	returnObject.clear();
-	float cx;
-	cx = CGame::GetInstance()->GetCamPos_x();
-	float leftCheck = cx - 48;
-	float rightCheck = cx + SCREEN_WIDTH + 48;
-	for (int i = 0; i < objects.size(); i++)
-	{
-		float x, y;
-		objects[i]->GetPosition(x, y);
-		if ( x <= -150)
-		{
-			returnObject.push_back(objects[i]);
-		}
-	}
+	gridObjects[grid].push_back(obj);
+}
+
+
+void Grid::clear()
+{
+	gridObjects.clear();
+}
+
+vector<LPGAMEOBJECT> Grid::get(int grid)
+{
+	return gridObjects[grid];
+}
+
+int caculateGrid(float x)
+{
+	float gridSize = (SCREEN_WIDTH + 2 * GRID_OFFSET)/GRID_PART;
+	int grid = floor(x / gridSize);
+	return grid;
 }

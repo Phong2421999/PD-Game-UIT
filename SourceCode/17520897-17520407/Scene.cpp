@@ -26,6 +26,7 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 
 void Scene::LoadSceneResource()
 {
+	Grid::GetInstance()->clear();
 	CMap::GetInstance()->Get(mapId)->LoadTile();
 	CBoardGame::GetInstance()->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
 
@@ -60,9 +61,10 @@ void Scene::LoadSceneResource()
 	TiXmlElement* root = mapObjects.RootElement();
 	TiXmlElement* Objects = nullptr;
 	TiXmlElement* Object = nullptr;
+	Grid* grid = Grid::GetInstance();
 	for (Objects = root->FirstChildElement(); Objects != NULL; Objects = Objects->NextSiblingElement())
 	{
-		int id;
+		int id, gridId;
 		float x, y, Width, Height;
 		Objects->QueryIntAttribute("id", &id);
 		for (Object = Objects->FirstChildElement(); Object != NULL; Object = Object->NextSiblingElement())
@@ -71,12 +73,14 @@ void Scene::LoadSceneResource()
 			Object->QueryFloatAttribute("y", &y);
 			Object->QueryFloatAttribute("width", &Width);
 			Object->QueryFloatAttribute("height", &Height);
+			Object->QueryIntAttribute("Grid", &gridId);
 			if (id == 0)
 			{
 				CGround* ground = new CGround();
 				ground->SetWidthHeigth(Width, Height);
 				ground->SetPosition(x, y);
 				objects.push_back(ground);
+				grid->add(ground, gridId);
 			}
 			else if (id == 1) {
 				int itemId;
@@ -86,6 +90,8 @@ void Scene::LoadSceneResource()
 				largeCandle->SetWidthHeight(Width, Height);
 				largeCandle->SetItemId(itemId);
 				objects.push_back(largeCandle);
+				grid->add(largeCandle, gridId);
+
 			}
 			else if (id == 2) {
 				int itemId;
@@ -95,6 +101,8 @@ void Scene::LoadSceneResource()
 				smallCandle->SetWidthHeight(Width, Height);
 				smallCandle->SetItemId(itemId);
 				objects.push_back(smallCandle);
+				grid->add(smallCandle, gridId);
+
 			}
 			else if (id == 3)
 			{
@@ -102,6 +110,8 @@ void Scene::LoadSceneResource()
 				wall->SetPosition(x, y);
 				wall->SetWidthHeight(Width, Height);
 				objects.push_back(wall);
+				grid->add(wall, gridId);
+
 			}
 			else if (id == -1)
 			{
@@ -143,6 +153,8 @@ void Scene::LoadSceneResource()
 					changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				}
 				objects.push_back(changeScene);
+				grid->add(changeScene, gridId);
+
 			}
 			else if (id == -2)
 			{
@@ -168,6 +180,8 @@ void Scene::LoadSceneResource()
 				spawn->SetDelaySpawnTime(delaySpawnTime);
 
 				objects.push_back(spawn);
+				grid->add(spawn, gridId);
+
 			}
 			else if (id == -3)
 			{
@@ -179,6 +193,8 @@ void Scene::LoadSceneResource()
 				checkStair->SetWidthHeight(Width, Height);
 				checkStair->SetNxNy(nx, ny);
 				objects.push_back(checkStair);
+				grid->add(checkStair, gridId);
+
 			}
 			else if (id == -4)
 			{
@@ -188,6 +204,8 @@ void Scene::LoadSceneResource()
 				CHiddenWall* hiddenWall = new CHiddenWall(x, y, type, itemId);
 				hiddenWall->SetWidthHeight(Width, Height);
 				objects.push_back(hiddenWall);
+				grid->add(hiddenWall, gridId);
+
 			}
 			else if (id == -5)
 			{
@@ -195,6 +213,8 @@ void Scene::LoadSceneResource()
 				lockSimon->SetWidthHeight(Width, Height);
 				lockSimon->SetPosition(x, y);
 				objects.push_back(lockSimon);
+				grid->add(lockSimon, gridId);
+
 			}
 			else if (id == -99)
 			{
@@ -214,8 +234,9 @@ void Scene::LoadSceneResource()
 					detroy->SetType(BOTTOM);
 					detroy->SetPosition(x, y);
 				}
-
 				objects.push_back(detroy);
+				grid->add(detroy, gridId);
+
 			}
 		}
 	}
@@ -331,6 +352,7 @@ void Scene::MakeEnemies(DWORD dt)
 {
 	CSpawner* spawner = CSpawner::GetInstance();
 	CSimon* simon = CSimon::getInstance();
+	Grid* grid = Grid::GetInstance();
 	float cx, cy;
 	float sx, sy;
 	cx = CGame::GetInstance()->GetCamPos_x();
@@ -431,7 +453,7 @@ bool Scene::isInGrid(LPGAMEOBJECT obj)
 	obj->GetPosition(x, y);
 	obj->GetWidthHeight(width, height);
 
-	if (( (x + width > cx - 86)) && x < cx + SCREEN_WIDTH + 86 || x < -150)
+	if (( (x + width > cx - GRID_OFFSET)) && x < cx + SCREEN_WIDTH + GRID_OFFSET || x < -150)
 	{
 		return true;
 	}

@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(9): warning C4326: return type of 'main' should be 'int' instead of 'void'
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(63): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(56): warning C4101: 'Height': unreferenced local variable
+  Grid.vcxproj -> C:\Users\PhongA\Desktop\Game\Develop\PD-Game-UIT\SourceCode\Debug\Grid.exe

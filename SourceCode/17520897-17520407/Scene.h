@@ -33,6 +33,8 @@
 #include "LockSimon.h"
 #include "PotRoast.h"
 
+#include "Grid.h"
+
 struct Letter
 {
 	float x, y;

@@ -205,6 +205,7 @@ void LoadResources()
 			scene->StartLoadScene();
 		}
 	}
+	
 }
 
 void Update(DWORD dt)

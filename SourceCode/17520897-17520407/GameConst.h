@@ -35,6 +35,10 @@
 
 #define LOCK_CAMERA_X lockCameraX
 
+//grid
+#define GRID_OFFSET 86
+#define GRID_PART 2
+
 //GameItem
 enum GAME_ITEM
 {
@@ -84,3 +88,5 @@ extern int scenceWidth;
 extern D3DCOLOR backGroundColor;
 extern int bossHealth;
 extern float lockCameraX;
+
+
