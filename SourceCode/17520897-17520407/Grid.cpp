@@ -32,7 +32,6 @@ void Grid::caculateGrid(vector<int> &gridData)
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	float beginGridPos = abs(cx - GRID_OFFSET);
 	float endGridPos = abs(cx + SCREEN_WIDTH + GRID_OFFSET);
-	
 
 	int beginGrid = floor( beginGridPos / gridSize);
 	int endGrid = ceil(endGridPos / gridSize);
