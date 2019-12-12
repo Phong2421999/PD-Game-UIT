@@ -246,8 +246,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
 					isTouchWall = false;
-					if (simonWeapon)
-						simonWeapon->SetIsJump(false);
 
 					if (isHurt)
 					{
@@ -317,23 +315,30 @@ void CSimon::UpdateCheckStair(vector<LPGAMEOBJECT> * coCheckStair)
 
 void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects)
 {
-	if (simonWeapon != NULL)
+	for (int i = 0; i < simonWeapon.size(); i++)
 	{
-		if (dynamic_cast<Whip*>(simonWeapon))
+		if (simonWeapon[i] != NULL)
 		{
-			simonWeapon->SetPosition(x, y);
-			simonWeapon->SetRenderPos(x, y);
+			if (dynamic_cast<Whip*>(simonWeapon[i]))
+			{
+				simonWeapon[i]->SetPosition(x, y);
+				simonWeapon[i]->SetRenderPos(x, y);
+			}
+			simonWeapon[i]->Update(dt, colliable_objects);
 		}
-		simonWeapon->Update(dt, colliable_objects);
 	}
 }
 
 void CSimon::Render()
 {
 	int ani;
-	if (simonWeapon)
+
+	for (int i = 0; i < simonWeapon.size(); i++)
 	{
-		simonWeapon->Render();
+		if (simonWeapon[i])
+		{
+			simonWeapon[i]->Render();
+		}
 	}
 
 	if (isFreeze)
@@ -494,12 +499,27 @@ void CSimon::AddItem(GAME_ITEM type) {
 		UpgradeWhip();
 		break;
 	case DANGER_ITEM:
+		if (typeSubWeapon != SIMON_WEAPON::DANGER)
+		{
+			subWeaponQuantity = 1;
+			isUsingDoubleShot = false;
+		}
 		ChangeSubWeapon(SIMON_WEAPON::DANGER);
 		break;
 	case AXE_ITEM:
+		if (typeSubWeapon != SIMON_WEAPON::AXE)
+		{
+			subWeaponQuantity = 1;
+			isUsingDoubleShot = false;
+		}
 		ChangeSubWeapon(SIMON_WEAPON::AXE);
 		break;
 	case HOLY_WATER_ITEM:
+		if (typeSubWeapon != SIMON_WEAPON::HOLY_WATER)
+		{
+			subWeaponQuantity = 1;
+			isUsingDoubleShot = false;
+		}
 		ChangeSubWeapon(SIMON_WEAPON::HOLY_WATER);
 		break;
 	case STOP_WATCH_ITEM:
@@ -527,6 +547,7 @@ void CSimon::AddItem(GAME_ITEM type) {
 		break;
 	case DOUBLE_SHOT:
 		isUsingDoubleShot = true;
+		subWeaponQuantity = 2;
 		break;
 	}
 }
@@ -540,17 +561,20 @@ void CSimon::ChangeSubWeapon(SIMON_WEAPON type)
 void CSimon::UpdateFreeze(DWORD dt)
 {
 	int ani = SIMON_ANI_FREEZE;
-	if (simonWeapon)
+	for (int i = 0; i < simonWeapon.size(); i++)
 	{
-		simonWeapon->ResetAnimation();
-		isAttack = false;
-		isUseSubWeapon = false;
-		DELETE_POINTER(simonWeapon);
-	}
-	if (animations[ani]->getLastFrame())
-	{
-		isFreeze = false;
-		animations[ani]->reset();
+		if (simonWeapon[i])
+		{
+			simonWeapon[i]->ResetAnimation();
+			isAttack = false;
+			isUseSubWeapon = false;
+			DELETE_POINTER(simonWeapon[i]);
+		}
+		if (animations[ani]->getLastFrame())
+		{
+			isFreeze = false;
+			animations[ani]->reset();
+		}
 	}
 }
 
@@ -572,7 +596,7 @@ void CSimon::UpdateStopWatch() {
 	if (isUsingStopWatch)
 	{
 		DWORD now = GetTickCount();
-		if (now - timeUsingStopWatch >= 3000)
+		if (now - timeUsingStopWatch >= USING_STOP_WATCH_TIME)
 		{
 			isUsingStopWatch = false;
 		}
@@ -584,7 +608,7 @@ void CSimon::UpdateCross()
 	if (isUsingCross)
 	{
 		DWORD now = GetTickCount();
-		if (now - timeUsingCross >= 150)
+		if (now - timeUsingCross >= USING_CROSS_TIME)
 		{
 			isUsingCross = false;
 			CSpawner::GetInstance()->resetAfterUsingCross();
@@ -806,10 +830,6 @@ void CSimon::Attacking(DWORD dt)
 	}
 	else
 	{
-		if (isUsingDoubleShot)
-		{
-			isCanAttack = true;
-		}
 		DWORD now = GetTickCount();
 		if (now - lastAttackTime >= SIMON_RESET_ATTACK_TIME)
 		{
@@ -871,26 +891,29 @@ void CSimon::UsingWeapon()
 		break;
 	}
 	}
-	if (simonWeapon != NULL)
+	for (int i = 0; i < simonWeapon.size(); i++)
 	{
-		if (dynamic_cast<Whip*>(simonWeapon))
+		if (simonWeapon[i] != NULL)
 		{
-			if (isHurt)
+			if (dynamic_cast<Whip*>(simonWeapon[i]))
 			{
-				simonWeapon->ResetAnimation();
-				DELETE_POINTER(simonWeapon);
+				if (isHurt)
+				{
+					simonWeapon[i]->ResetAnimation();
+					DELETE_POINTER(simonWeapon[i]);
+				}
+				else if (simonWeapon[i]->GetLastFrame())
+				{
+					simonWeapon[i]->ResetAnimation();
+					DELETE_POINTER(simonWeapon[i]);
+				}
 			}
-			else if (simonWeapon->GetLastFrame())
+			else
 			{
-				simonWeapon->ResetAnimation();
-				DELETE_POINTER(simonWeapon);
-			}
-		}
-		else
-		{
-			if (simonWeapon->GetHealth() <= 0)
-			{
-				DELETE_POINTER(simonWeapon);
+				if (simonWeapon[i]->GetHealth() <= 0)
+				{
+					DELETE_POINTER(simonWeapon[i]);
+				}
 			}
 		}
 	}
@@ -900,23 +923,43 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 {
 	if (isUseSubWeapon)
 	{
+		for (int i = 0; i < subWeaponQuantity; i++)
+		{
+			Weapon* weapon = NULL;
+			switch (typeSubWeapon)
+			{
+			case SIMON_WEAPON::DANGER:
+			{
+				weapon = new WeaponDanger(x + nx * i * 2, y, nx);
+				break;
+			}
+			case SIMON_WEAPON::AXE:
+			{
+				weapon = new WeaponAxe(x + nx * i * 2, y, nx);
+				break;
+			}
+			case SIMON_WEAPON::HOLY_WATER:
+			{
+				weapon = new WeaponHolyWater(x + nx * i * 2, y, nx);
+				break;
+			}
+			}
+			simonWeapon.push_back(weapon);
+		}
 		switch (typeSubWeapon)
 		{
 		case SIMON_WEAPON::DANGER:
 		{
-			simonWeapon = new WeaponDanger(x, y, nx);
 			heart -= SIMON_HEART_USE_WEAPON::DANGER_HEART;
 			break;
 		}
 		case SIMON_WEAPON::AXE:
 		{
-			simonWeapon = new WeaponAxe(x, y, nx);
 			heart -= SIMON_HEART_USE_WEAPON::AXE_HEART;
 			break;
 		}
 		case SIMON_WEAPON::HOLY_WATER:
 		{
-			simonWeapon = new WeaponHolyWater(x, y, nx);
 			heart -= SIMON_HEART_USE_WEAPON::HOLY_WATER_HEART;
 			break;
 		}
@@ -935,6 +978,7 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 
 void CSimon::Attack()
 {
+	simonWeapon.clear();
 	if (isUseSubWeapon
 		&& isAttack == false
 		&& isSit == false)
@@ -946,7 +990,8 @@ void CSimon::Attack()
 	{
 		isCanAttack = false;
 		isAttack = true;
-		simonWeapon = new Whip(x, y, nx, weaponLevel);
+		Whip* whip = new Whip(x, y, nx, weaponLevel);
+		simonWeapon.push_back(whip);
 	}
 
 }
@@ -1177,6 +1222,7 @@ void CSimon::Reset()
 	onStairDistance = 0;
 	isCanOutStair = false;
 	isCanOnStair = false;
+	subWeaponQuantity = 1;
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

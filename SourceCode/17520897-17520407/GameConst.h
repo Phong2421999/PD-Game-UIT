@@ -36,8 +36,14 @@
 #define LOCK_CAMERA_X lockCameraX
 
 //grid
-#define GRID_OFFSET 86
-#define GRID_PART 2
+#define GRID_OFFSET 48
+#define GRID_PART 6
+#define ENEMIES_GRID -1
+#define ITEMS_GRID -2
+#define EFFECTS_GRID -3
+#define WEAPONENEMIES_GRID -4
+
+
 
 //GameItem
 enum GAME_ITEM

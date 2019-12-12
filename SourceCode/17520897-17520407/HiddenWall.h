@@ -3,6 +3,7 @@
 #include "FrameWork/debug.h"
 #include "Ground.h"
 #include "Wall.h"
+#include "LockSimon.h"
 
 #define ANI_WALL_BREAK 4000
 #define ANI_WALL 4001

@@ -19,9 +19,9 @@ void main()
 	cout << "Inout Grid Part: \n";
 	cin >> gridPart;
 	cout << "offset left: " << offsetLeft << " offset right: " << offsetRight << " screen width: " << screenWidth << "\n";
-	float gridSize = (screenWidth + offsetLeft + offsetRight)/2;
-	cout << "Your grid size is: " << gridSize <<"\n";
-	
+	float gridSize = (screenWidth + offsetLeft + offsetRight) / gridPart;
+	cout << "Your grid size is: " << gridSize << "\n";
+
 	//setting
 	int options = 1;
 	while (options != 0)
@@ -59,7 +59,8 @@ void main()
 						Object->QueryFloatAttribute("x", &x);
 						Object->QueryFloatAttribute("y", &y);
 						Object->QueryFloatAttribute("width", &Width);
-						int grid = floor((float)(x / gridSize));
+
+						int grid = floor((x / gridSize));
 						if (id == -99)
 							grid = -1;
 						Object->SetAttribute("Grid", grid);
@@ -73,6 +74,6 @@ void main()
 
 	}
 
-	
+
 	system("pause");
 }

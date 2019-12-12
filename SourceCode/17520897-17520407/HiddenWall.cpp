@@ -32,11 +32,10 @@ void CHiddenWall::Render() {
 
 void CHiddenWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	touchWhip = false;
 	for (int i = 0; i < coObjects->size(); i++)
 	{
-		if (dynamic_cast<CGround*>(coObjects->at(i))
-			|| dynamic_cast<CWall*>(coObjects->at(i)))
+		if ((dynamic_cast<CGround*>(coObjects->at(i))
+			|| dynamic_cast<CWall*>(coObjects->at(i))))
 		{
 			if (this->checkAABBTouch(coObjects->at(i)))
 			{

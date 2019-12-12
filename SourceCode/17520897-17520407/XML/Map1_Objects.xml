@@ -4,15 +4,14 @@
         <Ground x="-196" y="196" width="976" height="8" Grid="-1" />
     </Grounds>
     <LargeCandles id="1">
-        <LargeCandle x="90" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="0" />
-        <LargeCandle x="220" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="0" />
-        <LargeCandle x="340" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="1" />
-        <LargeCandle x="480" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="1" />
-        <LargeCandle x="600" y="168" width="16" height="30" itemId="2" name="DANGER" Grid="2" />
+        <LargeCandle x="90" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="1" />
+        <LargeCandle x="220" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="3" />
+        <LargeCandle x="340" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="4" />
+        <LargeCandle x="480" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="6" />
+        <LargeCandle x="600" y="168" width="16" height="30" itemId="2" name="DANGER" Grid="8" />
     </LargeCandles>
     <ChangeScenes id="-1">
-        <ChangeScene x="675" y="168" sceneId="1" simonAutoGo="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="100"
-                     height="30" simonStartPosX="32" simonStartPosY="180" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="2" />
+        <ChangeScene x="675" y="168" sceneId="1" simonAutoGo="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="100" height="30" simonStartPosX="32" simonStartPosY="180" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="9" />
     </ChangeScenes>
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />

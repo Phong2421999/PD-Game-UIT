@@ -324,17 +324,25 @@ void Scene::UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 }
 
 void Scene::MakeWeaponEnemies(DWORD dt) {
+	Grid* grid = Grid::GetInstance();
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->makeWeapon)
 		{
-			if (dynamic_cast<CUglyFish*>(objects[i]))
+			float x, y;
+			objects[i]->GetPosition(x, y);
+			int nx = objects[i]->getDirection();
+			WeaponProjectile * weapon = new WeaponProjectile(x, y, nx);
+			weaponEnemies.push_back(weapon);
+			grid->add(weapon, WEAPONENEMIES_GRID);
+			/*if (dynamic_cast<CUglyFish*>(objects[i]))
 			{
 				float x, y;
 				objects[i]->GetPosition(x, y);
 				int nx = objects[i]->getDirection();
 				WeaponProjectile * weapon = new WeaponProjectile(x, y, nx);
 				weaponEnemies.push_back(weapon);
+				grid->add(weapon, -1);
 			}
 			else if (dynamic_cast<CBossBat*>(objects[i]))
 			{
@@ -343,7 +351,7 @@ void Scene::MakeWeaponEnemies(DWORD dt) {
 				int nx = objects[i]->getDirection();
 				WeaponProjectile * weapon = new WeaponProjectile(x, y, nx);
 				weaponEnemies.push_back(weapon);
-			}
+			}*/
 		}
 	}
 }
@@ -353,14 +361,15 @@ void Scene::MakeEnemies(DWORD dt)
 	CSpawner* spawner = CSpawner::GetInstance();
 	CSimon* simon = CSimon::getInstance();
 	Grid* grid = Grid::GetInstance();
+
 	float cx, cy;
 	float sx, sy;
 	cx = CGame::GetInstance()->GetCamPos_x();
 	cy = CGame::GetInstance()->GetCamPos_y();
 	CSimon::getInstance()->GetPosition(sx, sy);
-
 	int lastNx = 1;
 	DWORD now = GetTickCount();
+
 	if (simon->getUsingStopWatch() == false || simon->getUsingCross() == false)
 	{
 		if (spawner->quantitySpawned == spawner->quantityEachSpawn)
@@ -388,6 +397,7 @@ void Scene::MakeEnemies(DWORD dt)
 					CGhost* ghost = new CGhost(cx, cy);
 					spawner->quantitySpawned += 1;
 					objects.push_back(ghost);
+					grid->add(ghost, ENEMIES_GRID);
 
 				}
 				else if (spawner->enemyId == PANTHER_ID)
@@ -395,12 +405,16 @@ void Scene::MakeEnemies(DWORD dt)
 					CPanther* panther = new CPanther(spawner->xEnemy, spawner->yEnemy);
 					spawner->quantitySpawned += 1;
 					objects.push_back(panther);
+					grid->add(panther, ENEMIES_GRID);
+
 				}
 				else if (spawner->enemyId == BAT_ID)
 				{
 					CBat* bat = new CBat(cx, sy);
 					spawner->quantitySpawned += 1;
 					objects.push_back(bat);
+					grid->add(bat, ENEMIES_GRID);
+
 				}
 				else if (spawner->enemyId == FISH_ID)
 				{
@@ -425,9 +439,12 @@ void Scene::MakeEnemies(DWORD dt)
 						}
 						CEffect * splash = new CSplash(x, y);
 						effects.push_back(splash);
+						grid->add(splash, EFFECTS_GRID);
+
 					}
 					spawner->quantitySpawned += 1;
 					objects.push_back(fish);
+					grid->add(fish, ENEMIES_GRID);
 				}
 				else if (spawner->enemyId == BOSS_BAT_ID)
 				{
@@ -435,12 +452,12 @@ void Scene::MakeEnemies(DWORD dt)
 					bossBat->SetIsBoss(true);
 					spawner->quantitySpawned += 1;
 					objects.push_back(bossBat);
+					grid->add(bossBat, ENEMIES_GRID);
 				}
 				spawner->lastSpawnTime = GetTickCount();
 			}
 		}
 	}
-
 }
 
 bool Scene::isInGrid(LPGAMEOBJECT obj)
@@ -453,7 +470,7 @@ bool Scene::isInGrid(LPGAMEOBJECT obj)
 	obj->GetPosition(x, y);
 	obj->GetWidthHeight(width, height);
 
-	if (( (x + width > cx - GRID_OFFSET)) && x < cx + SCREEN_WIDTH + GRID_OFFSET || x < -150)
+	if (((x + width > cx - GRID_OFFSET)) && x < cx + SCREEN_WIDTH + GRID_OFFSET || x < -150)
 	{
 		return true;
 	}
@@ -467,9 +484,15 @@ void Scene::Update(DWORD dt)
 	CGame*game = CGame::GetInstance();
 	CSimon*simon = CSimon::getInstance();
 	CAnimations *animations = CAnimations::GetInstance();
+	//Caculate grid
+	Grid* grid = Grid::GetInstance();
+	vector<int> gridIds;
+	grid->caculateGrid(gridIds);
+	//
 	float cx;
 	cx = CGame::GetInstance()->GetCamPos_x();
 	this->deltaTime = dt;
+
 	if (isLoadBlackScene)
 	{
 		DWORD now = GetTickCount();
@@ -499,18 +522,20 @@ void Scene::Update(DWORD dt)
 		}
 		if (game->GetCamAutoGo())
 		{
-			for (int i = 0; i < objects.size(); i++)
+			for (int gridId = 0; gridId < gridIds.size(); gridId++)
 			{
-				if (isInGrid(objects[i]))
+				objects.clear();
+				grid->get(gridIds[gridId], objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
 					if (dynamic_cast<ChangeSceneObjects*>(objects[i]))
 					{
 						objects[i]->Update(dt);
 					}
 				}
-
 			}
-			CSimon::getInstance()->Update(dt);
+			simon->Update(dt);
+
 		}
 
 	}
@@ -532,11 +557,14 @@ void Scene::Update(DWORD dt)
 			UpdateBoardGame(dt);
 			MakeEnemies(dt); // luôn gọi trước khi update các thứ khác
 			MakeWeaponEnemies(dt);
-
-			//lấy objects để tính colisions
-			for (int i = 0; i < objects.size(); i++)
+#pragma region CaculateCollision
+			for (int gridId = 0; gridId < gridIds.size(); gridId++)
 			{
-				if (isInGrid(objects[i]))
+				objects.clear();
+				grid->get(gridIds[gridId], objects);
+				objects.push_back(simon);
+				//lấy objects để tính colisions
+				for (int i = 0; i < objects.size(); i++)
 				{
 					if (dynamic_cast<CheckStair*>(objects[i]))
 					{
@@ -547,7 +575,6 @@ void Scene::Update(DWORD dt)
 						coChangeScence.push_back(objects[i]);
 						coSpawn.push_back(objects[i]);
 						coWeaponEnemies.push_back(objects[i]);
-
 					}
 					if (dynamic_cast<CGround*> (objects[i]))
 					{
@@ -589,132 +616,148 @@ void Scene::Update(DWORD dt)
 						coObjects.push_back(objects[i]);
 					}
 					//}
-				}
 
-				if (objects[i]->GetHealth() <= 0)
-				{
-					if (dynamic_cast<CSimon*>(objects[i]) == false)
+					if (objects[i]->GetHealth() <= 0)
 					{
-						if (dynamic_cast<CHiddenWall*>(objects[i]))
+						if (dynamic_cast<CSimon*>(objects[i]) == false)
 						{
-							CHiddenWall* hiddenWall = dynamic_cast<CHiddenWall*>(objects[i]);
-							float x, y;
-							hiddenWall->GetPosition(x, y);
-							for (int i = 0; i < QUANTITY_EFFECT_WALL; i++)
+							if (dynamic_cast<CHiddenWall*>(objects[i]))
 							{
-								CEffect * breakingWall = new CBreakingWall(x, y);
-								effects.push_back(breakingWall);
-							}
-							if (hiddenWall->getItemId() == 1)
-							{
-								PotRoast* potRoast = new PotRoast(x, y);
-								listItems.push_back(potRoast);
-							}
-							if (hiddenWall->getItemId() == 2)
-							{
-								DoubleShot* doubleShot = new DoubleShot(x, y);
-								listItems.push_back(doubleShot);
-							}
-
-						}
-						else if (objects[i]->GetKillBySimon())
-						{
-							if (objects[i]->GetIsBoss() == false)
-							{
+								CHiddenWall* hiddenWall = dynamic_cast<CHiddenWall*>(objects[i]);
 								float x, y;
-								CEffect * hit = new CHit();
-								if (objects[i]->GetKillBySimon())
+								hiddenWall->GetPosition(x, y);
+								for (int i = 0; i < QUANTITY_EFFECT_WALL; i++)
 								{
-									hit->SetKillBySimon(true);
+									CEffect * breakingWall = new CBreakingWall(x, y);
+									effects.push_back(breakingWall);
+									grid->add(breakingWall, EFFECTS_GRID);
 								}
-								if (dynamic_cast<CStaticObject*>(objects[i]))
+								if (hiddenWall->getItemId() == 1)
 								{
-									CStaticObject* staticObjects = dynamic_cast<CStaticObject*>(objects[i]);
-									int itemId = staticObjects->GetItemId();
-									hit->SetItemId(itemId);
-									hit->SetMakeItem(STATIC_OBJECT);
+									PotRoast* potRoast = new PotRoast(x, y);
+									listItems.push_back(potRoast);
+									grid->add(potRoast, ITEMS_GRID);
+								}
+								if (hiddenWall->getItemId() == 2)
+								{
+									DoubleShot* doubleShot = new DoubleShot(x, y);
+									listItems.push_back(doubleShot);
+									grid->add(doubleShot, ITEMS_GRID);
 								}
 
-								if (dynamic_cast<CEnemies*> (objects[i]))
-								{
-									hit->SetMakeItem(ENEMY);
-									CSpawner::GetInstance()->quantityEnemyDied++;
-								}
-								objects[i]->GetPosition(x, y);
-								hit->SetPosition(x, y);
-								effects.push_back(hit);
 							}
-							else
+							else if (objects[i]->GetKillBySimon())
 							{
-								if (dynamic_cast<CBossBat *>(objects[i]))
+								if (objects[i]->GetIsBoss() == false)
 								{
 									float x, y;
-									objects[i]->GetPosition(x, y);
-
-									for (int i = 0; i < 3; i++)
+									CEffect * hit = new CHit();
+									if (objects[i]->GetKillBySimon())
 									{
-										for (int j = 0; j < 2; j++)
-										{
-											CEffect * hit = new CHit();
-											hit->SetPosition(x + 16 * i, y + 16 * j);
-											hit->SetKillBySimon(true);
-											hit->SetMakeItem(ENEMY);
-											effects.push_back(hit);
-										}
+										hit->SetKillBySimon(true);
 									}
-								}
-							}
-						}
-						else if (dynamic_cast<CUglyFish*>(objects[i]))
-						{
+									if (dynamic_cast<CStaticObject*>(objects[i]))
+									{
+										CStaticObject* staticObjects = dynamic_cast<CStaticObject*>(objects[i]);
+										int itemId = staticObjects->GetItemId();
+										hit->SetItemId(itemId);
+										hit->SetMakeItem(STATIC_OBJECT);
+									}
 
-							float x, y;
-							objects[i]->GetPosition(x, y);
-							for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
-							{
-								if (i == 0)
-								{
-									y = SPLASH_Y_SIDE;
-								}
-								else if (i == 1)
-								{
-									y = SPLASH_Y_CENTER;
-									x = x + SPLASH_OFFSET_LEFT;
+									if (dynamic_cast<CEnemies*> (objects[i]))
+									{
+										hit->SetMakeItem(ENEMY);
+										CSpawner::GetInstance()->quantityEnemyDied++;
+									}
+									objects[i]->GetPosition(x, y);
+									hit->SetPosition(x, y);
+									//effects.push_back(hit);
+									grid->add(hit, EFFECTS_GRID);
+									vector<LPGAMEOBJECT> test;
+									grid->get(EFFECTS_GRID, test);
 								}
 								else
 								{
-									y = SPLASH_Y_SIDE;
-									x = x + SPLASH_OFFSET_RIGHT;
+									if (dynamic_cast<CBossBat *>(objects[i]))
+									{
+										float x, y;
+										objects[i]->GetPosition(x, y);
+
+										for (int i = 0; i < 3; i++)
+										{
+											for (int j = 0; j < 2; j++)
+											{
+												CEffect * hit = new CHit();
+												hit->SetPosition(x + 16 * i, y + 16 * j);
+												hit->SetKillBySimon(true);
+												hit->SetMakeItem(ENEMY);
+												effects.push_back(hit);
+												grid->add(hit, EFFECTS_GRID);
+											}
+										}
+
+									}
 								}
-								CEffect * splash = new CSplash(x, y);
-								effects.push_back(splash);
 							}
-							CSpawner::GetInstance()->quantityEnemyDied++;
+							else if (dynamic_cast<CUglyFish*>(objects[i]))
+							{
+
+								float x, y;
+								objects[i]->GetPosition(x, y);
+								for (int i = 0; i < QUANTITY_EFFECT_SPLASH; i++)
+								{
+									if (i == 0)
+									{
+										y = SPLASH_Y_SIDE;
+									}
+									else if (i == 1)
+									{
+										y = SPLASH_Y_CENTER;
+										x = x + SPLASH_OFFSET_LEFT;
+									}
+									else
+									{
+										y = SPLASH_Y_SIDE;
+										x = x + SPLASH_OFFSET_RIGHT;
+									}
+									CEffect * splash = new CSplash(x, y);
+									effects.push_back(splash);
+									grid->add(splash, EFFECTS_GRID);
+								}
+								CSpawner::GetInstance()->quantityEnemyDied++;
+							}
+							else if (dynamic_cast<CEnemies*> (objects[i]))
+							{
+								CSpawner::GetInstance()->quantityEnemyDied++;
+							}
+							/*objects.erase(objects.begin() + i);*/
+							grid->eraseObject(gridIds[gridId], i);
 						}
-						else if (dynamic_cast<CEnemies*> (objects[i]))
-						{
-							CSpawner::GetInstance()->quantityEnemyDied++;
-						}
-						objects.erase(objects.begin() + i);
+						else
+							simon->SetState(SIMON_STATE_DIE);
+
 					}
-					else
-						objects[i]->SetState(SIMON_STATE_DIE);
+
 
 				}
-
-
 			}
+#pragma endregion
+
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 			UpdateWeaponEnemies(dt, &coWeaponEnemies);
+
+#pragma region Update
 
 			//Gọi update với colision tính được
 			if (simon->getUsingStopWatch())
 			{
-				for (int i = 0; i < objects.size(); i++)
+#pragma region UpdateStopWatch
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
 				{
-					if (isInGrid(objects[i]))
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
 					{
-
 						if (dynamic_cast<CItems*> (objects[i]))
 						{
 							objects[i]->Update(dt, &coItemObjects);
@@ -727,49 +770,43 @@ void Scene::Update(DWORD dt)
 						{
 							objects[i]->Update(dt, &coChangeScence);
 						}
-						else if (dynamic_cast<CSimon*> (objects[i])) {
-							objects[i]->Update(dt, &coObjects);
-						}
 						else if (dynamic_cast<HiddenObjects*>(objects[i]))
 						{
 							objects[i]->Update(dt, &coHiddenObjects);
 						}
 					}
 				}
+				simon->Update(dt, &coObjects);
+#pragma endregion
 
 			}
 			else if (simon->getUsingCross())
 			{
 				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
-				for (int i = 0; i < objects.size(); i++)
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
 				{
-					if (isInGrid(objects[i]))
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
 					{
 						if (dynamic_cast<CEnemies*>(objects[i])) {
-							objects.erase(objects.begin() + i);
-						}
-						else if (dynamic_cast<CSimon*> (objects[i])) {
-							objects[i]->Update(dt, &coObjects);
+							/*objects.erase(objects.begin() + i);*/
+							grid->eraseObject(gridIds[gridId], i);
 						}
 					}
 				}
+				simon->Update(dt, &coObjects);
 			}
 			else
 			{
 				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
-				for (int i = 0; i < objects.size(); i++)
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
 				{
-					if (dynamic_cast<CEnemies*>(objects[i])) {
-						float x, y;
-						objects[i]->GetPosition(x, y);
-					}
-					if (isInGrid(objects[i]))
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
 					{
-						if (dynamic_cast<CItems*> (objects[i]))
-						{
-							objects[i]->Update(dt, &coItemObjects);
-						}
-						else if (dynamic_cast<CEnemies*>(objects[i])) {
+						if (dynamic_cast<CEnemies*>(objects[i])) {
 
 							objects[i]->Update(dt, &coEnemies);
 						}
@@ -785,153 +822,156 @@ void Scene::Update(DWORD dt)
 						{
 							objects[i]->Update(dt, &coChangeScence);
 						}
-						else if (dynamic_cast<CSimon*> (objects[i])) {
-							objects[i]->Update(dt, &coObjects);
-						}
 						else if (dynamic_cast<HiddenObjects*>(objects[i]))
 						{
 							objects[i]->Update(dt, &coHiddenObjects);
 						}
+
 					}
 				}
+				simon->Update(dt, &coObjects);
 			}
 
 
 			simon->UpdateCheckStair(&coCheckStairObjects);
 
 
-
-			for (int i = 0; i < listItems.size(); i++)
+#pragma region UpdateItems
+			objects.clear();
+			grid->get(ITEMS_GRID, objects);
+			for (int i = 0; i < objects.size(); i++)
 			{
-				if (isInGrid(listItems[i]))
+				CItems* item = dynamic_cast<CItems*>(objects[i]);
+				if (item->GetHealth() > 0)
 				{
-					if (listItems[i]->GetHealth() > 0)
-					{
-						listItems[i]->Update(dt, &coItemObjects);
-					}
-					else
-					{
-						if (dynamic_cast<MoneyBag*>(listItems[i]))
-						{
-							float x, y;
-							listItems[i]->GetPosition(x, y);
-							CEffect * moneyEffect = new CMoneyEffect(x, y, listItems[i]->GetGameItem());
-							effects.push_back(moneyEffect);
-							listItems.erase(listItems.begin() + i);
-						}
-						else
-						{
-							listItems.erase(listItems.begin() + i);
-						}
-					}
+					item->Update(dt, &coItemObjects);
 				}
-			}
-			for (int i = 0; i < effects.size(); i++)
-			{
-				if (isInGrid(effects[i]))
+				else
 				{
-					if (effects[i]->GetLastFrame())
+					if (dynamic_cast<MoneyBag*>(item))
 					{
-
 						float x, y;
-						effects[i]->GetPosition(x, y);
-						if (effects[i]->GetKillBySimon())
-						{
-							if (effects[i]->GetMakeItem() == STATIC_OBJECT)
-							{
-								CItems* item;
-								if (CSimon::getInstance()->getWeaponLevel() < SIMON_WEAPON_LEVEL_2
-									&& CSimon::getInstance()->getCurrentScene() > 0)
-								{
-									item = new WhipUpgrade(x, y);
-								}
-								else
-								{
-									int itemId = effects[i]->GetItemId();
-									if (itemId == -1)
-									{
-										int rand = Random(1, 100);
-										if (rand <= 66)
-										{
-											item = new SmallHeart(x, y);
-										}
-										else
-										{
-											item = new MoneyBag(x, y);
-										}
-									}
-									if (itemId == 0)
-										item = new LargeHeart(x, y);
-									if (itemId == 1)
-										item = new WhipUpgrade(x, y);
-									if (itemId == 2)
-										item = new Danger(x, y);
-									if (itemId == 3)
-										item = new HolyWater(x, y);
-									if (itemId == 4)
-										item = new Cross(x, y);
-									if (itemId == 5)
-										item = new InviPotion(x, y);
-									if (itemId == 6)
-										item = new Axe(x, y);
-								}
-								listItems.push_back(item);
-
-							}
-							if (effects[i]->GetMakeItem() == ENEMY)
-							{
-								int rand = Random(1, 100);
-								if (rand == 1)
-								{
-									LargeHeart* largeHeart = new LargeHeart(x, y);
-									listItems.push_back(largeHeart);
-								}
-								if (rand >= 2 && rand <= 10)
-								{
-									MoneyBag* moneyBag = new MoneyBag(x, y);
-									listItems.push_back(moneyBag);
-								}
-								if (rand == 99)
-								{
-									SmallHeart* smallHeart = new SmallHeart(x, y);
-									listItems.push_back(smallHeart);
-								}
-							}
-						}
-						effects[i]->reset();
-						effects.erase(effects.begin() + i);
+						item->GetPosition(x, y);
+						CEffect * moneyEffect = new CMoneyEffect(x, y, item->GetGameItem());
+						grid->add(moneyEffect, EFFECTS_GRID);
+						grid->eraseObject(ITEMS_GRID, i);
 					}
 					else
 					{
-						effects[i]->Update(dt, NULL);
+						grid->eraseObject(ITEMS_GRID, i);
 					}
 				}
 			}
+#pragma endregion
 
+#pragma region UpdateEffects
+			objects.clear();
+			grid->get(EFFECTS_GRID, objects);
+			for (int i = 0; i < objects.size(); i++)
+			{
+				CEffect* effect = dynamic_cast<CEffect*>(objects[i]);
+				if (effect->GetLastFrame())
+				{
+
+					float x, y;
+					effect->GetPosition(x, y);
+					if (effect->GetKillBySimon())
+					{
+						if (effect->GetMakeItem() == STATIC_OBJECT)
+						{
+							CItems* item = NULL;
+							if (CSimon::getInstance()->getWeaponLevel() < SIMON_WEAPON_LEVEL_2
+								&& CSimon::getInstance()->getCurrentScene() > 0)
+							{
+								item = new WhipUpgrade(x, y);
+							}
+							else
+							{
+								int itemId = effect->GetItemId();
+								if (itemId == -1)
+								{
+									int rand = Random(1, 100);
+									if (rand <= 66)
+									{
+										item = new SmallHeart(x, y);
+									}
+									else
+									{
+										item = new MoneyBag(x, y);
+									}
+								}
+								if (itemId == 0)
+									item = new LargeHeart(x, y);
+								if (itemId == 1)
+									item = new WhipUpgrade(x, y);
+								if (itemId == 2)
+									item = new Danger(x, y);
+								if (itemId == 3)
+									item = new HolyWater(x, y);
+								if (itemId == 4)
+									item = new Cross(x, y);
+								if (itemId == 5)
+									item = new InviPotion(x, y);
+								if (itemId == 6)
+									item = new Axe(x, y);
+							}
+							grid->add(item, ITEMS_GRID);
+						}
+						if (effect->GetMakeItem() == ENEMY)
+						{
+							int rand = Random(1, 100);
+							if (rand == 1)
+							{
+								LargeHeart* largeHeart = new LargeHeart(x, y);
+								grid->add(largeHeart, ITEMS_GRID);
+							}
+							if (rand >= 2 && rand <= 10)
+							{
+								MoneyBag* moneyBag = new MoneyBag(x, y);
+								grid->add(moneyBag, ITEMS_GRID);
+							}
+							if (rand == 99)
+							{
+								SmallHeart* smallHeart = new SmallHeart(x, y);
+								grid->add(smallHeart, ITEMS_GRID);
+							}
+						}
+					}
+					effect->reset();
+					grid->eraseObject(EFFECTS_GRID, i);
+				}
+				else
+				{
+					effect->Update(dt);
+				}
+			}
+#pragma endregion
 		}
 		else
 		{
-			for (int i = 0; i < objects.size(); i++)
+			simon->UpdateFreeze(dt);
+			for (int gridId = 0; gridId < gridIds.size(); gridId++)
 			{
-				if (isInGrid(objects[i]))
+				objects.clear();
+				grid->get(gridIds[gridId], objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
 					if (objects[i]->GetHealth() <= 0)
-						objects.erase(objects.begin() + i);
+						grid->eraseObject(gridIds[gridId], i);
 				}
-
 			}
-			for (int i = 0; i < listItems.size(); i++)
+			objects.clear();
+			grid->get(ITEMS_GRID, objects);
+			for (int i = 0; i < objects.size(); i++)
 			{
-				if (isInGrid(listItems[i]))
-				{
-					if (listItems[i]->GetHealth() <= 0)
-						listItems.erase(listItems.begin() + i);
-					else
-						listItems[i]->SetMakeTime(GetTickCount());
-				}
+				CItems* item = dynamic_cast<CItems*>(objects[i]);
+				if (item->GetHealth() <= 0)
+					grid->eraseObject(ITEMS_GRID, i);
+				else
+					item->SetMakeTime(GetTickCount());
 			}
-			simon->UpdateFreeze(dt);
 		}
+#pragma endregion
 
 		float cx, cy;
 		simon->GetPosition(cx, cy);
@@ -964,9 +1004,14 @@ void Scene::Render()
 	CSimon *simon = CSimon::getInstance();
 	CSprites *sprites = CSprites::GetInstance();
 	CBoardGame *boardGame = CBoardGame::GetInstance();
-
+	Grid* grid = Grid::GetInstance();
+	vector<int> gridIds;
+	grid->caculateGrid(gridIds);
 	if (isCanLoadScene)
 	{
+#pragma region RenderBoardGame
+
+
 		float camX = game->GetCamPos_x();
 		float camY = game->GetCamPos_y();
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
@@ -1061,110 +1106,120 @@ void Scene::Render()
 
 			boardGame->Get(id)->Draw(x, y);
 		}
+#pragma endregion
 
 		CMap::GetInstance()->Get(mapId)->Render();
-
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
-			for (int i = 0; i < objects.size(); i++)
+#pragma region RenderAutoGo
+			for (int gridId = 0; gridId < gridIds.size(); gridId++)
 			{
-				if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
+				objects.clear();
+				grid->get(gridIds[gridId], objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					objects[i]->Render();
+					if (dynamic_cast<ChangeSceneObjects*> (objects[i]))
+					{
+						objects[i]->Render();
+					}
 				}
 			}
 			simon->Render();
 		}
+#pragma endregion
 		else
 		{
 			if (simon->getFreeze() == true)
 			{
+#pragma region RenderFreeze
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
+				{
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
+					{
+						objects[i]->RenderCurrentFrame();
+					}
+				}
+				simon->Render();
+				//
+				objects.clear();
+				grid->get(EFFECTS_GRID, objects);
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(objects[i]))
-					{
-						if (dynamic_cast<CSimon*> (objects[i]) == false)
-						{
-							objects[i]->RenderCurrentFrame();
-						}
-						else
-							objects[i]->Render();
-					}
-
+					objects[i]->RenderCurrentFrame();
 				}
-				for (int i = 0; i < effects.size(); i++)
+				objects.clear();
+				grid->get(ITEMS_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(effects[i]))
-					{
-						effects[i]->RenderCurrentFrame();
-					}
-				}
-
-				for (int i = 0; i < listItems.size(); i++)
-				{
-					if (isInGrid(listItems[i]))
-					{
-						listItems[i]->RenderCurrentFrame();
-					}
-
+					objects[i]->RenderCurrentFrame();
 				}
 			}
+#pragma endregion
 			else if (simon->getUsingStopWatch())
 			{
+#pragma region RenderStopWatch
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(objects[i]))
-					{
-						if (dynamic_cast<CEnemies*>(objects[i]))
-							objects[i]->RenderCurrentFrame();
-						else
-							objects[i]->Render();
-					}
+					if (dynamic_cast<CEnemies*>(objects[i]))
+						objects[i]->RenderCurrentFrame();
+					else if (!dynamic_cast<CSimon*>(objects[i]))
+						objects[i]->Render();
 				}
-				for (int i = 0; i < effects.size(); i++)
+				objects.clear();
+				grid->get(EFFECTS_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(effects[i]))
-					{
-						effects[i]->Render();
-					}
+					objects[i]->RenderCurrentFrame();
 				}
-				for (int i = 0; i < listItems.size(); i++)
+				objects.clear();
+				grid->get(ITEMS_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(listItems[i]))
-					{
-						listItems[i]->Render();
-					}
+					objects[i]->RenderCurrentFrame();
 				}
-
-				for (int i = 0; i < weaponEnemies.size(); i++)
-					if (isInGrid(weaponEnemies[i]))
-					{
-						weaponEnemies[i]->RenderCurrentFrame();
-					}
+				objects.clear();
+				grid->get(ENEMIES_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
+				{
+					objects[i]->RenderCurrentFrame();
+				}
+				simon->Render();
+#pragma endregion
 			}
 			else
 			{
+#pragma region Render
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
+				{
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
+					{
+						objects[i]->Render();
+					}
+				}
+				objects.clear();
+				grid->get(EFFECTS_GRID, objects);
 				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(objects[i]))
-						objects[i]->Render();
+					objects[i]->Render();
 				}
-				for (int i = 0; i < effects.size(); i++)
+				objects.clear();
+				grid->get(ITEMS_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(effects[i]))
-						effects[i]->Render();
+					objects[i]->Render();
 				}
-				for (int i = 0; i < listItems.size(); i++)
+				objects.clear();
+				grid->get(WEAPONENEMIES_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					if (isInGrid(listItems[i]))
-						listItems[i]->Render();
+					objects[i]->Render();
 				}
-				for (int i = 0; i < weaponEnemies.size(); i++)
-				{
-					if (isInGrid(weaponEnemies[i]))
-						weaponEnemies[i]->Render();
-
-				}
+				simon->Render();
+#pragma endregion
 			}
 		}
 
@@ -1174,6 +1229,7 @@ void Scene::Render()
 
 void Scene::StartLoadScene()
 {
+	LoadSceneResource();
 	float x, y;
 	Scenes* scenes = Scenes::GetInstance();
 	scenes->GetSimonStartPos(x, y);
@@ -1197,7 +1253,6 @@ void Scene::Reset()
 	listItems.clear();
 	effects.clear();
 	letters.clear();
-	LoadSceneResource();
 	bossHealth = 16;
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
@@ -1211,6 +1266,7 @@ void Scene::Reset()
 	CBoardGame::GetInstance()->setLimitTime(300);
 	CSpawner::GetInstance()->resetAfterResetScene();
 	lockCameraX = 0.0f;
+	LoadSceneResource();
 }
 
 void Scene::Clear()
@@ -1219,6 +1275,5 @@ void Scene::Clear()
 	listItems.clear();
 	effects.clear();
 	letters.clear();
-	LoadSceneResource();
 	CSpawner::GetInstance()->resetAfterResetScene();
 }

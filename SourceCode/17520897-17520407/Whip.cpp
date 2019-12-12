@@ -76,7 +76,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						&& isTouchEnemy == false)
 					{
 						CEnemies* enemies = dynamic_cast<CEnemies*>(coObjects->at(i));
-						if (enemies->GetIsBoss())
+						if (enemies->GetSimonHasTouch() > 0)
 							isTouchEnemy = true;
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);
@@ -92,7 +92,6 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);
 						isTouchHiddenWall = true;
-						CSimon::getInstance()->y -= 1;
 					}
 				}
 			}

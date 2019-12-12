@@ -33,8 +33,6 @@
 #define SIMON_STATE_ON_STAIR_IDLE_UP		1400
 
 
-
-
 /*	--
 	--- NOR_ANIMATION
 */
@@ -111,6 +109,11 @@
 #define SIMON_MAX_HEALTH 8
 #define SIMON_DEFAULT_HEART 5
 #define SIMON_LIVE 3
+
+#define USING_STOP_WATCH_TIME 2500
+#define USING_CROSS_TIME 150
+
+
 
 enum SIMON_WEAPON {
 	NONE,

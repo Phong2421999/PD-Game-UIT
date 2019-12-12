@@ -16,7 +16,7 @@ public:
 	}
 	virtual void Render();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) {};
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {};
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL) {};
 	virtual bool GetLastFrame();
 	virtual void reset();
 	void SetKillBySimon(bool b)

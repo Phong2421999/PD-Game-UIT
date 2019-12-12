@@ -1,7 +1,9 @@
 ﻿#include "CSimonKeyHandler.h"
-
+#include "Grid.h"
 void CSimonKeyHandler::OnKeyDown(int KeyCode)
 {
+	Grid* grid = Grid::GetInstance();
+	vector<int> gridData;
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
@@ -47,28 +49,41 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			isRenderBBox = !isRenderBBox;
 			break;
 		case DIK_F2:
-			int stairNx, stairNy;
-			stairNx = simon->getStairNx();
-			stairNy = simon->getStairNy();
-			DebugOut(L"\nStairNx: %d, StairNy: %d", stairNx, stairNy);
-			DebugOut(L"\nsimonNx: %d, simonNy: %d", simon->nx, simon->ny);
+			simon->setHasSubWeapon(true);
+			simon->ChangeSubWeapon(SIMON_WEAPON::DANGER);
+			simon->setHeart(99);
 			break;
 		case DIK_F3:
-			simon->SetPosition(1500.0f, 32.0f);
-			simon->SetState(SIMON_STATE_IDLE);
+			simon->setHasSubWeapon(true);
+			simon->ChangeSubWeapon(SIMON_WEAPON::STOP_WATCH);
+			simon->setHeart(99);
 			break;
 		case DIK_F4:
-			simon->SetPosition(675.0f, 32.0f);
-			simon->SetState(SIMON_STATE_IDLE);
+			simon->setHasSubWeapon(true);
+			simon->setUsingCross(true);
+			simon->setHeart(99);
 			break;
 		case DIK_F5:
-			simon->SetPosition(960.0f, 32.0f);
-			simon->SetState(SIMON_STATE_IDLE);
+			simon->setHasSubWeapon(true);
+			simon->ChangeSubWeapon(SIMON_WEAPON::HOLY_WATER);
+			simon->setHeart(99);
 			break;
 		case DIK_F6:
+			simon->setHasSubWeapon(true);
+			simon->setUsingDoubleShot(true);
+			simon->setHeart(99);
+			break;
+		case DIK_F7:
 			simon->SetPosition(SCENCE_WITDH - 128, 32.0f);
 			simon->SetState(SIMON_STATE_IDLE);
 			break;
+		case DIK_F8:
+			gridData.clear();
+			grid->caculateGrid(gridData);
+			for (int i = 0; i < gridData.size(); i++)
+			{
+				DebugOut(L"\ngridId: %d", gridData[i]);
+			}
 		case DIK_1:
 			float x, y;
 			simon->GetPosition(x, y);

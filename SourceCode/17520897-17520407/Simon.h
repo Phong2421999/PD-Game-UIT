@@ -75,7 +75,7 @@ private:
 	bool isEnoughHeart;
 	int heart;			//Số lượng tim để sử dụng subweapon
 
-	Weapon* simonWeapon;
+	vector<Weapon*> simonWeapon;
 
 	static CSimon *__instance;
 
@@ -96,12 +96,13 @@ private:
 	int stairNy;
 	int stairActiveNy;
 
-
+	int subWeaponQuantity;
 public:
 
 	static CSimon* getInstance();
 	CSimon()
 	{
+		subWeaponQuantity = 1;
 		isOnGround = true;
 		isDeath = false;
 		isFightingBoss = false;
@@ -153,6 +154,10 @@ public:
 	}
 #pragma region set thuộc tính
 	//set thuộc tính
+	void setUsingDoubleShot(bool b)
+	{
+		this->isUsingDoubleShot = b;
+	}
 	void setOnStairDistance(float dis)
 	{
 		this->onStairDistance = dis;
@@ -217,7 +222,14 @@ public:
 	{
 		this->isOnStair = b;
 	}
-	
+	void setHeart(int h)
+	{
+		this->heart = h;
+	}
+	void setUsingCross(bool b)
+	{
+		this->isUsingCross = b;
+	}
 	void setAutoGoToStair(bool b)
 	{
 		this->isAutoGoToStair = b;
@@ -478,4 +490,5 @@ public:
 	//Xử lí BBox tránh bị chạm;
 	void ResetAfterSit();
 	void ResetAfterJump();
+
 };

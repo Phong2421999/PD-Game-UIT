@@ -2,48 +2,48 @@
 <Objects>
     <Walls id="3">
         <Wall x="0" y="117" width="112" height="13" Grid="0" />
-        <Wall x="129" y="149" width="174" height="13" Grid="0" />
-        <Wall x="720" y="149" width="48" height="13" Grid="2" />
-        <Wall x="672" y="181" width="15" height="12" Grid="2" />
-        <Wall x="688" y="181" width="15" height="12" Grid="2" />
+        <Wall x="129" y="149" width="174" height="13" Grid="1" />
+        <Wall x="720" y="149" width="48" height="13" Grid="10" />
+        <Wall x="672" y="181" width="15" height="12" Grid="9" />
+        <Wall x="688" y="181" width="15" height="12" Grid="9" />
     </Walls>
     <Grounds id="0">
         <Ground x="-200" y="212" width="100000" height="8" Grid="-1" />
         <Ground x="0" y="115" width="111" height="1" Grid="0" />
-        <Ground x="130" y="147" width="173" height="1" Grid="0" />
-        <Ground x="721" y="147" width="47" height="1" Grid="2" />
-        <Ground x="674" y="180" width="12" height="1" Grid="2" />
-        <Ground x="686" y="180" width="12" height="1" Grid="2" />
+        <Ground x="130" y="147" width="173" height="1" Grid="1" />
+        <Ground x="721" y="147" width="47" height="1" Grid="10" />
+        <Ground x="674" y="180" width="12" height="1" Grid="9" />
+        <Ground x="686" y="180" width="12" height="1" Grid="9" />
     </Grounds>
     <SmallCandles id="2">
         <SmallCandle x="30" y="148" width="8" height="14" itemId="0" name="LARGE_HEART" Grid="0" />
-        <SmallCandle x="92" y="84" width="8" height="14" itemId="-1" name="RAND" Grid="0" />
-        <SmallCandle x="156" y="118" width="8" height="14" itemId="-1" name="RAND" Grid="0" />
-        <SmallCandle x="218" y="86" width="8" height="14" itemId="5" name="INVISIBLE" Grid="0" />
-        <SmallCandle x="284" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="1" />
-        <SmallCandle x="348" y="150" width="8" height="14" itemId="6" name="AXE" Grid="1" />
-        <SmallCandle x="412" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="1" />
-        <SmallCandle x="474" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="1" />
-        <SmallCandle x="538" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="2" />
-        <SmallCandle x="602" y="182" width="8" height="14" itemId="0" name="LARGE_HEART" Grid="2" />
-        <SmallCandle x="666" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="2" />
-        <SmallCandle x="732" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="2" />
+        <SmallCandle x="92" y="84" width="8" height="14" itemId="-1" name="RAND" Grid="1" />
+        <SmallCandle x="156" y="118" width="8" height="14" itemId="-1" name="RAND" Grid="2" />
+        <SmallCandle x="218" y="86" width="8" height="14" itemId="5" name="INVISIBLE" Grid="3" />
+        <SmallCandle x="284" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="4" />
+        <SmallCandle x="348" y="150" width="8" height="14" itemId="6" name="AXE" Grid="5" />
+        <SmallCandle x="412" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="5" />
+        <SmallCandle x="474" y="182" width="8" height="14" itemId="-1" name="RAND" Grid="6" />
+        <SmallCandle x="538" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="7" />
+        <SmallCandle x="602" y="182" width="8" height="14" itemId="0" name="LARGE_HEART" Grid="8" />
+        <SmallCandle x="666" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="9" />
+        <SmallCandle x="732" y="150" width="8" height="14" itemId="-1" name="RAND" Grid="10" />
     </SmallCandles>
     <CheckStairs id="-3">
-        <CheckStair x="106" y="114" width="18" height="4" ny="-1" nx="1" Grid="0" />
-        <CheckStair x="138" y="144" width="16" height="4" ny="1" nx="-1" Grid="0" />
-        <CheckStair x="298" y="146" width="18" height="4" ny="-1" nx="1" Grid="1" />
-        <CheckStair x="360" y="208" width="16" height="4" ny="1" nx="-1" Grid="1" />
-        <CheckStair x="678" y="176" width="16" height="4" ny="1" nx="1" Grid="2" />
-        <CheckStair x="708" y="146" width="16" height="4" ny="-1" nx="-1" Grid="2" />
+        <CheckStair x="106" y="114" width="18" height="4" ny="-1" nx="1" Grid="1" />
+        <CheckStair x="138" y="144" width="16" height="4" ny="1" nx="-1" Grid="1" />
+        <CheckStair x="298" y="146" width="18" height="4" ny="-1" nx="1" Grid="4" />
+        <CheckStair x="360" y="208" width="16" height="4" ny="1" nx="-1" Grid="5" />
+        <CheckStair x="678" y="176" width="16" height="4" ny="1" nx="1" Grid="9" />
+        <CheckStair x="708" y="146" width="16" height="4" ny="-1" nx="-1" Grid="10" />
     </CheckStairs>
     <ChangeSceneObjects id="-1">
-        <ChangeScene x="1532" y="168" sceneId="2" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="1" isDoor="1" width="8" height="14" Grid="6" />
+        <ChangeScene x="1532" y="168" sceneId="2" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="1" isDoor="1" width="8" height="14" Grid="22" />
     </ChangeSceneObjects>
     <Spawns id="-2">
-        <Spawn x="84" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="0" />
-        <Spawn x="484" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="1" />
-        <Spawn x="512" y="0" spawnerId="1" enemyId="100" quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300" canRespawn="0" name="BOSSBAT" Grid="2" />
+        <Spawn x="84" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="1" />
+        <Spawn x="484" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="6" />
+        <Spawn x="512" y="0" spawnerId="1" enemyId="100" quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300" canRespawn="0" name="BOSSBAT" Grid="7" />
     </Spawns>
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />

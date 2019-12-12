@@ -195,7 +195,6 @@ void LoadResources()
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
 		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId);
-		scene->LoadSceneResource();
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
 		scenes->AddSceneData(sceneId, resetSceneId);

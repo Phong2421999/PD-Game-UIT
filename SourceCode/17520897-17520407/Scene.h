@@ -71,7 +71,6 @@ public:
 
 	string objectsPath;
 
-
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId);
 	void LoadSceneResource();
@@ -95,6 +94,7 @@ public:
 		this->simonStartX = x;
 		this->simonStartY = y;
 	}
+	
 };
 
 typedef Scene* LPSCENE;

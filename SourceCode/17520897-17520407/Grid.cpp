@@ -21,14 +21,32 @@ void Grid::clear()
 	gridObjects.clear();
 }
 
-vector<LPGAMEOBJECT> Grid::get(int grid)
+void Grid::get(int grid, vector<LPGAMEOBJECT> &objects)
 {
-	return gridObjects[grid];
+	objects = gridObjects[grid];
 }
 
-int caculateGrid(float x)
+void Grid::caculateGrid(vector<int> &gridData)
 {
 	float gridSize = (SCREEN_WIDTH + 2 * GRID_OFFSET)/GRID_PART;
-	int grid = floor(x / gridSize);
-	return grid;
+	float cx = CGame::GetInstance()->GetCamPos_x();
+	float beginGridPos = abs(cx - GRID_OFFSET);
+	float endGridPos = abs(cx + SCREEN_WIDTH + GRID_OFFSET);
+	
+
+	int beginGrid = floor( beginGridPos / gridSize);
+	int endGrid = ceil(endGridPos / gridSize);
+	gridData.clear();
+	for (int i = beginGrid; i <= endGrid; i++)
+	{
+		if(gridObjects[i].size()>0)
+			gridData.push_back(i);
+		if (i == endGrid)
+			gridData.push_back(-1);
+	}
 }
+void Grid::eraseObject(int gridId, int index)
+{
+	gridObjects[gridId].erase(gridObjects[gridId].begin() + index);
+}
+
