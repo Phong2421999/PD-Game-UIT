@@ -33,6 +33,8 @@
 #include "LockSimon.h"
 #include "PotRoast.h"
 
+#include "Monkey.h"
+
 #include "Grid.h"
 
 struct Letter
@@ -45,9 +47,9 @@ class Scene {
 public:
 
 	vector<LPGAMEOBJECT> objects;
-	vector<LPITEMS> listItems;
-	vector<WeaponEnemies*> weaponEnemies;
-	vector<LPEFT> effects;
+	vector<LPGAMEOBJECT> items;
+	vector<LPGAMEOBJECT> effects;
+	vector<LPGAMEOBJECT> weaponEnemies;
 	vector<Letter> letters;
 
 	int mapId;

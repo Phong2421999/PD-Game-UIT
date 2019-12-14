@@ -52,7 +52,6 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
-
 	CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally

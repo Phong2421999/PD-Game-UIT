@@ -473,7 +473,41 @@
     </Animation>
   </Texture>
 
-            <!--Texture Health-->
+  <!-- Animation SEKELETON -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="575" frameTime="100" name="SKELETON_MOVE">
+      <sprite id="10181" left="75" top="140" right="91" bottom="172" frameTime="100"/>
+      <sprite id="10182" left="49" top="140" right="65" bottom="172" frameTime="100"/>
+    </Animation>
+  </Texture>
+  
+  <!-- Animation SKELETON_BONE -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="576" frameTime="100" name="SKELETON_BONE">
+      <sprite id="10183" left="29" top="151" right="35" bottom="167" frameTime="100"/>
+      <sprite id="10184" left="5" top="152" right="20" bottom="165" frameTime="100"/>
+    </Animation>
+  </Texture>
+
+  <!-- Animation MONKEY_JUMP -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="577" frameTime="100" name="MONKEY_JUMP">
+      <sprite id="10185" left="217" top="43" right="232" bottom="59" frameTime="100"/>
+      <sprite id="10186" left="240" top="42" right="256" bottom="58" frameTime="100"/>
+    </Animation>
+  </Texture>
+
+
+  <!-- Animation EAGLE_FLY -->
+  <Texture  textureId ="3" gameObjectId ="29">
+    <Animation aniId="578" frameTime="100" name="EAGLE_FLY">
+      <sprite id="10187" left="170" top="140" right="202" bottom="163" frameTime="100"/>
+      <sprite id="10188" left="210" top="168" right="242" bottom="168" frameTime="100"/>
+    </Animation>
+  </Texture>
+
+
+  <!--Texture Health-->
   <!-- Animation HEALTH_BAR -->
   <Texture  textureId ="6" gameObjectId ="-1">
     <Animation aniId="2000" frameTime="100" name="HEALTH_BAR">
@@ -485,14 +519,36 @@
   
           <!--Texture Bosses-->
   <Texture textureId ="3" gameObjectId ="-1000">
-     Animation BOSS_BAT_IDLE 
+    <!-- Animation BOSS_BAT_IDLE --> 
     <Animation aniId="3000" frameTime="100" name="BOSS_BAT_IDLE">
       <sprite id="3000" left="269" top="17" right="285" bottom="33" frameTime="100"/>
     </Animation>
-     Animation BOSS_BAT_FLY 
+    <!-- Animation BOSS_BAT_FLY -->
     <Animation aniId="3001" frameTime="100" name="BOSS_BAT_FLY">
       <sprite id="3001" left="296" top="15" right="344" bottom="38" frameTime="125"/>
       <sprite id="3002" left="296" top="42" right="344" bottom="64" frameTime="100"/>
+    </Animation>
+  </Texture>
+  
+  <!-- Animation FINAL_BOSS -->
+  <Texture textureId ="3" gameObjectId ="-1000">
+    <Animation aniId="3002" frameTime="100" name="FINAL_BOSS_FACE">
+      <sprite id="3003" left="265" top="208" right="273" bottom="222" frameTime="100"/>
+    </Animation>
+    <Animation aniId="3003" frameTime="100" name="FINAL_BOSS_ATTACK">
+      <sprite id="3004" left="93" top="179" right="119" bottom="237" frameTime="125"/>
+      <sprite id="3005" left="129" top="179" right="162" bottom="237" frameTime="100"/>
+    </Animation>
+    <Animation aniId="3004" frameTime="100" name="FINAL_BOSS_ATTACK">
+      <sprite id="3006" left="174" top="179" right="200" bottom="237" frameTime="125"/>
+    </Animation>
+    <Animation aniId="3005" frameTime="100" name="FINAL_BOSS_TRANSFORM_ATTACK">
+      <sprite id="3007" left="110" top="248" right="160" bottom="331" frameTime="100"/>
+      <sprite id="3008" left="45" top="248" right="95" bottom="331" frameTime="100"/>
+    </Animation>
+    <Animation aniId="3006" frameTime="100" name="FINAL_BOSS_TRANSFORM_JUMP">
+      <sprite id="3009" left="172" top="248" right="222" bottom="331" frameTime="125"/>
+      <sprite id="3010" left="230" top="248" right="280" bottom="331" frameTime="125"/>
     </Animation>
   </Texture>
   

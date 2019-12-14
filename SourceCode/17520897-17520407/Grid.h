@@ -15,4 +15,5 @@ public:
 	void get(int grid, vector<LPGAMEOBJECT> &objects);
 	void caculateGrid(vector<int> &gridData);
 	void eraseObject(int gridId, int index);
+	void getListObjects(vector<LPGAMEOBJECT> &objects);
 };

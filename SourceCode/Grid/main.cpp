@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <iostream>
 #include "tinyxml.h"
 #include <string>
@@ -59,10 +59,32 @@ void main()
 						Object->QueryFloatAttribute("x", &x);
 						Object->QueryFloatAttribute("y", &y);
 						Object->QueryFloatAttribute("width", &Width);
-
+						Object->QueryFloatAttribute("height", &Height);
+						if (Width < 800)
+						{
+							if (Width > gridSize)
+							{
+								int nodeQuantity = ceil(Width / gridSize) * 2;
+								float newWidth = Width / nodeQuantity;
+								for (int i = 1; i < nodeQuantity; i++)
+								{
+									TiXmlElement* newObjects = new TiXmlElement("Object");
+									newObjects->SetAttribute("x", x + i*newWidth);
+									newObjects->SetAttribute("y", y);
+									newObjects->SetAttribute("width", newWidth);
+									newObjects->SetAttribute("height", Height);
+									Objects->LinkEndChild(newObjects);
+								}
+								Object->SetAttribute("width", newWidth);
+							}
+						}
 						int grid = floor((x / gridSize));
 						if (id == -99)
 							grid = -1;
+						if (grid < -1)
+						{
+							grid = -1;
+						}
 						Object->SetAttribute("Grid", grid);
 					}
 				}

@@ -300,6 +300,9 @@
     <ClCompile Include="LockSimon.cpp">
       <Filter>GameObject\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Monkey.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="LockSimon.h">
       <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>GameObject\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

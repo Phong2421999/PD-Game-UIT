@@ -79,7 +79,6 @@ void Scene::LoadSceneResource()
 				CGround* ground = new CGround();
 				ground->SetWidthHeigth(Width, Height);
 				ground->SetPosition(x, y);
-				objects.push_back(ground);
 				grid->add(ground, gridId);
 			}
 			else if (id == 1) {
@@ -89,7 +88,6 @@ void Scene::LoadSceneResource()
 				largeCandle->SetPosition(x, y);
 				largeCandle->SetWidthHeight(Width, Height);
 				largeCandle->SetItemId(itemId);
-				objects.push_back(largeCandle);
 				grid->add(largeCandle, gridId);
 
 			}
@@ -100,7 +98,6 @@ void Scene::LoadSceneResource()
 				smallCandle->SetPosition(x, y);
 				smallCandle->SetWidthHeight(Width, Height);
 				smallCandle->SetItemId(itemId);
-				objects.push_back(smallCandle);
 				grid->add(smallCandle, gridId);
 
 			}
@@ -109,7 +106,6 @@ void Scene::LoadSceneResource()
 				CWall* wall = new CWall();
 				wall->SetPosition(x, y);
 				wall->SetWidthHeight(Width, Height);
-				objects.push_back(wall);
 				grid->add(wall, gridId);
 
 			}
@@ -152,7 +148,6 @@ void Scene::LoadSceneResource()
 					changeScene->SetSimonAutoGo(true);
 					changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				}
-				objects.push_back(changeScene);
 				grid->add(changeScene, gridId);
 
 			}
@@ -179,7 +174,6 @@ void Scene::LoadSceneResource()
 				spawn->SetTimeEachSpawn(timeEachSpawn);
 				spawn->SetDelaySpawnTime(delaySpawnTime);
 
-				objects.push_back(spawn);
 				grid->add(spawn, gridId);
 
 			}
@@ -192,7 +186,6 @@ void Scene::LoadSceneResource()
 				checkStair->SetPosition(x, y);
 				checkStair->SetWidthHeight(Width, Height);
 				checkStair->SetNxNy(nx, ny);
-				objects.push_back(checkStair);
 				grid->add(checkStair, gridId);
 
 			}
@@ -203,7 +196,6 @@ void Scene::LoadSceneResource()
 				Object->QueryIntAttribute("itemId", &itemId);
 				CHiddenWall* hiddenWall = new CHiddenWall(x, y, type, itemId);
 				hiddenWall->SetWidthHeight(Width, Height);
-				objects.push_back(hiddenWall);
 				grid->add(hiddenWall, gridId);
 
 			}
@@ -212,7 +204,6 @@ void Scene::LoadSceneResource()
 				LockSimon* lockSimon = new LockSimon();
 				lockSimon->SetWidthHeight(Width, Height);
 				lockSimon->SetPosition(x, y);
-				objects.push_back(lockSimon);
 				grid->add(lockSimon, gridId);
 
 			}
@@ -234,14 +225,11 @@ void Scene::LoadSceneResource()
 					detroy->SetType(BOTTOM);
 					detroy->SetPosition(x, y);
 				}
-				objects.push_back(detroy);
 				grid->add(detroy, gridId);
 
 			}
 		}
 	}
-	CSimon* simon = CSimon::getInstance();
-	objects.push_back(simon);
 }
 
 void Scene::UpdateBoardGame(DWORD dt) {
@@ -310,6 +298,8 @@ void Scene::UpdateBoardGame(DWORD dt) {
 
 void Scene::UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	weaponEnemies.clear();
+	Grid::GetInstance()->get(WEAPONENEMIES_GRID, weaponEnemies);
 	for (int i = 0; i < weaponEnemies.size(); i++)
 	{
 		if (weaponEnemies[i]->GetHealth() > 0)
@@ -333,7 +323,6 @@ void Scene::MakeWeaponEnemies(DWORD dt) {
 			objects[i]->GetPosition(x, y);
 			int nx = objects[i]->getDirection();
 			WeaponProjectile * weapon = new WeaponProjectile(x, y, nx);
-			weaponEnemies.push_back(weapon);
 			grid->add(weapon, WEAPONENEMIES_GRID);
 			/*if (dynamic_cast<CUglyFish*>(objects[i]))
 			{
@@ -392,11 +381,17 @@ void Scene::MakeEnemies(DWORD dt)
 		{
 			if (now - spawner->lastSpawnTime > spawner->timeEachSpawn)
 			{
-				if (spawner->enemyId == GHOST_ID)
+				if (spawner->enemyId == 11)
+				{
+					Monkey* monkey = new Monkey();
+					monkey->SetPosition(120, 160);
+					spawner->quantitySpawned += 1;
+					grid->add(monkey, ENEMIES_GRID);
+				}
+				else if (spawner->enemyId == GHOST_ID)
 				{
 					CGhost* ghost = new CGhost(cx, cy);
 					spawner->quantitySpawned += 1;
-					objects.push_back(ghost);
 					grid->add(ghost, ENEMIES_GRID);
 
 				}
@@ -404,7 +399,6 @@ void Scene::MakeEnemies(DWORD dt)
 				{
 					CPanther* panther = new CPanther(spawner->xEnemy, spawner->yEnemy);
 					spawner->quantitySpawned += 1;
-					objects.push_back(panther);
 					grid->add(panther, ENEMIES_GRID);
 
 				}
@@ -412,7 +406,6 @@ void Scene::MakeEnemies(DWORD dt)
 				{
 					CBat* bat = new CBat(cx, sy);
 					spawner->quantitySpawned += 1;
-					objects.push_back(bat);
 					grid->add(bat, ENEMIES_GRID);
 
 				}
@@ -438,12 +431,10 @@ void Scene::MakeEnemies(DWORD dt)
 							x = x + SPLASH_OFFSET_RIGHT;
 						}
 						CEffect * splash = new CSplash(x, y);
-						effects.push_back(splash);
 						grid->add(splash, EFFECTS_GRID);
 
 					}
 					spawner->quantitySpawned += 1;
-					objects.push_back(fish);
 					grid->add(fish, ENEMIES_GRID);
 				}
 				else if (spawner->enemyId == BOSS_BAT_ID)
@@ -451,7 +442,6 @@ void Scene::MakeEnemies(DWORD dt)
 					CBossBat* bossBat = new CBossBat();
 					bossBat->SetIsBoss(true);
 					spawner->quantitySpawned += 1;
-					objects.push_back(bossBat);
 					grid->add(bossBat, ENEMIES_GRID);
 				}
 				spawner->lastSpawnTime = GetTickCount();
@@ -576,7 +566,8 @@ void Scene::Update(DWORD dt)
 						coSpawn.push_back(objects[i]);
 						coWeaponEnemies.push_back(objects[i]);
 					}
-					if (dynamic_cast<CGround*> (objects[i]))
+					if (dynamic_cast<CGround*> (objects[i])
+						|| dynamic_cast<CWall*> (objects[i]))
 					{
 						coEnemies.push_back(objects[i]);
 					}
@@ -602,20 +593,10 @@ void Scene::Update(DWORD dt)
 					{
 						coDestroy.push_back(objects[i]);
 					}
-					/*if (simon->getUntouchable())
-					{
-						if (dynamic_cast<CGround*> (objects[i]))
-						{
-							coObjects.push_back(objects[i]);
-						}
-					}
-					else
-					{*/
 					if (dynamic_cast<CGround*>(objects[i]))
 					{
 						coObjects.push_back(objects[i]);
 					}
-					//}
 
 					if (objects[i]->GetHealth() <= 0)
 					{
@@ -629,19 +610,16 @@ void Scene::Update(DWORD dt)
 								for (int i = 0; i < QUANTITY_EFFECT_WALL; i++)
 								{
 									CEffect * breakingWall = new CBreakingWall(x, y);
-									effects.push_back(breakingWall);
 									grid->add(breakingWall, EFFECTS_GRID);
 								}
 								if (hiddenWall->getItemId() == 1)
 								{
 									PotRoast* potRoast = new PotRoast(x, y);
-									listItems.push_back(potRoast);
 									grid->add(potRoast, ITEMS_GRID);
 								}
 								if (hiddenWall->getItemId() == 2)
 								{
 									DoubleShot* doubleShot = new DoubleShot(x, y);
-									listItems.push_back(doubleShot);
 									grid->add(doubleShot, ITEMS_GRID);
 								}
 
@@ -663,7 +641,6 @@ void Scene::Update(DWORD dt)
 										hit->SetItemId(itemId);
 										hit->SetMakeItem(STATIC_OBJECT);
 									}
-
 									if (dynamic_cast<CEnemies*> (objects[i]))
 									{
 										hit->SetMakeItem(ENEMY);
@@ -671,7 +648,7 @@ void Scene::Update(DWORD dt)
 									}
 									objects[i]->GetPosition(x, y);
 									hit->SetPosition(x, y);
-									//effects.push_back(hit);
+									
 									grid->add(hit, EFFECTS_GRID);
 									vector<LPGAMEOBJECT> test;
 									grid->get(EFFECTS_GRID, test);
@@ -691,7 +668,6 @@ void Scene::Update(DWORD dt)
 												hit->SetPosition(x + 16 * i, y + 16 * j);
 												hit->SetKillBySimon(true);
 												hit->SetMakeItem(ENEMY);
-												effects.push_back(hit);
 												grid->add(hit, EFFECTS_GRID);
 											}
 										}
@@ -721,7 +697,6 @@ void Scene::Update(DWORD dt)
 										x = x + SPLASH_OFFSET_RIGHT;
 									}
 									CEffect * splash = new CSplash(x, y);
-									effects.push_back(splash);
 									grid->add(splash, EFFECTS_GRID);
 								}
 								CSpawner::GetInstance()->quantityEnemyDied++;
@@ -741,6 +716,7 @@ void Scene::Update(DWORD dt)
 
 				}
 			}
+			// effect for enemies
 #pragma endregion
 
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
@@ -758,11 +734,7 @@ void Scene::Update(DWORD dt)
 					grid->get(gridIds[gridId], objects);
 					for (int i = 0; i < objects.size(); i++)
 					{
-						if (dynamic_cast<CItems*> (objects[i]))
-						{
-							objects[i]->Update(dt, &coItemObjects);
-						}
-						else if (dynamic_cast<CDestroy*> (objects[i]))
+						if (dynamic_cast<CDestroy*> (objects[i]))
 						{
 							objects[i]->Update(dt, &coDestroy);
 						}
@@ -783,16 +755,14 @@ void Scene::Update(DWORD dt)
 			else if (simon->getUsingCross())
 			{
 				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
-				for (int gridId = 0; gridId < gridIds.size(); gridId++)
+
+				objects.clear();
+				grid->get(ENEMIES_GRID, objects);
+				for (int i = 0; i < objects.size(); i++)
 				{
-					objects.clear();
-					grid->get(gridIds[gridId], objects);
-					for (int i = 0; i < objects.size(); i++)
+					if (dynamic_cast<CEnemies*>(objects[i]))
 					{
-						if (dynamic_cast<CEnemies*>(objects[i])) {
-							/*objects.erase(objects.begin() + i);*/
-							grid->eraseObject(gridIds[gridId], i);
-						}
+						grid->eraseObject(ENEMIES_GRID, 3);
 					}
 				}
 				simon->Update(dt, &coObjects);
@@ -1108,7 +1078,7 @@ void Scene::Render()
 		}
 #pragma endregion
 
-		CMap::GetInstance()->Get(mapId)->Render();
+		/*CMap::GetInstance()->Get(mapId)->Render();*/
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
 #pragma region RenderAutoGo
@@ -1160,24 +1130,26 @@ void Scene::Render()
 			else if (simon->getUsingStopWatch())
 			{
 #pragma region RenderStopWatch
-				for (int i = 0; i < objects.size(); i++)
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
 				{
-					if (dynamic_cast<CEnemies*>(objects[i]))
-						objects[i]->RenderCurrentFrame();
-					else if (!dynamic_cast<CSimon*>(objects[i]))
+					objects.clear();
+					grid->get(gridIds[gridId], objects);
+					for (int i = 0; i < objects.size(); i++)
+					{
 						objects[i]->Render();
+					}
 				}
 				objects.clear();
 				grid->get(EFFECTS_GRID, objects);
 				for (int i = 0; i < objects.size(); i++)
 				{
-					objects[i]->RenderCurrentFrame();
+					objects[i]->Render();
 				}
 				objects.clear();
 				grid->get(ITEMS_GRID, objects);
 				for (int i = 0; i < objects.size(); i++)
 				{
-					objects[i]->RenderCurrentFrame();
+					objects[i]->Render();
 				}
 				objects.clear();
 				grid->get(ENEMIES_GRID, objects);
@@ -1250,7 +1222,6 @@ void Scene::StartLoadScene()
 void Scene::Reset()
 {
 	objects.clear();
-	listItems.clear();
 	effects.clear();
 	letters.clear();
 	bossHealth = 16;
@@ -1272,7 +1243,6 @@ void Scene::Reset()
 void Scene::Clear()
 {
 	objects.clear();
-	listItems.clear();
 	effects.clear();
 	letters.clear();
 	CSpawner::GetInstance()->resetAfterResetScene();

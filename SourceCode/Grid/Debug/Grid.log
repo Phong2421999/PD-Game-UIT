@@ -1,5 +1,10 @@
 ﻿  main.cpp
 c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(9): warning C4326: return type of 'main' should be 'int' instead of 'void'
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(63): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(55): warning C4101: 'Height': unreferenced local variable
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(67): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(72): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(73): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(75): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(78): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(81): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Grid.vcxproj -> C:\Users\PhongA\Desktop\Game\Develop\PD-Game-UIT\SourceCode\Debug\Grid.exe

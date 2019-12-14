@@ -491,11 +491,14 @@
 
   <!-- Animation MONKEY_JUMP -->
   <Texture  textureId ="3" gameObjectId ="29">
-    <Animation aniId="577" frameTime="100" name="MONKEY_JUMP">
-      <sprite id="10185" left="217" top="43" right="232" bottom="59" frameTime="100"/>
+    <Animation aniId="577" frameTime="100" name="MONKEY_IDLE">
+      <sprite id="10185" left="217" top="43" right="233" bottom="59" frameTime="100"/>
+    </Animation>
+    <Animation aniId="5771" frameTime="100" name="MONKEY_JUMP">
       <sprite id="10186" left="240" top="42" right="256" bottom="58" frameTime="100"/>
     </Animation>
   </Texture>
+  
 
 
   <!-- Animation EAGLE_FLY -->
