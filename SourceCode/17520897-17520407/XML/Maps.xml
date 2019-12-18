@@ -10,4 +10,8 @@
     <Map mapPath="TXT\\Map5.txt" mapId="500000"/>
     <Map mapPath="TXT\\Map6.txt" mapId="600000"/>
   </TileSet>
+  <TileSet texMapId="300000" tileSetPath="Textures\\tileset_map2.png" R="255" G="0" B="255">
+    <Map mapPath="TXT\\MapFinal-1.txt" mapId="700000" />
+    <Map mapPath="TXT\\MapFinal-2.txt" mapId="800000" />
+  </TileSet>
 </Maps>

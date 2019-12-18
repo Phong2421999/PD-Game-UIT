@@ -61,5 +61,8 @@
     <Xml Include="XML\Map5_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="test.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

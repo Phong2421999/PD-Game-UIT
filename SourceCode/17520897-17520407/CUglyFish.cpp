@@ -32,7 +32,7 @@ CUglyFish::CUglyFish(float x, float y)
 		}
 
 	}
-	
+
 	this->y = y + SCREEN_HEIGHT;
 	lastAttackTime = GetTickCount();
 	isJumpUp = true;
@@ -46,8 +46,14 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	DWORD now = GetTickCount();
 	CSimon* simon = CSimon::getInstance();
 	CSimon::getInstance()->GetPosition(sx, sy);
+	for (int i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<CWall*>(coObjects->at(i)))
+			coObjects->erase(coObjects->begin() + i);
 
+	}
 	CGameObject::Update(dt);
+
 	if (y < 100 && isJumpUp)
 	{
 		isJumpUp = false;
@@ -112,7 +118,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			/*if (y <= sy)
 			{*/
-			
+
 			/*}
 			else
 			{
@@ -132,6 +138,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+	
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

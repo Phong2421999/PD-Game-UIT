@@ -639,6 +639,12 @@
     <Text Include="Scenes.txt">
       <Filter>TXT</Filter>
     </Text>
+    <Text Include="TXT\MapFinal-1.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\MapFinal-2.txt">
+      <Filter>TXT</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
@@ -666,6 +672,9 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="XML\Map5_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final1_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>

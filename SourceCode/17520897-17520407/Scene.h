@@ -46,10 +46,6 @@ struct Letter
 class Scene {
 public:
 
-	vector<LPGAMEOBJECT> objects;
-	vector<LPGAMEOBJECT> items;
-	vector<LPGAMEOBJECT> effects;
-	vector<LPGAMEOBJECT> weaponEnemies;
 	vector<Letter> letters;
 
 	int mapId;
@@ -72,6 +68,10 @@ public:
 	bool hasSetRenderOpenDoor;
 
 	string objectsPath;
+
+	vector<int> gridIds;
+
+	Grid *grid;
 
 public:
 	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId);

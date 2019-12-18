@@ -25,8 +25,8 @@
          isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="2"
          simonAutoGo="0"/>
 
-  <Scene sceneId="-99" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml"
-         isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="2"
-         simonAutoGo="0"/>
+  <Scene sceneId="5" mapId="800000" sceneWidthEachMap="10000" sceneGameObjectPath="XML\\Final1_Objects.xml"
+       isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="5"
+       simonAutoGo="0"/>
 
 </Scenes>

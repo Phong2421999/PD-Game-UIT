@@ -68,7 +68,6 @@
     </HiddenWalls>
     <LockSimons id="-5">
         <LockSimon x="257" y="165" width="16" height="30" Grid="3" />
-        <LockSimon x="257" y="165" width="16" height="30" Grid="3" />
     </LockSimons>
     <Spawns id="-2">
         <Spawn x="48" y="0" name="BAT" canRespawn="1" spawnerId="0" enemyId="2" xEnemy="0" yEnemy="0" quantityEachSpawn="1" timeEachSpawn="1000" delaySpawnTime="3000" width="8" height="300" Grid="0" />

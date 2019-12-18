@@ -25,6 +25,7 @@ void CTiles::ReadMapTXT(LPCSTR filePath)
 	inp.close();
 }
 
+
 void CTiles::LoadTile() {
 
 	for (int i = 0; i < RowTileSet; i++)

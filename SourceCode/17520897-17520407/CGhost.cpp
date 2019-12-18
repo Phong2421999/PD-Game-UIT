@@ -19,6 +19,7 @@ CGhost::CGhost(float x, float y) {
 	}
 	vy = GHOST_SPAWN_GRAVITY;
 	startSpawnTime = GetTickCount();
+
 }
 
 void CGhost::Render() {

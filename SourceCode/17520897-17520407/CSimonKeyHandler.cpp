@@ -2,8 +2,6 @@
 #include "Grid.h"
 void CSimonKeyHandler::OnKeyDown(int KeyCode)
 {
-	Grid* grid = Grid::GetInstance();
-	vector<int> gridData;
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (simon->getAutoGo() == false
 		&& game->GetCamAutoGo() == false
@@ -77,13 +75,6 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->SetPosition(SCENCE_WITDH - 128, 32.0f);
 			simon->SetState(SIMON_STATE_IDLE);
 			break;
-		case DIK_F8:
-			gridData.clear();
-			grid->caculateGrid(gridData);
-			for (int i = 0; i < gridData.size(); i++)
-			{
-				DebugOut(L"\ngridId: %d", gridData[i]);
-			}
 		case DIK_1:
 			float x, y;
 			simon->GetPosition(x, y);
@@ -95,6 +86,8 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 		case DIK_3:
 			simon->SetHealth(9999999);
 			break;
+		case DIK_4:
+			simon->SetPosition(32, 32);
 		}
 	}
 }

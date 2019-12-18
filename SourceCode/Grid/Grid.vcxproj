@@ -126,8 +126,13 @@
     <ClInclude Include="tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="test.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map-2_Objects.xml" />
-    <Xml Include="XML\Map1_Objects.xml" />
+    <Xml Include="XML\Map1_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map2_Objects.xml" />
     <Xml Include="XML\Map3_Objects.xml" />
     <Xml Include="XML\Map4_Objects.xml" />

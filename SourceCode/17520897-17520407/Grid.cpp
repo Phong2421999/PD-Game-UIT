@@ -1,14 +1,5 @@
 #include "Grid.h"
 
-Grid * Grid::__instance = NULL;
-
-Grid * Grid::GetInstance() {
-	if (__instance == NULL)
-		__instance = new Grid();
-	return __instance;
-}
-
-
 
 void Grid::add(LPGAMEOBJECT obj, int grid)
 {
@@ -55,12 +46,7 @@ void Grid::caculateGrid(vector<int> &gridData)
 	{
 		if(gridObjects[i].size()>0)
 			gridData.push_back(i);
-		if (i == endGrid)
-			gridData.push_back(-1);
 	}
-}
-void Grid::eraseObject(int gridId, int index)
-{
-	gridObjects[gridId].erase(gridObjects[gridId].begin() + index);
+	gridData.push_back(-1);
 }
 

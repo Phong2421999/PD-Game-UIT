@@ -38,6 +38,7 @@ private:
 	float xGround, yGround;
 
 	DWORD lastAttackTime, resetAttackTime;
+
 public:
 	CUglyFish(float x, float y);
 	void Render();

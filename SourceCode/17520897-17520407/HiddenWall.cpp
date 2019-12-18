@@ -29,6 +29,12 @@ void CHiddenWall::Render() {
 	RenderBoundingBox(x, y);
 }
 
+void CHiddenWall::RenderCurrentFrame()
+{
+	animations[ani]->RenderCurrentFrame(x, y);
+	RenderBoundingBox(x, y);
+}
+
 
 void CHiddenWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {

@@ -320,9 +320,12 @@
     <Text Include="TXT\Map4.txt" />
     <Text Include="TXT\Map5.txt" />
     <Text Include="TXT\Map6.txt" />
+    <Text Include="TXT\MapFinal-1.txt" />
+    <Text Include="TXT\MapFinal-2.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="XML\Final1_Objects.xml" />
     <Xml Include="XML\Map-2_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>

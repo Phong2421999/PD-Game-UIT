@@ -15,6 +15,7 @@ Monkey::Monkey()
 	lastClampTime = 0;
 	xWallTarget = 0;
 	isIdle = true;
+	isActive = true;
 }
 
 void Monkey::Render()
