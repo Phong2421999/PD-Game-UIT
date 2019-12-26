@@ -137,7 +137,7 @@ public:
 		heart = SIMON_DEFAULT_HEART;
 		health = SIMON_MAX_HEALTH;
 		live = SIMON_LIVE;
-		currentScene = 5;
+		currentScene = 0;
 		score = 0;
 		isAutoGo = false;
 		autoGoDistance = 0;
@@ -157,6 +157,7 @@ public:
 	void setUsingDoubleShot(bool b)
 	{
 		this->isUsingDoubleShot = b;
+		this->subWeaponQuantity = 2;
 	}
 	void setOnStairDistance(float dis)
 	{

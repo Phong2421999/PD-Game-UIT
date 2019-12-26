@@ -16,15 +16,17 @@ private:
 	int spawnerId;
 	int delaySpawnTime;
 	bool canRespawn;
+	float offsetWithSimon;
 public:
 	CSpawn() {
 		spawnerId = -1;
 		canRespawn = true;
+		offsetWithSimon = 0;
 	}
 	void Render();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-	bool IsTouchSimon(LPGAMEOBJECT gameObjet);
+	bool IsTouchSimon();
 	void SetPositionEnemy(float x, float y)
 	{
 		this->xEnemy = x;
@@ -38,6 +40,15 @@ public:
 	bool GetRespawn()
 	{
 		return canRespawn;
+	}
+
+	void SetOffsetWithSimon(float offset)
+	{
+		this->offsetWithSimon = offset;
+	}
+	float GetOffsetWithSimon()
+	{
+		return this->offsetWithSimon;
 	}
 
 	void SetDelaySpawnTime(int delaySpawnTime)

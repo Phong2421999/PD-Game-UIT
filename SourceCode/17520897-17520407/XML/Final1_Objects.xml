@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Objects>
     <Grounds id="0">
-        <Ground x="-196" y="196" width="976" height="8" Grid="-1" />
-        <Ground x="122" y="119" width="12" height="1" Grid="1" />
+      <Ground x="514" y="178" width="152" height="1" Grid="-1" />
+      <Ground x="707" y="146" width="62" height="1" Grid="-1" />
     </Grounds>
-    <LargeCandles id="1">
-        <LargeCandle x="90" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="1" />
-        <LargeCandle x="220" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="2" />
-        <LargeCandle x="340" y="168" width="16" height="30" itemId="1" name="WHIP_UPGRADE" Grid="4" />
-        <LargeCandle x="480" y="168" width="16" height="30" itemId="0" name="LARGE_HEART" Grid="5" />
-        <LargeCandle x="600" y="168" width="16" height="30" itemId="2" name="DANGER" Grid="7" />
-    </LargeCandles>
-    <ChangeScenes id="-1">
-        <ChangeScene x="675" y="168" sceneId="1" simonAutoGo="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="25" height="30" simonStartPosX="32" simonStartPosY="180" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="8" />
-        <Object x="700" y="168" width="25" height="30" Grid="8" />
-        <Object x="725" y="168" width="25" height="30" Grid="8" />
-        <Object x="750" y="168" width="25" height="30" Grid="9" />
-    </ChangeScenes>
-  <!--<Spawns id="-2">
-    <Spawn x="110" y="0" name="MONKEY" 
-           canRespawn="0" spawnerId="0" enemyId="11" xEnemy="0" yEnemy="0" 
-           quantityEachSpawn="1" timeEachSpawn="1500" delaySpawnTime="2000" 
-           width="8" height="300" Grid="1" />
-  </Spawns>-->
+  <Walls id="3">
+    <Wall x="512" y="179" width="156" height="64" Grid="-1" />
+    <Wall x="480" y="64" width="32" height="128" Grid="-1" />
+    <Wall x="705" y="147" width="64" height="96" Grid="-1" />
+  </Walls>
+  <Spawns id="-2">
+    <Spawn x="532" y="0" name="SKELETON"
+           canRespawn="1" spawnerId="0" enemyId="14" xEnemy="0" yEnemy="0"
+           quantityEachSpawn="2" timeEachSpawn="1500" delaySpawnTime="2000"
+           width="8" height="300" Grid="-1" />
+  </Spawns>
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />
         <Detroy x="0" y="0" type="1" width="0" height="0" Grid="-1" />

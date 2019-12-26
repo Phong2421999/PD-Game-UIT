@@ -12,6 +12,7 @@
 #include "FrameWork/debug.h"
 #include "FrameWork/CSprites.h"
 #include "SimonConst.h"
+#include "Simon.h"
 
 #define BLACK_BOARD_ID 999999
 
@@ -77,7 +78,9 @@ class CBoardGame
 	D3DXIMAGE_INFO info;
 
 	vector<LPCFONT> letters;
+
 public:
+
 	static CBoardGame* GetInstance();
 
 	CBoardGame()
@@ -124,7 +127,6 @@ public:
 	int GetSubWeapon(SIMON_WEAPON type);
 
 	int GetWithNumber(int number);
-
 
 };
 

@@ -1,6 +1,6 @@
-#pragma once
+#pragma once 
 #include "CEnemies.h"
-#include "Simon.h"
+#include "WeaponProjectile.h"
 
 #define ANI_FISH_IDLE 571
 #define ANI_FISH_MOVING 572
@@ -34,11 +34,9 @@ private:
 	int width, height, ani, attackQuantity;
 	float sx, sy, attackDistance;
 	bool isJumpUp, isCanAttack;
-
 	float xGround, yGround;
-
 	DWORD lastAttackTime, resetAttackTime;
-
+	WeaponProjectile *weapon;
 public:
 	CUglyFish(float x, float y);
 	void Render();

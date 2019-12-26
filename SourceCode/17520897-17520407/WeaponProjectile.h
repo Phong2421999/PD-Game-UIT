@@ -16,7 +16,7 @@
 #define OFFSET_DANGER_X_TO_HAND_RIGHT_SIMON 28.0f
 #define OFFSET_DANGER_Y_TO_HAND_SIMON 7.0f
 
-class WeaponProjectile :public WeaponEnemies {
+class WeaponProjectile : public WeaponEnemies {
 
 private:
 	DWORD makeTime;
@@ -27,5 +27,5 @@ public:
 	void SetPositionWithFish(float x, float y, int nx);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	
+
 };

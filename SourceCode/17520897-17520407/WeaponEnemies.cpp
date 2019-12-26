@@ -1,15 +1,4 @@
 ﻿#include "WeaponEnemies.h"
-void WeaponEnemies::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
-	CSimon* simon = CSimon::getInstance();
-	if (isTouchOtherObject(simon))
-	{
-		simon->Damage(1);
-		simon->TouchEnemy(this->nx);
-		health = 0;
-	}
-}
-
 bool WeaponEnemies::isTouchOtherObject(LPGAMEOBJECT gameObject)
 {
 	if (gameObject->health <= 0)

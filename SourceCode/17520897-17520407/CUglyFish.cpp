@@ -1,5 +1,7 @@
 #pragma once
 #include "CUglyFish.h"
+#include "Simon.h"
+
 
 CUglyFish::CUglyFish(float x, float y)
 {
@@ -39,6 +41,7 @@ CUglyFish::CUglyFish(float x, float y)
 	isCanAttack = false;
 	attackQuantity = 0;
 	attackDistance = 0;
+	weapon = nullptr;
 }
 
 void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -46,13 +49,18 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	DWORD now = GetTickCount();
 	CSimon* simon = CSimon::getInstance();
 	CSimon::getInstance()->GetPosition(sx, sy);
-	for (int i = 0; i < coObjects->size(); i++)
-	{
-		if (dynamic_cast<CWall*>(coObjects->at(i)))
-			coObjects->erase(coObjects->begin() + i);
-
-	}
 	CGameObject::Update(dt);
+
+	if (weapon)
+	{
+		if (weapon->GetHealth() <= 0)
+		{
+			delete weapon;
+			weapon = NULL;
+		}
+		else
+			weapon->Update(dt);
+	}
 
 	if (y < 100 && isJumpUp)
 	{
@@ -82,7 +90,7 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (now - resetAttackTime >= 500)
 			{
 				isCanAttack = false;
-				this->makeWeapon = true;
+				weapon = new WeaponProjectile(x, y, nx);
 				lastAttackTime = GetTickCount();
 				attackQuantity++;
 			}
@@ -198,11 +206,15 @@ void CUglyFish::Render() {
 	{
 		animations[ani]->RenderFlipX(x, y, 8);
 	}
+	if (weapon)
+		weapon->Render();
 	RenderBoundingBox(x, y);
 }
 
 void CUglyFish::RenderCurrentFrame()
 {
+	if (weapon)
+		weapon->RenderCurrentFrame();
 	if (nx < 0)
 	{
 		animations[ani]->RenderCurrentFrame(x, y);

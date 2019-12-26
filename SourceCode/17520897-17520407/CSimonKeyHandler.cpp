@@ -72,7 +72,7 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			simon->setHeart(99);
 			break;
 		case DIK_F7:
-			simon->SetPosition(SCENCE_WITDH - 128, 32.0f);
+			simon->SetPosition(SCENCE_WITDH - 96, 32.0f);
 			simon->SetState(SIMON_STATE_IDLE);
 			break;
 		case DIK_1:

@@ -4,12 +4,10 @@
 
 void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	for (int i = 0; i < coObjects->size(); i++)
-	{
-		if (IsTouchSimon(coObjects->at(i)))
+	
+		if (IsTouchSimon())
 		{
-			if (dynamic_cast<CSimon*>(coObjects->at(i)))
-			{
+			
 				CSpawner *spawner = CSpawner::GetInstance();
 				if (spawner->spawnerId != this->spawnerId)
 				{
@@ -24,17 +22,16 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				spawner->delaySpawnTime = this->delaySpawnTime;
 				spawner->timeEachSpawn = this->timeEachSpawn;
 				spawner->canSpawn = true;
-			}
+				spawner->offsetWithSimon = this->offsetWithSimon;
 		}
-	}
 }
 
-bool CSpawn::IsTouchSimon(LPGAMEOBJECT gameObject) {
-
-	if (checkAABBTouch(gameObject))
+bool CSpawn::IsTouchSimon() {
+	CSimon* simon = CSimon::getInstance();
+	if (checkAABBTouch(simon))
 		return true;
 
-	LPCOLLISIONEVENT collitionEvent = this->SweptAABBEx(gameObject);
+	LPCOLLISIONEVENT collitionEvent = this->SweptAABBEx(simon);
 	if (collitionEvent->t >= 0 && collitionEvent->t <= 1.0f)
 		return true;
 

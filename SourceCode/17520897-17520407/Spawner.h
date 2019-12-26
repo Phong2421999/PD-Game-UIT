@@ -17,6 +17,7 @@ public:
 	int spawnerId;
 	int quantityEachSpawn;
 	bool canRespawn;
+	float offsetWithSimon;
 public:
 	CSpawner()
 	{
@@ -32,6 +33,7 @@ public:
 		delaySpawnTime = 0;
 		timeEachSpawn = 0;
 		spawnerId = -1;
+		offsetWithSimon = 0;
 	}
 	static CSpawner * GetInstance();
 	void Reset()

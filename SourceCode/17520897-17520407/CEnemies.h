@@ -8,6 +8,11 @@
 #define PANTHER_ID 1
 #define BAT_ID 2
 #define FISH_ID 3
+#define MONKEY_ID 11
+#define EAGLE_ID 12
+#define MONKEY_EAGLE_ID 13
+#define SKELETON_ID 14
+
 
 #define BOSS_BAT_ID 100
 

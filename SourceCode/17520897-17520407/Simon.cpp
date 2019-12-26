@@ -214,6 +214,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		UpdateStopWatch();
 		UpdateCross();
 		UpdateInvisible();
+
+
+
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
@@ -246,7 +249,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 				{
 					isTouchWall = false;
-
 					if (isHurt)
 					{
 						if (health > 0)
@@ -273,7 +275,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					isCanOutStair = false;
 					isOnGround = true;
 					vy = 0;
-
 				}
 			}
 		}
@@ -313,7 +314,7 @@ void CSimon::UpdateCheckStair(vector<LPGAMEOBJECT> * coCheckStair)
 	}
 }
 
-void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects)
+void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	for (int i = 0; i < simonWeapon.size(); i++)
 	{
@@ -324,7 +325,7 @@ void CSimon::UpdateSimonWeapon(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects
 				simonWeapon[i]->SetPosition(x, y);
 				simonWeapon[i]->SetRenderPos(x, y);
 			}
-			simonWeapon[i]->Update(dt, colliable_objects);
+			simonWeapon[i]->Update(dt, coObjects);
 		}
 	}
 }
@@ -930,17 +931,17 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 			{
 			case SIMON_WEAPON::DANGER:
 			{
-				weapon = new WeaponDanger(x + nx * i * 2, y, nx);
+				weapon = new WeaponDanger(x, y, nx);
 				break;
 			}
 			case SIMON_WEAPON::AXE:
 			{
-				weapon = new WeaponAxe(x + nx * i * 2, y, nx);
+				weapon = new WeaponAxe(x, y, nx);
 				break;
 			}
 			case SIMON_WEAPON::HOLY_WATER:
 			{
-				weapon = new WeaponHolyWater(x + nx * i * 2, y, nx);
+				weapon = new WeaponHolyWater(x, y, nx);
 				break;
 			}
 			}

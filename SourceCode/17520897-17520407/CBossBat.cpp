@@ -1,4 +1,5 @@
 ﻿#include "CBossBat.h"
+#include "Simon.h"
 
 CBossBat::CBossBat()
 {
@@ -25,11 +26,23 @@ CBossBat::CBossBat()
 	health = 16;
 
 	startSpawnTime = GetTickCount();
+
+	weapon = nullptr;
 }
 
 void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
+	if (weapon)
+	{
+		if (weapon->GetHealth() <= 0)
+		{
+			delete weapon;
+			weapon = NULL;
+		}
+		else
+			weapon->Update(dt);
+	}
 	DWORD now = GetTickCount();
 	//if (now - startSpawnTime >= BOSS_BAT_ACTIVE_TIME && isBossActive == false)
 	//{
@@ -349,7 +362,17 @@ void CBossBat::StartAttack()
 		status = BOSS_ATTACK;
 		isBossAttack = true;
 		if (y > SCREEN_HEIGHT / 3)
+		{
+			float sx, sy;
+			int weaponNx;
+			CSimon::getInstance()->GetPosition(sx, sy);
+			if (sx < x)
+				weaponNx = -1;
+			else
+				weaponNx = 1;
 			this->makeWeapon = true;
+			weapon = new WeaponProjectile(x, y, weaponNx);
+		}
 		if (sx - x > 0)
 			nx = 1;
 		else
@@ -387,11 +410,15 @@ int CBossBat::RandomNumber(int a, int b)
 void CBossBat::Render() {
 	animations[ani]->Render(x, y);
 	RenderBoundingBox(x, y);
+	if (weapon)
+		weapon->Render();
 }
 
 void CBossBat::RenderCurrentFrame()
 {
 	animations[ani]->RenderCurrentFrame(x, y);
+	if (weapon)
+		weapon->RenderCurrentFrame();
 }
 
 bool CBossBat::IsTouchSimon(LPGAMEOBJECT gameObject) {

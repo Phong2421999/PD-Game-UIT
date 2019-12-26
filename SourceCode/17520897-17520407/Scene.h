@@ -29,11 +29,13 @@
 #include "Spawner.h"
 
 #include "WeaponEnemies.h"
-#include "WeaponProjectile.h"
 #include "LockSimon.h"
 #include "PotRoast.h"
 
 #include "Monkey.h"
+#include "CEagle.h"
+#include "Skeleton.h"
+
 
 #include "Grid.h"
 
@@ -78,14 +80,14 @@ public:
 	void LoadSceneResource();
 
 	void Update(DWORD dt);
-	void UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	void UpdateBoardGame(DWORD dt);
 	void Reset();
 	void Clear();
 	bool isInGrid(LPGAMEOBJECT obj);
 
 	void MakeEnemies(DWORD dt);
-	void MakeWeaponEnemies(DWORD dt);
+	//void UpdateWeaponEnemies(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	//void MakeWeaponEnemies(DWORD dt);
 	void Render();
 	void StartLoadScene();
 	int Random(int minN, int maxN) {

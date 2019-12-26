@@ -2,20 +2,23 @@
 
 Monkey::Monkey()
 {
-	srand(time(NULL));
 	this->AddAnimation(ANI_IDLE);
 	this->AddAnimation(ANI_JUMP);
 	ani = ANI_IDLE_INDEX;
-	nx = 1;
-	width = BB_WIDTH;
-	height = BB_HEIGHT;
+	nx = -1;
+	width = MONKEY_BB_WIDTH;
+	height = MONKEY_BB_HEIGHT;
 	isJump = true;
 	isClamping = false;
 	lastMoveTime = 0;
 	lastClampTime = 0;
 	xWallTarget = 0;
+	yWallTarget = 999999;
 	isIdle = true;
-	isActive = true;
+	isActive = false;
+	spawnTime = GetTickCount();
+	numberOfCheckSide = 0;
+	lastCheckNxTime = 0;
 }
 
 void Monkey::Render()
@@ -39,122 +42,131 @@ void Monkey::GetBoundingBox(float &left, float &top, float &right, float &bottom
 }
 void Monkey::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	DWORD now = GetTickCount();
-	vector<LPGAMEOBJECT> checkWall;
-	for (int i = 0; i < coObjects->size(); i++)
+	CGameObject::Update(dt);
+	if (isActive)
 	{
-		if (dynamic_cast<CWall*>(coObjects->at(i)))
+		DWORD now = GetTickCount();
+		vector<LPGAMEOBJECT> checkGround;
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			checkWall.push_back(coObjects->at(i));
-			coObjects->erase(coObjects->begin() + i);
+			if (dynamic_cast<CWall*>(coObjects->at(i)))
+			{
+				CWall* wall = dynamic_cast<CWall*>(coObjects->at(i));
+				float wallWidth, wallHeight;
+				float wallX, wallY;
+				wall->GetPosition(wallX, wallY);
+				wall->GetWidthHeight(wallWidth, wallHeight);
+				if (this->checkAABBTouch(coObjects->at(i)))
+				{
+					xWallTarget = wallX;
+					yWallTarget = wallY;
+					vx = 0;
+					isClamping = true;
+				}
+			}
+			else
+			{
+				checkGround.push_back(coObjects->at(i));
+			}
 		}
-		if (dynamic_cast<CGround*>(coObjects->at(i)))
+		if (isClamping)
 		{
-			if (this->checkAABBTouch(coObjects->at(i)))
+			if (y <= yWallTarget)
 			{
 				isClamping = false;
 				Jump();
 			}
 		}
-	}
 
-	CSimon* simon = CSimon::getInstance();
-	int simonNx = simon->nx;
-	float simonX, simonY;
-	simon->GetPosition(simonX, simonY);
-	if (isClamping == false
-		&& isJump == false)
-	{
-		if (simonX < x - SIMON_OFFSET_TO_BBOX_X)
-			nx = -1;
-		else
-			nx = 1;
-	}
-	if (isJump == false
-		&& isClamping == false)
-	{
-		if (now - lastMoveTime > JUMP_TIME_DELAY)
+		CSimon* simon = CSimon::getInstance();
+		int simonNx = simon->nx;
+		float simonX, simonY;
+		simon->GetPosition(simonX, simonY);
+		if (isClamping == false
+			&& isJump == true)
 		{
-			if (abs(simonX - x) > OFFSET_WALKING)
-				Walking();
+			if (now - lastCheckNxTime > CHECK_NX_TIME_DELAY)
+			{
+				if (simonX < x - SIMON_OFFSET_TO_BBOX_X)
+					nx = -1;
+				else
+					nx = 1;
+				lastCheckNxTime = GetTickCount();
+			}
+		}
+		if (isJump == false
+			&& isClamping == false)
+		{
+			if (now - lastMoveTime > JUMP_TIME_DELAY)
+			{
+				if (abs(simonX - x) > OFFSET_WALKING)
+					Walking();
+				else
+					Jump();
+			}
+		}
+		if (isClamping)
+		{
+
+			if (now - lastClampTime > CLAMP_TIME_DELAY)
+			{
+				Clamping();
+			}
 			else
-				Jump();
+			{
+				vx = 0;
+				isIdle = true;
+			}
 		}
-	}
 
-	if (isClamping)
-	{
-		if (now - lastClampTime > CLAMP_TIME_DELAY)
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+		if (isClamping == false)
+			vy += GRAVITY * dt;
+		CalcPotentialCollisions(&checkGround, coEvents);
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
 		{
-			Clamping();
+			x += dx;
+			y += dy;
+			isJump = true;
 		}
 		else
 		{
-			vx = 0;
-			isIdle = true;
+
+			float min_tx, min_ty, nx = 0, ny;
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
+			x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy + ny * 0.4f;
+			for (int i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+				if (dynamic_cast<CGround*>(e->obj))
+				{
+					isJump = false;
+					isIdle = true;
+				}
+			}
 		}
-	}
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-	if (isJump && isClamping == false)
-		vy += GRAVITY * dt;
-	CalcPotentialCollisions(coObjects, coEvents);
-	CGameObject::Update(dt);
-
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		if (checkAABBTouch(simon))
+		{
+			simon->TouchEnemy(nx);
+		}
 	}
 	else
 	{
-
-		float min_tx, min_ty, nx = 0, ny;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
-		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-		for (int i = 0; i < coEventsResult.size(); i++)
+		vx = -NOT_ACTIVE_SPEED_X;
+		isIdle = true;
+		x += vx * dt;
+		DWORD now = GetTickCount();
+		if (now - spawnTime >= timeActive)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CGround*>(e->obj))
-			{
-				isIdle = true;
-				vx = 0;
-				vy = 0;
-				isJump = false;
-				isClamping = false;
-			}
-		}
-	}
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	if (checkAABBTouch(simon))
-	{
-		simon->TouchEnemy(nx);
-	}
-
-	for (int i = 0; i < checkWall.size(); i++)
-	{
-		if (dynamic_cast<CWall*>(checkWall[i]))
-		{
-			CWall* wall = dynamic_cast<CWall*>(checkWall[i]);
-			float wallWidth, wallHeight;
-			float wallX, wallY;
-			wall->GetPosition(wallX, wallY);
-			wall->GetWidthHeight(wallWidth, wallHeight);
-			float checkX;
-			float checkWallX = wallX + wallWidth / 2;
-
-			if (this->checkAABBTouch(checkWall[i])
-				&& isClamping == false)
-			{
-				xWallTarget = wallX;
-				vx = 0;
-				isClamping = true;
-			}
+			isActive = true;
+			Jump();
 		}
 	}
 }
@@ -173,6 +185,7 @@ void Monkey::Jump()
 {
 	isJump = true;
 	isClamping = false;
+	isIdle = false;
 	lastMoveTime = GetTickCount();
 	if (nx > 0)
 		vx = JUMP_SPEED_X;
@@ -197,15 +210,16 @@ void Monkey::Walking()
 
 void Monkey::Clamping()
 {
+
 	y -= CLAMPING_POSITION_Y;
 	vy = 0;
 	if (x > xWallTarget)
 	{
-		vx = -((x - xWallTarget) / dt) / 3;
+		vx = -((x - xWallTarget) / dt) / VX_PART_CLAMPING;
 	}
 	else if (x < xWallTarget)
 	{
-		vx = ((xWallTarget - x) / dt) / 3;
+		vx = ((xWallTarget - x) / dt) / VX_PART_CLAMPING;
 	}
 	else
 		vx = 0;

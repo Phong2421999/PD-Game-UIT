@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "CEnemies.h"
-#include "Simon.h"
+#include "WeaponProjectile.h"
 #define ANI_BOSS_BAT_IDLE 3000
 #define ANI_BOSS_BAT_FLY 3001
 
@@ -71,7 +71,7 @@ private:
 	DWORD TimeAttacked; // thời gian bắt đầu spawn Boss
 	DWORD TimeWaited; // thời gian đã chờ
 	bool isWaiting;
-
+	WeaponProjectile *weapon;
 public:
 	CBossBat();
 	void Render();

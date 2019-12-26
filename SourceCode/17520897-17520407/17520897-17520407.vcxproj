@@ -129,10 +129,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="CBat.cpp" />
     <ClCompile Include="CBossBat.cpp" />
     <ClCompile Include="CBreakingWall.cpp" />
     <ClCompile Include="CDestroy.cpp" />
+    <ClCompile Include="CEagle.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemies.cpp" />
     <ClCompile Include="CFont.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="MagicCrystal.cpp" />
     <ClCompile Include="Monkey.cpp" />
     <ClCompile Include="PotRoast.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="WeaponProjectile.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CSpawn.cpp" />
@@ -208,10 +211,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Axe.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="CBat.h" />
     <ClInclude Include="CBossBat.h" />
     <ClInclude Include="CBreakingWall.h" />
     <ClInclude Include="CDestroy.h" />
+    <ClInclude Include="CEagle.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemies.h" />
     <ClInclude Include="CFont.h" />
@@ -233,6 +238,7 @@
     <ClInclude Include="MagicCrystal.h" />
     <ClInclude Include="Monkey.h" />
     <ClInclude Include="PotRoast.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="WeaponProjectile.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CSpawn.h" />
@@ -322,10 +328,15 @@
     <Text Include="TXT\Map6.txt" />
     <Text Include="TXT\MapFinal-1.txt" />
     <Text Include="TXT\MapFinal-2.txt" />
+    <Text Include="TXT\MapFinal-3.txt" />
+    <Text Include="TXT\MapFinal-4.txt" />
+    <Text Include="TXT\MapFinal-5.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="XML\Final1_Objects.xml" />
+    <Xml Include="XML\Final1_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map-2_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>

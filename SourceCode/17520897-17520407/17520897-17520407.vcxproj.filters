@@ -303,6 +303,15 @@
     <ClCompile Include="Monkey.cpp">
       <Filter>GameObject\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="CEagle.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -539,6 +548,15 @@
     <ClInclude Include="Monkey.h">
       <Filter>GameObject\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="CEagle.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>GameObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>GameObject\WeaponEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -643,6 +661,15 @@
       <Filter>TXT</Filter>
     </Text>
     <Text Include="TXT\MapFinal-2.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\MapFinal-3.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\MapFinal-4.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\MapFinal-5.txt">
       <Filter>TXT</Filter>
     </Text>
   </ItemGroup>

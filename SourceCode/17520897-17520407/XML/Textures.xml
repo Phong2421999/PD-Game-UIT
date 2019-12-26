@@ -476,16 +476,25 @@
   <!-- Animation SEKELETON -->
   <Texture  textureId ="3" gameObjectId ="29">
     <Animation aniId="575" frameTime="100" name="SKELETON_MOVE">
+      <sprite id="10182" left="49" top="140" right="65" bottom="172" frameTime="100"/>
       <sprite id="10181" left="75" top="140" right="91" bottom="172" frameTime="100"/>
       <sprite id="10182" left="49" top="140" right="65" bottom="172" frameTime="100"/>
+    </Animation>
+    <Animation aniId="5751" frameTime="100" name="SKELETON_IDLE">
+      <sprite id="10182" left="49" top="140" right="65" bottom="172" frameTime="100"/>
+    </Animation>
+    <Animation aniId="5752" frameTime="100" name="SKELETON_ATTACK">
+      <sprite id="10181" left="75" top="140" right="91" bottom="172" frameTime="100"/>
+
     </Animation>
   </Texture>
   
   <!-- Animation SKELETON_BONE -->
   <Texture  textureId ="3" gameObjectId ="29">
     <Animation aniId="576" frameTime="100" name="SKELETON_BONE">
-      <sprite id="10183" left="29" top="151" right="35" bottom="167" frameTime="100"/>
-      <sprite id="10184" left="5" top="152" right="20" bottom="165" frameTime="100"/>
+      <sprite id="10183" left="29" top="151" right="35" bottom="167" frameTime="80"/>
+      <sprite id="10185" left="260" top="149" right="275" bottom="162" frameTime="80"/>
+      <sprite id="10184" left="5" top="152" right="20" bottom="165" frameTime="80"/>
     </Animation>
   </Texture>
 
@@ -504,8 +513,12 @@
   <!-- Animation EAGLE_FLY -->
   <Texture  textureId ="3" gameObjectId ="29">
     <Animation aniId="578" frameTime="100" name="EAGLE_FLY">
-      <sprite id="10187" left="170" top="140" right="202" bottom="163" frameTime="100"/>
-      <sprite id="10188" left="210" top="168" right="242" bottom="168" frameTime="100"/>
+      <sprite id="10187" left="170" top="131" right="202" bottom="166" frameTime="100"/>
+      <sprite id="10188" left="210" top="131" right="242" bottom="163" frameTime="110"/>
+      <sprite id="10187" left="170" top="131" right="202" bottom="166" frameTime="100"/>
+    </Animation>
+    <Animation aniId="5781" frameTime="100" name="EAGLE_FLY">
+      <sprite id="10188" left="210" top="131" right="242" bottom="163" frameTime="200"/>
     </Animation>
   </Texture>
 

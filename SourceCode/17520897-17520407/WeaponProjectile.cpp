@@ -1,3 +1,5 @@
+#include "Simon.h"
+#include "WeaponProjectile.h"
 #include "WeaponProjectile.h"
 
 WeaponProjectile::WeaponProjectile(float x, float y, int nx)
@@ -66,6 +68,13 @@ void WeaponProjectile::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		health = 0;
 	}
 
-	WeaponEnemies::Update(dt, coObjects);
+
+	CSimon* simon = CSimon::getInstance();
+	if (isTouchOtherObject(simon))
+	{
+		simon->Damage(1);
+		simon->TouchEnemy(this->nx);
+		health = 0;
+	}
 
 }

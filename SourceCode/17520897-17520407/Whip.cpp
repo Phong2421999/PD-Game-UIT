@@ -76,7 +76,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						&& isTouchEnemy == false)
 					{
 						CEnemies* enemies = dynamic_cast<CEnemies*>(coObjects->at(i));
-						if (enemies->GetSimonHasTouch() > 0)
+						if (enemies->GetHealth() > 0)
 							isTouchEnemy = true;
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);

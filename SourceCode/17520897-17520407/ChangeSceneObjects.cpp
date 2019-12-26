@@ -3,36 +3,31 @@
 
 void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CSimon *simon = CSimon::getInstance();
 	if (CGame::GetInstance()->GetCamAutoGo() == false)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (dynamic_cast<CSimon*> (coObjects->at(i)))
-			{
-				CSimon* simon = dynamic_cast<CSimon*> (coObjects->at(i));
-				if (simon->getState()!=SIMON_STATE_JUMP
-					&& simon->getAttack() == false)
-				{
-					if (this->checkAABBTouch(coObjects->at(i)))
-					{
-						Scenes *scenes = Scenes::GetInstance();
-						scenes->SetSimonStartPos(simonStartPosX, simonStartPosY);
-						scenes->SetLoadBlackScene(isLoadBlackScene);
-						scenes->SetTimeLoadBlackScene(timeLoadBlackScene);
-						simon->setSceneId(this->sceneId);
-						if (camAutoGo)
-						{
-							CGame::GetInstance()->SetCamAutoGo(true);
-							simon->setAutoGoDistance(simonAutoGoDistance);
-						}
-						if (simonAutoGo)
-						{
-							simon->setAutoGo(true);
-							simon->setAutoGoDistance(this->simonAutoGoDistance);
-						}
 
-					}
+		if (simon->getState() != SIMON_STATE_JUMP
+			&& simon->getAttack() == false)
+		{
+			if (this->checkAABBTouch(simon))
+			{
+				Scenes *scenes = Scenes::GetInstance();
+				scenes->SetSimonStartPos(simonStartPosX, simonStartPosY);
+				scenes->SetLoadBlackScene(isLoadBlackScene);
+				scenes->SetTimeLoadBlackScene(timeLoadBlackScene);
+				simon->setSceneId(this->sceneId);
+				if (camAutoGo)
+				{
+					CGame::GetInstance()->SetCamAutoGo(true);
+					simon->setAutoGoDistance(simonAutoGoDistance);
 				}
+				if (simonAutoGo)
+				{
+					simon->setAutoGo(true);
+					simon->setAutoGoDistance(this->simonAutoGoDistance);
+				}
+
 			}
 		}
 	}
@@ -71,7 +66,7 @@ void ChangeSceneObjects::Render()
 
 	if (isDoor)
 	{
-		if ((CGame::GetInstance()->GetRenderOpenDoor()||CGame::GetInstance()->GetRenderCloseDoor()))
+		if ((CGame::GetInstance()->GetRenderOpenDoor() || CGame::GetInstance()->GetRenderCloseDoor()))
 		{
 			animations[aniId]->Render(x, y);
 		}

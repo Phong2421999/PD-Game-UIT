@@ -1,7 +1,6 @@
 #pragma once
 #include "FrameWork/GameObject.h"
 #include "FrameWork/debug.h"
-#include "Simon.h"
 
 
 #define OFFSET_Y_TO_HAND_SIMON 8
@@ -19,7 +18,7 @@ public:
 		width = height = 0;
 	}
 	virtual void Render() = 0;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL) = 0;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	//set
 	void SetWidthHeigth(int width, int heigth) {
@@ -36,10 +35,6 @@ public:
 	DWORD GetTimeLive()
 	{
 		return timeLive;
-	}
-	~WeaponEnemies()
-	{
-		DebugOut(L"\nDelte");
 	}
 };
 
