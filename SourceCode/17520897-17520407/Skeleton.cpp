@@ -11,13 +11,19 @@ Skeleton::Skeleton() {
 	isWalking = true;
 	isJump = false;
 	isAttack = false;
-	xTarget = 0;
-	yTarget = 0;
+	isIdle = false;
 	boneQuantity = 1;
 	lastMakeBoneTime = 0;
 	xMiddleWalking = 0;
 	offsetWithSimon = 0;
 	mode = WALKING_MODE;
+	xJump = yJump = 0;
+	isStop = false;
+	isJumpBack = false;
+	vxJump = 0;
+	vyJump = 0;
+	isActive = false;
+	makeTime = GetTickCount();
 }
 void Skeleton::Render() {
 	for (int i = 0; i < bones.size(); i++)
@@ -66,6 +72,15 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	CGameObject::Update(dt);
 	DWORD now = GetTickCount();
 
+	if (x <= lockCameraX)
+	{
+		x = lockCameraX;
+	}
+	if (x + SKELETON_BB_WIDTH >= scenceWidth)
+	{
+		x = scenceWidth - SKELETON_BB_WIDTH;
+	}
+
 	for (int i = 0; i < bones.size(); i++)
 	{
 		if (bones[i]->GetHealth() > 0)
@@ -84,23 +99,37 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	CalcPotentialCollisions(coObjects, coEvents);
 
 	float sx, sy;
+	float checkJumpPos = 0;
 	simon->GetPosition(sx, sy);
-	if (y + height > sy + SIMON_BBOX_HEIGHT
-		&& isAttack == false
-		&& mode == JUMP_MODE)
+	if (isAttack == false
+		&& isJump == false
+		&& isJumpBack == false
+		&& mode == JUMP_MODE
+		&& now - lastJumpTime > SKELETON_DELAY_JUMP_TIME
+		&& sy + SIMON_BBOX_HEIGHT < y
+		&& simon->getJump() == false
+		&& isActive)
 	{
 		isJump = true;
-		xTarget = sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH / 2;
-		yTarget = sy;
-		if (sx > x)
-			nx = 1;
+		xBefore = x;
+		yBefore = y;
+		yJump = sy - 8;
+		xJump = sx;
+		lastJumpTime = GetTickCount();
+		vxJump = (abs(x - sx) / dt) / TIME_JUMP_TOUCH_SIMON_X;
+		vyJump = (abs(y - sy) / dt) / TIME_JUMP_TOUCH_SIMON_Y;
+		if (nx > 0)
+			vxJump = vxJump;
 		else
-			nx = -1;
+			vxJump = -vxJump;
+		vx = vxJump;
+		vy = -vyJump;
 	}
-	else
+	else if (isJump == false && isJumpBack == false)
 	{
 		if (now - lastAttackTime >= SKELETON_DELAY_ATTACK_TIME
-			&& isAttack == false)
+			&& isAttack == false
+			&& isActive)
 		{
 			isAttack = true;
 			boneQuantity = rand() % MAX_WEAPON_QUANTITY + 1;
@@ -123,14 +152,15 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			}
 		}
 	}
-	vy += SKELETON_GRAVITY * dt;
-	if (isJump)
+
+	if (isJump || isJumpBack)
 		Jump();
 	if (isAttack)
 		Attack();
 	if (isWalking)
 		Walking();
 	// No collision occured, proceed normally
+	vy += SKELETON_GRAVITY * dt;
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -143,16 +173,16 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);// block
 		x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
-		for (int i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CGround*>(e->obj))
-			{
-				isJump = false;
-			}
-		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	if (checkAABBTouch(simon))
+	{
+		simon->TouchEnemy(nx);
+	}
+	if (now - makeTime > SKELETON_TIME_ACTIVE && isActive == false)
+	{
+		isActive = true;
+	}
 }
 void Skeleton::SetPosition(float x, float y) {
 	this->x = x;
@@ -164,53 +194,94 @@ void Skeleton::GetPosition(float &x, float &y) {
 }
 void Skeleton::Jump()
 {
-	vy = -((y - yTarget) / dt) / VY_JUMP_PART;
-	if (nx > 0)
-		vx = ((x - xTarget) / dt) / VX_JUMP_PART;
-	else
-		vx = -((x - xTarget) / dt) / VX_JUMP_PART;
-	isAttack = false;
+	float sx, sy;
+	CSimon::getInstance()->GetPosition(sx, sy);
 	isWalking = false;
+	isAttack = false;
+	if (isJump && isStop == false)
+	{
+		isJumpBack = false;
+		isStop = false;
+		vy = -0.12f;
+	}
+	if (isJumpBack && isStop == false)
+	{
+		isJump = false;
+	}
+	if (isJump && y <= yJump)
+	{
+		isJump = false;
+		isJumpBack = true;
+		yJump = yBefore;
+		isStop = true;
+	}
+	if (isJumpBack && y >= yJump)
+	{
+		isJumpBack = false;
+		isWalking = true;
+	}
+	if (isStop)
+	{
+		vy = 0;
+		DWORD now = GetTickCount();
+		if (now - lastJumpTime > 500)
+		{
+			isJumpBack = true;
+			isStop = false;
+			isJump = false;
+			vy = -0.12f;
+			if (nx > 0)
+				vx = -vxJump;
+			else
+				vx = vxJump;
+		}
+	}
 }
 
 void Skeleton::Attack()
 {
-	if (boneQuantity > 0)
+	if (isJump == false)
 	{
-		DWORD now = GetTickCount();
-		if (now - lastMakeBoneTime > SKELETON_MAKE_WEAPON_DELAY)
+		if (boneQuantity > 0)
 		{
-			lastMakeBoneTime = GetTickCount();
-			boneQuantity--;
-			isIdle = false;
-			Bone* bone = new Bone(x, y, nx);
-			bones.push_back(bone);
+			DWORD now = GetTickCount();
+			if (now - lastMakeBoneTime > SKELETON_MAKE_WEAPON_DELAY)
+			{
+				lastMakeBoneTime = GetTickCount();
+				boneQuantity--;
+				isIdle = false;
+				Bone* bone = new Bone(x, y, nx);
+				bones.push_back(bone);
+			}
+			else
+			{
+				if (now - lastMakeBoneTime > SKELETON_MAKE_WEAPON_DELAY / 2)
+					isIdle = true;
+			}
 		}
 		else
 		{
-			if (now - lastMakeBoneTime > SKELETON_MAKE_WEAPON_DELAY / 2)
-				isIdle = true;
+			isAttack = false;
+			lastAttackTime = GetTickCount();
 		}
+		this->makeWeapon = true;
+		isWalking = false;
+		isJump = false;
+		vx = 0;
 	}
-	else
-	{
-		isAttack = false;
-		lastAttackTime = GetTickCount();
-	}
-	this->makeWeapon = true;
-	isWalking = false;
-	isJump = false;
-	vx = 0;
 }
 
 void Skeleton::Walking()
 {
-	if (x >= xMiddleWalking + 16)
-		vx = -SKELETON_WALKIN_SPEED;
-	if (x <= xMiddleWalking - 16)
-		vx = SKELETON_WALKIN_SPEED;
-	if (vx == 0)
-		vx = SKELETON_WALKIN_SPEED;
-	isJump = false;
-	isAttack = false;
+	if (isJump == false)
+	{
+		if (x >= xMiddleWalking + 16)
+			vx = -SKELETON_WALKIN_SPEED;
+		if (x <= xMiddleWalking - 16)
+			vx = SKELETON_WALKIN_SPEED;
+		if (vx == 0)
+			vx = SKELETON_WALKIN_SPEED;
+		isJump = false;
+		isAttack = false;
+	}
 }

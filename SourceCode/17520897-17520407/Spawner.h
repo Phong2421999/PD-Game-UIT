@@ -22,9 +22,11 @@ public:
 	float xTarget, yTarget;
 	bool setBoss;
 	bool isActive;
+	int enemyMode;
 public:
 	CSpawner()
 	{
+		enemyMode = 0;
 		lastSpawnTime = 0;
 		canSpawn = true;
 		canRespawn = true;

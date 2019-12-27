@@ -9,6 +9,7 @@ struct SceneData
 {
 	int sceneId;
 	int resetSceneId;
+	int defaultSimonStartX, defaultSimonStartY;
 };
 
 class Scenes {
@@ -24,9 +25,11 @@ public:
 	{
 		scenes[id] = scene;
 	}
-	void AddSceneData(int sceneId, int resetSceneId)
+	void AddSceneData(int sceneId, int resetSceneId, int defaultSimonX, int defaultSimonY)
 	{
 		SceneData temp;
+		temp.defaultSimonStartX = defaultSimonX;
+		temp.defaultSimonStartY = defaultSimonY;
 		temp.sceneId = sceneId;
 		temp.resetSceneId = resetSceneId;
 		sceneData[sceneId] = temp;

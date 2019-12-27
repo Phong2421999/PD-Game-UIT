@@ -14,17 +14,27 @@
 #define MONKEY_BB_WIDTH 16
 #define MONKEY_BB_HEIGHT 16
 
-#define SKELETON_GRAVITY 0.002f
+#define SKELETON_GRAVITY 0.0005f
 
 #define SKELETON_BB_WIDTH 16
 #define SKELETON_BB_HEIGHT 32
 
 #define SKELETON_DELAY_ATTACK_TIME 2000
+#define SKELETON_DELAY_JUMP_TIME 3000
+
 
 #define SKELETON_WALKIN_SPEED 0.07f
 
+#define JUMP_TIME_DELAY 2000
+#define STOP_TIME_DELAY 500
+
 #define SKELETON_MAKE_WEAPON_DELAY 350
 #define SKELETON_JUMP_DELAY 1800
+
+#define TIME_JUMP_TOUCH_SIMON_X 30
+#define TIME_JUMP_TOUCH_SIMON_Y 60
+
+#define SKELETON_TIME_ACTIVE 200
 
 
 #define MAX_WEAPON_QUANTITY 3
@@ -43,13 +53,18 @@ private:
 	DWORD lastAttackTime;
 	DWORD lastMakeBoneTime;
 	DWORD lastJumpTime;
-	bool isWalking, isAttack, isJump, isIdle;
-	float xTarget, yTarget;
+	DWORD makeTime;
+	bool isWalking, isAttack, isJump, isIdle, isJumpBack, isStop;
+	float xBefore, yBefore;
+	float xJump, yJump;
 	float xMiddleWalking;
 	float offsetWithSimon;
 	int boneQuantity;
 	vector<Bone*> bones;
 	int mode;
+
+	float vxJump;
+	float vyJump;
 public:
 	Skeleton();
 	void Render();
@@ -68,5 +83,9 @@ public:
 	void SetOffsetWithSimon(float dis)
 	{
 		this->offsetWithSimon = dis;
+	}
+	void SetMode(int m)
+	{
+		this->mode = m;
 	}
 };

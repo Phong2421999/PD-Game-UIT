@@ -197,7 +197,7 @@ void LoadResources()
 		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId);
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
-		scenes->AddSceneData(sceneId, resetSceneId);
+		scenes->AddSceneData(sceneId, resetSceneId, simonStartX, simonStartY);
 		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
 		{
 			Scenes::GetInstance()->SetSimonStartPos(simonStartX, simonStartY);

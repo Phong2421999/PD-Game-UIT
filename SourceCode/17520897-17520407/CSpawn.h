@@ -19,12 +19,17 @@ private:
 	float offsetWithSimon;
 	float xTarget, yTarget;
 	bool setBoss;
+	int enemyMode;
 public:
 	CSpawn() {
 		spawnerId = -1;
 		canRespawn = true;
 		offsetWithSimon = 0;
 		setBoss = false;
+		enemyMode = 0;
+		xTarget = yTarget = 0;
+		xEnemy = 0;
+		yEnemy = 0;
 	}
 	void Render();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
@@ -39,6 +44,10 @@ public:
 	{
 		this->xTarget = xTarget;
 		this->yTarget = yTarget;
+	}
+	void SetEnemyMode(int m)
+	{
+		this->enemyMode = m;
 	}
 	void SetBoss(bool b)
 	{

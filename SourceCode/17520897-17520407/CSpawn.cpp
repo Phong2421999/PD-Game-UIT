@@ -26,9 +26,9 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					spawner->canSpawn = true;
 					spawner->offsetWithSimon = this->offsetWithSimon;
 					spawner->setBoss = this->setBoss;
-					spawner->setBoss ? DebugOut(L"\nBoss") : DebugOut(L"\nEnemy");
 					spawner->xTarget = this->xTarget;
 					spawner->yTarget = this->yTarget;
+					spawner->enemyMode = this->enemyMode;
 				}
 		}
 }

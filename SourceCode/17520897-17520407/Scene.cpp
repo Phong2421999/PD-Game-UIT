@@ -118,13 +118,13 @@ void Scene::LoadSceneResource()
 				float simonStartPosX, simonStartPosY;
 				bool isDoor = false, camAutoGo = false, isLoadBlackScene = false, simonAutoGo = false;
 				Object->QueryIntAttribute("sceneId", &sceneId);
-				Object->QueryBoolAttribute("simonAutoGo", &simonAutoGo);
 				Object->QueryFloatAttribute("simonAutoGoDistance", &simonAutoGoDistance);
 				Object->QueryFloatAttribute("simonStartPosX", &simonStartPosX);
 				Object->QueryFloatAttribute("simonStartPosY", &simonStartPosY);
 				Object->QueryBoolAttribute("camAutoGo", &camAutoGo);
 				Object->QueryBoolAttribute("isDoor", &isDoor);
 				Object->QueryBoolAttribute("isLoadBlackScene", &isLoadBlackScene);
+				Object->QueryBoolAttribute("simonAutoGo", &simonAutoGo);
 				Object->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
 				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
 				changeScene->SetPosition(x, y);
@@ -139,13 +139,15 @@ void Scene::LoadSceneResource()
 				changeScene->SetSimonAutoGo(simonAutoGo);
 				changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				grid->add(changeScene, gridId);
-
+				this->simonStartX = simonStartPosX;
+				this->simonStartY = simonStartPosY;
 			}
 			else if (id == MAKE_OBJECTS::SPAWN)
 			{
 				int enemyId, canRespawn, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime;
 				int offsetWithSimon;
 				int  xEnemy, yEnemy;
+				int enemyMode;
 				float xTarget, yTarget;
 				bool setBoss = false;
 				Object->QueryIntAttribute("enemyId", &enemyId);
@@ -157,6 +159,7 @@ void Scene::LoadSceneResource()
 				Object->QueryIntAttribute("delaySpawnTime", &delaySpawnTime);
 				Object->QueryIntAttribute("canRespawn", &canRespawn);
 				Object->QueryIntAttribute("offsetWithSimon", &offsetWithSimon);
+				Object->QueryIntAttribute("enemyMode", &enemyMode);
 				Object->QueryFloatAttribute("xTarget", &xTarget);
 				Object->QueryFloatAttribute("yTarget", &yTarget);
 				Object->QueryBoolAttribute("isBoss", &setBoss);
@@ -173,6 +176,7 @@ void Scene::LoadSceneResource()
 				spawn->SetOffsetWithSimon(offsetWithSimon);
 				spawn->SetTargetPosition(xTarget, yTarget);
 				spawn->SetBoss(setBoss);
+				spawn->SetEnemyMode(enemyMode);
 				grid->add(spawn, gridId);
 			}
 			else if (id == MAKE_OBJECTS::CHECKSTAIR)
@@ -348,6 +352,7 @@ void Scene::MakeEnemies(DWORD dt)
 					Skeleton *skeleton = new Skeleton();
 					skeleton->SetPosition(spawner->xEnemy, spawner->yEnemy);
 					skeleton->SetOffsetWithSimon(spawner->offsetWithSimon);
+					skeleton->SetMode(spawner->enemyMode);
 					grid->add(skeleton, ENEMIES_GRID);
 					spawner->quantitySpawned += 1;
 
