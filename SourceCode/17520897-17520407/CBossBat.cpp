@@ -8,8 +8,7 @@ CBossBat::CBossBat()
 	this->width = BOSS_BAT_WIDTH;
 	this->height = BOSS_BAT_HEIGHT;
 
-	this->x = 645;
-	this->y = 50;
+	x = y = 0;
 
 	yLastFrame = y;
 
@@ -28,6 +27,10 @@ CBossBat::CBossBat()
 	startSpawnTime = GetTickCount();
 
 	weapon = nullptr;
+
+	bounderLeft = 0;
+	bounderRight = 0;
+	isBoss = false;
 }
 
 void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -50,17 +53,19 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//	Start(); // boss chuyển trạng thái
 	//}
 	CSimon::getInstance()->GetPosition(sx, sy);
-	if (sx >= SCENCE_WITDH - SCREEN_WIDTH/2 && isBossActive ==false)
+	if (sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH >= x && isBossActive == false)
 	{
 		Start(); // boss chuyển trạng thái
 		isBossActive = true;
-		lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
+		if (isBoss)
+			lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
 	}
-	if (isBossActive)
+	if (isBossActive && isBoss)
 	{
 		bossHealth = this->health;
 		CSpawner::GetInstance()->canRespawn = false;
 		CSpawner::GetInstance()->canSpawn = false;
+		CSpawner::GetInstance()->isActive = false;
 	}
 	float cx, cy;
 	cx = CGame::GetInstance()->GetCamPos_x();
@@ -85,7 +90,6 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			yBefore = y;
 
 			xTarget = x + 40;
-			yTarget = 161;
 
 			float dTarget = xTarget - xBefore; // Quãng đường từ vị trí hiện tại tới target
 			vx = (dTarget / (1000.0f)); // Vận tốc cần để đi đến target trong 1.0s
@@ -210,7 +214,7 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					break;
 				}
 			}
-			
+
 		}
 
 
@@ -306,10 +310,10 @@ void CBossBat::StartCurves()
 
 	if (sx < x) // simon bên trái boss
 		//xTarget = rand() % (SCREEN_WIDTH / 5) + (int)sx;
-		xTarget = BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT;
+		xTarget = CGame::GetInstance()->GetCamPos_x();
 	else // simon bên phải boss
 		//xTarget = rand() % (int)sx + ((int)sx - (SCREEN_WIDTH / 5));
-		xTarget = BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT;
+		xTarget = CGame::GetInstance()->GetCamPos_x() + BOUNDER_OFFSET;
 
 	yTarget = sy - RandomNumber(8, 16);
 
@@ -344,8 +348,9 @@ void CBossBat::StartStaight()
 	xBefore = x;
 	yBefore = y;
 
-	xTarget = RandomNumber(BOSS_BAT_BOUNDARY_START_STAIGHT_LEFT, BOSS_BAT_BOUNDARY_START_STAIGHT_RIGHT);
-	yTarget = RandomNumber(100, 200);
+
+	xTarget = RandomNumber(CGame::GetInstance()->GetCamPos_x(), CGame::GetInstance()->GetCamPos_x() + BOUNDER_OFFSET);
+	yTarget = RandomNumber(BOSS_BAT_MIN_FLY_Y, BOSS_BAT_MAX_FLY_Y);
 
 	/*	--
 	-------- Tính vx, vy di chuyển đến target trong 1 giây

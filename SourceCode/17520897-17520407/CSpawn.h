@@ -17,11 +17,14 @@ private:
 	int delaySpawnTime;
 	bool canRespawn;
 	float offsetWithSimon;
+	float xTarget, yTarget;
+	bool setBoss;
 public:
 	CSpawn() {
 		spawnerId = -1;
 		canRespawn = true;
 		offsetWithSimon = 0;
+		setBoss = false;
 	}
 	void Render();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
@@ -32,7 +35,15 @@ public:
 		this->xEnemy = x;
 		this->yEnemy = y;
 	}
-
+	void SetTargetPosition(float xTarget, float yTarget)
+	{
+		this->xTarget = xTarget;
+		this->yTarget = yTarget;
+	}
+	void SetBoss(bool b)
+	{
+		this->setBoss = b;
+	}
 	void SetRespawn(int canRespawn)
 	{
 		canRespawn == 1 ? this->canRespawn = true : this->canRespawn = false;

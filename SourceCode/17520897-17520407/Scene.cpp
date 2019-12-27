@@ -27,6 +27,7 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 
 void Scene::LoadSceneResource()
 {
+	CSpawner::GetInstance()->isActive = true;
 	grid->clear();
 	CMap::GetInstance()->Get(mapId)->LoadTile();
 	CBoardGame::GetInstance()->LoadBackBoard(TEX_BLACK_BOARD_ID, "textures\\board.png");
@@ -111,18 +112,19 @@ void Scene::LoadSceneResource()
 			}
 			else if (id == MAKE_OBJECTS::CHANGESCENE)
 			{
-				int sceneId, simonAutoGo;
-				int isDoor, camAutoGo, isLoadBlackScene, timeLoadBlackScene;
-				float simonAutoGoDistance;
+				int sceneId;
+				int  timeLoadBlackScene;
+				float simonAutoGoDistance = 0;
 				float simonStartPosX, simonStartPosY;
+				bool isDoor = false, camAutoGo = false, isLoadBlackScene = false, simonAutoGo = false;
 				Object->QueryIntAttribute("sceneId", &sceneId);
-				Object->QueryIntAttribute("simonAutoGo", &simonAutoGo);
+				Object->QueryBoolAttribute("simonAutoGo", &simonAutoGo);
 				Object->QueryFloatAttribute("simonAutoGoDistance", &simonAutoGoDistance);
 				Object->QueryFloatAttribute("simonStartPosX", &simonStartPosX);
 				Object->QueryFloatAttribute("simonStartPosY", &simonStartPosY);
-				Object->QueryIntAttribute("camAutoGo", &camAutoGo);
-				Object->QueryIntAttribute("isDoor", &isDoor);
-				Object->QueryIntAttribute("isLoadBlackScene", &isLoadBlackScene);
+				Object->QueryBoolAttribute("camAutoGo", &camAutoGo);
+				Object->QueryBoolAttribute("isDoor", &isDoor);
+				Object->QueryBoolAttribute("isLoadBlackScene", &isLoadBlackScene);
 				Object->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
 				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
 				changeScene->SetPosition(x, y);
@@ -131,31 +133,21 @@ void Scene::LoadSceneResource()
 				changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				changeScene->SetSimonStartPos(simonStartPosX, simonStartPosY);
 				changeScene->SetTimeLoadBlackScene(timeLoadBlackScene);
-				if (camAutoGo == 1)
-				{
-					changeScene->SetCamAutoGo(true);
-				}
-				if (isLoadBlackScene == 1)
-				{
-					changeScene->SetLoadBlackScene(true);
-				}
-				if (isDoor)
-				{
-					changeScene->SetIsDoor(true);
-				}
-				if (simonAutoGo == 1)
-				{
-					changeScene->SetSimonAutoGo(true);
-					changeScene->SetAutoGoDistance(simonAutoGoDistance);
-				}
+				changeScene->SetCamAutoGo(camAutoGo);
+				changeScene->SetLoadBlackScene(isLoadBlackScene);
+				changeScene->SetIsDoor(isDoor);
+				changeScene->SetSimonAutoGo(simonAutoGo);
+				changeScene->SetAutoGoDistance(simonAutoGoDistance);
 				grid->add(changeScene, gridId);
 
 			}
 			else if (id == MAKE_OBJECTS::SPAWN)
 			{
 				int enemyId, canRespawn, quantityEachSpawn, timeEachSpawn, spawnerId, delaySpawnTime;
-				int offsetWithSimon = 0;
-				int  xEnemy = 0 , yEnemy = 0;
+				int offsetWithSimon;
+				int  xEnemy, yEnemy;
+				float xTarget, yTarget;
+				bool setBoss = false;
 				Object->QueryIntAttribute("enemyId", &enemyId);
 				Object->QueryIntAttribute("xEnemy", &xEnemy);
 				Object->QueryIntAttribute("yEnemy", &yEnemy);
@@ -165,8 +157,9 @@ void Scene::LoadSceneResource()
 				Object->QueryIntAttribute("delaySpawnTime", &delaySpawnTime);
 				Object->QueryIntAttribute("canRespawn", &canRespawn);
 				Object->QueryIntAttribute("offsetWithSimon", &offsetWithSimon);
-
-
+				Object->QueryFloatAttribute("xTarget", &xTarget);
+				Object->QueryFloatAttribute("yTarget", &yTarget);
+				Object->QueryBoolAttribute("isBoss", &setBoss);
 				CSpawn* spawn = new CSpawn();
 				spawn->SetPosition(x, y);
 				spawn->SetRespawn(canRespawn);
@@ -178,8 +171,9 @@ void Scene::LoadSceneResource()
 				spawn->SetTimeEachSpawn(timeEachSpawn);
 				spawn->SetDelaySpawnTime(delaySpawnTime);
 				spawn->SetOffsetWithSimon(offsetWithSimon);
+				spawn->SetTargetPosition(xTarget, yTarget);
+				spawn->SetBoss(setBoss);
 				grid->add(spawn, gridId);
-
 			}
 			else if (id == MAKE_OBJECTS::CHECKSTAIR)
 			{
@@ -312,7 +306,8 @@ void Scene::MakeEnemies(DWORD dt)
 	int lastNx = 1;
 	DWORD now = GetTickCount();
 
-	if (simon->getUsingStopWatch() == false || simon->getUsingCross() == false)
+	if (simon->getUsingStopWatch() == false || simon->getUsingCross() == false
+		&& spawner->isActive)
 	{
 		if (spawner->quantitySpawned >= spawner->quantityEachSpawn)
 		{
@@ -340,10 +335,10 @@ void Scene::MakeEnemies(DWORD dt)
 					CEagle* eagle = new CEagle();
 					Monkey* monkey = new Monkey();
 					eagle->setIdleTime(70 * rand);
-					monkey->setTimeActive(rand*50);
+					monkey->setTimeActive(rand * 50);
 					float x, y;
 					eagle->GetPosition(x, y);
-					monkey->SetPosition(x + EAGLE_BB_WIDTH/3, y + EAGLE_BB_HEIGHT/1.2);
+					monkey->SetPosition(x + EAGLE_BB_WIDTH / 3, y + EAGLE_BB_HEIGHT / 1.2);
 					spawner->quantitySpawned += 1;
 					grid->add(monkey, ENEMIES_GRID);
 					grid->add(eagle, ENEMIES_GRID);
@@ -355,7 +350,7 @@ void Scene::MakeEnemies(DWORD dt)
 					skeleton->SetOffsetWithSimon(spawner->offsetWithSimon);
 					grid->add(skeleton, ENEMIES_GRID);
 					spawner->quantitySpawned += 1;
-					
+
 				}
 				else if (spawner->enemyId == GHOST_ID)
 				{
@@ -409,7 +404,10 @@ void Scene::MakeEnemies(DWORD dt)
 				else if (spawner->enemyId == BOSS_BAT_ID)
 				{
 					CBossBat* bossBat = new CBossBat();
-					bossBat->SetIsBoss(true);
+					spawner->setBoss ? DebugOut(L"\nBoss") : DebugOut(L"\n?");
+					bossBat->SetIsBoss(spawner->setBoss);
+					bossBat->SetPosition(spawner->xEnemy, spawner->yEnemy);
+					bossBat->SetTargetPosition(spawner->xTarget, spawner->yTarget);
 					spawner->quantitySpawned += 1;
 					grid->add(bossBat, ENEMIES_GRID);
 				}
@@ -616,7 +614,6 @@ void Scene::Update(DWORD dt)
 								{
 									float x, y;
 									grid->gridObjects[id][i]->GetPosition(x, y);
-
 									for (int i = 0; i < 3; i++)
 									{
 										for (int j = 0; j < 2; j++)
@@ -782,7 +779,7 @@ void Scene::Update(DWORD dt)
 #pragma endregion
 
 #pragma region UpdateEffects
-		
+
 			for (int i = 0; i < grid->gridObjects[EFFECTS_GRID].size(); i++)
 			{
 				CEffect* effect = dynamic_cast<CEffect*>(grid->gridObjects[EFFECTS_GRID][i]);

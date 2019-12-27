@@ -18,6 +18,10 @@ public:
 	int quantityEachSpawn;
 	bool canRespawn;
 	float offsetWithSimon;
+
+	float xTarget, yTarget;
+	bool setBoss;
+	bool isActive;
 public:
 	CSpawner()
 	{
@@ -34,6 +38,10 @@ public:
 		timeEachSpawn = 0;
 		spawnerId = -1;
 		offsetWithSimon = 0;
+		xTarget = 0;
+		yTarget = 0;
+		setBoss = false;
+		isActive = true;
 	}
 	static CSpawner * GetInstance();
 	void Reset()

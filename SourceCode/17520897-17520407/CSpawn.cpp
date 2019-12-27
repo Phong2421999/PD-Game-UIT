@@ -13,16 +13,23 @@ void CSpawn::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					spawner->Reset();
 				}
-				spawner->canRespawn = this->canRespawn;
-				spawner->xEnemy = this->xEnemy;
-				spawner->yEnemy = this->yEnemy;
-				spawner->enemyId = this->enemyId;
-				spawner->quantityEachSpawn = this->quantityEachSpawn;
-				spawner->spawnerId = this->spawnerId;
-				spawner->delaySpawnTime = this->delaySpawnTime;
-				spawner->timeEachSpawn = this->timeEachSpawn;
-				spawner->canSpawn = true;
-				spawner->offsetWithSimon = this->offsetWithSimon;
+				if (spawner->isActive)
+				{
+					spawner->canRespawn = this->canRespawn;
+					spawner->xEnemy = this->xEnemy;
+					spawner->yEnemy = this->yEnemy;
+					spawner->enemyId = this->enemyId;
+					spawner->quantityEachSpawn = this->quantityEachSpawn;
+					spawner->spawnerId = this->spawnerId;
+					spawner->delaySpawnTime = this->delaySpawnTime;
+					spawner->timeEachSpawn = this->timeEachSpawn;
+					spawner->canSpawn = true;
+					spawner->offsetWithSimon = this->offsetWithSimon;
+					spawner->setBoss = this->setBoss;
+					spawner->setBoss ? DebugOut(L"\nBoss") : DebugOut(L"\nEnemy");
+					spawner->xTarget = this->xTarget;
+					spawner->yTarget = this->yTarget;
+				}
 		}
 }
 

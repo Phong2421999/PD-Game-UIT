@@ -79,6 +79,9 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			float x, y;
 			simon->GetPosition(x, y);
 			DebugOut(L"\nSimonX: %f, SimonY: %f", x, y);
+			x = CGame::GetInstance()->GetCamPos_x();
+			DebugOut(L"\ncamX: %f", x);
+
 			break;
 		case DIK_2:
 			simon->SetHealth(1);
@@ -88,6 +91,10 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			break;
 		case DIK_4:
 			simon->SetPosition(32, 32);
+			break;
+		case DIK_N:
+			simon->setSceneId(simon->getCurrentScene()+1);
+			break;
 		}
 	}
 }

@@ -59,7 +59,10 @@
     <Spawns id="-2">
         <Spawn x="84" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="1" />
         <Spawn x="484" y="0" spawnerId="0" enemyId="0" canRespawn="1" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="5" />
-        <Spawn x="512" y="0" spawnerId="1" enemyId="100" quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="0" width="8" height="300" canRespawn="0" name="BOSSBAT" Grid="6" />
+        <Spawn x="512" y="0" spawnerId="1" isBoss="1" enemyId="100" quantityEachSpawn="1" 
+               timeEachSpawn="0" delaySpawnTime="0" width="8" height="300" canRespawn="0"
+               xEnemy ="645" yEnemy="50" xTarget="0" yTarget="162"
+               name="BOSSBAT" Grid="6" />
     </Spawns>
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />

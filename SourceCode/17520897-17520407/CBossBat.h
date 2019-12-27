@@ -28,8 +28,10 @@
 #define BOSS_FLY_STRAIGHT_2 5 // xử lí di chuyển thẳng lần 2
 #define BOSS_ATTACK 6 // xử lí di chuyển của boss khi tấn công
 
-#define LOCK_CAM_POSITION_X 654
+#define BOUNDER_OFFSET 300
 
+#define BOSS_BAT_MAX_FLY_Y 200
+#define BOSS_BAT_MIN_FLY_Y 100
 
 class CBossBat :public CEnemies
 {
@@ -72,6 +74,8 @@ private:
 	DWORD TimeWaited; // thời gian đã chờ
 	bool isWaiting;
 	WeaponProjectile *weapon;
+
+	float bounderLeft, bounderRight;
 public:
 	CBossBat();
 	void Render();
@@ -106,6 +110,12 @@ public:
 
 	bool GetIsBoss()
 	{
-		return true;
+		return isBoss;
+	}
+
+	void SetTargetPosition(float x, float y)
+	{
+		xTarget = x;
+		yTarget = y;
 	}
 };

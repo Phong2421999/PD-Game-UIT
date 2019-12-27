@@ -21,14 +21,19 @@
 
 #define SKELETON_DELAY_ATTACK_TIME 2000
 
-#define SKELETON_WALKIN_SPEED 0.09f
+#define SKELETON_WALKIN_SPEED 0.07f
 
 #define SKELETON_MAKE_WEAPON_DELAY 350
+#define SKELETON_JUMP_DELAY 1800
+
 
 #define MAX_WEAPON_QUANTITY 3
 
 #define VY_JUMP_PART 10
 #define VX_JUMP_PART 10
+
+#define WALKING_MODE 0
+#define JUMP_MODE 1
 
 class Skeleton : public CEnemies {
 private:
@@ -37,12 +42,14 @@ private:
 	DWORD spawnTime;
 	DWORD lastAttackTime;
 	DWORD lastMakeBoneTime;
+	DWORD lastJumpTime;
 	bool isWalking, isAttack, isJump, isIdle;
 	float xTarget, yTarget;
 	float xMiddleWalking;
 	float offsetWithSimon;
 	int boneQuantity;
 	vector<Bone*> bones;
+	int mode;
 public:
 	Skeleton();
 	void Render();

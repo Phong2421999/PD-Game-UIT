@@ -17,6 +17,7 @@ Skeleton::Skeleton() {
 	lastMakeBoneTime = 0;
 	xMiddleWalking = 0;
 	offsetWithSimon = 0;
+	mode = WALKING_MODE;
 }
 void Skeleton::Render() {
 	for (int i = 0; i < bones.size(); i++)
@@ -85,7 +86,8 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	float sx, sy;
 	simon->GetPosition(sx, sy);
 	if (y + height > sy + SIMON_BBOX_HEIGHT
-		&& isAttack == false)
+		&& isAttack == false
+		&& mode == JUMP_MODE)
 	{
 		isJump = true;
 		xTarget = sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH / 2;
