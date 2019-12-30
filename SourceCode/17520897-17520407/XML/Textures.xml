@@ -547,20 +547,35 @@
   </Texture>
   
   <!-- Animation FINAL_BOSS -->
-  <Texture textureId ="3" gameObjectId ="-1000">
+  <Texture textureId ="7" gameObjectId ="-1000">
     <Animation aniId="3002" frameTime="100" name="FINAL_BOSS_FACE">
       <sprite id="3003" left="265" top="208" right="273" bottom="222" frameTime="100"/>
     </Animation>
-    <Animation aniId="3003" frameTime="100" name="FINAL_BOSS_ATTACK">
+    <!--<Animation aniId="3003" frameTime="100" name="FINAL_BOSS_START_ATTACK">
       <sprite id="3004" left="93" top="179" right="119" bottom="237" frameTime="125"/>
       <sprite id="3005" left="129" top="179" right="162" bottom="237" frameTime="100"/>
+    </Animation>-->
+    <Animation aniId="3003" frameTime="100" name="FINAL_BOSS_START_ATTACK">
+         <sprite id="3006" left="174" top="179" right="200" bottom="237" frameTime="125"/>
     </Animation>
     <Animation aniId="3004" frameTime="100" name="FINAL_BOSS_ATTACK">
-      <sprite id="3006" left="174" top="179" right="200" bottom="237" frameTime="125"/>
+      <sprite id="30061" left="213" top="179" right="246" bottom="237" frameTime="125"/>
     </Animation>
     <Animation aniId="3005" frameTime="100" name="FINAL_BOSS_TRANSFORM_ATTACK">
       <sprite id="3007" left="110" top="248" right="160" bottom="331" frameTime="100"/>
       <sprite id="3008" left="45" top="248" right="95" bottom="331" frameTime="100"/>
+    </Animation>
+    <Animation aniId="30051" frameTime="100" name="FINAL_BOSS_TRANSFORM_IDLE">
+      <sprite id="3007" left="110" top="248" right="160" bottom="331" frameTime="100"/>
+    </Animation>
+    <Animation aniId="30052" frameTime="100" name="FINAL_BOSS_TRANSFORM_START_ATTACK">
+      <sprite id="3007" left="110" top="248" right="160" bottom="331" frameTime="0"/>
+      <sprite id="3007" left="110" top="248" right="160" bottom="331" frameTime="300"/>
+      <sprite id="3008" left="45" top="248" right="95" bottom="331" frameTime="300"/>
+      <sprite id="3009" left="172" top="248" right="222" bottom="331" frameTime="1000"/>
+    </Animation>
+    <Animation aniId="30053" frameTime="100" name="FINAL_BOSS_TRANSFORM_ATTACK">
+      <sprite id="3010" left="230" top="248" right="280" bottom="331" frameTime="125"/>
     </Animation>
     <Animation aniId="3006" frameTime="100" name="FINAL_BOSS_TRANSFORM_JUMP">
       <sprite id="3009" left="172" top="248" right="222" bottom="331" frameTime="125"/>

@@ -97,6 +97,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (x <= LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X)
 			x = LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X;
+		if (x >= CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X)
+		{
+			x = CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X;
+		}
 		DWORD now = GetTickCount();
 		if (now - startUntouchableTime >= SIMON_UNTOUCHABLE_TIME)
 		{

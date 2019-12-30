@@ -35,6 +35,7 @@
 #include "Monkey.h"
 #include "CEagle.h"
 #include "Skeleton.h"
+#include "FinalBoss.h"
 
 
 #include "Grid.h"

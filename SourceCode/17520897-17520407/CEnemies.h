@@ -12,6 +12,8 @@
 #define EAGLE_ID 12
 #define MONKEY_EAGLE_ID 13
 #define SKELETON_ID 14
+#define FINAL_BOSS_ID 999
+
 
 
 #define BOSS_BAT_ID 100

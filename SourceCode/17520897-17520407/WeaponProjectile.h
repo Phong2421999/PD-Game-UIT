@@ -24,7 +24,7 @@ public:
 	WeaponProjectile(float x, float y, int nx);
 	void Render();
 	void RenderCurrentFrame();
-	void SetPositionWithFish(float x, float y, int nx);
+	void SetPositionWithEnemey(int offsetX, int offsetY = 0);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 

@@ -33,6 +33,7 @@ private:
 	bool  isFalling;
 	DWORD makeTime;
 	bool isGrounded;
+	bool isTouchEnemy;
 public:
 	WeaponHolyWater(float x, float y, int nx);
 	void Render();

@@ -150,6 +150,7 @@
     <ClCompile Include="Cross.cpp" />
     <ClCompile Include="CSplash.cpp" />
     <ClCompile Include="DoubleShot.cpp" />
+    <ClCompile Include="FinalBoss.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InvicibilityPotion.cpp" />
     <ClCompile Include="LockSimon.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Cross.h" />
     <ClInclude Include="CSplash.h" />
     <ClInclude Include="DoubleShot.h" />
+    <ClInclude Include="FinalBoss.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="InvicibilityPotion.h" />
     <ClInclude Include="LockSimon.h" />

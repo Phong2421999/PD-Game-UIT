@@ -58,7 +58,10 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		Start(); // boss chuyển trạng thái
 		isBossActive = true;
 		if (isBoss)
+		{
 			lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
+			isLockCamX = true;
+		}
 	}
 	if (isBossActive && isBoss)
 	{
@@ -377,6 +380,10 @@ void CBossBat::StartAttack()
 				weaponNx = 1;
 			this->makeWeapon = true;
 			weapon = new WeaponProjectile(x, y, weaponNx);
+			if (weaponNx > 0)
+				weapon->SetPositionWithEnemey(BOSS_BAT_WIDTH);
+			else
+				weapon->SetPositionWithEnemey(BOSS_BAT_WIDTH - 4);
 		}
 		if (sx - x > 0)
 			nx = 1;

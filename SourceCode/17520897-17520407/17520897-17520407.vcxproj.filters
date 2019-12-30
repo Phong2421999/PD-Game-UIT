@@ -312,6 +312,9 @@
     <ClCompile Include="Bone.cpp">
       <Filter>GameObject\WeaponEnemies</Filter>
     </ClCompile>
+    <ClCompile Include="FinalBoss.cpp">
+      <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="Bone.h">
       <Filter>GameObject\WeaponEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBoss.h">
+      <Filter>GameObject\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

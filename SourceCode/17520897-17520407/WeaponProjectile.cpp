@@ -1,6 +1,5 @@
 #include "Simon.h"
 #include "WeaponProjectile.h"
-#include "WeaponProjectile.h"
 
 WeaponProjectile::WeaponProjectile(float x, float y, int nx)
 {
@@ -10,23 +9,18 @@ WeaponProjectile::WeaponProjectile(float x, float y, int nx)
 	else
 		vx = -PROJECTILE_SPEED_X;
 	this->nx = nx;
-	SetPositionWithFish(x, y, nx);
+	vy = 0;
 	this->width = PROJECTILE_BBOX_WIDTH;
 	this->height = PROJECTILE_BBOX_HEIGHT;
 	makeTime = GetTickCount();
+	this->x = x;
+	this->y = y;
 }
 
-void WeaponProjectile::SetPositionWithFish(float x, float y, int nx)
+void WeaponProjectile::SetPositionWithEnemey(int offsetX, int offsetY)
 {
-	this->y = y;
-	if (nx > 0)
-	{
-		this->x = x + 16;
-	}
-	else
-	{
-		this->x = x - 4;
-	}
+	this->x = x + offsetX;
+	this->y = y + offsetY;
 }
 
 void  WeaponProjectile::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
@@ -60,7 +54,9 @@ void WeaponProjectile::Render()
 void WeaponProjectile::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	dx = vx * dt;
+	dy = vy * dt;
 	x += dx;
+	y += dy;
 
 	DWORD now = GetTickCount();
 	if (now - makeTime > PROJECTILE_WEAPON_TIME_LIVE)

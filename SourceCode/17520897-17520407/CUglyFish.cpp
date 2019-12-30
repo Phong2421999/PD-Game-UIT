@@ -91,6 +91,10 @@ void CUglyFish::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				isCanAttack = false;
 				weapon = new WeaponProjectile(x, y, nx);
+				if (nx > 0)
+					weapon->SetPositionWithEnemey(MAKE_WEAPON_OFFSET);
+				else
+					weapon->SetPositionWithEnemey(MAKE_WEAPON_OFFSET_FLIP);
 				lastAttackTime = GetTickCount();
 				attackQuantity++;
 			}

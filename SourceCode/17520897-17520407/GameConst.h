@@ -34,6 +34,8 @@
 #define DELETE_POINTER(pointer) if (pointer){delete pointer; pointer=NULL;}
 
 #define LOCK_CAMERA_X lockCameraX
+#define LOCK_CAMERA_OFFSET_X 275
+
 
 //grid
 #define GRID_OFFSET 48
@@ -42,7 +44,6 @@
 #define ITEMS_GRID -2
 #define EFFECTS_GRID -3
 #define WEAPONENEMIES_GRID -4
-
 
 
 //GameItem
@@ -90,6 +91,7 @@ enum STAIR_TYPE
 //Chia sau
 
 extern bool isRenderBBox;
+extern bool isLockCamX;
 extern int scenceWidth;
 extern D3DCOLOR backGroundColor;
 extern int bossHealth;

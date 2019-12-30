@@ -347,6 +347,14 @@ void Scene::MakeEnemies(DWORD dt)
 					grid->add(monkey, ENEMIES_GRID);
 					grid->add(eagle, ENEMIES_GRID);
 				}
+				else if (spawner->enemyId == FINAL_BOSS_ID)
+				{
+					FinalBoss* finalBoss = new FinalBoss();
+					finalBoss->SetPosition(spawner->xEnemy, spawner->yEnemy);
+					finalBoss->SetTargetPosition(spawner->xTarget, spawner->yTarget);
+					grid->add(finalBoss, ENEMIES_GRID);
+					spawner->quantitySpawned += 1;
+				}
 				else if (spawner->enemyId == SKELETON_ID)
 				{
 					Skeleton *skeleton = new Skeleton();
@@ -892,17 +900,24 @@ void Scene::Update(DWORD dt)
 
 		cx -= SCREEN_WIDTH / 2 - 32;
 		cy -= SCREEN_HEIGHT / 2;
-		if (cx <= LOCK_CAMERA_X)
+		if (isLockCamX)
 		{
 			game->SetCamPos(LOCK_CAMERA_X, 0.0f /*cy*/);
 		}
-		else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
-		{
-			game->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
-		}
 		else
 		{
-			game->SetCamPos(cx, 0.0f);
+			if (cx <= LOCK_CAMERA_X)
+			{
+				game->SetCamPos(LOCK_CAMERA_X, 0.0f /*cy*/);
+			}
+			else if (cx >= SCENCE_WITDH - SCREEN_WIDTH)
+			{
+				game->SetCamPos(SCENCE_WITDH - SCREEN_WIDTH, 0.0f /*cy*/);
+			}
+			else
+			{
+				game->SetCamPos(cx, 0.0f);
+			}
 		}
 	}
 	else
@@ -929,14 +944,7 @@ void Scene::Render()
 		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
 		if (simon->getUsingDoubleShot())
 		{
-			if (simon->x < SCREEN_WIDTH / 2)
-			{
-				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
-			}
-			else
-			{
-				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
-			}
+			sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
 		}
 		sprites->Get(BLACK_BOARD_ID)->Draw(camX, camY);
 
@@ -960,6 +968,7 @@ void Scene::Render()
 
 			if (ENEMY_MAX_HEALTH - BOSS_HEALTH > 0)
 			{
+
 				for (int j = BOSS_HEALTH; j < ENEMY_MAX_HEALTH; j++) {
 					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
 				}
@@ -990,31 +999,16 @@ void Scene::Render()
 				break;
 			}
 
-			if (simon->x < SCREEN_WIDTH / 2)
-			{
-
-				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
-			}
-			else
-			{
-				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
-			}
+			sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
 		}
 
 		for (int i = 0; i < letters.size(); i++)
 		{
 			int id = letters.at(i).letter;
 			float x, y;
-			if (simon->x < SCREEN_WIDTH / 2)
-			{
-				x = floor(camX + letters.at(i).x - 1);
-				y = floor(letters.at(i).y + camY);
-			}
-			else
-			{
-				x = floor(camX + letters.at(i).x);
-				y = floor(letters.at(i).y + camY);
-			}
+
+			x = floor(camX + letters.at(i).x);
+			y = floor(letters.at(i).y + camY);
 
 			boardGame->Get(id)->Draw(x, y);
 		}

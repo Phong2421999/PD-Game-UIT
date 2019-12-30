@@ -1,4 +1,5 @@
 #include "WeaponHolyWater.h"
+#include "FinalBoss.h"
 
 WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 {
@@ -17,6 +18,7 @@ WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 	health = 1;
 	isGrounded = false;
 	isFalling = false;
+	isTouchEnemy = false;
 }
 
 void WeaponHolyWater::SetPositionWithSimon(float x, float y, int nx)
@@ -74,8 +76,17 @@ void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<CEnemies*>(coObjects->at(i))
 					|| dynamic_cast<CStaticObject*>(coObjects->at(i)))
 				{
-					coObjects->at(i)->Damage(1);
-					coObjects->at(i)->SetKillBySimon(true);
+					if (dynamic_cast<FinalBoss*>((coObjects->at(i))))
+					{
+						FinalBoss* finalBoss = dynamic_cast<FinalBoss*>((coObjects->at(i)));
+						finalBoss->SetLock(true);
+						isTouchEnemy = true;
+					}
+					if (isTouchEnemy)
+					{
+						coObjects->at(i)->Damage(1);
+						coObjects->at(i)->SetKillBySimon(true);
+					}
 				}
 				if (dynamic_cast<CGround*>(coObjects->at(i))) {
 					if (isGrounded == false)

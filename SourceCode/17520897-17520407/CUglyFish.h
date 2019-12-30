@@ -28,6 +28,10 @@
 #define FISH_HEIGHT 30
 #define FISH_WIDTH 16
 
+#define MAKE_WEAPON_OFFSET 16
+#define MAKE_WEAPON_OFFSET_FLIP -4
+
+
 class CUglyFish :public CEnemies
 {
 private:
