@@ -983,7 +983,6 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 
 void CSimon::Attack()
 {
-	simonWeapon.clear();
 	if (isUseSubWeapon
 		&& isAttack == false
 		&& isSit == false)

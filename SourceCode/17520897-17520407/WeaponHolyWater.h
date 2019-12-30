@@ -2,7 +2,7 @@
 #include "Weapon.h"
 #include "Simon.h"
 
-#define HOLY_WATER_SPEED_X 0.08
+#define HOLY_WATER_SPEED_X 0.06
 #define HOLY_WATER_SPEED_Y 0.025
 #define HOLY_WATER_BBOX_WIDTH 8
 #define HOLY_WATER_BBOX_HEIGHT 8
@@ -33,7 +33,7 @@ private:
 	bool  isFalling;
 	DWORD makeTime;
 	bool isGrounded;
-	bool isTouchEnemy;
+	bool isTouchFinalBoss;
 public:
 	WeaponHolyWater(float x, float y, int nx);
 	void Render();

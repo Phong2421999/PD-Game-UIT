@@ -24,12 +24,14 @@ FinalBoss::FinalBoss() {
 	isHasFace = true;
 	this->health = 1;
 	damageCount = 0;
+	isHightJump = false;
+	isJump = true;
 }
 void FinalBoss::Render() {
 
 	if (mode == FINAL_BOSS_NOMAL_MODE)
 	{
-		
+
 		switch (state)
 		{
 		case FINAL_BOSS_STATE_START:
@@ -65,13 +67,6 @@ void FinalBoss::Render() {
 			}
 			RenderBoundingBox(x, y);
 		}
-		for (int i = 0; i < weapons.size(); i++)
-		{
-			if (weapons[i] != NULL)
-			{
-				weapons[i]->Render();
-			}
-		}
 	}
 	else
 	{
@@ -81,7 +76,10 @@ void FinalBoss::Render() {
 			ani = FINAL_BOSS_ANI_CHAOS_IDLE_INDEX;
 			break;
 		case CHAOS_BOSS_STATE_START_ATTACK:
-			ani = FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX;
+			if (isShot)
+				ani = FINAL_BOSS_ANI_CHAOS_IDLE_INDEX;
+			else
+				ani = FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX;
 			break;
 		case CHAOS_BOSS_STATE_ATTACK:
 			ani = FINAL_BOSS_ANI_CHAOS_ATTACK_INDEX;
@@ -92,6 +90,13 @@ void FinalBoss::Render() {
 		else
 			animations[ani]->RenderFlipX(x, y, 25);
 		RenderBoundingBox(x, y);
+	}
+	for (int i = 0; i < weapons.size(); i++)
+	{
+		if (weapons[i] != NULL)
+		{
+			weapons[i]->Render();
+		}
 	}
 }
 void FinalBoss::RenderCurrentFrame() {
@@ -159,7 +164,7 @@ void FinalBoss::RenderCurrentFrame() {
 			animations[ani]->RenderCurrentFrame(x, y);
 		else
 			animations[ani]->RenderCurrentFrameFlipX(x, y, FLIP_OFFSET_FOR_CHAOS);
-		
+
 		RenderBoundingBox(x, y);
 	}
 }
@@ -189,7 +194,7 @@ void FinalBoss::Damage(int damage)
 		}
 		else
 		{
-			damageCount++;
+			damageCount += damage;
 			if (damageCount >= TAKE_DAMAGE_COUNT)
 			{
 				health -= damage;
@@ -207,36 +212,49 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	simon->GetPosition(sx, sy);
 	CGameObject::Update(dt);
 	DWORD now = GetTickCount();
-	if (mode == FINAL_BOSS_NOMAL_MODE)
+	for (int i = 0; i < weapons.size(); i++)
 	{
-		for (int i = 0; i < weapons.size(); i++)
+		if (weapons[i] != NULL)
 		{
-			if (weapons[i] != NULL)
+			if (weapons[i]->GetHealth() <= 0)
 			{
-				if (weapons[i]->GetHealth() <= 0)
+				DELETE_POINTER(weapons[i]);
+			}
+			else
+			{
+				float weaponVx;
+				float weaponVy;
+				weapons[i]->GetSpeed(weaponVx, weaponVy);
+				if (nx > 0)
+					weaponVx += FINAL_BOSS_WEAPON_VX_PLUS;
+				else
+					weaponVx -= FINAL_BOSS_WEAPON_VX_PLUS;
+				if (mode == FINAL_BOSS_CHAOS_MODE)
 				{
-					DELETE_POINTER(weapons[i]);
+					if (i == FINAL_BOSS_TOP_WEAPON_INDEX)
+						weaponVy += CHAOS_BOSS_TOP_WEAPON_VY_PLUS;
+					if (i == FINAL_BOSS_MIDDLE_WEAPON_INDEX)
+						weaponVy += CHAOS_BOSS_MIDDLE_WEAPON_VY_PLUS;
+					if (i == FINAL_BOSS_BOTTOM_WEAPON_INDEX)
+						weaponVy += CHAOS_BOSS_BOTTOM_WEAPON_VY_PLUS;
 				}
 				else
 				{
-					float weaponVx;
-					float weaponVy;
-					weapons[i]->GetSpeed(weaponVx, weaponVy);
-					if (nx > 0)
-						weaponVx += FINAL_BOSS_WEAPON_VX_PLUS;
-					else
-						weaponVx -= FINAL_BOSS_WEAPON_VX_PLUS;
-					if (i != 0)
+					if (i != FINAL_BOSS_MIDDLE_WEAPON_INDEX)
 					{
-						if (i == 1)
+
+						if (i == FINAL_BOSS_BOTTOM_WEAPON_INDEX)
 							weaponVy -= FINAL_BOSS_WEAPON_VY_PLUS;
 						else weaponVy += FINAL_BOSS_WEAPON_VY_PLUS;
 					}
-					weapons[i]->SetSpeed(weaponVx, weaponVy);
-					weapons[i]->Update(dt);
 				}
+				weapons[i]->SetSpeed(weaponVx, weaponVy);
+				weapons[i]->Update(dt);
 			}
 		}
+	}
+	if (mode == FINAL_BOSS_NOMAL_MODE)
+	{
 		switch (state)
 		{
 		case FINAL_BOSS_STATE_START:
@@ -297,21 +315,7 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		case FINAL_BOSS_STATE_ATTACK:
 			if (isStartAttack)
 			{
-				weapons.clear();
-				for (int i = 0; i < FINAL_BOSS_WEAPON_QUANTITY; i++)
-				{
-					WeaponProjectile *weapon = new WeaponProjectile(x, y, nx);
-					float offsetX = FINAL_BOSS_WEAPON_OFFSET_X;
-					if (nx > 0)
-						offsetX = - offsetX;
-					float offsetY = FINAL_BOSS_WEAPON_OFFSET_Y;
-					weapon->SetPositionWithEnemey(offsetX, offsetY);
-					float weaponSpeedX = FINAL_BOSS_WEAPON_VX;
-					if (nx < 0)
-						weaponSpeedX = -weaponSpeedX;
-					weapon->SetSpeed(weaponSpeedX, 0);
-					weapons.push_back(weapon);
-				}
+				MakeWeapon();
 				isStartAttack = false;
 			}
 			isFirstAttack = false;
@@ -326,12 +330,19 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	}
 	else
 	{
+		vy += CHAOS_BOSS_GRAVITY * dt;
+		if (sx <= LOCK_CAMERA_X || (sx) >= LOCK_CAMERA_X + CHAOS_BOSS_OFFSET_MAX_X)
+		{
+			isHightJump = true;
+		}
+		else
+		{
+			isHightJump = false;
+		}
 		if (x <= LOCK_CAMERA_X)
 			x = LOCK_CAMERA_X;
 		if (x >= CGame::GetInstance()->GetCamPos_x() + CHAOS_BOSS_OFFSET_MAX_X)
-		{
 			x = CGame::GetInstance()->GetCamPos_x() + CHAOS_BOSS_OFFSET_MAX_X;
-		}
 		DWORD now = GetTickCount();
 		if (sx < x)
 			nx = -1;
@@ -340,6 +351,7 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		if (isLock)
 		{
 			state = CHAOS_BOSS_STATE_IDLE;
+			vx = 0;
 			if (now - lastLockTime > CHAOS_BOSS_LOCK_TIME)
 			{
 				isLock = false;
@@ -347,6 +359,7 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		}
 		else
 		{
+			isLock = false;
 			switch (state)
 			{
 			case CHAOS_BOSS_STATE_IDLE:
@@ -358,63 +371,86 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 				}
 				break;
 			case CHAOS_BOSS_STATE_START_ATTACK:
+				if (abs(sx - x) >= CHAO_BOSS_SHOT_SIMON_DISTANCE)
+				{
+					isShot = true;
+					isHightJump = false;
+					isJump = false;
+				}
+				else
+					isJump = true;
 				if (animations[ani]->getLastFrame()
 					&& isAttack == false)
 				{
-					state = CHAOS_BOSS_STATE_ATTACK;
-					vy = -CHAOS_BOSS_VY;
-					vx = (abs(x - (sx + SIMON_OFFSET_TO_BBOX_X)) / dt) / TIME_TO_TOUCH_SIMON_VX;
+					if (isShot)
+					{
+						MakeWeapon();
+						vx = 0;
+					}
+					else {
+						if (isHightJump)
+							vy = -CHAOS_BOSS_HIGHT_JUMP_VY;
+						else
+							vy = -CHAOS_BOSS_SHORT_JUMP_VY;
+						vx = (abs(x - (sx + SIMON_OFFSET_TO_BBOX_X)) / dt) / TIME_TO_TOUCH_SIMON_VX;
+					}
 					if (sx < x)
 						vx = -vx;
 					lastTimeAttack = GetTickCount();
 					animations[FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX]->reset();
+					state = CHAOS_BOSS_STATE_ATTACK;
 				}
 				break;
 			case CHAOS_BOSS_STATE_ATTACK:
-			
-				y += dy;
-				x += dx;
+				if (isShot)
+				{
+					if (now - lastTimeAttack > CHAOS_BOSS_SHOT_DELAY)
+					{
+						isShot = false;
+						state = CHAOS_BOSS_STATE_IDLE;
+						lastTimeAttack = GetTickCount();
+					}
+				}
+				else
+				{
+					lastTimeAttack = GetTickCount();
+				}
 				isAttack = true;
-				lastTimeAttack = GetTickCount();
 				break;
 			}
-		}
-		vy += CHAOS_BOSS_GRAVITY * dt;
-		vector<LPCOLLISIONEVENT> coEvents;
-		vector<LPCOLLISIONEVENT> coEventsResult;
-		coEvents.clear();
-		CalcPotentialCollisions(coObjects, coEvents);
-		// No collision occured, proceed normally
-		if (coEvents.size() == 0)
-		{
-			if (isAttack == false)
+			vector<LPCOLLISIONEVENT> coEvents;
+			vector<LPCOLLISIONEVENT> coEventsResult;
+			coEvents.clear();
+			CalcPotentialCollisions(coObjects, coEvents);
+			// No collision occured, proceed normally
+			if (coEvents.size() == 0)
 			{
 				x += dx;
 				y += dy;
 			}
-		}
-		else
-		{
-			float min_tx, min_ty, nx = 0, ny;
-
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-			x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y += min_ty * dy + ny * 0.4f;
-			if (nx != 0) vx = 0;
-			for (UINT i = 0; i < coEventsResult.size(); i++)
+			else
 			{
-				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
+				float min_tx, min_ty, nx = 0, ny;
+				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+				x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				y += min_ty * dy + ny * 0.4f;
+				if (nx != 0) vx = 0;
+				for (UINT i = 0; i < coEventsResult.size(); i++)
 				{
-					if (isAttack && vy > 0)
+					LPCOLLISIONEVENT e = coEventsResult[i];
+					if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 					{
-						state = CHAOS_BOSS_STATE_IDLE;
-						isAttack = false;
+						if (isAttack && isJump && isShot == false)
+						{
+							isAttack = false;
+							isJump = false;
+							state = CHAOS_BOSS_STATE_IDLE;
+						}
 					}
 				}
 			}
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 	if (checkAABBTouch(simon))
 	{
@@ -422,11 +458,38 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	}
 }
 void FinalBoss::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
-	if (isHasFace)
+	if (isHasFace && isInvisiable == false)
 	{
 		left = x;
 		top = y;
 		right = x + width;
 		bottom = y + height;
+	}
+}
+
+void FinalBoss::MakeWeapon() {
+	weapons.clear();
+	for (int i = 0; i < FINAL_BOSS_WEAPON_QUANTITY; i++)
+	{
+		WeaponProjectile *weapon = new WeaponProjectile(x, y, nx);
+		float offsetX, offsetY;
+		if (mode == FINAL_BOSS_NOMAL_MODE)
+		{
+			offsetX = FINAL_BOSS_WEAPON_OFFSET_X;
+			offsetY = FINAL_BOSS_WEAPON_OFFSET_Y;
+			if (nx > 0)
+				offsetX = -offsetX;
+		}
+		else
+		{
+			offsetX = CHAOS_BOSS_BB_WIDTH / 2;
+			offsetY = FINAL_BOSS_WEAPON_OFFSET_Y;
+		}
+		weapon->SetPositionWithEnemey(offsetX, offsetY);
+		float weaponSpeedX = FINAL_BOSS_WEAPON_VX;
+		if (nx < 0)
+			weaponSpeedX = -weaponSpeedX;
+		weapon->SetSpeed(weaponSpeedX, 0);
+		weapons.push_back(weapon);
 	}
 }

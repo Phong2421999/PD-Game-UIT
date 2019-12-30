@@ -18,7 +18,7 @@ WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 	health = 1;
 	isGrounded = false;
 	isFalling = false;
-	isTouchEnemy = false;
+	isTouchFinalBoss = false;
 }
 
 void WeaponHolyWater::SetPositionWithSimon(float x, float y, int nx)
@@ -58,7 +58,8 @@ void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (now - makeTime > HOLY_WATER_POND_TIME_LIVE)
 		{
 			health = 0;
-			animations[ani]->reset();
+			animations[HOLY_WATER_BURNING_ANI_ID]->reset();
+			animations[HOLY_WATER_ANI_ID]->reset();
 		}
 	}
 	else
@@ -80,9 +81,10 @@ void WeaponHolyWater::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						FinalBoss* finalBoss = dynamic_cast<FinalBoss*>((coObjects->at(i)));
 						finalBoss->SetLock(true);
-						isTouchEnemy = true;
+						finalBoss->SetState(CHAOS_BOSS_STATE_IDLE);
+						isTouchFinalBoss = true;
 					}
-					if (isTouchEnemy)
+					if (isTouchFinalBoss == false)
 					{
 						coObjects->at(i)->Damage(1);
 						coObjects->at(i)->SetKillBySimon(true);

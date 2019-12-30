@@ -687,83 +687,6 @@ void Scene::Update(DWORD dt)
 
 			simon->UpdateSimonWeapon(dt, &coWeaponObjects);
 
-#pragma region Update
-
-			//Gọi update với colision tính được
-			if (simon->getUsingStopWatch())
-			{
-#pragma region UpdateStopWatch
-				for (int gridId = 0; gridId < gridIds.size(); gridId++)
-				{
-					int id = gridIds[gridId];
-					for (int i = 0; i < grid->gridObjects[id].size(); i++)
-					{
-						if (dynamic_cast<CDestroy*> (grid->gridObjects[id][i]))
-						{
-							grid->gridObjects[id][i]->Update(dt, &coDestroy);
-						}
-						else if (dynamic_cast<ChangeSceneObjects*> (grid->gridObjects[id][i]))
-						{
-							grid->gridObjects[id][i]->Update(dt);
-						}
-						else if (dynamic_cast<HiddenObjects*>(grid->gridObjects[id][i]))
-						{
-							grid->gridObjects[id][i]->Update(dt, &coHiddenObjects);
-						}
-					}
-				}
-				simon->Update(dt, &coObjects);
-#pragma endregion
-
-			}
-			else if (simon->getUsingCross())
-			{
-				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
-				for (int i = 0; i < grid->gridObjects[ENEMIES_GRID].size(); i++)
-				{
-					if (dynamic_cast<CEnemies*>(grid->gridObjects[ENEMIES_GRID][i]))
-					{
-						grid->gridObjects[ENEMIES_GRID].erase(grid->gridObjects[ENEMIES_GRID].begin() + i);
-					}
-				}
-				simon->Update(dt, &coObjects);
-			}
-			else
-			{
-				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
-				for (int gridId = 0; gridId < gridIds.size(); gridId++)
-				{
-					int id = gridIds[gridId];
-					for (int i = 0; i < grid->gridObjects[id].size(); i++)
-					{
-						if (dynamic_cast<Monkey*>(grid->gridObjects[id][i])) {
-
-							grid->gridObjects[id][i]->Update(dt, &coMonkey);
-						}
-						else if (dynamic_cast<CEnemies*>(grid->gridObjects[id][i])) {
-
-							grid->gridObjects[id][i]->Update(dt, &coEnemies);
-						}
-						else if (dynamic_cast<CDestroy*> (grid->gridObjects[id][i]))
-						{
-							grid->gridObjects[id][i]->Update(dt, &coDestroy);
-						}
-						else if (dynamic_cast<HiddenObjects*>(grid->gridObjects[id][i]))
-						{
-							grid->gridObjects[id][i]->Update(dt, &coHiddenObjects);
-						}
-						else
-						{
-							grid->gridObjects[id][i]->Update(dt);
-						}
-					}
-				}
-				simon->Update(dt, &coObjects);
-			}
-
-
-			simon->UpdateCheckStair(&coCheckStairObjects);
-
 
 #pragma region UpdateItems
 			for (int i = 0; i < grid->gridObjects[ITEMS_GRID].size(); i++)
@@ -871,6 +794,82 @@ void Scene::Update(DWORD dt)
 				}
 			}
 #pragma endregion
+#pragma region Update
+
+			//Gọi update với colision tính được
+			if (simon->getUsingStopWatch())
+			{
+#pragma region UpdateStopWatch
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
+				{
+					int id = gridIds[gridId];
+					for (int i = 0; i < grid->gridObjects[id].size(); i++)
+					{
+						if (dynamic_cast<CDestroy*> (grid->gridObjects[id][i]))
+						{
+							grid->gridObjects[id][i]->Update(dt, &coDestroy);
+						}
+						else if (dynamic_cast<ChangeSceneObjects*> (grid->gridObjects[id][i]))
+						{
+							grid->gridObjects[id][i]->Update(dt);
+						}
+						else if (dynamic_cast<HiddenObjects*>(grid->gridObjects[id][i]))
+						{
+							grid->gridObjects[id][i]->Update(dt, &coHiddenObjects);
+						}
+					}
+				}
+				simon->Update(dt, &coObjects);
+#pragma endregion
+
+			}
+			else if (simon->getUsingCross())
+			{
+				backGroundColor = D3DCOLOR_XRGB(169, 169, 169); // Màu xám
+				for (int i = 0; i < grid->gridObjects[ENEMIES_GRID].size(); i++)
+				{
+					if (dynamic_cast<CEnemies*>(grid->gridObjects[ENEMIES_GRID][i]))
+					{
+						grid->gridObjects[ENEMIES_GRID].erase(grid->gridObjects[ENEMIES_GRID].begin() + i);
+					}
+				}
+				simon->Update(dt, &coObjects);
+			}
+			else
+			{
+				backGroundColor = D3DCOLOR_XRGB(0, 0, 0);
+				for (int gridId = 0; gridId < gridIds.size(); gridId++)
+				{
+					int id = gridIds[gridId];
+					for (int i = 0; i < grid->gridObjects[id].size(); i++)
+					{
+						if (dynamic_cast<Monkey*>(grid->gridObjects[id][i])) {
+
+							grid->gridObjects[id][i]->Update(dt, &coMonkey);
+						}
+						else if (dynamic_cast<CEnemies*>(grid->gridObjects[id][i])) {
+
+							grid->gridObjects[id][i]->Update(dt, &coEnemies);
+						}
+						else if (dynamic_cast<CDestroy*> (grid->gridObjects[id][i]))
+						{
+							grid->gridObjects[id][i]->Update(dt, &coDestroy);
+						}
+						else if (dynamic_cast<HiddenObjects*>(grid->gridObjects[id][i]))
+						{
+							grid->gridObjects[id][i]->Update(dt, &coHiddenObjects);
+						}
+						else
+						{
+							grid->gridObjects[id][i]->Update(dt);
+						}
+					}
+				}
+				simon->Update(dt, &coObjects);
+			}
+
+
+			simon->UpdateCheckStair(&coCheckStairObjects);
 		}
 		else
 		{
