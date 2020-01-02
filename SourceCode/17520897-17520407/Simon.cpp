@@ -154,7 +154,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		simonAutoGoDistance = 0;
 		if (x <= LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X)
 			x = LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X;
-		if (x >= CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X)
+		if (x >= CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X && isLockCamX)
 		{
 			x = CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X;
 		}
@@ -791,6 +791,11 @@ void CSimon::SetState(int state)
 void CSimon::TouchEnemy(int nx) {
 	if (isDeath == false)
 	{
+		if (SoundController::IsPlaying(SIMON_SOUND::HURT) == false
+			&& isUntouchable == false)
+		{
+			SoundController::Play(SIMON_SOUND::HURT);
+		}
 		if (isOnStair == false && isLock == false)
 		{
 			if (isUntouchable == false)
@@ -809,7 +814,6 @@ void CSimon::TouchEnemy(int nx) {
 			StartUntouchable();
 		}
 	}
-	SoundController::Play(SIMON_SOUND::HURT);
 }
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)

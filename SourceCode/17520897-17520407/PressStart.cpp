@@ -38,7 +38,7 @@ void PressStart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			simon->nx = -1;
 			simon->setAutoGo(true);
 			simon->setAutoGoDistance(150);
-			game->SetStartGame(true);
+			game->SetStartIntro(true);
 		}
 	}
 }

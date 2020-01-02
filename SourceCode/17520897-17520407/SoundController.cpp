@@ -74,3 +74,7 @@ void SoundController::StopAll() {
 		sounds[i]->Reset();
 	}
 }
+
+bool SoundController::IsPlaying(int id) {
+	return sounds[id]->IsSoundPlaying();
+}

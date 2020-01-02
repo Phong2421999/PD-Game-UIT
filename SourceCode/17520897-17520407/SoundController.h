@@ -19,6 +19,7 @@ public:
 	static void PlayLoop(int id);
 	static void Stop(int id);
 	static void StopAll();
+	static bool IsPlaying(int id);
 };
 
 

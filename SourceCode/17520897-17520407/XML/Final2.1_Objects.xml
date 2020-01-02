@@ -22,10 +22,11 @@
     <CheckStair x="218" y="206" width="14" height="4" ny="1" nx="-1" Grid="2" />
   </CheckStairs>
   <Spawns id="-2">
-    <!--<Spawn x="532" y="0" name="SKELETON"
-           canRespawn="1" spawnerId="0" enemyId="14" xEnemy="0" yEnemy="0"
-           quantityEachSpawn="2" timeEachSpawn="1500" delaySpawnTime="2000"
-           width="8" height="300" Grid="-1" />-->
+    <!--<Spawn x="110" y="0" name="SKELETON" 
+           canRespawn="1" spawnerId="0" enemyId="14" xEnemy="140" yEnemy="32" 
+           quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="2000" 
+           width="8" height="300" Grid="1" offsetWithSimon ="86" enemyMode ="1"
+           xTarget="180" yTarget="125"/>-->
   </Spawns>
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />

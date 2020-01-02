@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scenes>
-  <Scene sceneId="-99" mapId="910000" sceneWidthEachMap="320" sceneGameObjectPath="XML\\StartGame.xml"  soundId="0" simonNx ="-1"
-         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="275" simonStartY="163" stage ="00" name="Di vao lau dai" resetSceneId ="0" />
+  <Scene sceneId="-99" mapId="0" sceneWidthEachMap="320" sceneGameObjectPath="XML\\StartGame.xml"  soundId="0" simonNx ="-1"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="275" simonStartY="196" stage ="00" name="Di vao lau dai" resetSceneId ="0" />
 
-  <Scene sceneId="0" mapId="0" sceneWidthEachMap="320" sceneGameObjectPath="XML\\Intro.xml" simonNx ="1" soundId="1"
-         isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="275" simonStartY="163" stage ="00" name="Di vao lau dai" resetSceneId ="1"/>
+  <Scene sceneId="0" mapId="1" sceneWidthEachMap="320" sceneGameObjectPath="XML\\Intro.xml" simonNx ="1" soundId="1"
+         isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="275" simonStartY="189" stage ="00" name="Di vao lau dai" resetSceneId ="1"/>
 
   <Scene sceneId="1" mapId="100000" sceneWidthEachMap="768" sceneGameObjectPath="XML\\Map1_Objects.xml" soundId="21" simonNx ="1"
          isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="32" simonStartY="163" stage ="01" name="Di vao lau dai" resetSceneId ="1"/>

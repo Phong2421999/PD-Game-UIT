@@ -20,9 +20,9 @@
     <Map mapPath="TXT\\MapFinal-5.txt" mapId="1100000" />
   </TileSet>
   <TileSet texMapId="400000" tileSetPath="Textures\\tileset-startgame.png" R="0" G="162" B="232">
-    <Map mapPath="TXT\\MapStartGame.txt" mapId="1" />
+    <Map mapPath="TXT\\MapStartGame.txt" mapId="0" />
   </TileSet>
   <TileSet texMapId="500000" tileSetPath="Textures\\entrace-tileset.png" R="0" G="162" B="232">
-    <Map mapPath="TXT\\Map_Intro.txt" mapId="0" />
+    <Map mapPath="TXT\\Map_Intro.txt" mapId="1" />
   </TileSet>
 </Maps>
