@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Objects>
+    <Castles id="-999">
+      <Castle x="32" y="32" width="976" height="8" Grid="-1"/>
+    </Castles>
+  <PressStarts id="-998">
+    <PressStart x="128" y="128" width="128" height="8" Grid="-1"/>
+  </PressStarts>
+</Objects>

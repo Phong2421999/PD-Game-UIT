@@ -4,6 +4,6 @@
         <Ground x="-196" y="196" width="976" height="8" Grid="-1"/>
     </Grounds>
   <IntroGate id="-2020">
-    <IntroGate x="60" y="180" width="100" height="24" Gird="-1"/>
+    <IntroGate x="148" y="180" width="8" height="24" Gird="-1"/>
   </IntroGate>
 </Objects>

@@ -107,15 +107,10 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 			}
 		}
 	}
-	else if(game->GetStartIntro() == false)
+	else if (game->GetStartIntro() == false)
 	{
-		game->SetStartIntro(true);
-		simon->setSceneId(-1);
-		Scenes::GetInstance()->NextScenes();
-		Scenes::GetInstance()->Get(0)->StartLoadScene();
-		simon->nx = -1;
-		simon->setAutoGo(true);
-		simon->setAutoGoDistance(150);
+		if (KeyCode == DIK_S)
+			game->SetPressStart(true);
 	}
 }
 

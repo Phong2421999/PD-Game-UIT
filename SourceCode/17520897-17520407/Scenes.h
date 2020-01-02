@@ -111,6 +111,7 @@ public:
 	}
 	void NextScenes()
 	{
+		isLockCamX = false;
 		int curScene = CSimon::getInstance()->getCurrentScene();
 		float defaultX, defaultY;
 		int nx;

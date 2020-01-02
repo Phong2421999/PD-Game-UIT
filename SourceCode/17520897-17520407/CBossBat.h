@@ -118,4 +118,8 @@ public:
 		xTarget = x;
 		yTarget = y;
 	}
+	~CBossBat()
+	{
+		isLockCamX = false;
+	}
 };

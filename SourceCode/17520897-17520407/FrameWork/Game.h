@@ -40,6 +40,7 @@ class CGame
 	
 	bool isGameStart;
 	bool isStartIntro;
+	bool isPressStart;
 	DWORD timeStartGame;
 public:
 	void Init(HWND hWnd);
@@ -48,6 +49,10 @@ public:
 
 
 	//Set
+	void SetPressStart(bool b)
+	{
+		this->isPressStart = b;
+	}
 	void SetStartIntro(bool b)
 	{
 		this->isStartIntro = b;
@@ -81,6 +86,10 @@ public:
 		this->timeStartGame = time;
 	}
 	//Get
+	bool GetPressStart()
+	{
+		return isPressStart;
+	}
 	DWORD GetTimeStartGame()
 	{
 		return timeStartGame;

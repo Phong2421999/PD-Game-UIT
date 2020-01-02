@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="Bone.cpp" />
+    <ClCompile Include="Castle.cpp" />
     <ClCompile Include="CBat.cpp" />
     <ClCompile Include="CBossBat.cpp" />
     <ClCompile Include="CBreakingWall.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="MagicCrystal.cpp" />
     <ClCompile Include="Monkey.cpp" />
     <ClCompile Include="PotRoast.cpp" />
+    <ClCompile Include="PressStart.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SoundController.cpp" />
     <ClCompile Include="WeaponProjectile.cpp" />
@@ -217,6 +219,7 @@
   <ItemGroup>
     <ClInclude Include="Axe.h" />
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="Castle.h" />
     <ClInclude Include="CBat.h" />
     <ClInclude Include="CBossBat.h" />
     <ClInclude Include="CBreakingWall.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="MagicCrystal.h" />
     <ClInclude Include="Monkey.h" />
     <ClInclude Include="PotRoast.h" />
+    <ClInclude Include="PressStart.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SoundController.h" />
     <ClInclude Include="WeaponProjectile.h" />
@@ -311,12 +315,16 @@
     <Image Include="Textures\Bosses.png" />
     <Image Include="Textures\Enemies-Castle.png" />
     <Image Include="Textures\enemies.png" />
+    <Image Include="Textures\entrace-tileset.png" />
     <Image Include="Textures\Font.png" />
     <Image Include="Textures\heal.png" />
+    <Image Include="Textures\tileset-startgame.png" />
+    <Image Include="Textures\caslteanimation.png" />
     <Image Include="Textures\mario.png" />
     <Image Include="Textures\misc.png" />
     <Image Include="Textures\Items.png" />
     <Image Include="Textures\ObjectsAndEffect.png" />
+    <Image Include="Textures\start-game.png" />
     <Image Include="Textures\TexturesV2.png" />
     <Image Include="Textures\TexturesV3.png" />
     <Image Include="Textures\TexturesV4.png" />
@@ -341,12 +349,20 @@
     <Text Include="TXT\MapFinal-3.txt" />
     <Text Include="TXT\MapFinal-4.txt" />
     <Text Include="TXT\MapFinal-5.txt" />
+    <Text Include="TXT\MapStartGame.txt" />
+    <Text Include="TXT\Map_Intro.txt" />
     <Text Include="TXT\TexturesFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Final1_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="XML\Final2.1_Objects.xml" />
+    <Xml Include="XML\Final2.2_Objects.xml" />
+    <Xml Include="XML\Final3.1_Objects.xml" />
+    <Xml Include="XML\Final3.2_Objects.xml" />
+    <Xml Include="XML\Final4_Objects.xml" />
+    <Xml Include="XML\Final5_Objects.xml" />
     <Xml Include="XML\Intro.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -377,6 +393,7 @@
     <Xml Include="XML\SoundData.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="XML\StartGame.xml" />
     <Xml Include="XML\Textures.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -12,9 +12,17 @@
   </TileSet>
   <TileSet texMapId="300000" tileSetPath="Textures\\tileset_map2.png" R="255" G="0" B="255">
     <Map mapPath="TXT\\MapFinal-1.txt" mapId="700000" />
-    <Map mapPath="TXT\\MapFinal-2.txt" mapId="800000" />
-    <Map mapPath="TXT\\MapFinal-3.txt" mapId="900000" />
+    <Map mapPath="TXT\\MapFinal-2.1.txt" mapId="810000" />
+    <Map mapPath="TXT\\MapFinal-2.2.txt" mapId="820000" />
+    <Map mapPath="TXT\\MapFinal-3.1.txt" mapId="910000" />
+    <Map mapPath="TXT\\MapFinal-3.2.txt" mapId="920000" />
     <Map mapPath="TXT\\MapFinal-4.txt" mapId="1000000" />
     <Map mapPath="TXT\\MapFinal-5.txt" mapId="1100000" />
+  </TileSet>
+  <TileSet texMapId="400000" tileSetPath="Textures\\tileset-startgame.png" R="0" G="162" B="232">
+    <Map mapPath="TXT\\MapStartGame.txt" mapId="1" />
+  </TileSet>
+  <TileSet texMapId="500000" tileSetPath="Textures\\entrace-tileset.png" R="0" G="162" B="232">
+    <Map mapPath="TXT\\Map_Intro.txt" mapId="0" />
   </TileSet>
 </Maps>

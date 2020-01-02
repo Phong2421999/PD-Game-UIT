@@ -206,8 +206,54 @@
       <sprite id="9999" left="279" top="22" right="311" bottom="64" frameTime="100"/>
     </Animation>
   </Texture>
-  
-             <!--Texture Item-->
+
+  <Texture  textureId ="8" gameObjectId ="-99">
+    <!-- Animation INTRO -->
+    <Animation aniId="8000" frameTime="100" name="INTRO">
+      <sprite id="80000" left="0" top="0" right="72" bottom="56" frameTime="100"/>
+      <sprite id="80001" left="72" top="0" right="144" bottom="56" frameTime="100"/>
+      <sprite id="80002" left="144" top="0" right="216" bottom="56" frameTime="100"/>
+      <sprite id="80003" left="216" top="0" right="288" bottom="56" frameTime="100"/>
+      <sprite id="80004" left="288" top="0" right="360" bottom="56" frameTime="100"/>
+      <sprite id="80000" left="0" top="56" right="72" bottom="112" frameTime="100"/>
+      <sprite id="80001" left="72" top="56" right="144" bottom="112" frameTime="100"/>
+      <sprite id="80002" left="144" top="56" right="216" bottom="112" frameTime="100"/>
+      <sprite id="80003" left="216" top="56" right="288" bottom="112" frameTime="100"/>
+      <sprite id="80004" left="288" top="56" right="360" bottom="112" frameTime="100"/>
+      <sprite id="80000" left="0" top="112" right="72" bottom="168" frameTime="100"/>
+      <sprite id="80001" left="72" top="112" right="144" bottom="168" frameTime="100"/>
+      <sprite id="80002" left="144" top="112" right="216" bottom="168" frameTime="100"/>
+      <sprite id="80003" left="216" top="112" right="288" bottom="168" frameTime="100"/>
+      <sprite id="80004" left="288" top="112" right="360" bottom="168" frameTime="100"/>
+    </Animation>
+    <Animation aniId="80001" frameTime="100" name="INTRO">
+      <sprite id="80003" left="216" top="112" right="288" bottom="168" frameTime="100"/>
+      <sprite id="80004" left="288" top="112" right="360" bottom="168" frameTime="100"/>
+    </Animation>
+  </Texture>
+  <Texture  textureId ="9" gameObjectId ="-99">
+    <Animation aniId="80002" frameTime="100" name="PRESSSTART">
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+    </Animation>
+    <Animation aniId="80003" frameTime="100" name="PRESSSTART">
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+      <sprite id="80006" left="0" top="0" right="0" bottom="0" frameTime="100"/>
+      <sprite id="80005" left="0" top="0" right="115" bottom="12" frameTime="100"/>
+    </Animation>
+  </Texture>
+    <!--Texture Item-->
   <!-- Animation WHIP_UPGRADE -->
   <Texture  textureId ="1" gameObjectId ="1">
     <Animation aniId="540" frameTime="100" name="WHIP_UPGRADE">

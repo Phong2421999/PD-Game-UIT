@@ -291,7 +291,6 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CBossBat::Start()
 {
 	status = BOSS_FLY_START_1; //Bắt đầu bay khởi động lần 1
-	ani = ANI_ID_BOSS_BAT_FLY;
 	vy = 0.05f;
 	vx = 0.0f;
 	yBefore = y;
@@ -420,7 +419,18 @@ int CBossBat::RandomNumber(int a, int b)
 }
 
 void CBossBat::Render() {
-	animations[ani]->Render(x, y);
+	if (isBoss)
+	{
+		if (isBossActive)
+			animations[ANI_ID_BOSS_BAT_FLY]->Render(x, y);
+		else
+			animations[ANI_ID_BOSS_BAT_IDLE]->Render(x, y);
+
+	}
+	else
+	{
+		animations[ANI_ID_BOSS_BAT_FLY]->Render(x, y);
+	}
 	RenderBoundingBox(x, y);
 	if (weapon)
 		weapon->Render();

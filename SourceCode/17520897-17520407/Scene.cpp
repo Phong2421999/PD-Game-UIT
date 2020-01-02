@@ -108,7 +108,18 @@ void Scene::LoadSceneResource()
 				wall->SetPosition(x, y);
 				wall->SetWidthHeight(Width, Height);
 				grid->add(wall, gridId);
-
+			}
+			else if (id == MAKE_OBJECTS::CASTLE)
+			{
+				Castle* castle = new Castle();
+				castle->SetPosition(x, y);
+				grid->add(castle, gridId);
+			}
+			else if (id == MAKE_OBJECTS::PRESSSTART)
+			{
+				PressStart* pressstart = new PressStart();
+				pressstart->SetPosition(x, y);
+				grid->add(pressstart, gridId);
 			}
 			else if (id == MAKE_OBJECTS::CHANGESCENE)
 			{
@@ -646,7 +657,8 @@ void Scene::Update(DWORD dt)
 											CEffect * hit = new CHit();
 											hit->SetPosition(x + 16 * i, y + 16 * j);
 											hit->SetKillBySimon(true);
-											hit->SetMakeItem(BOSS);
+											if (i == 0 && j == 0)
+												hit->SetMakeItem(BOSS);
 											grid->add(hit, EFFECTS_GRID);
 										}
 									}
@@ -939,6 +951,7 @@ void Scene::Update(DWORD dt)
 	else
 	{
 		game->SetCamPos(0.0f, 0.0f);
+		isLockCamX = false;
 	}
 
 }

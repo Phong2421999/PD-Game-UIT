@@ -256,6 +256,11 @@ void Update(DWORD dt)
 			scenes->Get(sceneId)->Update(dt);
 		}
 	}
+	else
+	{
+		scenes->Get(START_SCENE_ID)->SetCanLoadScene(true);
+		scenes->Get(START_SCENE_ID)->Update(dt);
+	}
 }
 
 void Render()
@@ -279,7 +284,6 @@ void Render()
 		}
 		else
 		{
-			scenes->Get(START_SCENE_ID)->SetCanLoadScene(true);
 			scenes->Get(START_SCENE_ID)->Render();
 		}
 		spriteHandler->End();

@@ -3,7 +3,8 @@
 #include "tinyxml.h"
 #include <string>
 #include <Windows.h>
-
+#include <string>
+#include <sstream>
 using namespace std;
 
 //void main()
@@ -101,6 +102,12 @@ using namespace std;
 //	system("pause");
 //}
 
+void swap(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
 
 void main()
 {
@@ -123,10 +130,28 @@ void main()
 	//	mapObjects.SaveFile();
 	//	cout << "Tinh grid cho file thanh cong\n";
 	//}
-	bool play = PlaySound(TEXT("Level1.wav"), NULL, SND_FILENAME);
-	if (play)
-		cout << "Done";
-	else
-		cout << "none";
+
+
+	// Driver code 
+	string input = "a2vd";
+	cout << "Input string: \n";
+	cout << endl<< input;
+	for (std::string::iterator i = input.begin(); i != input.end(); ++i) {
+		if (input[*i] == '2')
+		{
+			string temp = input.substr(0, *i);
+			string temp2 = input.substr(*i + 1, input.length() - 1);
+			string temp3;
+			char c = input[*i];
+			int count = (int)input[*i];
+			for (int j = 0; j < count; j++)
+			{
+				temp3 += c;
+			}
+			input = temp + temp3 + temp2;
+		}
+	}
+	cout << endl;
+	cout << input;
 	system("pause");
 }

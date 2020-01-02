@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Objects>
+    <Grounds id="0">
+      <Ground x="0" y="210" width="446" height="1" Grid="-1" />
+      <Ground x="449" y="178" width="93" height="1" Grid="-1" />
+    </Grounds>
+  <Walls id="3">
+    <Wall x="0" y="211" width="448" height="8" Grid="-1" />
+    <Wall x="448" y="179" width="95" height="8" Grid="-1" />
+    <Wall x="513" y="64" width="30" height="60" Grid="-1" />
+    <Wall x="257" y="64" width="15" height="80" Grid="-1" />
+
+  </Walls>
+  <CheckStairs id="-3">
+    <CheckStair x="540" y="177" width="14" height="4" ny="-1" nx="1" Grid="7" />
+  </CheckStairs>
+  <Spawns id="-2">
+    <!--<Spawn x="532" y="0" name="SKELETON"
+           canRespawn="1" spawnerId="0" enemyId="14" xEnemy="0" yEnemy="0"
+           quantityEachSpawn="2" timeEachSpawn="1500" delaySpawnTime="2000"
+           width="8" height="300" Grid="-1" />-->
+  </Spawns>
+    <Detroys id="-99">
+        <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />
+        <Detroy x="0" y="0" type="1" width="0" height="0" Grid="-1" />
+    </Detroys>
+  
+</Objects>

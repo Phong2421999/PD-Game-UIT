@@ -37,7 +37,8 @@
 #include "Skeleton.h"
 #include "FinalBoss.h"
 #include "IntroGate.h"
-
+#include "Castle.h"
+#include "PressStart.h"
 
 #include "Grid.h"
 

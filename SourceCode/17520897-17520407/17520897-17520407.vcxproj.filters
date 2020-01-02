@@ -336,6 +336,12 @@
     <ClCompile Include="SoundController.cpp">
       <Filter>SoundController</Filter>
     </ClCompile>
+    <ClCompile Include="Castle.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="PressStart.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\CAnimation.h">
@@ -596,6 +602,12 @@
     <ClInclude Include="SoundController.h">
       <Filter>SoundController</Filter>
     </ClInclude>
+    <ClInclude Include="Castle.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="PressStart.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -658,6 +670,18 @@
     <Image Include="Textures\TexturesV4.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\start-game.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\caslteanimation.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\tileset-startgame.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\entrace-tileset.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures\Map1.txt">
@@ -711,6 +735,12 @@
     <Text Include="TXT\MapFinal-5.txt">
       <Filter>TXT</Filter>
     </Text>
+    <Text Include="TXT\MapStartGame.txt">
+      <Filter>TXT</Filter>
+    </Text>
+    <Text Include="TXT\Map_Intro.txt">
+      <Filter>TXT</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XML\Textures.xml">
@@ -747,6 +777,27 @@
       <Filter>XML</Filter>
     </Xml>
     <Xml Include="XML\SoundData.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final2.1_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final2.2_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final3.1_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final3.2_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final4_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\Final5_Objects.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\StartGame.xml">
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>

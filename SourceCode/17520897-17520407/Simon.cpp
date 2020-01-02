@@ -314,7 +314,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						if (health > 0)
 						{
-							state = SIMON_STATE_IDLE;
+							if (isTouchWall == false)
+								state = SIMON_STATE_IDLE;
 							isHurt = false;
 						}
 						else
