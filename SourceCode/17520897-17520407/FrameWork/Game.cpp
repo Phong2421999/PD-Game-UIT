@@ -10,6 +10,7 @@ CGame * CGame::__instance = NULL;
 */
 void CGame::Init(HWND hWnd)
 {
+	isGameStart = false;
 	isCamAutoGo = false;
 	camAutoGoDistance = 0;
 	isRenderOpenDoor = false;

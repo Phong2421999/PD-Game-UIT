@@ -1,101 +1,117 @@
 ﻿#include "CSimonKeyHandler.h"
 #include "Grid.h"
+#include "Scenes.h"
 void CSimonKeyHandler::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	if (simon->getAutoGo() == false
-		&& game->GetCamAutoGo() == false
-		&& simon->getAutoGoToStair() == false
-		&& simon->getAuToGoOutStair() == false
-		&& simon->getHurt() == false)
+	if (game->GetStartGame())
 	{
-		switch (KeyCode)
+		DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+		if (simon->getAutoGo() == false
+			&& game->GetCamAutoGo() == false
+			&& simon->getAutoGoToStair() == false
+			&& simon->getAuToGoOutStair() == false
+			&& simon->getHurt() == false)
 		{
-		case DIK_SPACE:
-			if (simon->getOnStair() == false)
+			switch (KeyCode)
 			{
-				if (simon->getCanJump()
-					&& simon->getLock() == false) // Sau 1 khoảng thời gian mới có thể nhảy
+			case DIK_SPACE:
+				if (simon->getOnStair() == false)
 				{
-					simon->SetState(SIMON_STATE_JUMP);
+					if (simon->getCanJump()
+						&& simon->getLock() == false) // Sau 1 khoảng thời gian mới có thể nhảy
+					{
+						simon->SetState(SIMON_STATE_JUMP);
+					}
 				}
-			}
-			break;
-		case DIK_ESCAPE: // reset
-			simon->SetState(SIMON_STATE_IDLE);
-			simon->SetPosition(30.0f, 0.0f);
-			simon->SetSpeed(0, 0);
-			simon->setSceneId(0);
-			break;
-		case DIK_F: //attack
-			if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
-				simon->SetState(SIMON_STATE_ATTACK);
-			break;
-		case DIK_DOWN:
-			if (simon->getCanOnStair()
-				&& simon->getStairActiveNy() < 0
-				&& simon->getCanSetStair())
-			{
-				simon->setOnStair(true);
-			}
-			else if (simon->getOnStair() == false
-				&& simon->getAuToGoOutStair() == false
-				&& simon->getAutoGoToStair() == false)
-				simon->SetState(SIMON_STATE_SIT);
-			break;
-		case DIK_F1:
-			isRenderBBox = !isRenderBBox;
-			break;
-		case DIK_F2:
-			simon->setHasSubWeapon(true);
-			simon->ChangeSubWeapon(SIMON_WEAPON::DANGER);
-			simon->setHeart(99);
-			break;
-		case DIK_F3:
-			simon->setHasSubWeapon(true);
-			simon->ChangeSubWeapon(SIMON_WEAPON::STOP_WATCH);
-			simon->setHeart(99);
-			break;
-		case DIK_F4:
-			simon->setHasSubWeapon(true);
-			simon->setUsingCross(true);
-			simon->setHeart(99);
-			break;
-		case DIK_F5:
-			simon->setHasSubWeapon(true);
-			simon->ChangeSubWeapon(SIMON_WEAPON::HOLY_WATER);
-			simon->setHeart(99);
-			break;
-		case DIK_F6:
-			simon->setHasSubWeapon(true);
-			simon->setUsingDoubleShot(true);
-			simon->setHeart(99);
-			break;
-		case DIK_F7:
-			simon->SetPosition(SCENCE_WITDH - 96, 32.0f);
-			simon->SetState(SIMON_STATE_IDLE);
-			break;
-		case DIK_1:
-			float x, y;
-			simon->GetPosition(x, y);
-			DebugOut(L"\nSimonX: %f, SimonY: %f", x, y);
-			x = CGame::GetInstance()->GetCamPos_x();
-			DebugOut(L"\ncamX: %f", x);
+				break;
+			case DIK_ESCAPE: // reset
+				simon->SetState(SIMON_STATE_IDLE);
+				simon->SetPosition(30.0f, 0.0f);
+				simon->SetSpeed(0, 0);
+				simon->setSceneId(0);
+				break;
+			case DIK_F: //attack
+				if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
+					simon->SetState(SIMON_STATE_ATTACK);
+				break;
+			case DIK_DOWN:
+				if (simon->getCanOnStair()
+					&& simon->getStairActiveNy() < 0
+					&& simon->getCanSetStair())
+				{
+					simon->setOnStair(true);
+				}
+				else if (simon->getOnStair() == false
+					&& simon->getAuToGoOutStair() == false
+					&& simon->getAutoGoToStair() == false)
+					simon->SetState(SIMON_STATE_SIT);
+				break;
+			case DIK_F1:
+				isRenderBBox = !isRenderBBox;
+				break;
+			case DIK_F2:
+				simon->setHasSubWeapon(true);
+				simon->ChangeSubWeapon(SIMON_WEAPON::DANGER);
+				simon->setHeart(99);
+				break;
+			case DIK_F3:
+				simon->setHasSubWeapon(true);
+				simon->ChangeSubWeapon(SIMON_WEAPON::STOP_WATCH);
+				simon->setHeart(99);
+				break;
+			case DIK_F4:
+				simon->setHasSubWeapon(true);
+				simon->setUsingCross(true);
+				simon->setHeart(99);
+				break;
+			case DIK_F5:
+				simon->setHasSubWeapon(true);
+				simon->ChangeSubWeapon(SIMON_WEAPON::HOLY_WATER);
+				simon->setHeart(99);
+				break;
+			case DIK_F6:
+				simon->setHasSubWeapon(true);
+				simon->setUsingDoubleShot(true);
+				simon->setHeart(99);
+				break;
+			case DIK_F7:
+				simon->SetPosition(SCENCE_WITDH - 96, 32.0f);
+				simon->SetState(SIMON_STATE_IDLE);
+				break;
+			case DIK_1:
+				float x, y;
+				simon->GetPosition(x, y);
+				DebugOut(L"\nSimonX: %f, SimonY: %f", x, y);
+				x = CGame::GetInstance()->GetCamPos_x();
+				DebugOut(L"\ncamX: %f", x);
 
-			break;
-		case DIK_2:
-			simon->SetHealth(1);
-			break;
-		case DIK_3:
-			simon->SetHealth(9999999);
-			break;
-		case DIK_4:
-			simon->SetPosition(32, 32);
-			break;
-		case DIK_N:
-			simon->setSceneId(simon->getCurrentScene()+1);
-			break;
+				break;
+			case DIK_2:
+				simon->SetHealth(1);
+				break;
+			case DIK_3:
+				simon->SetHealth(9999999);
+				break;
+			case DIK_4:
+				simon->SetPosition(32, 32);
+				break;
+			case DIK_N:
+				game->SetStartIntro(true);
+				Scenes::GetInstance()->NextScenes();
+				break;
+			}
 		}
+	}
+	else if(game->GetStartIntro() == false)
+	{
+		simon->setSceneId(-1);
+		Scenes::GetInstance()->NextScenes();
+		Scenes::GetInstance()->Get(0)->Clear();
+		Scenes::GetInstance()->Get(0)->StartLoadScene();
+		simon->nx = -1;
+		game->SetStartIntro(true);
+		simon->setAutoGo(true);
+		simon->setAutoGoDistance(150);
 	}
 }
 
@@ -144,7 +160,6 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 						simon->y -= SIMON_PULL_UP_OUT_STAIR;
 						simon->setAutoGoOutStair(true);
 						simon->setAutoGoDistance(SIMON_AUTO_GO_STAIR_DISTANCE);
-
 					}
 					else
 					{
@@ -239,12 +254,13 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 
 			}
 		}
-
 		else if (game->IsKeyDown(DIK_DOWN))
 		{
 			if (simon->getCanOnStair()
 				&& simon->getStairActiveNy() < 0
 				&& simon->getCanSetStair()
+				&& simon->getOnGround()
+				&& simon->getAuToGoOutStair() == false
 				&& simon->getOnGround())
 			{
 				simon->setOnStair(true);
@@ -260,7 +276,6 @@ void CSimonKeyHandler::KeyState(BYTE *states)
 				simon->SetState(SIMON_STATE_SIT);
 			}
 		}
-
 		else if (simon->GetState() != SIMON_STATE_SIT
 			&& simon->GetState() != SIMON_STATE_JUMP
 			&& simon->GetState() != SIMON_STATE_ATTACK)

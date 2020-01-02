@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Objects>
+  <Sounds>
+    <Sound soundId="0" soundPath="SoundTrack//Game_Start_Prologue.wav"/>
+    <Sound soundId="1" soundPath="SoundTrack//Stage_01_Vampire_Killer.wav"/>
+    <Sound soundId="2" soundPath="SoundTrack//Life_Lost.wav"/>
+    <Sound soundId="3" soundPath="SoundTrack//Stage_01_Vampire_Killer.wav"/>
+
+    <Sound soundId="100" soundPath="SoundEffects//usingwhip.wav"/>
+  </Sounds>
+</Objects>

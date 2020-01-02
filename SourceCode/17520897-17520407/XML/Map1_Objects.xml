@@ -11,7 +11,7 @@
         <LargeCandle x="600" y="168" width="16" height="30" itemId="2" name="DANGER" Grid="7" />
     </LargeCandles>
     <ChangeScenes id="-1">
-        <ChangeScene x="675" y="168" sceneId="1" simonAutoGo="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="25" height="30" 
+        <ChangeScene x="675" y="168" sceneId="2" simonAutoGo="1" simonNx="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="25" height="30" 
          simonStartPosX="32" simonStartPosY="180" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="8" />
     </ChangeScenes>
   <Spawns id="-2">

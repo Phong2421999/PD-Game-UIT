@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Objects>
     <Grounds id="0">
-      <Ground x="514" y="178" width="152" height="1" Grid="-1" />
+      <Ground x="-198" y="178" width="100000" height="1" Grid="-1" />
       <Ground x="707" y="146" width="62" height="1" Grid="-1" />
     </Grounds>
   <Walls id="3">

@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -85,7 +85,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dinput8.lib;dxguid.lib;d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;d3d9.lib;d3dx9.lib;winspool.lib;comdlg32.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,14 +150,18 @@
     <ClCompile Include="Cross.cpp" />
     <ClCompile Include="CSplash.cpp" />
     <ClCompile Include="DoubleShot.cpp" />
+    <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="FinalBoss.cpp" />
+    <ClCompile Include="FinalBossTransform.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="IntroGate.cpp" />
     <ClCompile Include="InvicibilityPotion.cpp" />
     <ClCompile Include="LockSimon.cpp" />
     <ClCompile Include="MagicCrystal.cpp" />
     <ClCompile Include="Monkey.cpp" />
     <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="SoundController.cpp" />
     <ClCompile Include="WeaponProjectile.cpp" />
     <ClCompile Include="CSimonKeyHandler.cpp" />
     <ClCompile Include="CSpawn.cpp" />
@@ -233,14 +237,18 @@
     <ClInclude Include="Cross.h" />
     <ClInclude Include="CSplash.h" />
     <ClInclude Include="DoubleShot.h" />
+    <ClInclude Include="dsutil.h" />
     <ClInclude Include="FinalBoss.h" />
+    <ClInclude Include="FinalBossTranform.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="IntroGate.h" />
     <ClInclude Include="InvicibilityPotion.h" />
     <ClInclude Include="LockSimon.h" />
     <ClInclude Include="MagicCrystal.h" />
     <ClInclude Include="Monkey.h" />
     <ClInclude Include="PotRoast.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SoundController.h" />
     <ClInclude Include="WeaponProjectile.h" />
     <ClInclude Include="CSimonKeyHandler.h" />
     <ClInclude Include="CSpawn.h" />
@@ -339,6 +347,9 @@
     <Xml Include="XML\Final1_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="XML\Intro.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Map-2_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
@@ -363,12 +374,56 @@
     <Xml Include="XML\Scenes.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="XML\SoundData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Textures.xml">
       <SubType>Designer</SubType>
     </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="WeaponEnemies.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="SoundEffects\05-getscoreheart.wav" />
+    <Media Include="SoundEffects\08-boomerang.wav" />
+    <Media Include="SoundEffects\Axe.wav" />
+    <Media Include="SoundEffects\broken_brick.wav" />
+    <Media Include="SoundEffects\collectitem.wav" />
+    <Media Include="SoundEffects\collectweapon.wav" />
+    <Media Include="SoundEffects\decreaseweaponusepoint.wav" />
+    <Media Include="SoundEffects\display_monney.wav" />
+    <Media Include="SoundEffects\fallcastle.wav" />
+    <Media Include="SoundEffects\falling.wav" />
+    <Media Include="SoundEffects\fallingdownwatersurface.wav" />
+    <Media Include="SoundEffects\getscoreheart-[AudioTrimmer.com].wav" />
+    <Media Include="SoundEffects\getscoreheart.wav" />
+    <Media Include="SoundEffects\getscoretime.wav" />
+    <Media Include="SoundEffects\getscoreweapon.wav" />
+    <Media Include="SoundEffects\hit.wav" />
+    <Media Include="SoundEffects\hitcannon.wav" />
+    <Media Include="SoundEffects\holycross.wav" />
+    <Media Include="SoundEffects\holywater.wav" />
+    <Media Include="SoundEffects\hurting.wav" />
+    <Media Include="SoundEffects\InvisibilityPotion_Begin.wav" />
+    <Media Include="SoundEffects\InvisibilityPotion_End.wav" />
+    <Media Include="SoundEffects\opendoor.wav" />
+    <Media Include="SoundEffects\pause.wav" />
+    <Media Include="SoundEffects\select.wav" />
+    <Media Include="SoundEffects\splashwater.wav" />
+    <Media Include="SoundEffects\stoptimer.wav" />
+    <Media Include="SoundEffects\StopWatch.wav" />
+    <Media Include="SoundEffects\usingdagger.wav" />
+    <Media Include="SoundEffects\usingwhip.wav" />
+    <Media Include="SoundTrack\Boss_Battle_Poison_Mind.wav" />
+    <Media Include="SoundTrack\End_Game.wav" />
+    <Media Include="SoundTrack\Game_Over.wav" />
+    <Media Include="SoundTrack\Game_Start_Prologue.wav" />
+    <Media Include="SoundTrack\Life_Lost.wav" />
+    <Media Include="SoundTrack\Stage_01_Vampire_Killer.wav" />
+    <Media Include="SoundTrack\Stage_04_Stalker.wav" />
+    <Media Include="SoundTrack\Stage_Clear.wav" />
+    <Media Include="SoundTrack\Title_Theme_Prelude.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

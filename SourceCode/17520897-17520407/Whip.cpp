@@ -1,5 +1,5 @@
 #include "Whip.h"
-
+#include "SoundController.h"
 Whip::Whip(float x, float y, int nx, int level)
 {
 	SetSpeed(WHIP_SPEED_X, WHIP_SPEED_Y);
@@ -14,6 +14,7 @@ Whip::Whip(float x, float y, int nx, int level)
 	this->AddAnimation(WHIP_ANI_LEVEL_3);
 	isTouchHiddenWall = false;
 	isTouchEnemy = false;
+	SoundController::Play(100);
 }
 
 void Whip::Render()

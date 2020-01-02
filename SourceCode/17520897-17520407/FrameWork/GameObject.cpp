@@ -158,6 +158,11 @@ bool CGameObject::checkAABBTouch(LPGAMEOBJECT gameObject) // kiá»ƒm tra bbox cá»
 	return CGame::GetInstance()->checkAABBTouch(left, top, right, bottom, checkLeft, checkTop, checkRight, checkBottom);
 }
 
+void CGameObject::Damage(int damage)
+{
+	this->health -= damage;
+}
+
 CGameObject::~CGameObject()
 {
 }

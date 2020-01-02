@@ -201,7 +201,10 @@
       <sprite id="10090" left="360" top="382" right="438" bottom="412" frameTime="100"/>
       <sprite id="10091" left="360" top="161" right="438" bottom="191" frameTime="100"/>
     </Animation>
-  
+    <!--Animation Into Gate-->
+    <Animation aniId="400" frameTime="100" name="IDLE">
+      <sprite id="9999" left="279" top="22" right="311" bottom="64" frameTime="100"/>
+    </Animation>
   </Texture>
   
              <!--Texture Item-->
@@ -580,6 +583,11 @@
     <Animation aniId="3006" frameTime="100" name="FINAL_BOSS_TRANSFORM_JUMP">
       <sprite id="3009" left="172" top="248" right="222" bottom="331" frameTime="125"/>
       <sprite id="3010" left="230" top="248" right="280" bottom="331" frameTime="125"/>
+    </Animation>
+  </Texture>
+  <Texture textureId ="2">
+    <Animation aniId="300531" frameTime="100" name="FINAL_BOSS_TRANSFROM_EFFECTS">
+      <sprite id="30101" left="134" top="112" right="146" bottom="138" frameTime="138"/>
     </Animation>
   </Texture>
   

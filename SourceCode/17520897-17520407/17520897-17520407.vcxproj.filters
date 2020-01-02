@@ -70,6 +70,15 @@
     <Filter Include="GameObject\WeaponEnemies">
       <UniqueIdentifier>{64fb2bec-3589-4418-955c-8b7798fff0d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoundTrack">
+      <UniqueIdentifier>{6cafd4fe-a851-475f-829e-43ac3ab697da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SoundEffects">
+      <UniqueIdentifier>{67e82bb3-462d-4e41-8ca4-227281a1fe24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SoundController">
+      <UniqueIdentifier>{f09beeec-0358-46e0-a42d-872eec2aac30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -314,6 +323,18 @@
     </ClCompile>
     <ClCompile Include="FinalBoss.cpp">
       <Filter>GameObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalBossTransform.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroGate.cpp">
+      <Filter>GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>SoundController</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundController.cpp">
+      <Filter>SoundController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,6 +584,18 @@
     <ClInclude Include="FinalBoss.h">
       <Filter>GameObject\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="FinalBossTranform.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroGate.h">
+      <Filter>GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="dsutil.h">
+      <Filter>SoundController</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundController.h">
+      <Filter>SoundController</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\bbox.png">
@@ -710,10 +743,135 @@
     <Xml Include="XML\Final1_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
+    <Xml Include="XML\Intro.xml">
+      <Filter>XML</Filter>
+    </Xml>
+    <Xml Include="XML\SoundData.xml">
+      <Filter>XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="WeaponEnemies.h">
       <Filter>GameObject\WeaponEnemies</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="SoundTrack\Boss_Battle_Poison_Mind.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\End_Game.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Game_Over.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Game_Start_Prologue.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Life_Lost.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Stage_01_Vampire_Killer.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Stage_04_Stalker.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Stage_Clear.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Title_Theme_Prelude.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundEffects\05-getscoreheart.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\08-boomerang.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\Axe.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\broken_brick.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\collectitem.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\collectweapon.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\decreaseweaponusepoint.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\display_monney.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\fallcastle.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\falling.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\fallingdownwatersurface.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\getscoreheart.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\getscoreheart-[AudioTrimmer.com].wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\getscoretime.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\getscoreweapon.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\hit.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\hitcannon.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\holycross.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\holywater.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\hurting.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\InvisibilityPotion_Begin.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\InvisibilityPotion_End.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\opendoor.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\pause.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\select.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\splashwater.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\stoptimer.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\StopWatch.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\usingdagger.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\usingwhip.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
   </ItemGroup>
 </Project>

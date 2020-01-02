@@ -61,7 +61,9 @@
         <Object x="1498" y="117" width="35" height="13" Grid="18" />
     </Walls>
     <ChangeSceneObjects id="-1">
-        <ChangeScene x="1530" y="65" sceneId="2" simonAutoGo="0" simonAutoGoDistance="68" camAutoGo="1" isDoor="1" width="8" height="50" simonStartPosX="32" simonStartPosY="85" isLoadBlackScene="0" timeLoadBlackScene="0" Grid="18" />
+        <ChangeScene x="1530" y="65" sceneId="3" simonAutoGo="0" simonAutoGoDistance="68" 
+                     camAutoGo="1" isDoor="1" width="8" height="50" simonStartPosX="32" simonNx="1"
+                     simonStartPosY="85" isLoadBlackScene="0" timeLoadBlackScene="0" Grid="18" />
     </ChangeSceneObjects>
     <Spawns id="-2">
         <Spawn x="84" y="0" name="GHOST" canRespawn="1" spawnerId="0" enemyId="0" xEnemy="0" yEnemy="0" quantityEachSpawn="3" timeEachSpawn="1500" delaySpawnTime="2000" width="8" height="300" Grid="1" />
@@ -81,8 +83,8 @@
     </Spawns>
     <CheckStairs id="-3">
         <CheckStair x="614" y="208" width="14" height="4" ny="1" nx="1" Grid="7" />
-        <CheckStair x="675" y="144" width="14" height="4" ny="-1" nx="-1" Grid="8" />
-        <CheckStair x="711" y="144" width="14" height="4" ny="1" nx="1" Grid="8" />
+        <CheckStair x="675" y="143" width="14" height="4" ny="-1" nx="-1" Grid="8" />
+        <CheckStair x="711" y="143" width="14" height="4" ny="1" nx="1" Grid="8" />
         <CheckStair x="740" y="113" width="14" height="4" ny="-1" nx="-1" Grid="8" />
         <CheckStair x="937" y="143" width="14" height="4" ny="1" nx="-1" Grid="11" />
         <CheckStair x="908" y="112" width="14" height="4" ny="-1" nx="1" Grid="10" />

@@ -16,6 +16,7 @@ private:
 	bool isCanRender;
 	bool isDoor;
 
+	int simonNx;
 	int aniId;
 
 	CSimon* simon;
@@ -39,6 +40,7 @@ public:
 		simonStartPosY = 0;
 		isLoadBlackScene = false;
 		timeLoadBlackScene = 0;
+		simonNx = 1;
 	}
 	void SetLoadBlackScene(bool b)
 	{
@@ -84,6 +86,10 @@ public:
 		top = y;
 		right = x + width;
 		bottom = y + height;
+	}
+	void SetSimonNx(int nx)
+	{
+		this->simonNx = nx;
 	}
 	bool GetLoadBlackScene()
 	{

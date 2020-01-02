@@ -26,6 +26,7 @@ FinalBoss::FinalBoss() {
 	damageCount = 0;
 	isHightJump = false;
 	isJump = true;
+	isStartTranform = false;
 }
 void FinalBoss::Render() {
 
@@ -44,24 +45,27 @@ void FinalBoss::Render() {
 			bodyAni = FINAL_BOSS_ANI_BODY_ATTACK_INDEX;
 			break;
 		}
-		float xBody;
-		if (nx > 0)
-			xBody = x - OFFSET_FOR_BODY_FLIP_X;
-		else
-			xBody = x - OFFSET_FOR_BODY_X;
+		if (isStartTranform == false)
+		{
+			if (nx > 0)
+				xBody = x - OFFSET_FOR_BODY_FLIP_X;
+			else
+				xBody = x - OFFSET_FOR_BODY_X;
+			yBody = y;
+		}
 		if (isInvisiable == false)
 		{
 			if (this->nx < 0)
 			{
 				if (isHasBody)
-					animations[bodyAni]->Render(xBody, y);
+					animations[bodyAni]->Render(xBody, yBody);
 				if (isHasFace)
 					animations[ani]->Render(x, y);
 			}
 			else
 			{
 				if (isHasBody)
-					animations[bodyAni]->RenderFlipX(xBody, y, FLIP_OFFSET_FOR_BODY);
+					animations[bodyAni]->RenderFlipX(xBody, yBody, FLIP_OFFSET_FOR_BODY);
 				if (isHasFace)
 					animations[ani]->RenderFlipX(x, y, FLIP_OFFSET_FOR_HEAD);
 			}
@@ -70,20 +74,24 @@ void FinalBoss::Render() {
 	}
 	else
 	{
-		switch (state)
+		if (isShot)
 		{
-		case CHAOS_BOSS_STATE_IDLE:
-			ani = FINAL_BOSS_ANI_CHAOS_IDLE_INDEX;
-			break;
-		case CHAOS_BOSS_STATE_START_ATTACK:
-			if (isShot)
-				ani = FINAL_BOSS_ANI_CHAOS_IDLE_INDEX;
-			else
-				ani = FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX;
-			break;
-		case CHAOS_BOSS_STATE_ATTACK:
 			ani = FINAL_BOSS_ANI_CHAOS_ATTACK_INDEX;
-			break;
+		}
+		else
+		{
+			switch (state)
+			{
+			case CHAOS_BOSS_STATE_IDLE:
+				ani = FINAL_BOSS_ANI_CHAOS_IDLE_INDEX;
+				break;
+			case CHAOS_BOSS_STATE_START_ATTACK:
+				ani = FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX;
+				break;
+			case CHAOS_BOSS_STATE_ATTACK:
+				ani = FINAL_BOSS_ANI_CHAOS_ATTACK_INDEX;
+				break;
+			}
 		}
 		if (this->nx < 0)
 			animations[ani]->Render(x, y);
@@ -96,6 +104,13 @@ void FinalBoss::Render() {
 		if (weapons[i] != NULL)
 		{
 			weapons[i]->Render();
+		}
+	}
+	for (int i = 0; i < transformEffects.size(); i++)
+	{
+		if (transformEffects[i] != NULL)
+		{
+			transformEffects[i]->Render();
 		}
 	}
 }
@@ -122,24 +137,27 @@ void FinalBoss::RenderCurrentFrame() {
 			bodyAni = FINAL_BOSS_ANI_BODY_ATTACK_INDEX;
 			break;
 		}
-		float xBody;
-		if (nx > 0)
-			xBody = x - OFFSET_FOR_BODY_FLIP_X;
-		else
-			xBody = x - OFFSET_FOR_BODY_X;
+		if (isStartTranform == false)
+		{
+			if (nx > 0)
+				xBody = x - OFFSET_FOR_BODY_FLIP_X;
+			else
+				xBody = x - OFFSET_FOR_BODY_X;
+			yBody = y;
+		}
 		if (isInvisiable == false)
 		{
 			if (this->nx < 0)
 			{
 				if (isHasBody)
-					animations[bodyAni]->RenderCurrentFrame(xBody, y);
+					animations[bodyAni]->RenderCurrentFrame(xBody, yBody);
 				if (isHasFace)
 					animations[ani]->RenderCurrentFrame(x, y);
 			}
 			else
 			{
 				if (isHasBody)
-					animations[bodyAni]->RenderCurrentFrameFlipX(xBody, y, FLIP_OFFSET_FOR_BODY);
+					animations[bodyAni]->RenderCurrentFrameFlipX(xBody, yBody, FLIP_OFFSET_FOR_BODY);
 				if (isHasFace)
 					animations[ani]->RenderCurrentFrameFlipX(x, y, FLIP_OFFSET_FOR_HEAD);
 			}
@@ -178,16 +196,26 @@ void FinalBoss::Damage(int damage)
 			health -= damage;
 			if (this->health <= 0)
 			{
-				DebugOut(L"\nChangeMode");
 				health = FINAL_BOSS_MAX_HEATH;
-				mode = FINAL_BOSS_CHAOS_MODE;
-				isHasBody = false;
+				isHasBody = true;
 				isInvisiable = false;
 				isHasFace = true;
 				width = CHAOS_BOSS_BB_WIDTH;
 				height = CHAOS_BOSS_BB_HEIGHT;
-				y -= PULL_UP_CHAOS_BOSS;
+				yBody = y;
+				if (nx > 0)
+				{
+					vx = -vx;
+					xBody = x - OFFSET_FOR_BODY_FLIP_X;
+				}
+				else
+				{
+					xBody = x - OFFSET_FOR_BODY_X;
+				}
+				vy = 0;
 				lastTimeAttack = GetTickCount();
+				lastTransformTime = GetTickCount();
+				isStartTranform = true;
 			}
 			else
 				isHasFace = false;
@@ -255,77 +283,106 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	}
 	if (mode == FINAL_BOSS_NOMAL_MODE)
 	{
-		switch (state)
+		if (isStartTranform)
 		{
-		case FINAL_BOSS_STATE_START:
-			if (y <= yTarget)
+			x += dx;
+			y += dy;
+			vy -= FINAL_BOSS_TRANSFORM_EFFECTS_VELOCITY_PLUS;
+			vx = vx + -nx * FINAL_BOSS_TRANSFORM_EFFECTS_VELOCITY_PLUS;
+			if (now - lastTransformTime > 500)
 			{
-				y = yTarget;
-				isHasBody = true;
-				state = FINAL_BOSS_STATE_START_ATTACK;
-				lastTimeAttack = GetTickCount();
-			}
-			else
-			{
-				y += dy;
-				lockCameraX = CGame::GetInstance()->GetCamPos_x();
-				isLockCamX = true;
-			}
-			break;
-		case FINAL_BOSS_STATE_START_ATTACK:
-			if (isInvisiable)
-			{
-				if (now - lastTimeInvisiable > FINAL_BOSS_INVISIABLE_DELAY)
+				mode = FINAL_BOSS_CHAOS_MODE;
+				lastTransformTime = GetTickCount();
+				x = xBody;
+				y = yBody;
+				y -= PULL_UP_CHAOS_BOSS;
+				for (int i = 0; i < FINAL_BOSS_TRANSFORM_EFFECTS_COUNT; i++)
 				{
-					isInvisiable = false;
+					FinalBossTransform* effect = new FinalBossTransform();
+					effect->SetPosition(x, y);
+					effect->SetPosition(x + CHAOS_BOSS_BB_WIDTH / 2, y + CHAOS_BOSS_BB_HEIGHT / 2);
+					effect->SetPlusVelocity(FINAL_BOSS_TRANSFORM_EFFECTS_VELOCITY_PLUS, FINAL_BOSS_TRANSFORM_EFFECTS_VELOCITY_PLUS);
+					effect->SetEffectType(i);
+					transformEffects.push_back(effect);
+
+				}
+			}
+
+		}
+		else
+		{
+			switch (state)
+			{
+			case FINAL_BOSS_STATE_START:
+				if (y <= yTarget)
+				{
+					y = yTarget;
+					isHasBody = true;
+					state = FINAL_BOSS_STATE_START_ATTACK;
 					lastTimeAttack = GetTickCount();
-					isHasFace = true;
-					if (isFirstAttack == false)
+				}
+				else
+				{
+					y += dy;
+					lockCameraX = CGame::GetInstance()->GetCamPos_x();
+					isLockCamX = true;
+				}
+				break;
+			case FINAL_BOSS_STATE_START_ATTACK:
+				if (isInvisiable)
+				{
+					if (now - lastTimeInvisiable > FINAL_BOSS_INVISIABLE_DELAY)
 					{
-						if ((sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH / 2) > (lockCameraX + SCREEN_WIDTH) / 2)
+						isInvisiable = false;
+						lastTimeAttack = GetTickCount();
+						isHasFace = true;
+						if (isFirstAttack == false)
 						{
-							nx = 1;
-							int maxRand = (lockCameraX + SCREEN_WIDTH) / 2 - FINAL_BOSS_MIN_START_ATTACK_OFFSET;
-							int minRand = (lockCameraX + FINAL_BOSS_MIN_START_ATTACK_OFFSET);
-							float random = rand() % maxRand + minRand;
-							x = random;
-						}
-						else
-						{
-							nx = -1;
-							int minRand = (lockCameraX + SCREEN_WIDTH) / 2;
-							int maxRand = (lockCameraX + SCREEN_WIDTH - FINAL_BOSS_MAX_START_ATTACK_OFFSET);
-							float random = rand() % maxRand + minRand;
-							x = random;
+							if ((sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH / 2) > (lockCameraX + SCREEN_WIDTH) / 2)
+							{
+								nx = 1;
+								int maxRand = (lockCameraX + SCREEN_WIDTH) / 2 - FINAL_BOSS_MIN_START_ATTACK_OFFSET;
+								int minRand = (lockCameraX + FINAL_BOSS_MIN_START_ATTACK_OFFSET);
+								float random = rand() % maxRand + minRand;
+								x = random;
+							}
+							else
+							{
+								nx = -1;
+								int minRand = (lockCameraX + SCREEN_WIDTH) / 2;
+								int maxRand = (lockCameraX + SCREEN_WIDTH - FINAL_BOSS_MAX_START_ATTACK_OFFSET);
+								float random = rand() % maxRand + minRand;
+								x = random;
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				isActive = true;
-				if (now - lastTimeAttack > FINAL_BOSS_START_ATTACK_DELAY)
+				else
 				{
-					state = FINAL_BOSS_STATE_ATTACK;
-					lastTimeAttack = GetTickCount();
-					isStartAttack = true;
+					isActive = true;
+					if (now - lastTimeAttack > FINAL_BOSS_START_ATTACK_DELAY)
+					{
+						state = FINAL_BOSS_STATE_ATTACK;
+						lastTimeAttack = GetTickCount();
+						isStartAttack = true;
+					}
 				}
+				break;
+			case FINAL_BOSS_STATE_ATTACK:
+				if (isStartAttack)
+				{
+					MakeWeapon();
+					isStartAttack = false;
+				}
+				isFirstAttack = false;
+				if (now - lastTimeAttack > FINAL_BOSS_ATTACK_DELAY)
+				{
+					state = FINAL_BOSS_STATE_START_ATTACK;
+					lastTimeInvisiable = GetTickCount();
+					isInvisiable = true;
+				}
+				break;
 			}
-			break;
-		case FINAL_BOSS_STATE_ATTACK:
-			if (isStartAttack)
-			{
-				MakeWeapon();
-				isStartAttack = false;
-			}
-			isFirstAttack = false;
-			if (now - lastTimeAttack > FINAL_BOSS_ATTACK_DELAY)
-			{
-				state = FINAL_BOSS_STATE_START_ATTACK;
-				lastTimeInvisiable = GetTickCount();
-				isInvisiable = true;
-			}
-			break;
 		}
 	}
 	else
@@ -348,108 +405,131 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			nx = -1;
 		else
 			nx = 1;
-		if (isLock)
+		if (isStartTranform)
 		{
-			state = CHAOS_BOSS_STATE_IDLE;
+			vy = 0;
 			vx = 0;
-			if (now - lastLockTime > CHAOS_BOSS_LOCK_TIME)
+			for (int i = 0; i < transformEffects.size(); i++)
 			{
-				isLock = false;
+				transformEffects[i]->Update(dt);
+			}
+			state = CHAOS_BOSS_STATE_ATTACK;
+			if (now - lastTransformTime >= FINAL_BOSS_TRANSFORM_EFFECTS_TIME)
+			{
+				isStartTranform = false;
+				lastTimeAttack = GetTickCount();
+				transformEffects.clear();
 			}
 		}
 		else
 		{
-			isLock = false;
-			switch (state)
+
+			if (isLock)
 			{
-			case CHAOS_BOSS_STATE_IDLE:
+				state = CHAOS_BOSS_STATE_IDLE;
 				vx = 0;
-				isAttack = false;
-				if (now - lastTimeAttack > CHAOS_BOSS_START_ATTACK_DELAY)
+				if (now - lastLockTime > CHAOS_BOSS_LOCK_TIME)
 				{
-					state = CHAOS_BOSS_STATE_START_ATTACK;
+					isLock = false;
 				}
-				break;
-			case CHAOS_BOSS_STATE_START_ATTACK:
-				if (abs(sx - x) >= CHAO_BOSS_SHOT_SIMON_DISTANCE)
+			}
+			else
+			{
+				isLock = false;
+				switch (state)
 				{
-					isShot = true;
-					isHightJump = false;
+				case CHAOS_BOSS_STATE_IDLE:
+					vx = 0;
+					isAttack = false;
 					isJump = false;
-				}
-				else
-					isJump = true;
-				if (animations[ani]->getLastFrame()
-					&& isAttack == false)
-				{
+					if (now - lastTimeAttack >= CHAOS_BOSS_START_ATTACK_DELAY)
+					{
+						state = CHAOS_BOSS_STATE_START_ATTACK;
+					}
+					break;
+				case CHAOS_BOSS_STATE_START_ATTACK:
+					if (abs(sx - x) >= CHAO_BOSS_SHOT_SIMON_DISTANCE)
+					{
+						isShot = true;
+						isHightJump = false;
+					}
 					if (isShot)
 					{
 						MakeWeapon();
 						vx = 0;
+						lastTimeAttack = GetTickCount();
+						state = CHAOS_BOSS_STATE_ATTACK;
+						animations[FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX]->reset();
+
 					}
-					else {
-						if (isHightJump)
-							vy = -CHAOS_BOSS_HIGHT_JUMP_VY;
-						else
-							vy = -CHAOS_BOSS_SHORT_JUMP_VY;
-						vx = (abs(x - (sx + SIMON_OFFSET_TO_BBOX_X)) / dt) / TIME_TO_TOUCH_SIMON_VX;
-					}
-					if (sx < x)
-						vx = -vx;
-					lastTimeAttack = GetTickCount();
-					animations[FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX]->reset();
-					state = CHAOS_BOSS_STATE_ATTACK;
-				}
-				break;
-			case CHAOS_BOSS_STATE_ATTACK:
-				if (isShot)
-				{
-					if (now - lastTimeAttack > CHAOS_BOSS_SHOT_DELAY)
+					else
 					{
-						isShot = false;
-						state = CHAOS_BOSS_STATE_IDLE;
+						if (animations[FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX]->getLastFrame()
+							&& isAttack == false)
+						{
+							animations[FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX]->reset();
+							if (isHightJump)
+								vy = -CHAOS_BOSS_HIGHT_JUMP_VY;
+							else
+								vy = -CHAOS_BOSS_SHORT_JUMP_VY;
+							vx = (abs(x - (sx + SIMON_OFFSET_TO_BBOX_X)) / dt) / TIME_TO_TOUCH_SIMON_VX;
+							if (sx < x)
+								vx = -vx;
+							lastTimeAttack = GetTickCount();
+							state = CHAOS_BOSS_STATE_ATTACK;
+						}
+					}
+
+					break;
+				case CHAOS_BOSS_STATE_ATTACK:
+					if (isShot)
+					{
+						if (now - lastTimeAttack > CHAOS_BOSS_SHOT_DELAY)
+						{
+							isShot = false;
+							state = CHAOS_BOSS_STATE_IDLE;
+							lastTimeAttack = GetTickCount();
+						}
+					}
+					else
+					{
+						isJump = true;
 						lastTimeAttack = GetTickCount();
 					}
+					isAttack = true;
+					break;
+				}
+				vector<LPCOLLISIONEVENT> coEvents;
+				vector<LPCOLLISIONEVENT> coEventsResult;
+				coEvents.clear();
+				CalcPotentialCollisions(coObjects, coEvents);
+				// No collision occured, proceed normally
+				if (coEvents.size() == 0)
+				{
+					x += dx;
+					y += dy;
 				}
 				else
 				{
-					lastTimeAttack = GetTickCount();
-				}
-				isAttack = true;
-				break;
-			}
-			vector<LPCOLLISIONEVENT> coEvents;
-			vector<LPCOLLISIONEVENT> coEventsResult;
-			coEvents.clear();
-			CalcPotentialCollisions(coObjects, coEvents);
-			// No collision occured, proceed normally
-			if (coEvents.size() == 0)
-			{
-				x += dx;
-				y += dy;
-			}
-			else
-			{
-				float min_tx, min_ty, nx = 0, ny;
-				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-				x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
-				y += min_ty * dy + ny * 0.4f;
-				if (nx != 0) vx = 0;
-				for (UINT i = 0; i < coEventsResult.size(); i++)
-				{
-					LPCOLLISIONEVENT e = coEventsResult[i];
-					if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
+					float min_tx, min_ty, nx = 0, ny;
+					FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+					x += min_tx * dx + nx * 0.4f;	// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					y += min_ty * dy + ny * 0.4f;
+					if (nx != 0) vx = 0;
+					for (UINT i = 0; i < coEventsResult.size(); i++)
 					{
-						if (isAttack && isJump && isShot == false)
+						LPCOLLISIONEVENT e = coEventsResult[i];
+						if (dynamic_cast<CGround *>(e->obj))// if e->obj is Goomba 
 						{
-							isAttack = false;
-							isJump = false;
-							state = CHAOS_BOSS_STATE_IDLE;
+							if (isAttack && isJump && isShot == false)
+							{
+								state = CHAOS_BOSS_STATE_IDLE;
+							}
 						}
 					}
 				}
+				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 			}
-			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
 	}
 	if (checkAABBTouch(simon))
@@ -458,7 +538,7 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 	}
 }
 void FinalBoss::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
-	if (isHasFace && isInvisiable == false)
+	if (isHasFace && isInvisiable == false && isStartTranform == false)
 	{
 		left = x;
 		top = y;

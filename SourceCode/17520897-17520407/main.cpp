@@ -26,9 +26,13 @@
 
 #include "CMap.h"
 #include "Scenes.h"
+#include <mmsystem.h>
+#include <mciapi.h>
 
+#include "SoundController.h"
 
-
+#define START_SCENE_ID -99
+#define INTRO_SCENE_ID -1
 
 CGame *game;
 
@@ -60,6 +64,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 void LoadResources()
 {
+	SoundController::LoadResources("XML\\SoundData.xml");
 	CTextures * textures = CTextures::GetInstance();
 	//Lấy các file để load textures
 	ifstream fileTextures("TXT\\TexturesFile.txt", ios::in);
@@ -73,7 +78,7 @@ void LoadResources()
 	}
 
 	//Load tất cả map
-	TiXmlDocument mapXML("XML/Maps.xml");
+	TiXmlDocument mapXML("XML//Maps.xml");
 	if (!mapXML.LoadFile())
 	{
 		DebugOut(L"Can't read XMLMAP file");
@@ -181,7 +186,7 @@ void LoadResources()
 
 	for (sceneXMLElem = rootScenes->FirstChildElement(); sceneXMLElem != NULL; sceneXMLElem = sceneXMLElem->NextSiblingElement())
 	{
-		int sceneId, sceneWidthEachMap, mapId, isLoadBlackScene, timeLoadBlackScene, stage, resetSceneId;
+		int sceneId, sceneWidthEachMap, simonNx,  mapId, isLoadBlackScene, timeLoadBlackScene, stage, resetSceneId;
 		float simonStartX, simonStartY;
 		string sceneGameObjectPath;
 		sceneXMLElem->QueryIntAttribute("sceneId", &sceneId);
@@ -193,15 +198,16 @@ void LoadResources()
 		sceneXMLElem->QueryIntAttribute("resetSceneId", &resetSceneId);
 		sceneXMLElem->QueryFloatAttribute("simonStartX", &simonStartX);
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
+		sceneXMLElem->QueryIntAttribute("simonNx", &simonNx);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
 		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId);
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
-		scenes->AddSceneData(sceneId, resetSceneId, simonStartX, simonStartY);
-		if (sceneId == 0) //Set vị trí ban đầu cho màn đi vào lâu đài
+		scenes->AddSceneData(sceneId, resetSceneId, simonStartX, simonStartY, simonNx);
+		if (sceneId == START_SCENE_ID)
 		{
-			Scenes::GetInstance()->SetSimonStartPos(simonStartX, simonStartY);
-			scene->StartLoadScene();
+			Scenes::GetInstance()->Get(START_SCENE_ID)->StartLoadScene();
+			Scenes::GetInstance()->Get(START_SCENE_ID)->SetCanLoadScene(true);
 		}
 	}
 	
@@ -209,42 +215,45 @@ void LoadResources()
 
 void Update(DWORD dt)
 {
-	if (simon->getDeath())
+	if (game->GetStartGame() || game->GetStartIntro())
 	{
-		if (simon->getLive() > 0)
+		if (simon->getDeath())
 		{
-			DWORD now = GetTickCount();
-			if (now - simon->getDeathTime() > 1000)
+			if (simon->getLive() > 0)
 			{
-				sceneId = simon->getCurrentScene();
-				scenes->ResetScene(sceneId);
+				DWORD now = GetTickCount();
+				if (now - simon->getDeathTime() > 1000)
+				{
+					sceneId = simon->getCurrentScene();
+					scenes->ResetScene(sceneId);
+				}
+				else
+				{
+					scenes->Get(sceneId)->Update(dt);
+				}
+			}
+			else
+				DebugOut(L"\nScene Choi Lai");
+		}
+		else
+		{
+			sceneId = simon->getCurrentScene();
+			if (simon->getAutoGo() || game->GetCamAutoGo())
+			{
+				sceneId = lastSceneId;
 			}
 			else
 			{
-				scenes->Get(sceneId)->Update(dt);
+				if (lastSceneId != sceneId)
+				{
+					scenes->Get(lastSceneId)->Clear();
+					scenes->Get(sceneId)->Clear();
+					scenes->Get(sceneId)->StartLoadScene();
+					lastSceneId = sceneId;
+				}
 			}
+			scenes->Get(sceneId)->Update(dt);
 		}
-		else
-			DebugOut(L"\nScene Choi Lai");
-	}
-	else
-	{
-		sceneId = simon->getCurrentScene();
-		if (simon->getAutoGo() || game->GetCamAutoGo())
-		{
-			sceneId = lastSceneId;
-		}
-		else
-		{
-			if (lastSceneId != sceneId)
-			{
-				scenes->Get(lastSceneId)->Clear();
-				scenes->Get(sceneId)->Clear();
-				scenes->Get(sceneId)->StartLoadScene();
-				lastSceneId = sceneId;
-			}
-		}
-		scenes->Get(sceneId)->Update(dt);
 	}
 }
 
@@ -260,11 +269,17 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, backGroundColor);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
-		if (simon->getLive() > 0)
-			scenes->Get(sceneId)->Render();
-		else
-			DebugOut(L"\nRender Scene choi lai");
+		if (game->GetStartGame() || game->GetStartIntro())
+		{
+			if (simon->getLive() > 0)
+				scenes->Get(sceneId)->Render();
+			else
+				DebugOut(L"\nRender Scene choi lai");
+		}
+		else 
+		{
+			scenes->Get(START_SCENE_ID)->Render();
+		}
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -368,7 +383,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	keyHandler = new CSimonKeyHandler();
 	game->InitKeyboard(keyHandler);
-
 	lastSceneId = 0;
 	LoadResources();
 	DebugOut(L"[INFO] Init WinMain Success\n");

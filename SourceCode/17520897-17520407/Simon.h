@@ -100,58 +100,7 @@ private:
 public:
 
 	static CSimon* getInstance();
-	CSimon()
-	{
-		subWeaponQuantity = 1;
-		isOnGround = true;
-		isDeath = false;
-		isFightingBoss = false;
-		onStairDistance = 0;
-		isCanOutStair = false;
-		isCanSetStair = false;
-		isJump = false;
-		isSit = false;
-		isAttack = false;
-		isOnStair = false;
-		isFreeze = false;
-		isCanAttack = true;
-		isCanAttackSubWeapon = true;
-		isCanJump = true;
-		isCanOnStair = false;
-		isUsingStopWatch = false;
-		isUsingDoubleShot = false;
-		isUsingCross = false;
-		isInvisible = false;
-		lastAttackTime = -1;
-		lastAttackSide = 1;
-		isUseSubWeapon = false;
-		isEnoughHeart = false;
-		isJumpAttack = false;
-		isResetSitAfterAttack = false;
-		lastAttackTime = -1;
-		lastAttackSide = 1;
-		isHasSubWeapon = false;
-		typeSubWeapon = SIMON_WEAPON::NONE;
-		stairType = STAIR_TYPE::NOSTAIR;
-		weaponLevel = SIMON_WEAPON_LEVEL_1;
-		heart = SIMON_DEFAULT_HEART;
-		health = SIMON_MAX_HEALTH;
-		live = SIMON_LIVE;
-		currentScene = 0;
-		score = 0;
-		isAutoGo = false;
-		autoGoDistance = 0;
-		simonAutoGoDistance = 0; 
-		endWalkOnStairTime = GetTickCount();
-		stairNx = 0;
-		stairNy = 0;
-		stairActiveNy = 0;
-		ny = 0;
-		isAutoGoOutStair = false;
-		isHurt = false;
-		isLock = false;
-		isTouchWall = false;
-	}
+	CSimon();
 #pragma region set thuộc tính
 	//set thuộc tính
 	void setUsingDoubleShot(bool b)

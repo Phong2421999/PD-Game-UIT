@@ -16,7 +16,7 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 		isLoadBlackScene = false;
 
 	}
-	isCanLoadScene = false;
+	isCanLoadScene = true;
 	simonStartX = 0;
 	simonStartY = 0;
 	hasSetRenderOpenDoor = false;
@@ -113,6 +113,7 @@ void Scene::LoadSceneResource()
 			else if (id == MAKE_OBJECTS::CHANGESCENE)
 			{
 				int sceneId;
+				int simonNx;
 				int  timeLoadBlackScene;
 				float simonAutoGoDistance = 0;
 				float simonStartPosX, simonStartPosY;
@@ -126,6 +127,7 @@ void Scene::LoadSceneResource()
 				Object->QueryBoolAttribute("isLoadBlackScene", &isLoadBlackScene);
 				Object->QueryBoolAttribute("simonAutoGo", &simonAutoGo);
 				Object->QueryIntAttribute("timeLoadBlackScene", &timeLoadBlackScene);
+				Object->QueryIntAttribute("simonNx", &simonNx);
 				ChangeSceneObjects* changeScene = new ChangeSceneObjects();
 				changeScene->SetPosition(x, y);
 				changeScene->SetWidthHeight(Width, Height);
@@ -138,6 +140,7 @@ void Scene::LoadSceneResource()
 				changeScene->SetIsDoor(isDoor);
 				changeScene->SetSimonAutoGo(simonAutoGo);
 				changeScene->SetAutoGoDistance(simonAutoGoDistance);
+				changeScene->SetSimonNx(simonNx);
 				grid->add(changeScene, gridId);
 				this->simonStartX = simonStartPosX;
 				this->simonStartY = simonStartPosY;
@@ -229,72 +232,81 @@ void Scene::LoadSceneResource()
 				}
 				grid->add(detroy, gridId);
 			}
+			else if (id == MAKE_OBJECTS::INTRO_GATE)
+			{
+				IntroGate *introGate = new IntroGate();
+				introGate->SetPosition(x, y);
+				introGate->SetWidthHeight(Width, Height);
+				grid->add(introGate, gridId);
+			}
 		}
 	}
 }
 
 void Scene::UpdateBoardGame(DWORD dt) {
-	CBoardGame * boardGame = CBoardGame::GetInstance();
-	CSimon *simon = CSimon::getInstance();
-	DWORD now = GetTickCount();
-	if (boardGame->getLimitTime() <= 0)
+	if (CGame::GetInstance()->GetStartGame())
 	{
-		simon->TouchEnemy(-simon->nx);
-		simon->SetHealth(0);
+		CBoardGame * boardGame = CBoardGame::GetInstance();
+		CSimon *simon = CSimon::getInstance();
+		DWORD now = GetTickCount();
+		if (boardGame->getLimitTime() <= 0)
+		{
+			simon->TouchEnemy(-simon->nx);
+			simon->SetHealth(0);
+		}
+		if (now - lastTimeEachStage >= 1000)
+		{
+			lastTimeEachStage = GetTickCount();
+			int time = boardGame->getLimitTime();
+			boardGame->setLimitTime(--time);
+		}
+		for (int i = 0; i < letters.size(); i++)
+		{
+			int n = 0;
+			int temp;
+			if (i < 6) {
+				temp = simon->getScore();
+				for (int j = 0; j < (0 + SCORE_LENGTH) - i; j++) // Bắt đầu là 0 muốn chia 6 lần trong trường hợp này thì i = 0, 1, 2, 3, 4, 5
+				{
+					n = temp % 10;
+					temp = temp / 10;
+				}
+			}
+			if (i >= 6 && i < 10) {
+				temp = boardGame->getLimitTime();
+				for (int j = 0; j < (6 + TIME_LENGTH) - i; j++) // Bắt đầu là 6 muốn chia 4 lần trong trường hợp này thì i = 6, 7, 8, 9
+				{
+					n = temp % 10;
+					temp = temp / 10;
+				}
+			}
+			if (i >= 10 && i < 12) {
+				temp = this->stage;
+				for (int j = 0; j < (10 + STAGE_LENGTH) - i; j++) // Bắt đầu là 10 muốn chia 2 lần trong trường hợp này thì i = 10, 11
+				{
+					n = temp % 10;
+					temp = temp / 10;
+				}
+			}
+			if (i >= 12 && i < 14) {
+				temp = simon->getHeart();
+				for (int j = 0; j < (12 + HEART_LENGTH) - i; j++) // Bắt đầu là 12 muốn chia 2 lần trong trường hợp này thì i = 12, 13
+				{
+					n = temp % 10;
+					temp = temp / 10;
+				}
+			}
+			if (i >= 14 && i < 16) {
+				temp = simon->getLive();
+				for (int j = 0; j < (14 + LIVE_LENGTH) - i; j++) // Bắt đầu là 14 muốn chia 2 lần trong trường hợp này thì i = 14, 15
+				{
+					n = temp % 10;
+					temp = temp / 10;
+				}
+			}
+			letters.at(i).letter = boardGame->GetWithNumber(n);
+		}
 	}
-	if (now - lastTimeEachStage >= 1000)
-	{
-		lastTimeEachStage = GetTickCount();
-		int time = boardGame->getLimitTime();
-		boardGame->setLimitTime(--time);
-	}
-	for (int i = 0; i < letters.size(); i++)
-	{
-		int n = 0;
-		int temp;
-		if (i < 6) {
-			temp = simon->getScore();
-			for (int j = 0; j < (0 + SCORE_LENGTH) - i; j++) // Bắt đầu là 0 muốn chia 6 lần trong trường hợp này thì i = 0, 1, 2, 3, 4, 5
-			{
-				n = temp % 10;
-				temp = temp / 10;
-			}
-		}
-		if (i >= 6 && i < 10) {
-			temp = boardGame->getLimitTime();
-			for (int j = 0; j < (6 + TIME_LENGTH) - i; j++) // Bắt đầu là 6 muốn chia 4 lần trong trường hợp này thì i = 6, 7, 8, 9
-			{
-				n = temp % 10;
-				temp = temp / 10;
-			}
-		}
-		if (i >= 10 && i < 12) {
-			temp = this->stage;
-			for (int j = 0; j < (10 + STAGE_LENGTH) - i; j++) // Bắt đầu là 10 muốn chia 2 lần trong trường hợp này thì i = 10, 11
-			{
-				n = temp % 10;
-				temp = temp / 10;
-			}
-		}
-		if (i >= 12 && i < 14) {
-			temp = simon->getHeart();
-			for (int j = 0; j < (12 + HEART_LENGTH) - i; j++) // Bắt đầu là 12 muốn chia 2 lần trong trường hợp này thì i = 12, 13
-			{
-				n = temp % 10;
-				temp = temp / 10;
-			}
-		}
-		if (i >= 14 && i < 16) {
-			temp = simon->getLive();
-			for (int j = 0; j < (14 + LIVE_LENGTH) - i; j++) // Bắt đầu là 14 muốn chia 2 lần trong trường hợp này thì i = 14, 15
-			{
-				n = temp % 10;
-				temp = temp / 10;
-			}
-		}
-		letters.at(i).letter = boardGame->GetWithNumber(n);
-	}
-
 }
 
 void Scene::MakeEnemies(DWORD dt)
@@ -634,7 +646,7 @@ void Scene::Update(DWORD dt)
 											CEffect * hit = new CHit();
 											hit->SetPosition(x + 16 * i, y + 16 * j);
 											hit->SetKillBySimon(true);
-											hit->SetMakeItem(ENEMY);
+											hit->SetMakeItem(BOSS);
 											grid->add(hit, EFFECTS_GRID);
 										}
 									}
@@ -783,6 +795,11 @@ void Scene::Update(DWORD dt)
 								SmallHeart* smallHeart = new SmallHeart(x, y);
 								grid->add(smallHeart, ITEMS_GRID);
 							}
+						}
+						if (effect->GetMakeItem() == BOSS)
+						{
+							MagicCrystal* magicCrystal = new MagicCrystal(x, y);
+							grid->add(magicCrystal, ITEMS_GRID);
 						}
 					}
 					grid->gridObjects[EFFECTS_GRID].erase(grid->gridObjects[EFFECTS_GRID].begin() + i);
@@ -935,84 +952,85 @@ void Scene::Render()
 	grid->caculateGrid(gridIds);
 	if (isCanLoadScene)
 	{
+		if (game->GetStartGame())
+		{
 #pragma region RenderBoardGame
 
-
-		float camX = game->GetCamPos_x();
-		float camY = game->GetCamPos_y();
-		int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
-		if (simon->getUsingDoubleShot())
-		{
-			sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
-		}
-		sprites->Get(BLACK_BOARD_ID)->Draw(camX, camY);
-
-		for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
-			float posX, posY;
-			boardGame->GetPositionSimonHealthBar(posX, posY);
-			sprites->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
-
-			if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
+			float camX = game->GetCamPos_x();
+			float camY = game->GetCamPos_y();
+			int weaponSpriteId = boardGame->GetSubWeapon(simon->getSubWeapon());
+			if (simon->getUsingDoubleShot())
 			{
-				for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
-					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
+				sprites->Get(SPRITE_DOUBLE_SHOT_ID)->Draw(floor(camX + DOUBLE_SHOT_ICON_POS_X), floor(camY + DOUBLE_SHOT_ICON_POS_Y));
+			}
+			sprites->Get(BLACK_BOARD_ID)->Draw(camX, camY);
+
+			for (int i = 0; i < SIMON_MAX_HEALTH; i++) {
+				float posX, posY;
+				boardGame->GetPositionSimonHealthBar(posX, posY);
+				sprites->Get(SPRITE_SIMON_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
+
+				if (SIMON_MAX_HEALTH - simon->GetHealth() * 2 > 0)
+				{
+					for (int j = simon->GetHealth() * 2; j < SIMON_MAX_HEALTH; j++) {
+						sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
+					}
 				}
 			}
-		}
 
-		for (int i = 0; i < ENEMY_MAX_HEALTH; i++) {
-			float posX, posY;
-			boardGame->GetPositionEnemyHealthBar(posX, posY);
-			sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
+			for (int i = 0; i < ENEMY_MAX_HEALTH; i++) {
+				float posX, posY;
+				boardGame->GetPositionEnemyHealthBar(posX, posY);
+				sprites->Get(SPRITE_ENEMY_HEALTH_CELL_ID)->Draw(floor(camX + posX) + i * CELL_MARGIN, floor(camY + posY));
 
-			if (ENEMY_MAX_HEALTH - BOSS_HEALTH > 0)
-			{
+				if (ENEMY_MAX_HEALTH - BOSS_HEALTH > 0)
+				{
 
-				for (int j = BOSS_HEALTH; j < ENEMY_MAX_HEALTH; j++) {
-					sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
+					for (int j = BOSS_HEALTH; j < ENEMY_MAX_HEALTH; j++) {
+						sprites->Get(SPRITE_LOST_HEALTH_ID)->Draw(floor(camX + posX) + j * CELL_MARGIN, floor(camY + posY));
+					}
 				}
 			}
-		}
 
-		if (weaponSpriteId != -1)
-		{
-			float posX, posY, drawPosX, drawPosY;
-			boardGame->GetPositionSubWeapon(posX, posY);
-			switch (weaponSpriteId)
+			if (weaponSpriteId != -1)
 			{
-			case SPRITE_DANGER_ID:
-				drawPosX = posX + DAGGER_ITEM_PADDING_LEFT;
-				drawPosY = posY;
-				break;
-			case SPRITE_AXE_ID:
-				drawPosX = posX + AXE_ITEM_PADDING_LEFT;
-				drawPosY = posY + AXE_ITEM_PADDING_TOP;
-				break;
-			case SPRITE_HOLY_WATER_ID:
-				drawPosX = posX + HOLY_WATER_ITEM_PADDING_LEFT;
-				drawPosY = posY + HOLY_WATER_ITEM_PADDING_TOP;
-				break;
-			case SPRITE_STOP_WATCH_ID:
-				drawPosX = posX + STOP_WATCH_ITEM_PADDING_LEFT;
-				drawPosY = posY + STOP_WATCH_ITEM_PADDING_TOP;
-				break;
+				float posX, posY, drawPosX, drawPosY;
+				boardGame->GetPositionSubWeapon(posX, posY);
+				switch (weaponSpriteId)
+				{
+				case SPRITE_DANGER_ID:
+					drawPosX = posX + DAGGER_ITEM_PADDING_LEFT;
+					drawPosY = posY;
+					break;
+				case SPRITE_AXE_ID:
+					drawPosX = posX + AXE_ITEM_PADDING_LEFT;
+					drawPosY = posY + AXE_ITEM_PADDING_TOP;
+					break;
+				case SPRITE_HOLY_WATER_ID:
+					drawPosX = posX + HOLY_WATER_ITEM_PADDING_LEFT;
+					drawPosY = posY + HOLY_WATER_ITEM_PADDING_TOP;
+					break;
+				case SPRITE_STOP_WATCH_ID:
+					drawPosX = posX + STOP_WATCH_ITEM_PADDING_LEFT;
+					drawPosY = posY + STOP_WATCH_ITEM_PADDING_TOP;
+					break;
+				}
+
+				sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
 			}
 
-			sprites->Get(weaponSpriteId)->Draw(floor(camX + drawPosX), floor(camY + drawPosY));
-		}
+			for (int i = 0; i < letters.size(); i++)
+			{
+				int id = letters.at(i).letter;
+				float x, y;
 
-		for (int i = 0; i < letters.size(); i++)
-		{
-			int id = letters.at(i).letter;
-			float x, y;
+				x = floor(camX + letters.at(i).x);
+				y = floor(letters.at(i).y + camY);
 
-			x = floor(camX + letters.at(i).x);
-			y = floor(letters.at(i).y + camY);
-
-			boardGame->Get(id)->Draw(x, y);
-		}
+				boardGame->Get(id)->Draw(x, y);
+			}
 #pragma endregion
-
+		}
 		CMap::GetInstance()->Get(mapId)->Render();
 		if (simon->getAutoGo() || game->GetCamAutoGo())
 		{
@@ -1028,7 +1046,6 @@ void Scene::Render()
 					}
 				}
 			}
-			simon->Render();
 		}
 #pragma endregion
 		else
@@ -1044,7 +1061,6 @@ void Scene::Render()
 						grid->gridObjects[id][i]->RenderCurrentFrame();
 					}
 				}
-				simon->Render();
 				//
 				for (int i = 0; i < grid->gridObjects[EFFECTS_GRID].size(); i++)
 				{
@@ -1083,7 +1099,6 @@ void Scene::Render()
 				{
 					grid->gridObjects[ENEMIES_GRID][i]->RenderCurrentFrame();
 				}
-				simon->Render();
 #pragma endregion
 			}
 			else
@@ -1109,11 +1124,11 @@ void Scene::Render()
 				{
 					grid->gridObjects[WEAPONENEMIES_GRID][i]->Render();
 				}
-				simon->Render();
 #pragma endregion
 			}
 		}
-
+		if (game->GetStartGame() || game->GetStartIntro())
+			simon->Render();
 	}
 
 }
@@ -1124,8 +1139,10 @@ void Scene::StartLoadScene()
 	float x, y;
 	Scenes* scenes = Scenes::GetInstance();
 	scenes->GetSimonStartPos(x, y);
+	int simonNx = scenes->GetSimonNx();
 	CSimon* simon = CSimon::getInstance();
 	simon->SetPosition(x, y);
+	simon->nx = simonNx;
 	simon->setOnStairDistance(99);
 	simon->setCanOutStair(false);
 	simon->setCanOnStair(false);
@@ -1140,7 +1157,7 @@ void Scene::StartLoadScene()
 
 void Scene::Reset()
 {
-	vector<Letter>().swap(letters);
+	letters.clear();
 	bossHealth = DEFAULT_BOSS_HEATH;
 	scenceWidth = this->sceneWidthEachMap;
 	this->timeStartLoadScene = GetTickCount();
@@ -1159,6 +1176,6 @@ void Scene::Reset()
 
 void Scene::Clear()
 {
-	vector<Letter>().swap(letters);
+	letters.clear();
 	CSpawner::GetInstance()->resetAfterResetScene();
 }

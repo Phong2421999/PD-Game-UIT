@@ -65,4 +65,9 @@
       <Filter>XML</Filter>
     </Xml>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Level1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

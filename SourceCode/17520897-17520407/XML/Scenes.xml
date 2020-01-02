@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scenes>
-  <Scene sceneId="0" mapId="100000" sceneWidthEachMap="768" sceneGameObjectPath="XML\\Map1_Objects.xml"
+  <Scene sceneId="-99" mapId="200000" sceneWidthEachMap="320" sceneGameObjectPath="XML\\Intro.xml" simonNx ="-1"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="275" simonStartY="163" stage ="00" name="Di vao lau dai" resetSceneId ="0"/>
+  
+  <Scene sceneId="0" mapId="100000" sceneWidthEachMap="320" sceneGameObjectPath="XML\\Intro.xml" simonNx ="1"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="275" simonStartY="163" stage ="00" name="Di vao lau dai" resetSceneId ="0"/>
+  
+  <Scene sceneId="1" mapId="100000" sceneWidthEachMap="768" sceneGameObjectPath="XML\\Map1_Objects.xml" simonNx ="1"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="163" stage ="01" name="Di vao lau dai" resetSceneId ="0"/>
 
-  <Scene sceneId="1" mapId="200000" sceneWidthEachMap="1552" sceneGameObjectPath="XML\\Map2_Objects.xml"
-         isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="32" simonStartY="180" stage ="01" name="Stage 1" resetSceneId ="1"/>
+  <Scene sceneId="2" mapId="200000" sceneWidthEachMap="1552" sceneGameObjectPath="XML\\Map2_Objects.xml"
+         isLoadBlackScene="1" timeLoadBlackScene="400" simonStartX="600" simonStartY="180" stage ="01" name="Stage 1" resetSceneId ="1"/>
 
 
-  <Scene sceneId="2" mapId="400000" sceneWidthEachMap="526" sceneGameObjectPath="XML\\Map3_Objects.xml"
-         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="85" stage ="02" name="Stage 2" resetSceneId ="2"
+  <Scene sceneId="3" mapId="400000" sceneWidthEachMap="526" sceneGameObjectPath="XML\\Map3_Objects.xml" simonNx ="1"
+         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="0" stage ="02" name="Stage 2" resetSceneId ="2"
          simonAutoGo="0"/>
 
 
-  <Scene sceneId="3" mapId="500000" sceneWidthEachMap="782" sceneGameObjectPath="XML\\Map4_Objects.xml"
+  <Scene sceneId="4" mapId="500000" sceneWidthEachMap="782" sceneGameObjectPath="XML\\Map4_Objects.xml" simonNx ="1"
          isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="30" simonStartY="84" stage ="03" name="Stage 3" resetSceneId ="3"
          simonAutoGo="0"/>
-  
-  <Scene sceneId="4" mapId="600000" sceneWidthEachMap="330" sceneGameObjectPath="XML\\Map5_Objects.xml"
-         isLoadBlackScene="0" timeLoadBlackScene="0" simonStartX="32" simonStartY="32" stage ="03" name="Stage 3 Boss" resetSceneId ="3"
-         simonAutoGo="0"/>
 
 
-  <Scene sceneId="-2" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml"
+  <Scene sceneId="-3" mapId="300000" sceneWidthEachMap="528" sceneGameObjectPath="XML\\Map-2_Objects.xml" simonNx ="1"
          isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="2"
          simonAutoGo="0"/>
 
-  <Scene sceneId="5" mapId="800000" sceneWidthEachMap="783" sceneGameObjectPath="XML\\Final1_Objects.xml"
-       isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="32" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="5"
+  <Scene sceneId="5" mapId="800000" sceneWidthEachMap="783" sceneGameObjectPath="XML\\Final1_Objects.xml" simonNx ="-1"
+       isLoadBlackScene="1" timeLoadBlackScene="300" simonStartX="720" simonStartY="32" stage ="02" name="Tang ham 2" resetSceneId ="5"
        simonAutoGo="0"/>
 
 </Scenes>

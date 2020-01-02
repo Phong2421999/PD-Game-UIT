@@ -8,7 +8,7 @@ MagicCrystal::MagicCrystal(float x, float y) {
 	this->height = MAGIC_CRYSTAL_HEIGHT;
 	this->x = x;
 	this->y = y;
-	type = DOUBLE_SHOT;
+	type = MAGIC_CRYSTAL;
 	makeTime = GetTickCount();
 }
 

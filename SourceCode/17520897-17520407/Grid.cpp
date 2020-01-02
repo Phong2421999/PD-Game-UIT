@@ -34,17 +34,17 @@ void Grid::getListObjects(vector<LPGAMEOBJECT> &objects)
 
 void Grid::caculateGrid(vector<int> &gridData)
 {
-	float gridSize = (SCREEN_WIDTH + 2 * GRID_OFFSET)/GRID_PART;
+	float gridSize = (SCREEN_WIDTH + 2 * GRID_OFFSET) / GRID_PART;
 	float cx = CGame::GetInstance()->GetCamPos_x();
 	float beginGridPos = abs(cx - GRID_OFFSET);
 	float endGridPos = abs(cx + SCREEN_WIDTH + GRID_OFFSET);
 
-	int beginGrid = floor( beginGridPos / gridSize);
+	int beginGrid = floor(beginGridPos / gridSize);
 	int endGrid = ceil(endGridPos / gridSize);
 	gridData.clear();
 	for (int i = beginGrid; i <= endGrid; i++)
 	{
-		if(gridObjects[i].size()>0)
+		if (gridObjects[i].size() > 0)
 			gridData.push_back(i);
 	}
 	gridData.push_back(-1);

@@ -37,6 +37,9 @@ class CGame
 	bool isRenderOpenDoor;
 	bool isRenderCloseDoor;
 	bool isStopCamAutoGo;
+	
+	bool isGameStart;
+	bool isStartIntro;
 public:
 	void Init(HWND hWnd);
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
@@ -44,6 +47,14 @@ public:
 
 
 	//Set
+	void SetStartIntro(bool b)
+	{
+		this->isStartIntro = b;
+	}
+	void SetStartGame(bool b)
+	{
+		this->isGameStart = b;
+	}
 	void SetCamAutoGo(bool b)
 	{
 		this->isCamAutoGo = b;
@@ -65,6 +76,14 @@ public:
 		this->isStopCamAutoGo = b;
 	}
 	//Get
+	bool GetStartIntro()
+	{
+		return isStartIntro;
+	}
+	bool GetStartGame()
+	{
+		return isGameStart;
+	}
 	bool GetCamAutoGo()
 	{
 		return isCamAutoGo;
@@ -122,6 +141,9 @@ public:
 
 	bool checkAABBTouch(float left, float top, float right, float bottom,
 		float checkLeft, float checkTop, float checkRight, float Bottom);
-
+	HWND GetHWnd()
+	{
+		return hWnd;
+	}
 	~CGame();
 };

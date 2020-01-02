@@ -36,6 +36,7 @@
 #include "CEagle.h"
 #include "Skeleton.h"
 #include "FinalBoss.h"
+#include "IntroGate.h"
 
 
 #include "Grid.h"
@@ -98,6 +99,10 @@ public:
 	{
 		this->simonStartX = x;
 		this->simonStartY = y;
+	}
+	void SetCanLoadScene(bool b)
+	{
+		this->isCanLoadScene = b;
 	}
 	
 };

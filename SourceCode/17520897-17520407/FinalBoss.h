@@ -3,6 +3,7 @@
 #include "CEnemies.h"
 #include "Simon.h"
 #include "WeaponProjectile.h"
+#include "FinalBossTranform.h"
 
 #define FINAL_BOSS_ANI_FACE 3002
 #define FINAL_BOSS_ANI_BODY_START_ATTACK 3003
@@ -17,6 +18,8 @@
 #define FINAL_BOSS_ANI_CHAOS_IDLE_INDEX 3
 #define FINAL_BOSS_ANI_CHAOS_START_ATTACK_INDEX 4
 #define FINAL_BOSS_ANI_CHAOS_ATTACK_INDEX 5
+
+#define FINAL_BOSS_SPRITE_TRANSFROM_ID 30101
 
 #define FINAL_BOSS_NOMAL_MODE 0
 #define FINAL_BOSS_CHAOS_MODE 1
@@ -96,6 +99,9 @@
 
 #define CHAOS_BOSS_LOCK_TIME 300
 
+#define FINAL_BOSS_TRANSFORM_EFFECTS_COUNT 8
+#define FINAL_BOSS_TRANSFORM_EFFECTS_TIME 1000
+#define FINAL_BOSS_TRANSFORM_EFFECTS_VELOCITY_PLUS 0.008
 class FinalBoss :public CEnemies
 {
 private:
@@ -105,6 +111,7 @@ private:
 	DWORD lastTimeInvisiable;
 	DWORD lastLockTime;
 	DWORD makeTime;
+	DWORD lastTransformTime;
 	bool isBoss;
 	bool isActive;
 	int mode;
@@ -119,7 +126,10 @@ private:
 	bool isHightJump;
 	bool isShot;
 	bool isJump;
+	bool isStartTranform;
 	vector<WeaponProjectile*>weapons;
+	vector<FinalBossTransform*>transformEffects;
+	float xBody, yBody;
 public:
 	FinalBoss();
 	void Render();

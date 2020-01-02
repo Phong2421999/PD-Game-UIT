@@ -2,6 +2,7 @@
 #include <iostream>
 #include "tinyxml.h"
 #include <string>
+#include <Windows.h>
 
 using namespace std;
 
@@ -103,24 +104,29 @@ using namespace std;
 
 void main()
 {
-	TiXmlDocument mapObjects("XML//test.xml");
-	if (!mapObjects.LoadFile())
-	{
-		cout << "ERROR READ XML";
-	}
+	//TiXmlDocument mapObjects("XML//test.xml");
+	//if (!mapObjects.LoadFile())
+	//{
+	//	cout << "ERROR READ XML";
+	//}
+	//else
+	//{
+	//	cout << "READ FILE SUCCESS\n";
+	//	// get info root
+	//	TiXmlElement* root = mapObjects.RootElement();
+	//	TiXmlElement* Objects = nullptr;
+	//	TiXmlElement* Object = nullptr;
+	//	for (Objects = root->FirstChildElement(); Objects != NULL; Objects = Objects->NextSiblingElement())
+	//	{
+	//		
+	//	}
+	//	mapObjects.SaveFile();
+	//	cout << "Tinh grid cho file thanh cong\n";
+	//}
+	bool play = PlaySound(TEXT("Level1.wav"), NULL, SND_FILENAME);
+	if (play)
+		cout << "Done";
 	else
-	{
-		cout << "READ FILE SUCCESS\n";
-		// get info root
-		TiXmlElement* root = mapObjects.RootElement();
-		TiXmlElement* Objects = nullptr;
-		TiXmlElement* Object = nullptr;
-		for (Objects = root->FirstChildElement(); Objects != NULL; Objects = Objects->NextSiblingElement())
-		{
-			
-		}
-		mapObjects.SaveFile();
-		cout << "Tinh grid cho file thanh cong\n";
-	}
+		cout << "none";
 	system("pause");
 }

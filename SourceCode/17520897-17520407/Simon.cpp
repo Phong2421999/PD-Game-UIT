@@ -1,8 +1,62 @@
 ﻿#include <algorithm>
 #include "Simon.h"
+#include "Scenes.h"
 
 CSimon * CSimon::__instance = NULL;
-
+CSimon::CSimon()
+{
+	subWeaponQuantity = 1;
+	isOnGround = true;
+	isDeath = false;
+	isFightingBoss = false;
+	onStairDistance = 0;
+	isCanOutStair = false;
+	isCanSetStair = false;
+	isJump = false;
+	isSit = false;
+	isAttack = false;
+	isOnStair = false;
+	isFreeze = false;
+	isCanAttack = true;
+	isCanAttackSubWeapon = true;
+	isCanJump = true;
+	isCanOnStair = false;
+	isUsingStopWatch = false;
+	isUsingDoubleShot = false;
+	isUsingCross = false;
+	isInvisible = false;
+	lastAttackTime = -1;
+	lastAttackSide = 1;
+	isUseSubWeapon = false;
+	isEnoughHeart = false;
+	isJumpAttack = false;
+	isResetSitAfterAttack = false;
+	lastAttackTime = -1;
+	lastAttackSide = 1;
+	isHasSubWeapon = false;
+	typeSubWeapon = SIMON_WEAPON::NONE;
+	stairType = STAIR_TYPE::NOSTAIR;
+	weaponLevel = SIMON_WEAPON_LEVEL_1;
+	heart = SIMON_DEFAULT_HEART;
+	health = SIMON_MAX_HEALTH;
+	live = SIMON_LIVE;
+	currentScene = -1;
+	nx = -1;
+	score = 0;
+	isAutoGo = false;
+	autoGoDistance = 0;
+	simonAutoGoDistance = 0;
+	endWalkOnStairTime = GetTickCount();
+	stairNx = 0;
+	stairNy = 0;
+	stairActiveNy = 0;
+	ny = 0;
+	isAutoGoOutStair = false;
+	isHurt = false;
+	isLock = false;
+	isTouchWall = false;
+	health = 8;
+}
 CSimon* CSimon::getInstance()
 {
 	if (__instance == NULL)
@@ -18,10 +72,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		isSit = false;
 		state = SIMON_STATE_WALKING_RIGHT;
-		vx = SIMON_AUTO_WALKING_SPEED;
+		if (nx > 0)
+			vx = SIMON_AUTO_WALKING_SPEED;
+		else
+			vx = -SIMON_AUTO_WALKING_SPEED;
 		this->x += vx * dt;
-		simonAutoGoDistance += vx * dt;
-		nx = 1;
+		simonAutoGoDistance += abs(vx * dt);
 		if (simonAutoGoDistance > autoGoDistance)
 		{
 			isAutoGo = false;
@@ -95,6 +151,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
+		simonAutoGoDistance = 0;
 		if (x <= LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X)
 			x = LOCK_CAMERA_X - SIMON_OFFSET_TO_BBOX_X;
 		if (x >= CGame::GetInstance()->GetCamPos_x() + LOCK_CAMERA_OFFSET_X)
@@ -275,7 +332,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					this->ny = 0;
 					isFalling = false;
 					isCanSetStair = true;
-					isCanOnStair = false;
+					if (isAutoGoOutStair == false)
+						isCanOnStair = false;
 					isCanOutStair = false;
 					isOnGround = true;
 					vy = 0;
@@ -475,6 +533,8 @@ void CSimon::Render()
 			case SIMON_STATE_ON_STAIR_IDLE_DOWN:
 				ani = SIMON_ANI_ON_STAIR_IDLE_DOWN;
 				break;
+			case SIMON_STATE_INTO_GATE:
+				ani = 33;
 			}
 		}
 	}
@@ -553,6 +613,9 @@ void CSimon::AddItem(GAME_ITEM type) {
 	case DOUBLE_SHOT:
 		isUsingDoubleShot = true;
 		subWeaponQuantity = 2;
+		break;
+	case MAGIC_CRYSTAL:
+		Scenes::GetInstance()->NextScenes();
 		break;
 	}
 }
@@ -682,6 +745,7 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_ON_STAIR_IDLE_UP:
 		case SIMON_STATE_ON_STAIR_IDLE_DOWN:
+		case SIMON_STATE_INTO_GATE:
 			vx = 0;
 			vy = 0;
 			break;
@@ -1222,7 +1286,6 @@ void CSimon::Reset()
 	heart = 5;
 	ChangeSubWeapon(NONE);
 	SetState(SIMON_STATE_IDLE);
-	nx = 1;
 	onStairDistance = 0;
 	isCanOutStair = false;
 	isCanOnStair = false;

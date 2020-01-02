@@ -43,8 +43,8 @@
         <CheckStair x="442" y="129" width="16" height="4" ny="1" nx="-1" Grid="5" />
     </CheckStairs>
     <ChangeScenes id="-1">
-        <ChangeScene x="44" y="36" sceneId="2" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" simonStartPosX="34" simonStartPosY="190" width="12" height="4" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="0" />
-        <ChangeScene x="363" y="36" sceneId="2" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" simonStartPosX="352" simonStartPosY="190" width="12" height="4" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="4" />
+        <ChangeScene x="44" y="36" sceneId="3"  simonNx="-1" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" simonStartPosX="34" simonStartPosY="190" width="12" height="4" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="0" />
+        <ChangeScene x="363" y="36" sceneId="3"  simonNx="-1" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" simonStartPosX="352" simonStartPosY="190" width="12" height="4" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="4" />
     </ChangeScenes>--&gt;
     <SmallCandles id="2">
         <SmallCandle x="30" y="66" width="8" height="14" itemId="-1" name="RAND" Grid="0" />
