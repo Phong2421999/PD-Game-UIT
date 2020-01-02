@@ -1,6 +1,6 @@
 ﻿#include "Scene.h"
 #include "Scenes.h"
-Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId)
+Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId, int sceneSoundId)
 {
 	this->sceneWidthEachMap = sceneWidthEachMap;
 	this->timeLoadBlackScene = timeLoadBlackScene;
@@ -21,12 +21,12 @@ Scene::Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoa
 	simonStartY = 0;
 	hasSetRenderOpenDoor = false;
 	grid = new Grid();
-
-
+	this->sceneSoundId = sceneSoundId;
 }
 
 void Scene::LoadSceneResource()
 {
+	Scenes::GetInstance()->PlaySoundTrack(CSimon::getInstance()->getCurrentScene(), false);
 	CSpawner::GetInstance()->isActive = true;
 	grid->clear();
 	CMap::GetInstance()->Get(mapId)->LoadTile();
@@ -1164,7 +1164,10 @@ void Scene::Reset()
 	isCanLoadScene = false;
 	lastTimeEachStage = GetTickCount();
 	CSimon* simon = CSimon::getInstance();
-	simon->SetPosition(simonStartX, simonStartY);
+	float x, y;
+	Scenes* scenes = Scenes::GetInstance();
+	scenes->GetSimonStartPos(x, y);
+	int simonNx = scenes->GetSimonNx();
 	simon->Reset();
 	isLoadBlackScene = true;
 	timeLoadBlackScene = TIME_LOAD_BLACK_SCENE;

@@ -30,7 +30,7 @@ void IntroGate::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (isTouchSimon)
 		{
 			DWORD now = GetTickCount();
-			if (now - timeTocuhSimon >= 500)
+			if (now - timeTocuhSimon >= 3500)
 			{
 				Scenes::GetInstance()->NextScenes();
 				CGame::GetInstance()->SetStartGame(true);

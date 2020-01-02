@@ -1,5 +1,5 @@
 #include "WeaponAxe.h"
-
+#include "SoundController.h"
 WeaponAxe::WeaponAxe(float x, float y, int nx)
 {
 	this->AddAnimation(AXE_ANI);
@@ -16,6 +16,7 @@ WeaponAxe::WeaponAxe(float x, float y, int nx)
 	makeTime = GetTickCount();
 	health = 1;
 	isTouchEnemy = false;
+	SoundController::Play(AXE_SOUND_ID);
 }
 
 void WeaponAxe::SetPositionWithSimon(float x, float y, int nx)
@@ -91,4 +92,9 @@ void  WeaponAxe::GetBoundingBox(float &left, float &top, float &right, float &bo
 	right = x + width;
 	bottom = y + height;
 
+}
+
+WeaponAxe::~WeaponAxe()
+{
+	SoundController::Stop(AXE_SOUND_ID);
 }

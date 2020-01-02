@@ -14,7 +14,7 @@ Whip::Whip(float x, float y, int nx, int level)
 	this->AddAnimation(WHIP_ANI_LEVEL_3);
 	isTouchHiddenWall = false;
 	isTouchEnemy = false;
-	SoundController::Play(100);
+	SoundController::Play(WHIP_SOUND_ID);
 }
 
 void Whip::Render()
@@ -146,5 +146,9 @@ void Whip::SetPositionWithSimon(float x, float y, int nx)
 	{
 		SetPosition(x - offSetLeft, y + WHIP_OFFSET_Y_TO_HAND_SIMON);
 	}
+}
+Whip::~Whip()
+{
+	SoundController::Stop(WHIP_SOUND_ID);
 }
 

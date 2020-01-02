@@ -1,5 +1,5 @@
 #include "WeaponDanger.h"
-
+#include "SoundController.h"
 WeaponDanger::WeaponDanger(float x, float y, int nx)
 {
 	this->AddAnimation(DANGER_ANI);
@@ -13,6 +13,7 @@ WeaponDanger::WeaponDanger(float x, float y, int nx)
 	SetWidthHeigth(DANGER_BBOX_WIDTH, DANGER_BBOX_HEIGHT);
 	makeTime = GetTickCount();
 	health = 1;
+	SoundController::Play(DANGER_SOUND_ID);
 }
 
 void WeaponDanger::SetPositionWithSimon(float x, float y, int nx)
@@ -82,4 +83,8 @@ void WeaponDanger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+}
+
+WeaponDanger::~WeaponDanger() {
+	SoundController::Stop(DANGER_SOUND_ID);
 }

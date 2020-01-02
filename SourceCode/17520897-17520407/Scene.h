@@ -76,9 +76,9 @@ public:
 	vector<int> gridIds;
 
 	Grid *grid;
-
+	int sceneSoundId;
 public:
-	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId);
+	Scene(int sceneWidthEachMap, int loadBlackScene, int stage, DWORD timeLoadBlackScene, string sceneGameObjects, int mapId, int sceneSoundId);
 	void LoadSceneResource();
 
 	void Update(DWORD dt);

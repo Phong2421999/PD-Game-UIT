@@ -19,6 +19,8 @@
 #define OFFSET_AXE_X_TO_HAND_RIGHT_SIMON 28.0f
 #define OFFSET_AXE_Y_TO_HAND_SIMON -8.0f
 
+#define AXE_SOUND_ID 15
+
 class WeaponAxe : public Weapon {
 
 private:
@@ -41,5 +43,5 @@ public:
 	{
 		animations[AXE_ANI_ID]->reset();
 	}
-	
+	~WeaponAxe();
 };

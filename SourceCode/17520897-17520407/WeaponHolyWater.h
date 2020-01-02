@@ -25,6 +25,8 @@
 #define OFFSET_HOLY_WATER_X_TO_HAND_RIGHT_SIMON 28.0f
 #define OFFSET_HOLY_WATER_Y_TO_HAND_SIMON 8.0f
 
+#define HOLYWATER_SOUND_ID 14
+
 class WeaponHolyWater : public Weapon {
 
 private:
@@ -50,5 +52,5 @@ public:
 	{
 		animations[ani]->reset();
 	}
-	
+	~WeaponHolyWater();
 };

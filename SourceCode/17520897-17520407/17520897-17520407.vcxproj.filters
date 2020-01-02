@@ -756,33 +756,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="SoundTrack\Boss_Battle_Poison_Mind.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\End_Game.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Game_Over.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Game_Start_Prologue.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Life_Lost.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Stage_01_Vampire_Killer.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Stage_04_Stalker.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Stage_Clear.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
-    <Media Include="SoundTrack\Title_Theme_Prelude.wav">
-      <Filter>SoundTrack</Filter>
-    </Media>
     <Media Include="SoundEffects\05-getscoreheart.wav">
       <Filter>SoundEffects</Filter>
     </Media>
@@ -798,13 +771,7 @@
     <Media Include="SoundEffects\collectitem.wav">
       <Filter>SoundEffects</Filter>
     </Media>
-    <Media Include="SoundEffects\collectweapon.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
     <Media Include="SoundEffects\decreaseweaponusepoint.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
-    <Media Include="SoundEffects\display_monney.wav">
       <Filter>SoundEffects</Filter>
     </Media>
     <Media Include="SoundEffects\fallcastle.wav">
@@ -834,19 +801,7 @@
     <Media Include="SoundEffects\hitcannon.wav">
       <Filter>SoundEffects</Filter>
     </Media>
-    <Media Include="SoundEffects\holycross.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
     <Media Include="SoundEffects\holywater.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
-    <Media Include="SoundEffects\hurting.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
-    <Media Include="SoundEffects\InvisibilityPotion_Begin.wav">
-      <Filter>SoundEffects</Filter>
-    </Media>
-    <Media Include="SoundEffects\InvisibilityPotion_End.wav">
       <Filter>SoundEffects</Filter>
     </Media>
     <Media Include="SoundEffects\opendoor.wav">
@@ -872,6 +827,48 @@
     </Media>
     <Media Include="SoundEffects\usingwhip.wav">
       <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\collectweapon.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\collectmoney.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\invisiable.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\hurt.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundEffects\cross.wav">
+      <Filter>SoundEffects</Filter>
+    </Media>
+    <Media Include="SoundTrack\GameOver.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Level1.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Level6.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\LiveLost.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\StageClear.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Title.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Intro.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\EndGame.wav">
+      <Filter>SoundTrack</Filter>
+    </Media>
+    <Media Include="SoundTrack\Level1-Boss.wav">
+      <Filter>SoundTrack</Filter>
     </Media>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <unordered_map>
-
+#include "SoundController.h"
 
 using namespace std;
 
@@ -11,6 +11,7 @@ struct SceneData
 	int resetSceneId;
 	int defaultSimonStartX, defaultSimonStartY;
 	int simonNx;
+	int soundId;
 };
 
 class Scenes {
@@ -22,12 +23,13 @@ private:
 	int simonDefaultNx;
 	bool isLoadBlackScene;
 	DWORD timeLoadBlackScene;
+	int curSoundId;
 public:
 	void Add(int id, LPSCENE scene)
 	{
 		scenes[id] = scene;
 	}
-	void AddSceneData(int sceneId, int resetSceneId, int defaultSimonX, int defaultSimonY, int simonNx)
+	void AddSceneData(int sceneId, int resetSceneId, int defaultSimonX, int defaultSimonY, int simonNx, int soundId)
 	{
 		SceneData temp;
 		temp.defaultSimonStartX = defaultSimonX;
@@ -35,6 +37,7 @@ public:
 		temp.sceneId = sceneId;
 		temp.resetSceneId = resetSceneId;
 		temp.simonNx = simonNx;
+		temp.soundId = soundId;
 		sceneData[sceneId] = temp;
 	}
 	void SetSimonStartPos(float x, float y)
@@ -88,14 +91,19 @@ public:
 		{
 			scenes[id]->Reset();
 			scenes[resetSceneId]->Reset();
-			//scenes[resetSceneId]->StartLoadScene();
 		}
 		else
 		{
 			scenes[resetSceneId]->Reset();
-			//scenes[resetSceneId]->StartLoadScene();
+
 		}
 		CSimon::getInstance()->setSceneId(resetSceneId);
+		float defaultX, defaultY;
+		int nx;
+		GetSimonDefaultPos(resetSceneId, defaultX, defaultY);
+		GetSimonDefaultNX(resetSceneId, nx);
+		simonDefaultNx = nx;
+		SetSimonStartPos(defaultX, defaultY);
 	}
 	LPSCENE Get(int id)
 	{
@@ -111,7 +119,25 @@ public:
 		CSimon::getInstance()->setSceneId(curScene + 1);
 		simonDefaultNx = nx;
 		SetSimonStartPos(defaultX, defaultY);
-		DebugOut(L"\ndefau;tX: %f, defaultY: %f", defaultX, defaultY);
+	}
+	void PlaySoundTrack(int currentSceneId, bool playNow)
+	{
+		if (playNow)
+		{
+			int currentSoundId = sceneData[currentSceneId].soundId;
+			SoundController::PlayLoop(currentSoundId);
+			curSoundId = currentSoundId;
+		}
+		else
+		{
+			int currentSoundId = sceneData[currentSceneId].soundId;
+			if (curSoundId != currentSoundId)
+			{
+				SoundController::Stop(curSoundId);
+				SoundController::PlayLoop(currentSoundId);
+				curSoundId = currentSoundId;
+			}
+		}
 	}
 	static  Scenes* GetInstance();
 };

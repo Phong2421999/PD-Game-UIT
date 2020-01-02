@@ -1,11 +1,11 @@
 #pragma once
 #include "WeaponStopWatch.h"
-
+#include "SoundController.h"
 WeaponStopWatch::WeaponStopWatch()
 {
-	DebugOut(L"\nNgung dong thoi gian o day\n");
 	health = 1;
 	makeTime = GetTickCount();
+	SoundController::Play(STOPWATCH_SOUND_ID);
 }
 
 void WeaponStopWatch::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

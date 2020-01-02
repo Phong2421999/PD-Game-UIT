@@ -40,6 +40,7 @@ class CGame
 	
 	bool isGameStart;
 	bool isStartIntro;
+	DWORD timeStartGame;
 public:
 	void Init(HWND hWnd);
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
@@ -75,7 +76,15 @@ public:
 	{
 		this->isStopCamAutoGo = b;
 	}
+	void SetTimeStartGame(DWORD time)
+	{
+		this->timeStartGame = time;
+	}
 	//Get
+	DWORD GetTimeStartGame()
+	{
+		return timeStartGame;
+	}
 	bool GetStartIntro()
 	{
 		return isStartIntro;

@@ -41,10 +41,10 @@ void SoundController::LoadResources(LPCSTR soundData) {
 			string filePath;
 			CSound* waveSound;
 			sound->QueryIntAttribute("soundId", &soundId);
-			DebugOut(L"\nSoundId: %d", soundId);
 			filePath = sound->Attribute("soundPath");
 			if (dsound.Create(&waveSound, CA2T(filePath.c_str()), DSBCAPS_CTRLVOLUME) != S_OK)
 			{
+				DebugOut(L"Create wav fail, id: %d", soundId);
 				MessageBox(NULL, L"Create wav fail", L"Error", MB_OK);
 			}
 
@@ -62,15 +62,15 @@ void SoundController::Play(int id) {
 void SoundController::PlayLoop(int id) {
 	sounds[id]->Play(0, DSBPLAY_LOOPING, LinearToLogVol(liVolume));
 }
-//void SoundController::Stop(int id) {}
-//void SoundController::StopAll() {}
-//bool SoundController::CheckIsPlay(int id) {
-//	return true;
-//}
-//
-//void SoundController::VolumeUp() {}
-//void SoundController::VolumeDown() {}
-//
-//void SoundController::SetMute(bool ismute) {}
-//
-//void SoundController::HandleInput() {}
+void SoundController::Stop(int id) {
+	sounds[id]->Stop();
+	sounds[id]->Reset();
+}
+
+void SoundController::StopAll() {
+	for (int i = 0; i < sounds.size(); i++)
+	{
+		sounds[i]->Stop();
+		sounds[i]->Reset();
+	}
+}

@@ -17,17 +17,8 @@ public:
 	static void LoadResources(LPCSTR soundData);
 	static void Play(int id);
 	static void PlayLoop(int id);
-	/*void Stop(int id);
+	static void Stop(int id);
 	static void StopAll();
-	static bool CheckIsPlay(int id);
-	static 
-	static void VolumeUp();
-	static void VolumeDown();
-	static 
-	static void SetMute(bool ismute);
-	static static bool IsMute() { return isMute; }
-	static 
-	static void HandleInput();*/
 };
 
 

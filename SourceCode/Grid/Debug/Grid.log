@@ -1,0 +1,8 @@
+﻿  main.cpp
+c:\users\phonga\desktop\game\develop\pd-game-uit\sourcecode\grid\main.cpp(106): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  tinystr.cpp
+  tinyxml.cpp
+  tinyxmlerror.cpp
+  tinyxmlparser.cpp
+  Generating Code...
+  Grid.vcxproj -> C:\Users\PhongA\Desktop\Game\Develop\PD-Game-UIT\SourceCode\Debug\Grid.exe

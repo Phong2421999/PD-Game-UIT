@@ -1,6 +1,6 @@
 #include "WeaponHolyWater.h"
 #include "FinalBoss.h"
-
+#include "SoundController.h"
 WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 {
 	this->AddAnimation(HOLY_WATER_ANI);
@@ -19,6 +19,7 @@ WeaponHolyWater::WeaponHolyWater(float x, float y, int nx)
 	isGrounded = false;
 	isFalling = false;
 	isTouchFinalBoss = false;
+	SoundController::Play(HOLYWATER_SOUND_ID);
 }
 
 void WeaponHolyWater::SetPositionWithSimon(float x, float y, int nx)
@@ -132,4 +133,9 @@ void  WeaponHolyWater::GetBoundingBox(float &left, float &top, float &right, flo
 	right = x + width;
 	bottom = y + height;
 
+}
+
+WeaponHolyWater::~WeaponHolyWater()
+{
+	SoundController::Stop(HOLYWATER_SOUND_ID);
 }

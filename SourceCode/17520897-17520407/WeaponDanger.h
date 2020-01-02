@@ -15,16 +15,14 @@
 #define OFFSET_DANGER_X_TO_HAND_RIGHT_SIMON 28.0f
 #define OFFSET_DANGER_Y_TO_HAND_SIMON 7.0f
 
+#define DANGER_SOUND_ID 12
+
 class WeaponDanger : public Weapon {
 
 private:
 	DWORD makeTime;
 public:
 	WeaponDanger(float x, float y, int nx);
-	WeaponDanger()
-	{
-
-	}
 	void Render();
 	void SetPositionWithSimon(float x, float y, int nx);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -39,5 +37,5 @@ public:
 	{
 		animations[DANGER_ANI_ID]->reset();
 	}
-	
+	~WeaponDanger();
 };

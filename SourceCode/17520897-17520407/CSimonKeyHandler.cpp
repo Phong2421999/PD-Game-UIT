@@ -61,7 +61,7 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			case DIK_F4:
 				simon->setHasSubWeapon(true);
-				simon->setUsingCross(true);
+				simon->AddItem(GAME_ITEM::CROSS_ITEM);
 				simon->setHeart(99);
 				break;
 			case DIK_F5:
@@ -71,10 +71,15 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			case DIK_F6:
 				simon->setHasSubWeapon(true);
-				simon->setUsingDoubleShot(true);
+				simon->ChangeSubWeapon(SIMON_WEAPON::AXE);
 				simon->setHeart(99);
 				break;
 			case DIK_F7:
+				simon->setHasSubWeapon(true);
+				simon->setUsingDoubleShot(true);
+				simon->setHeart(99);
+				break;
+			case DIK_F8:
 				simon->SetPosition(SCENCE_WITDH - 96, 32.0f);
 				simon->SetState(SIMON_STATE_IDLE);
 				break;
@@ -104,12 +109,11 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 	}
 	else if(game->GetStartIntro() == false)
 	{
+		game->SetStartIntro(true);
 		simon->setSceneId(-1);
 		Scenes::GetInstance()->NextScenes();
-		Scenes::GetInstance()->Get(0)->Clear();
 		Scenes::GetInstance()->Get(0)->StartLoadScene();
 		simon->nx = -1;
-		game->SetStartIntro(true);
 		simon->setAutoGo(true);
 		simon->setAutoGoDistance(150);
 	}

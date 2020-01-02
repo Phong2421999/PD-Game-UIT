@@ -1,6 +1,7 @@
 #pragma once
 #include "Weapon.h"
 #include "Simon.h"
+#define STOPWATCH_SOUND_ID 13
 class WeaponStopWatch : public Weapon {
 private:
 	DWORD makeTime;

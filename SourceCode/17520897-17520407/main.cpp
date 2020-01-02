@@ -48,7 +48,6 @@ CSimonKeyHandler * keyHandler;
 
 Scenes* scenes;
 
-
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -186,9 +185,10 @@ void LoadResources()
 
 	for (sceneXMLElem = rootScenes->FirstChildElement(); sceneXMLElem != NULL; sceneXMLElem = sceneXMLElem->NextSiblingElement())
 	{
-		int sceneId, sceneWidthEachMap, simonNx,  mapId, isLoadBlackScene, timeLoadBlackScene, stage, resetSceneId;
+		int sceneId, sceneWidthEachMap, simonNx,  mapId, isLoadBlackScene, timeLoadBlackScene, stage, resetSceneId, soundId;
 		float simonStartX, simonStartY;
 		string sceneGameObjectPath;
+		sceneXMLElem->QueryIntAttribute("soundId", &soundId);
 		sceneXMLElem->QueryIntAttribute("sceneId", &sceneId);
 		sceneXMLElem->QueryIntAttribute("mapId", &mapId);
 		sceneXMLElem->QueryIntAttribute("sceneWidthEachMap", &sceneWidthEachMap);
@@ -200,14 +200,15 @@ void LoadResources()
 		sceneXMLElem->QueryFloatAttribute("simonStartY", &simonStartY);
 		sceneXMLElem->QueryIntAttribute("simonNx", &simonNx);
 		sceneGameObjectPath = sceneXMLElem->Attribute("sceneGameObjectPath");
-		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId);
+		Scene* scene = new Scene(sceneWidthEachMap, isLoadBlackScene, stage, timeLoadBlackScene, sceneGameObjectPath, mapId, soundId);
 		scene->SetSimonStartPos(simonStartX, simonStartY);
 		scenes->Add(sceneId, scene);
-		scenes->AddSceneData(sceneId, resetSceneId, simonStartX, simonStartY, simonNx);
+		scenes->AddSceneData(sceneId, resetSceneId, simonStartX, simonStartY, simonNx, soundId);
 		if (sceneId == START_SCENE_ID)
 		{
 			Scenes::GetInstance()->Get(START_SCENE_ID)->StartLoadScene();
 			Scenes::GetInstance()->Get(START_SCENE_ID)->SetCanLoadScene(true);
+			Scenes::GetInstance()->PlaySoundTrack(START_SCENE_ID, true);
 		}
 	}
 	
@@ -263,7 +264,7 @@ void Render()
 	LPDIRECT3DSURFACE9 bb = game->GetBackBuffer();
 	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 
-	if (d3ddv->BeginScene())
+	if (d3ddv->BeginScene() || game->GetStartIntro())
 	{
 		// Clear back buffer with a color
 		d3ddv->ColorFill(bb, NULL, backGroundColor);
@@ -276,8 +277,9 @@ void Render()
 			else
 				DebugOut(L"\nRender Scene choi lai");
 		}
-		else 
+		else
 		{
+			scenes->Get(START_SCENE_ID)->SetCanLoadScene(true);
 			scenes->Get(START_SCENE_ID)->Render();
 		}
 		spriteHandler->End();
@@ -387,7 +389,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	LoadResources();
 	DebugOut(L"[INFO] Init WinMain Success\n");
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
-
 	Run();
 
 	return 0;

@@ -33,6 +33,7 @@
 #define WHIP_OFFSET_X_TO_HAND_LEFT_SIMON_LEVEL_3 45
 #define WHIP_OFFSET_X_TO_HAND_RIGHT_SIMON_LEVEL_3 37
 
+#define WHIP_SOUND_ID 11
 class Whip : public Weapon {
 
 private:
@@ -90,5 +91,5 @@ public :
 	}
 	void SetPositionWithSimon(float x, float y, int nx);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-
+	~Whip();
 };

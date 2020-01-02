@@ -1,7 +1,7 @@
 ﻿#include <algorithm>
 #include "Simon.h"
 #include "Scenes.h"
-
+#include "SoundController.h"
 CSimon * CSimon::__instance = NULL;
 CSimon::CSimon()
 {
@@ -324,6 +324,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							live--;
 							startDeathTime = GetTickCount();
 							state = SIMON_STATE_DIE;
+							SoundController::Play(SIMON_SOUND::LIVE_LOST);
 						}
 
 					}
@@ -555,6 +556,33 @@ void CSimon::AddItem(GAME_ITEM type) {
 	switch (type)
 	{
 	case SMALL_HEART:
+	case LARGE_HEART:
+	case DOUBLE_SHOT:
+	case POT_ROAST:
+	case MAGIC_CRYSTAL:
+		SoundController::Play(SIMON_SOUND::COLLECT_ITEM);
+		break;
+	case WHIP_UPGRADE:
+	case DANGER_ITEM:
+	case AXE_ITEM:
+	case HOLY_WATER_ITEM:
+	case STOP_WATCH_ITEM:
+		SoundController::Play(SIMON_SOUND::COLLECT_WEAPON);
+	case RED_MONEY_BAG:
+	case PURPLE_MONEY_BAG:
+	case WHITE_MONEY_BAG:
+		SoundController::Play(SIMON_SOUND::COLLECT_MONEY);
+		break;
+	case INVI_POTION:
+		SoundController::Play(SIMON_SOUND::COLLECT_INVISIABLE);
+		break;
+	case CROSS_ITEM:
+		SoundController::Play(SIMON_SOUND::USING_CROSS);
+		break;
+	}
+	switch (type)
+	{
+	case SMALL_HEART:
 		heart += 1;
 		break;
 	case LARGE_HEART:
@@ -667,6 +695,8 @@ void CSimon::UpdateStopWatch() {
 		if (now - timeUsingStopWatch >= USING_STOP_WATCH_TIME)
 		{
 			isUsingStopWatch = false;
+			SoundController::Play(SIMON_SOUND::DISABLE_STOPWATCH);
+			SoundController::Stop(SIMON_SOUND::ENABLE_STOPWATCH);
 		}
 	}
 }
@@ -698,6 +728,7 @@ void CSimon::UpdateInvisible()
 		{
 			isUntouchable = false;
 			isInvisible = false;
+			SoundController::Play(SIMON_SOUND::COLLECT_INVISIABLE);
 		}
 	}
 }
@@ -777,6 +808,7 @@ void CSimon::TouchEnemy(int nx) {
 			StartUntouchable();
 		}
 	}
+	SoundController::Play(SIMON_SOUND::HURT);
 }
 //Xử lí khi đang tấn công
 void CSimon::Attacking(DWORD dt)
@@ -1037,6 +1069,8 @@ void CSimon::MakeSubWeapon(float x, float y, int nx)
 			isUsingStopWatch = true;
 			timeUsingStopWatch = GetTickCount();
 			heart -= SIMON_HEART_USE_WEAPON::STOP_WATCH_HEART;
+			SoundController::Play(SIMON_SOUND::ENABLE_STOPWATCH);
+
 			break;
 		}
 		}
