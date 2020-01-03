@@ -1,7 +1,7 @@
 #include "CDestroy.h"
 #include "Weapon.h"
 #include "WeaponEnemies.h"
-
+#include "SoundController.h"
 void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	if (type == LEFT) {
@@ -28,7 +28,7 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (enemy->GetActive())
 				{
-					DebugOut(L"\n Touch Enemy");
+					DebugOut(L"\n Delete Enemy");
 					coObjects->at(i)->health = -1;
 				}
 			}
@@ -49,6 +49,7 @@ void CDestroy::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		simon->setDeath(true);
 		simon->setStartDeathTime(GetTickCount());
 		state = SIMON_STATE_DIE;
+		SoundController::Play(SIMON_SOUND::LIVE_LOST);
 	}
 }
 bool CDestroy::IsTouchOtherColision(LPGAMEOBJECT gameObject) {

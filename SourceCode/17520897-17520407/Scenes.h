@@ -123,7 +123,7 @@ public:
 	}
 	void PlaySoundTrack(int currentSceneId, bool playNow)
 	{
-		if (playNow)
+		/*if (playNow)
 		{
 			int currentSoundId = sceneData[currentSceneId].soundId;
 			SoundController::PlayLoop(currentSoundId);
@@ -138,7 +138,7 @@ public:
 				SoundController::PlayLoop(currentSoundId);
 				curSoundId = currentSoundId;
 			}
-		}
+		}*/
 	}
 	static  Scenes* GetInstance();
 };

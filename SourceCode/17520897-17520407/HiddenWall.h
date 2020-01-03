@@ -8,6 +8,7 @@
 #define ANI_WALL_BREAK 4000
 #define ANI_WALL 4001
 #define ANI_GROUND 4002
+#define ANI_FINAL_WALL 300001
 
 
 

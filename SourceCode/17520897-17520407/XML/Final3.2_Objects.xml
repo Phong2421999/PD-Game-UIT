@@ -10,16 +10,21 @@
     <Wall x="160" y="60" width="8" height="200" Grid="-1" />
 
   </Walls>
+  <SmallCandles id="2">
+    <SmallCandle x="30" y="82" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+    <SmallCandle x="96" y="146" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+    <SmallCandle x="160" y="146" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+  </SmallCandles>
   <CheckStairs id="-3">
     <CheckStair x="60" y="144" width="14" height="4" ny="-1" nx="1" Grid="1" />
-    <CheckStair x="122" y="206" width="14" height="4" ny="1" nx="-1" Grid="1" />
-    <!--<CheckStair x="118" y="208" width="14" height="4" ny="-1" nx="-1" Grid="1" />-->
+    <CheckStair x="122" y="206" width="20" height="4" ny="1" nx="-1" Grid="1" />
+    <CheckStair x="118" y="208" width="14" height="4" ny="-1" nx="-1" Grid="1" />
   </CheckStairs>
+  <ChangeScenes id="-1">
+    <ChangeScene x="5" y="115" sceneId="10"  simonNx="-1" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0"
+                 simonStartPosX="250" simonStartPosY="115" width="20" height="8" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="-1" />
+  </ChangeScenes>
   <Spawns id="-2">
-    <!--<Spawn x="532" y="0" name="SKELETON"
-           canRespawn="1" spawnerId="0" enemyId="14" xEnemy="0" yEnemy="0"
-           quantityEachSpawn="2" timeEachSpawn="1500" delaySpawnTime="2000"
-           width="8" height="300" Grid="-1" />-->
   </Spawns>
   <Detroys id="-99">
       <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />

@@ -28,7 +28,7 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 				simon->SetState(SIMON_STATE_IDLE);
 				simon->SetPosition(30.0f, 0.0f);
 				simon->SetSpeed(0, 0);
-				simon->setSceneId(0);
+				simon->setSceneId(1);
 				break;
 			case DIK_F: //attack
 				if (simon->getCanAttack()) // Sau 1 khoảng thời gian mới có thể đánh
@@ -80,7 +80,11 @@ void CSimonKeyHandler::OnKeyDown(int KeyCode)
 				simon->setHeart(99);
 				break;
 			case DIK_F8:
-				simon->SetPosition(SCENCE_WITDH - 96, 32.0f);
+				simon->SetPosition(SCENCE_WITDH - 96, 120);
+				simon->SetState(SIMON_STATE_IDLE);
+				break;
+			case DIK_F9:
+				simon->SetPosition(32, 120);
 				simon->SetState(SIMON_STATE_IDLE);
 				break;
 			case DIK_1:

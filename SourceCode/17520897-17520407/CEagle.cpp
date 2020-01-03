@@ -1,5 +1,5 @@
 #include "CEagle.h"
-
+#include "Simon.h"
 CEagle::CEagle()
 {
 	float cx = CGame::GetInstance()->GetCamPos_x();
@@ -59,7 +59,12 @@ void CEagle::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			lastIdleTime = GetTickCount();
 		}
 	}
-	
+	CSimon* simon = CSimon::getInstance();
+	if (checkAABBTouch(simon) && simon->getUntouchable() == false)
+	{
+		simon->TouchEnemy(nx);
+		simon->Damage(1);
+	}
 
 }
 void CEagle::RenderCurrentFrame() {

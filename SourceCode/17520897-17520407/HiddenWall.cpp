@@ -5,6 +5,7 @@ CHiddenWall::CHiddenWall(float x, float y, int type, int itemId) {
 	this->AddAnimation(ANI_WALL);
 	this->AddAnimation(ANI_WALL_BREAK);
 	this->AddAnimation(ANI_GROUND);
+	this->AddAnimation(ANI_FINAL_WALL);
 	this->SetPosition(x, y);
 	this->type = type;
 	this->itemId = itemId;
@@ -13,8 +14,10 @@ CHiddenWall::CHiddenWall(float x, float y, int type, int itemId) {
 		ani = 0;
 	else if (type == 1)
 		ani = 1;
-	else
+	else if (type == 2)
 		ani = 2;
+	else
+		ani = 3;
 }
 
 
@@ -23,8 +26,10 @@ void CHiddenWall::Render() {
 		ani = 0;
 	else if (type == 1)
 		ani = 1;
-	else
+	else if (type == 2)
 		ani = 2;
+	else
+		ani = 3;
 	animations[ani]->Render(x, y);
 	RenderBoundingBox(x, y);
 }

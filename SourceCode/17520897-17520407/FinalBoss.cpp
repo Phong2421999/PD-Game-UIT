@@ -532,9 +532,10 @@ void FinalBoss::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			}
 		}
 	}
-	if (checkAABBTouch(simon))
+	if (checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
 		simon->TouchEnemy(nx);
+		simon->Damage(1);
 	}
 }
 void FinalBoss::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

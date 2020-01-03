@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Objects>
-    <Grounds id="0">
-      <Ground x="225" y="114" width="30" height="1" Grid="-1" />
-      <Ground x="129" y="178" width="160" height="1" Grid="-1" />
-      <Ground x="321" y="146" width="62" height="1" Grid="-1" />
-     
-    </Grounds>
+  <Grounds id="0">
+    <Ground x="225" y="114" width="30" height="1" Grid="-1" />
+    <Ground x="129" y="178" width="160" height="1" Grid="-1" />
+    <Ground x="321" y="146" width="62" height="1" Grid="-1" />
+  </Grounds>
   <Walls id="3">
     <Wall x="224" y="115" width="32" height="8" Grid="-1" />
     <Wall x="96" y="64" width="32" height="176" Grid="-1" />
     <Wall x="128" y="179" width="160" height="8" Grid="-1" />
     <Wall x="320" y="147" width="64" height="8" Grid="-1" />
-    
   </Walls>
+  <SmallCandles id="2">
+    <SmallCandle x="352" y="92" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+    <SmallCandle x="284" y="148" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+    <SmallCandle x="220" y="148" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+    <SmallCandle x="166" y="148" width="8" height="14" itemId="-1" name="RAND" Grid="-1" />
+  </SmallCandles>
   <CheckStairs id="-3">
     <CheckStair x="216" y="112" width="14" height="4" ny="-1" nx="-1" Grid="2" />
     <CheckStair x="249" y="111" width="14" height="4" ny="1" nx="1" Grid="2" />
     <CheckStair x="152" y="174" width="14" height="4" ny="1" nx="1" Grid="2" />
   </CheckStairs>
   <Spawns id="-2">
-    <!--<Spawn x="320" y="0" name="SKELETON" 
-           canRespawn="0" spawnerId="0" enemyId="14" xEnemy="280" yEnemy="120" 
-           quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="2000" 
+    <Spawn x="320" y="0" name="SKELETON"
+           canRespawn="0" spawnerId="0" enemyId="14" xEnemy="280" yEnemy="120"
+           quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="2000"
            width="8" height="300" Grid="-1" offsetWithSimon ="112" enemyMode ="1"
-           xTarget="180" yTarget="125"/>-->
-    <Spawn x="220" y="0" name="MONKEY_EAGLE" 
-           canRespawn="1" spawnerId="0" enemyId="13" xEnemy="280" yEnemy="120" 
-           quantityEachSpawn="3" timeEachSpawn="3000" delaySpawnTime="1000" 
+           xTarget="180" yTarget="125"/>
+    <Spawn x="150" y="0" name="MONKEY_EAGLE"
+           canRespawn="1" spawnerId="0" enemyId="13" xEnemy="280" yEnemy="120"
+           quantityEachSpawn="3" timeEachSpawn="3000" delaySpawnTime="1000"
            width="8" height="300" Grid="-1" offsetWithSimon ="112" enemyMode ="1"/>
   </Spawns>
-    <Detroys id="-99">
-        <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />
-        <Detroy x="0" y="0" type="1" width="0" height="0" Grid="-1" />
-    </Detroys>
-  
+  <ChangeScenes id="-1">
+    <ChangeScene x="280" y="60" sceneId="7"  simonNx="1" simonAutoGo="0" simonAutoGoDistance="35" camAutoGo="0" isDoor="0"
+                 simonStartPosX="456" simonStartPosY="212" width="30" height="8" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="-1" />
+  </ChangeScenes>
+  <Detroys id="-99">
+    <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />
+    <Detroy x="0" y="0" type="1" width="0" height="0" Grid="-1" />
+    <Detroy x="0" y="45" type="-2" width="100000" height="0" Grid="-1" />
+    <Detroy x="0" y="280" type="-2" width="100000" height="0" Grid="-1" />
+  </Detroys>
+
 </Objects>

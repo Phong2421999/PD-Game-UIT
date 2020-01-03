@@ -363,11 +363,12 @@ void CSimon::UpdateCheckStair(vector<LPGAMEOBJECT> * coCheckStair)
 				if (isOnStair
 					&& this->ny != checkStair->ny
 					&& this->ny != 0
+					&& this->nx != checkStair->nx
 					)
 				{
 					if (this->ny > 0 && this->y + SIMON_BBOX_HEIGHT - height - 2 <= checkStair->y + height) // -2 để đẩy 1 ít ko để bị chạm với ground
 						isCanOutStair = true;
-					if (this->ny < 0 && this->y + SIMON_BBOX_HEIGHT - height + 2 >= checkStair->y) // +2 để đẩy 1 ít ko để bị chạm với ground
+					if (this->ny < 0 && this->y + SIMON_BBOX_HEIGHT - height + 4 >= checkStair->y) // +2 để đẩy 1 ít ko để bị chạm với ground
 					{
 						isAutoGoOutStair = true;
 						autoGoDistance = SIMON_AUTO_GO_STAIR_DISTANCE;
@@ -633,7 +634,7 @@ void CSimon::AddItem(GAME_ITEM type) {
 		score = score + 700;
 		break;
 	case POT_ROAST:
-		health = SIMON_MAX_HEALTH;
+		health = 8;
 		break;
 	case INVI_POTION:
 		isInvisible = true;
@@ -644,6 +645,8 @@ void CSimon::AddItem(GAME_ITEM type) {
 		subWeaponQuantity = 2;
 		break;
 	case MAGIC_CRYSTAL:
+		this->health = 8;
+		CBoardGame::GetInstance()->setLimitTime(300);
 		Scenes::GetInstance()->NextScenes();
 		break;
 	}
@@ -1321,6 +1324,7 @@ void CSimon::Reset()
 	isAttack = false;
 	isHurt = false;
 	isUntouchable = false;
+	isOnStair = false;
 	health = 8;
 	heart = 5;
 	ChangeSubWeapon(NONE);

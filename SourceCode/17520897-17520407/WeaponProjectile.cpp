@@ -66,7 +66,7 @@ void WeaponProjectile::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	CSimon* simon = CSimon::getInstance();
-	if (isTouchOtherObject(simon))
+	if (isTouchOtherObject(simon) && simon->getUntouchable() == false)
 	{
 		simon->Damage(1);
 		simon->TouchEnemy(this->nx);

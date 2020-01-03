@@ -53,15 +53,18 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//	Start(); // boss chuyển trạng thái
 	//}
 	CSimon::getInstance()->GetPosition(sx, sy);
-	if (sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH >= x && isBossActive == false)
+	if ((sx + SIMON_OFFSET_TO_BBOX_X + SIMON_BBOX_WIDTH - x) >= 30
+		&& isBossActive == false && isBoss)
 	{
 		Start(); // boss chuyển trạng thái
 		isBossActive = true;
-		if (isBoss)
-		{
-			lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
-			isLockCamX = true;
-		}
+		lockCameraX = SCENCE_WITDH - SCREEN_WIDTH;
+		isLockCamX = true;
+	}
+	if (isBoss == false && isBossActive == false && (x - sx) >= 10)
+	{
+		Start(); // boss chuyển trạng thái
+		isBossActive = true;
 	}
 	if (isBossActive && isBoss)
 	{
@@ -234,44 +237,46 @@ void CBossBat::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	}
 
-
-	if (x < cx
-		|| cx + SCREEN_WIDTH < x + BOSS_BAT_WIDTH //Width cua bosss
-		|| y > SCREEN_HEIGHT
-		) // ra khỏi cam thì xử lí hướng tiếp theo
+	if (isBoss)
 	{
-		switch (status)
+		if (x < cx
+			|| cx + SCREEN_WIDTH < x + BOSS_BAT_WIDTH //Width cua bosss
+			|| y > SCREEN_HEIGHT
+			) // ra khỏi cam thì xử lí hướng tiếp theo
 		{
-		case BOSS_FLY_CURVE:
-		{
-			isUsingCurve = false;
-			StartStaight();
-			break;
-		}
-
-		case BOSS_FLY_STRAIGHT_1:
-		{
-			StartStaight();
-			break;
-		}
-
-		case BOSS_FLY_STRAIGHT_2:
-		{
-			int random = rand() % 3;
-			switch (random)
+			switch (status)
 			{
-			case 0: //	33 %
-				isBossAttack = false;
-				StartAttack();
-				break;
-
-			default: // 66%
-				StartCurves();
+			case BOSS_FLY_CURVE:
+			{
+				isUsingCurve = false;
+				StartStaight();
 				break;
 			}
 
-			break;
-		}
+			case BOSS_FLY_STRAIGHT_1:
+			{
+				StartStaight();
+				break;
+			}
+
+			case BOSS_FLY_STRAIGHT_2:
+			{
+
+				int random = rand() % 3;
+				switch (random)
+				{
+				case 0: //	33 %
+					isBossAttack = false;
+					StartAttack();
+					break;
+
+				default: // 66%
+					StartCurves();
+					break;
+				}
+				break;
+			}
+			}
 		}
 	}
 
@@ -456,8 +461,11 @@ bool CBossBat::IsTouchSimon(LPGAMEOBJECT gameObject) {
 }
 
 void CBossBat::GetBoundingBox(float &left, float &top, float &right, float &bottom) {
-	left = x;
-	top = y;
-	right = x + width;
-	bottom = y + height;
+	if (isBossActive)
+	{
+		left = x;
+		top = y;
+		right = x + width;
+		bottom = y + height;
+	}
 }

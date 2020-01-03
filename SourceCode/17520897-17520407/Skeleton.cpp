@@ -24,6 +24,7 @@ Skeleton::Skeleton() {
 	vyJump = 0;
 	isActive = false;
 	makeTime = GetTickCount();
+	isActive = true;
 }
 void Skeleton::Render() {
 	for (int i = 0; i < bones.size(); i++)
@@ -98,6 +99,7 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
+
 	float sx, sy;
 	float checkJumpPos = 0;
 	simon->GetPosition(sx, sy);
@@ -139,28 +141,23 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 			if (isAttack == false)
 			{
 				isWalking = true;
-				if (sx > x)
+				if (y + SKELETON_BB_HEIGHT >= sy + SIMON_BBOX_HEIGHT)
 				{
-					xMiddleWalking = sx + SIMON_OFFSET_TO_BBOX_X - offsetWithSimon;
-					nx = 1;
-				}
-				else
-				{
-					xMiddleWalking = sx + offsetWithSimon;
-					nx = -1;
+					if (sx > x)
+					{
+						xMiddleWalking = sx + SIMON_OFFSET_TO_BBOX_X - offsetWithSimon;
+						nx = 1;
+					}
+					else
+					{
+						xMiddleWalking = sx + offsetWithSimon;
+						nx = -1;
+					}
 				}
 			}
 		}
 	}
 
-	if (isJump || isJumpBack)
-		Jump();
-	if (isAttack)
-		Attack();
-	if (isWalking)
-		Walking();
-	// No collision occured, proceed normally
-	vy += SKELETON_GRAVITY * dt;
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -175,9 +172,20 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 		y += min_ty * dy + ny * 0.4f;
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	if (checkAABBTouch(simon))
+
+	if (isJump || isJumpBack)
+		Jump();
+	if (isAttack)
+		Attack();
+	if (isWalking)
+		Walking();
+	// No collision occured, proceed normally
+	vy += SKELETON_GRAVITY * dt;
+	
+	if (checkAABBTouch(simon) && simon->getUntouchable() == false)
 	{
 		simon->TouchEnemy(nx);
+		simon->Damage(1);
 	}
 	if (now - makeTime > SKELETON_TIME_ACTIVE && isActive == false)
 	{
@@ -187,6 +195,10 @@ void Skeleton::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects) {
 void Skeleton::SetPosition(float x, float y) {
 	this->x = x;
 	this->y = y;
+	if (nx > 0)
+		xMiddleWalking = x  - offsetWithSimon;
+	else
+		xMiddleWalking = x + offsetWithSimon;
 }
 void Skeleton::GetPosition(float &x, float &y) {
 	x = this->x;

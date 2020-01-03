@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Objects>
     <Castles id="-999">
-      <Castle x="240" y="132" width="976" height="8" Grid="-1"/>
+      <Castle x="230" y="132" width="976" height="8" Grid="-1"/>
     </Castles>
   <PressStarts id="-998">
-    <PressStart x="120" y="144" width="128" height="8" Grid="-1"/>
+    <PressStart x="100" y="144" width="128" height="8" Grid="-1"/>
   </PressStarts>
 </Objects>

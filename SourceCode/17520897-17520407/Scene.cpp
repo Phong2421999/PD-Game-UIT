@@ -605,12 +605,12 @@ void Scene::Update(DWORD dt)
 								CEffect * breakingWall = new CBreakingWall(x, y);
 								grid->add(breakingWall, EFFECTS_GRID);
 							}
-							if (hiddenWall->getItemId() == 1)
+							if (hiddenWall->getItemId() == MAKE_ITEMS::ITEM_POT_ROAST)
 							{
 								PotRoast* potRoast = new PotRoast(x, y);
 								grid->add(potRoast, ITEMS_GRID);
 							}
-							if (hiddenWall->getItemId() == 2)
+							if (hiddenWall->getItemId() == MAKE_ITEMS::ITEM_DOUBLE_SHOT)
 							{
 								DoubleShot* doubleShot = new DoubleShot(x, y);
 								grid->add(doubleShot, ITEMS_GRID);
@@ -1152,11 +1152,9 @@ void Scene::StartLoadScene()
 	float x, y;
 	Scenes* scenes = Scenes::GetInstance();
 	scenes->GetSimonStartPos(x, y);
-	int simonNx = scenes->GetSimonNx();
 	CSimon* simon = CSimon::getInstance();
 	simon->SetPosition(x, y);
-	simon->nx = simonNx;
-	simon->setOnStairDistance(99);
+	//simon->setOnStairDistance(99);
 	simon->setCanOutStair(false);
 	simon->setCanOnStair(false);
 	scenceWidth = this->sceneWidthEachMap;
@@ -1181,6 +1179,8 @@ void Scene::Reset()
 	Scenes* scenes = Scenes::GetInstance();
 	scenes->GetSimonStartPos(x, y);
 	int simonNx = scenes->GetSimonNx();
+	simon->SetPosition(x, y);
+	simon->nx = simonNx;
 	simon->Reset();
 	isLoadBlackScene = true;
 	timeLoadBlackScene = TIME_LOAD_BLACK_SCENE;

@@ -152,9 +152,10 @@ void Monkey::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-		if (checkAABBTouch(simon))
+		if (checkAABBTouch(simon) && simon->getUntouchable() == false)
 		{
 			simon->TouchEnemy(nx);
+			simon->Damage(1);
 		}
 	}
 	else

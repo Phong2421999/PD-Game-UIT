@@ -1,5 +1,5 @@
 #include "Bone.h"
-
+#include "Simon.h"
 Bone::Bone(float x, float y, int nx)
 {
 	this->AddAnimation(BONE_ANI);
@@ -37,6 +37,13 @@ void Bone::Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects) {
 	if (now - makeTime > TIME_LIVE)
 	{
 		this->health = -1;
+	}
+	CSimon* simon = CSimon::getInstance();
+	if (isTouchOtherObject(simon) && simon->getUntouchable() == false)
+	{
+		simon->Damage(1);
+		simon->TouchEnemy(this->nx);
+		health = 0;
 	}
 }
 void Bone::GetBoundingBox(float &left, float &top, float &right, float &bottom) {

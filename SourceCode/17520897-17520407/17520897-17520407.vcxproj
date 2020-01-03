@@ -357,9 +357,15 @@
     <Xml Include="XML\Final1_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="XML\Final2.1_Objects.xml" />
-    <Xml Include="XML\Final2.2_Objects.xml" />
-    <Xml Include="XML\Final3.1_Objects.xml" />
+    <Xml Include="XML\Final2.1_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="XML\Final2.2_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="XML\Final3.1_Objects.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="XML\Final3.2_Objects.xml" />
     <Xml Include="XML\Final4_Objects.xml" />
     <Xml Include="XML\Final5_Objects.xml" />
@@ -379,9 +385,6 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="XML\Map4_Objects.xml">
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="XML\Map5_Objects.xml">
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="XML\Maps.xml">

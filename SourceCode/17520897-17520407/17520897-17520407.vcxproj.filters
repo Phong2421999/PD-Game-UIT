@@ -767,9 +767,6 @@
     <Xml Include="XML\Map-2_Objects.xml">
       <Filter>XML</Filter>
     </Xml>
-    <Xml Include="XML\Map5_Objects.xml">
-      <Filter>XML</Filter>
-    </Xml>
     <Xml Include="XML\Final1_Objects.xml">
       <Filter>XML</Filter>
     </Xml>

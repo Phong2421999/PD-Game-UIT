@@ -14,19 +14,19 @@
         <ChangeScene x="675" y="168" sceneId="2" simonAutoGo="1" simonNx="1" simonAutoGoDistance="35" camAutoGo="0" isDoor="0" width="25" height="30" 
          simonStartPosX="32" simonStartPosY="180" isLoadBlackScene="1" timeLoadBlackScene="400" Grid="8" />
     </ChangeScenes>
-  <Spawns id="-2">
-    <!--<Spawn x="110" y="0" name="SKELETON" 
+  <!--<Spawns id="-2">
+    <Spawn x="110" y="0" name="SKELETON" 
            canRespawn="1" spawnerId="0" enemyId="14" xEnemy="140" yEnemy="32" 
            quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="2000" 
            width="8" height="300" Grid="1" offsetWithSimon ="86" enemyMode ="1"
-           xTarget="180" yTarget="125"/>-->
+           xTarget="180" yTarget="125"/>
     <Spawn x="110" y="0" name="FINAL_BOSS"
            canRespawn="0" spawnerId="0" enemyId="999" xEnemy="140" yEnemy="200"
            quantityEachSpawn="1" timeEachSpawn="0" delaySpawnTime="2000"
            isBoss ="1"
            width="8" height="300" Grid="1" offsetWithSimon ="86" enemyMode ="1"
            xTarget="168" yTarget="137"/>
-  </Spawns>
+  </Spawns>-->
     <Detroys id="-99">
         <Detroy x="0" y="0" type="-1" width="0" height="0" Grid="-1" />
         <Detroy x="0" y="0" type="1" width="0" height="0" Grid="-1" />

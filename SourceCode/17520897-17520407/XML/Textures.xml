@@ -714,4 +714,10 @@
       <sprite id="40002" left="352" top="64" right="368" bottom="80" frameTime="100"/>
     </Animation>
   </Texture>
+  <Texture  textureId ="300000" gameObjectId ="-1000">
+    <!-- Animation FINAL_HIDDEN_WALL_WITH_HOLD -->
+    <Animation aniId="300001" frameTime="100" name="HIDDEN_WALL_WITH_HOLD">
+      <sprite id="30001" left="112" top="1056" right="128" bottom="1072" frameTime="100"/>
+    </Animation>
+  </Texture>
 </Textures>

@@ -17,7 +17,6 @@ void ChangeSceneObjects::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				scenes->SetLoadBlackScene(isLoadBlackScene);
 				scenes->SetTimeLoadBlackScene(timeLoadBlackScene);
 				simon->setSceneId(this->sceneId);
-				simon->nx = simonNx;
 				if (camAutoGo)
 				{
 					CGame::GetInstance()->SetCamAutoGo(true);
